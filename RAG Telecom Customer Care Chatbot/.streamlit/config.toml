@@ -1,0 +1,8 @@
+[server]
+headless = true
+# Streamlit's module watcher walks every transformers/torch submodule on start,
+# which is slow and floods the log with import errors. We don't need hot-reload.
+fileWatcherType = "none"
+
+[browser]
+gatherUsageStats = false

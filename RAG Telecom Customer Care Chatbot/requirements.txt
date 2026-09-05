@@ -1,0 +1,19 @@
+# Pinned to floors that match the tested stack (see README "Tested with").
+
+# --- Core RAG framework -------------------------------------------------
+langchain-core>=1.0
+langchain-groq>=1.0
+langchain-chroma>=1.0
+langchain-huggingface>=1.0
+langchain-text-splitters>=1.0
+
+# --- Vector store + local embeddings ------------------------------------
+chromadb>=1.0
+sentence-transformers>=5.0
+
+# --- Ingestion ----------------------------------------------------------
+pypdf>=6.0
+
+# --- UI / CLI -----------------------------------------------------------
+streamlit>=1.40
+python-dotenv>=1.0
