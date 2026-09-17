@@ -1,6 +1,6 @@
 # Product Requirements Document — ShopMate
 
-**Date:** 2026-09-14
+**Date:** 2026-09-14 (last updated 2026-09-17)
 **Author:** Prasanna Kamthekar
 
 > The "Source" column points to the section of `PRODUCT_BRIEF.md` each requirement comes from. Items marked **Decision** are choices the brief leaves to us.
@@ -58,12 +58,12 @@ A busy shopper who already knows roughly what they want and has constraints in m
 | ID | Requirement | Source |
 |----|-------------|--------|
 | FR-01 | The shopper can describe a product in plain language and the agent searches the store's `products` table by keyword across name, description, and category. | Capabilities: Text search; Tools |
-| FR-02 | A multi-word keyword matches a product when every word appears somewhere in its name, description, or category (e.g. "raw honey" matches "Organic Raw Honey"). Name and category matches take priority; descriptions are searched only when no name or category matches, so "honey" does not return Organic Granola ("…granola with honey…"). | Capabilities: Text search |
+| FR-02 | A multi-word keyword matches a product when every word appears somewhere in its name, description, or category (e.g. "raw honey" matches "Organic Raw Honey"). Name and category matches take priority; descriptions are searched only when the store has nothing by that name or category, so "honey" does not return Organic Granola ("…granola with honey…"). This is decided before price and organic filters are applied, so "organic oats" finds nothing rather than granola. A plural ("honeys") falls back to the singular only when the plural matches nothing. | Capabilities: Text search |
 | FR-03 | When the shopper states a price cap, no product above that price is shown (`max_price` filter). | Capabilities: Filtering |
-| FR-04 | When the shopper asks for organic, only products with `is_organic = 1` are shown (`is_organic` filter). | Capabilities: Filtering |
+| FR-04 | When the shopper asks for organic, or has saved that preference, only products with `is_organic = 1` are shown (`is_organic` filter). A photo that merely looks organic does not turn the filter on. | Capabilities: Filtering |
 | FR-05 | When the shopper states a minimum rating, the agent fetches the rating of each search result with `get_rating` and shows only products whose average rating meets it. | Capabilities: Filtering; Flows: Browsing |
 | FR-06 | Searching never places an order. | Flows: Browsing |
-| FR-07 | If no product matches, the agent says so plainly and does not invent a product. | Must never: invent a product |
+| FR-07 | If no product matches, the agent says so plainly and does not invent a product. If the store does stock the product but a saved preference hides it, the agent says that too. | Must never: invent a product |
 
 ### 6.2 Ratings
 
@@ -123,7 +123,7 @@ Example:
 | Tool | What it does | Backed by |
 |------|--------------|-----------|
 | `search_products` | Keyword search across name, description, and category, with optional `max_price` and `is_organic` filters. Saved preferences are applied here. | `products` table |
-| `get_rating` | Average rating and review count for one product. | `reviews_api.py` |
+| `get_rating` | Average rating and review count for the given products, all candidates in one call. | `reviews_api.py` (`get_ratings_for_products`) |
 | `checkout` | Places an order for one product and returns the order ID, product name, and price. | `orders` table |
 | `describe_product_image` | Takes the uploaded image and returns the product, a search keyword, and whether it looks organic. | Vision-capable model on Groq |
 | `get_order_history` | Returns the shopper's past orders. | `orders` table |
@@ -136,7 +136,7 @@ Example:
 
 | ID | Guardrail | Enforced by |
 |----|-----------|-------------|
-| GR-01 | **Off-topic.** Before the agent runs, each message (and any uploaded image) is checked for whether it is about shopping in this store. Off-topic input ("write me a poem", "what's the weather", a photo of an elephant) gets a polite redirect and never reaches the agent. | Code: a separate classifier call before the agent |
+| GR-01 | **Off-topic.** Before the agent runs, each message (and any uploaded image) is checked for whether it is about shopping in this store. Off-topic input ("write me a poem", "what's the weather", a photo of an elephant) gets a polite redirect and never reaches the agent. | Code (`guardrails.py`): clear shopping replies ("yes", "#2", order-history questions, preferences) pass by rule; other text goes to a separate classifier call; photos go to a vision check. Runs before the agent, which is never called for blocked input. |
 | GR-02 | **No order without a yes.** `checkout` runs only when the shopper's latest message is a clear confirmation (FR-16) and the product ID is in the last list shown (FR-17). | Prompt (instruction to the agent) **and** code (`intent.py` decides which product, if any, was confirmed; `checkout` refuses any other call) |
 
 ---
@@ -238,16 +238,16 @@ Expected:
 
 ## 10. Acceptance Criteria
 
-- [ ] "organic honey with 4.5+ rating under $20" shows exactly Organic Raw, Organic Buckwheat, and Organic Acacia Honey.
-- [ ] "cheapest oat milk" shows Oat Milk at $4.49.
-- [ ] Uploading `honey.png` with "find this" shows a list of honeys.
-- [ ] "yes" after a single-item list places an order and shows an order ID.
-- [ ] "maybe" after a list places no order.
-- [ ] "what have I ordered before?" shows the order just placed.
-- [ ] "I always want organic", then restart and search for honey, shows only organic honeys.
-- [ ] Every product line contains `(ID:X)` and follows the format in 6.3.
-- [ ] "write me a poem", "what's the weather", and `elephant.png` get a redirect with no tool calls.
-- [ ] A product the store does not sell returns a plain "not found" with no invented product.
+- [x] "organic honey with 4.5+ rating under $20" shows exactly Organic Raw, Organic Buckwheat, and Organic Acacia Honey.
+- [x] "cheapest oat milk" shows Oat Milk at $4.49.
+- [x] Uploading `honey.png` with "find this" shows a list of honeys.
+- [x] "yes" after a single-item list places an order and shows an order ID.
+- [x] "maybe" after a list places no order.
+- [x] "what have I ordered before?" shows the order just placed.
+- [x] "I always want organic", then restart and search for honey, shows only organic honeys.
+- [x] Every product line contains `(ID:X)` and follows the format in 6.3.
+- [x] "write me a poem", "what's the weather", and `elephant.png` get a redirect with no tool calls.
+- [x] A product the store does not sell returns a plain "not found" with no invented product.
 
 ---
 
@@ -261,6 +261,7 @@ Expected:
 | Off-topic guardrail model | Groq, `qwen/qwen3.8-27b` (classifier call before the agent) |
 | UI | Streamlit chat with image upload |
 | Preferences stored in | `preferences` table in `store.db` |
+| Models for tests and evals | Groq `openai/gpt-oss-120b` / `openai/gpt-oss-20b` for chat, Qwen for photos, because the free tier caps each model at 200,000 tokens a day |
 
 Rules for Claude Code:
 

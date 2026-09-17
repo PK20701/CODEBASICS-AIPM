@@ -9,21 +9,22 @@ from datetime import datetime
 from groq import BadRequestError, Groq, RateLimitError
 
 import db
+import guardrails
 import intent
 import tools
-from config import (AGENT_MAX_TOKENS, LLM_MODEL, LLM_REASONING_EFFORT, LLM_TEMPERATURE,
-                    HISTORY_MESSAGES, MAX_AGENT_STEPS, MAX_RATE_LIMIT_WAIT, ROOT, SINGLE_ITEM_PROMPT,
-                    TOOL_CALL_RETRIES, ServiceBusy, groq_client)
+from config import (AGENT_MAX_TOKENS, HISTORY_MESSAGES, LLM_MODEL, LLM_REASONING_EFFORT, LLM_TEMPERATURE,
+                    MAX_AGENT_STEPS, MAX_RATE_LIMIT_WAIT, OFF_TOPIC_REPLY, ROOT, SINGLE_ITEM_PROMPT,
+                    TOOL_CALL_RETRIES, busy_error, groq_client, retry_after_seconds)
+from initial_setup.reviews_api import get_product_rating
 
 LOG_PATH = ROOT / "logs" / "turns.jsonl"
-from initial_setup.reviews_api import get_product_rating
 
 SYSTEM_PROMPT = f"""You are ShopMate, the shopping assistant for a small online pantry store.
 The store sells 32 products: honey, oils, nuts and seeds, grains, tea and coffee, snacks, and dairy alternatives.
 
 BROWSING
 - When the shopper describes what they want, call search_products with a short keyword and any price cap or organic filter they stated.
-- Then call get_rating for EVERY result (you may call it for several products at once).
+- Then call get_rating ONCE with product_ids set to ALL result IDs.
 - If the shopper stated a minimum rating, show only products whose average_rating meets it.
 - If they ask for the cheapest, show only the lowest-priced match.
 - Never order while browsing.
@@ -31,6 +32,7 @@ BROWSING
 
 PHOTO SEARCH
 - If the shopper attached a photo, call describe_product_image first, then continue with browsing using its search_keyword.
+  looks_organic is information only: do not set is_organic unless the shopper asked for organic.
 
 PRODUCT LIST FORMAT (mandatory, plain text, one blank line between entries):
 #1. Organic Raw Honey (ID:1) — $14.99 ★4.62 — organic
@@ -65,10 +67,26 @@ ORDER_CLAIM_CORRECTION = (
     "so no order exists. If the shopper clearly confirmed a product from the last list, call checkout now. "
     "Otherwise, do not claim an order; ask them to confirm."
 )
+EMPTY_REPLY_NUDGE = (
+    "SYSTEM CHECK: you have not written a reply yet. If you still need ratings for any search result, "
+    "call get_rating for them. Then write your reply to the shopper using the product list format."
+)
+EMPTY_REPLY_FALLBACK = "Sorry, I couldn't put that answer together. Please try asking again."
 NO_ORDER_FALLBACK = (
     "No new order was placed. To order, search for a product and then reply "
     "\"yes\" or the item number from the list."
 )
+PREFERENCE_CLAIM = re.compile(r"\b(saved|i'?ll remember|noted|from now on|going forward)\b", re.IGNORECASE)
+NO_PREFERENCE_FALLBACK = (
+    "I haven't saved a preference. To set one, say for example \"I always want organic\" "
+    "or \"never show me anything over $20\"."
+)
+
+# Used only when the list has to be built in code (see list_from_search).
+MIN_RATING_AT_LEAST = re.compile(
+    r"(\d(?:\.\d+)?)\s*\+|(?:at least|minimum|min\.?|or more)\s*(?:a\s*)?(?:rating\s*(?:of\s*)?)?(\d(?:\.\d+)?)"
+)
+MIN_RATING_ABOVE = re.compile(r"(?:above|over|more than|higher than|greater than)\s*(\d(?:\.\d+)?)")
 
 
 @dataclass
@@ -89,6 +107,7 @@ class TurnResult:
     reply: str
     tool_calls: list[dict]
     usage: dict = field(default_factory=dict)  # llm_calls, input_tokens, output_tokens
+    blocked: bool = False  # True when GR-01 stopped the message before the agent
 
 
 def parse_product_list(text: str) -> list[dict]:
@@ -158,14 +177,6 @@ def _last_list_note(last_list: list[dict]) -> str:
     return f"\n\nLAST LIST SHOWN: {items}"
 
 
-def _retry_after_seconds(message: str) -> float | None:
-    m = re.search(r"try again in ((?:\d+h)?(?:\d+m)?(?:[\d.]+s)?)", message)
-    if not m or not m.group(1):
-        return None
-    parts = {unit: value for value, unit in re.findall(r"([\d.]+)([hms])", m.group(1))}
-    return float(parts.get("h", 0)) * 3600 + float(parts.get("m", 0)) * 60 + float(parts.get("s", 0))
-
-
 def _complete(client: Groq, messages: list[dict], force_tool: str | None, usage: dict):
     """One model call; retries malformed tool calls and short rate-limit waits."""
     tool_choice = {"type": "function", "function": {"name": force_tool}} if force_tool else "auto"
@@ -189,18 +200,15 @@ def _complete(client: Groq, messages: list[dict], force_tool: str | None, usage:
             return resp.choices[0].message
         except BadRequestError as exc:
             bad_calls += 1
-            if "tool_use_failed" not in str(exc) or bad_calls > TOOL_CALL_RETRIES:
+            retryable = "tool_use_failed" in str(exc) or "output_parse_failed" in str(exc)
+            if not retryable or bad_calls > TOOL_CALL_RETRIES:
                 raise
         except RateLimitError as exc:
             # The SDK already retried. Wait out a per-minute window; give up on a daily one.
             rate_limited += 1
-            wait = _retry_after_seconds(str(exc))
+            wait = retry_after_seconds(str(exc))
             if wait is None or wait > MAX_RATE_LIMIT_WAIT or rate_limited > 3:
-                when = f" in about {int(wait // 60)} min {int(wait % 60)} s" if wait else " shortly"
-                raise ServiceBusy(
-                    "ShopMate has hit the Groq free-tier usage limit. "
-                    f"Please try again{when}."
-                ) from exc
+                raise busy_error(exc) from exc
             time.sleep(wait + 1)
 
 
@@ -236,19 +244,58 @@ def preference_text(prefs: dict) -> str:
     return "Preference saved. From now on I'll " + " and ".join(parts) + "."
 
 
-PREFERENCE_CLAIM = re.compile(r"\b(saved|i'?ll remember|noted|from now on|going forward)\b", re.IGNORECASE)
-NO_PREFERENCE_FALLBACK = (
-    "I haven't saved a preference. To set one, say for example \"I always want organic\" "
-    "or \"never show me anything over $20\"."
-)
+def list_from_search(calls: list[dict], user_text: str, ctx: tools.ToolContext | None = None) -> str:
+    """Build the product list in code when the model searched but never wrote a reply.
+
+    Uses the last search's real results and respects a stated minimum rating or
+    "cheapest". For a photo with no search yet, searches the keyword the image
+    check found.
+    """
+    searches = _called(calls, "search_products")
+    if searches:
+        results = searches[-1]["result"]["results"]
+    elif ctx is not None and ctx.image_bytes and (ctx.image_description or {}).get("search_keyword"):
+        results = tools.search_products(ctx, ctx.image_description["search_keyword"])["results"]
+    else:
+        return ""
+    products = [db.get_product(p["id"]) for p in results]
+    rated = [(p, get_product_rating(p["id"])) for p in products if p]
+    text = user_text.lower()
+    if "rating" in text or "star" in text or "+" in text:
+        m = MIN_RATING_AT_LEAST.search(text)
+        if m:
+            floor = float(m.group(1) or m.group(2))
+            rated = [(p, r) for p, r in rated if r["average_rating"] >= floor]
+        else:
+            m = MIN_RATING_ABOVE.search(text)
+            if m:
+                rated = [(p, r) for p, r in rated if r["average_rating"] > float(m.group(1))]
+    if "cheapest" in text and rated:
+        lowest = min(p["price"] for p, _ in rated)
+        rated = [(p, r) for p, r in rated if p["price"] == lowest]
+    if not rated:
+        return "Sorry, the store has no product matching that."
+    lines = "\n\n".join(format_product_line(i, p, r) for i, (p, r) in enumerate(rated, 1))
+    ending = SINGLE_ITEM_PROMPT if len(rated) == 1 else "Which number would you like to order, if any?"
+    return f"{lines}\n\n{ending}"
 
 
-def _called(calls: list[dict], name: str, ok: bool = True) -> list[dict]:
-    return [c for c in calls if c["name"] == name and (not ok or "error" not in c["result"])]
+def _called(calls: list[dict], name: str) -> list[dict]:
+    """Successful calls of one tool in this turn."""
+    return [c for c in calls if c["name"] == name and "error" not in c["result"]]
 
 
 def run_turn(session: Session, user_text: str, image_bytes: bytes | None = None,
              image_mime: str | None = None) -> TurnResult:
+    # GR-01: off-topic messages and photos never reach the agent.
+    last_reply = next((m["content"] for m in reversed(session.history) if m["role"] == "assistant"), None)
+    verdict = guardrails.check(user_text, image_bytes, image_mime, session.last_list, last_reply)
+    if not verdict.on_topic:
+        session.history.append({"role": "user", "content": user_text.strip() or "(photo)"})
+        session.history.append({"role": "assistant", "content": OFF_TOPIC_REPLY})
+        _log_turn(user_text, bool(image_bytes), None, [], {}, OFF_TOPIC_REPLY, guardrail=verdict.reason)
+        return TurnResult(reply=OFF_TOPIC_REPLY, tool_calls=[], blocked=True)
+
     client = groq_client()
     content = user_text.strip() or "Find this product."
     if image_bytes:
@@ -269,6 +316,9 @@ def run_turn(session: Session, user_text: str, image_bytes: bytes | None = None,
         force_tool = None
 
     ctx = tools.ToolContext(image_bytes, image_mime, session.last_list, confirmed_id)
+    ctx.image_description = verdict.image_description
+    recent_user = [m["content"] for m in session.history if m["role"] == "user"][-2:]
+    ctx.organic_requested = any("organic" in m.lower() for m in recent_user)
     system = SYSTEM_PROMPT + _last_list_note(session.last_list)
     if confirmed_id:
         system += f"\n\nThe shopper's latest message confirms product ID {confirmed_id}. Call checkout with it."
@@ -277,21 +327,38 @@ def run_turn(session: Session, user_text: str, image_bytes: bytes | None = None,
     usage = {"llm_calls": 0, "input_tokens": 0, "output_tokens": 0}
 
     try:
-        reply = _agent_loop(client, messages, force_tool, ctx, calls, usage)
+        reply = _agent_loop(client, messages, force_tool, ctx, calls, usage, user_text)
     except Exception:
         session.history.pop()  # keep history alternating user/assistant for the next try
         raise
     return _finish_turn(session, user_text, image_bytes, confirmed_id, wants_preference, calls, usage, reply)
 
 
-def _agent_loop(client: Groq, messages: list[dict], force_tool: str | None, ctx: "tools.ToolContext",
-                calls: list[dict], usage: dict) -> str:
+def _agent_loop(client: Groq, messages: list[dict], force_tool: str | None, ctx: tools.ToolContext,
+                calls: list[dict], usage: dict, user_text: str) -> str:
     reply = ""
     corrected = False
+    nudged = False
     for step in range(MAX_AGENT_STEPS):
-        msg = _complete(client, messages, force_tool if step == 0 else None, usage)
+        try:
+            msg = _complete(client, messages, force_tool if step == 0 else None, usage)
+        except BadRequestError:
+            # The model keeps producing unusable output. If it already searched,
+            # answer from the real results; otherwise report the error.
+            reply = list_from_search(calls, user_text, ctx)
+            if reply:
+                return reply
+            raise
         if not msg.tool_calls:
             reply = _strip_thinking(msg.content)
+            if not reply:
+                # Some models stop after the tool calls without writing anything.
+                if nudged:
+                    reply = list_from_search(calls, user_text, ctx) or EMPTY_REPLY_FALLBACK
+                    break
+                nudged = True
+                messages.append({"role": "user", "content": EMPTY_REPLY_NUDGE})
+                continue
             grounded = any(
                 (c["name"] == "checkout" and "order_id" in c["result"]) or c["name"] == "get_order_history"
                 for c in calls
@@ -328,7 +395,8 @@ def _agent_loop(client: Groq, messages: list[dict], force_tool: str | None, ctx:
         if _called(calls, "checkout") or _called(calls, "get_order_history"):
             break
     else:
-        reply = "Sorry, I couldn't finish that request. Could you try rephrasing it?"
+        reply = (list_from_search(calls, user_text, ctx)
+                 or "Sorry, I couldn't finish that request. Could you try rephrasing it?")
     return reply
 
 
@@ -359,14 +427,14 @@ def _finish_turn(session: Session, user_text: str, image_bytes: bytes | None, co
 
 
 def _log_turn(user_text: str, has_image: bool, confirmed_id: int | None, calls: list[dict],
-              usage: dict, reply: str) -> None:
+              usage: dict, reply: str, guardrail: str | None = None) -> None:
     """Append-only log so a reported problem can be traced to the exact tool calls."""
     LOG_PATH.parent.mkdir(exist_ok=True)
     entry = {
         "at": datetime.now().isoformat(timespec="seconds"),
         "user": user_text, "image": has_image, "confirmed_product_id": confirmed_id,
         "tool_calls": [{"name": c["name"], "args": c["args"], "result": c["result"]} for c in calls],
-        "usage": usage, "reply": reply,
+        "blocked_by_guardrail": guardrail, "usage": usage, "reply": reply,
     }
     with LOG_PATH.open("a", encoding="utf-8") as f:
         f.write(json.dumps(entry, default=str) + "\n")

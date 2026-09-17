@@ -47,6 +47,9 @@ CONFIRMATION_CASES = [
     ("tell me more about #2", THREE, None),
     ("what about the second one?", THREE, None),
     ("order #9", THREE, None),       # not in list
+    ("the second one", ONE, None),   # after "cheapest oat milk" there is no #2
+    ("order #2", ONE, None),
+    ("2", ONE, None),
     ("what have I ordered before?", ONE, None),
     ("what have I ordered before?", THREE, None),
     ("cheapest oat milk", ONE, None),

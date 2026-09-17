@@ -1,17 +1,13 @@
-"""Live end-to-end checks: the six Step 2 checks from assignment.md plus the
-ordering and preference edge cases that broke before. Calls Groq.
+"""Live end-to-end checks: the six build checks from assignment.md plus the
+ordering and preference cases that broke during development. Calls Groq.
 
-Run: .venv\\Scripts\\python.exe tests\\test_assignment_checks.py [rounds] [--test-model MODEL]
+Run: .venv\\Scripts\\python.exe tests\\test_assignment_checks.py [rounds] [--app-model]
 
---test-model runs the agent on another Groq model (e.g. openai/gpt-oss-120b)
-so testing does not use up the app model's free daily quota. That model has
-no image input, so the photo check is skipped in that mode.
-
+Chat runs on openai/gpt-oss-120b unless --app-model is given (see live_models.py).
 Orders and preferences created by the test are removed at the end.
 """
 
 import argparse
-import os
 import sqlite3
 import sys
 import time
@@ -19,15 +15,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import live_models  # noqa: E402,F401  (must come before project imports)
 
 ARGS = argparse.ArgumentParser()
 ARGS.add_argument("rounds", nargs="?", type=int, default=3)
-ARGS.add_argument("--test-model", help="Groq model to use instead of GROQ_MODEL from .env")
 OPTS = ARGS.parse_args()
-if OPTS.test_model:
-    # Must be set before config.py loads .env (load_dotenv does not override).
-    os.environ["GROQ_MODEL"] = OPTS.test_model
-    os.environ["GROQ_REASONING_EFFORT"] = "low" if OPTS.test_model.startswith("openai/gpt-oss") else "none"
 
 import db  # noqa: E402
 from agent import Session, parse_product_list, run_turn  # noqa: E402
@@ -120,11 +114,8 @@ def one_round(n: int) -> None:
           len(new) == 1 and "Organic Buckwheat Honey" in r.reply and f"Order ID: {new[0]}" in r.reply,
           f"new={new} tools={names}\n{r.reply}")
 
-    # 3. photo search (needs an image-capable model)
-    if OPTS.test_model:
-        print("  SKIP  3 photo: test model has no image input", flush=True)
-    else:
-        photo_check()
+    # 3. photo search (uses the vision model from .env)
+    photo_check()
 
     preference_checks()
 
@@ -163,8 +154,8 @@ def preference_checks() -> None:
 
 def main() -> int:
     rounds = OPTS.rounds
-    from config import LLM_MODEL
-    print(f"Agent model: {LLM_MODEL}", flush=True)
+    from config import GUARDRAIL_MODEL, LLM_MODEL, VISION_MODEL
+    print(f"Agent: {LLM_MODEL} | guardrail: {GUARDRAIL_MODEL} | vision: {VISION_MODEL}", flush=True)
     start_orders = set(order_ids())
     saved_prefs = db.get_preferences()
     try:

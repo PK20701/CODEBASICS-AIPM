@@ -1,14 +1,16 @@
 # ShopMate — AI Shopping Agent
 
-A chat assistant for a small pantry store. Describe what you want, or attach a photo of it. ShopMate finds matching products with their customer ratings and places a one-item order when you confirm.
+ShopMate is a chat assistant for a small online pantry store. You tell it what you want, or show it a photo. It finds matching products, shows their customer ratings, and places a one-item order when you say yes.
 
-- Spec: [PRD.md](PRD.md)
-- Guardrails: GUARDRAILS.md *(Step 4)*
-- Evals: EVALS.md *(Step 5)*
+| Document | What it covers |
+|----------|----------------|
+| [PRD.md](PRD.md) | The spec this build follows |
+| [GUARDRAILS.md](GUARDRAILS.md) | The off-topic check and the "no order without a yes" rule |
+| [EVALS.md](EVALS.md) | Test set, results, and what the evals taught us |
 
 ## Demo
 
-Loom (2 min): **<paste Loom link here>**
+**[Watch the 2-minute demo](https://drive.google.com/file/d/1CFlVn2TscPi_uJRLclXPngnis56c5bBa/view?usp=drive_link)**
 
 ## Setup (Windows)
 
@@ -20,7 +22,7 @@ python -m venv .venv
 .venv\Scripts\python.exe initial_setup/setup_db.py
 ```
 
-Copy `.env.example` to `.env` and add your Groq API key (https://console.groq.com/keys):
+Copy `.env.example` to `.env` and add a Groq API key from https://console.groq.com/keys:
 
 ```
 GROQ_API_KEY=gsk_...
@@ -30,7 +32,7 @@ GROQ_VISION_MODEL=qwen/qwen3.8-27b
 GROQ_VISION_REASONING_EFFORT=none
 ```
 
-Groq's free tier allows 200,000 tokens a day per model. To test without using Qwen's quota, set `GROQ_MODEL=openai/gpt-oss-120b` and `GROQ_REASONING_EFFORT=low`. Photos still use Qwen. Restart the app after changing `.env`.
+Groq's free tier allows 200,000 tokens a day per model. If Qwen's allowance runs out, set `GROQ_MODEL=openai/gpt-oss-20b` and `GROQ_REASONING_EFFORT=low` for chat. Photos still use Qwen. Restart the app after editing `.env`.
 
 ## Run
 
@@ -38,53 +40,62 @@ Groq's free tier allows 200,000 tokens a day per model. To test without using Qw
 .venv\Scripts\streamlit.exe run app.py
 ```
 
-Opens at http://localhost:8501. Type a request, or click the attachment icon in the chat box to add a product photo.
+The app opens at http://localhost:8501. Type a request, or use the attachment icon in the chat box to add a photo.
 
 ## Try it
 
 | Say | You get |
 |-----|---------|
-| `organic honey with 4.5+ rating under $20` | Organic Raw, Organic Buckwheat, Organic Acacia Honey |
-| `cheapest oat milk` | Oat Milk, $4.49, and an offer to order it |
-| `yes` (after a one-item list) | Order confirmation with an order ID |
-| Attach `resources/honey.png`, `find this` | A list of honeys |
+| `organic honey with 4.5+ rating under $20` | Organic Raw, Organic Buckwheat and Organic Acacia Honey |
+| `cheapest oat milk` | Oat Milk at $4.49, and an offer to order it |
+| `yes` (after a one-item list) | An order confirmation with the order ID |
+| `honey.png` + `find this` | A list of honeys |
 | `what have I ordered before?` | Your past orders |
-| `I always want organic`, restart, `show me honey` | Organic honeys only |
+| `I always want organic`, restart, `honey` | Organic honeys only |
+| `write me a poem` or `elephant.png` | A polite note that ShopMate only helps with shopping |
 
-## How it is built
+## How it's built
 
 | File | Role |
 |------|------|
-| `app.py` | Streamlit chat with photo upload. Each reply has a collapsible "Tool calls" panel. |
-| `agent.py` | Tool-calling loop, system prompt, and the output contract (list format, real prices and ratings, review counts). |
-| `tools.py` | The 7 tools from PRD §7. `checkout` refuses any order the shopper did not confirm. |
-| `intent.py` | Rules (no model) that read the shopper's message: which product they confirmed, order-history questions, standing preferences. |
-| `tests/` | `test_intent.py` (offline rules) and `test_assignment_checks.py` (live end-to-end checks). |
-| `logs/turns.jsonl` | Every turn's message, tool calls and reply, for tracing a reported problem. |
-| `db.py` | Reads and writes `store.db`: products, orders, preferences. |
-| `config.py` | Model names and limits. Secrets come only from `.env`. |
-| `initial_setup/` | Provided store database and reviews API. Not modified. |
+| `app.py` | Streamlit chat with photo upload |
+| `agent.py` | The agent loop, system prompt, and the product list format |
+| `tools.py` | The seven tools listed in PRD §7 |
+| `guardrails.py` | Off-topic check, run before the agent on every message and photo |
+| `intent.py` | Plain rules that read a message: which product was confirmed, order-history questions, saved preferences |
+| `db.py` | Products, orders and preferences in `store.db` |
+| `config.py` | Model names, limits, and shared helpers. Keys are read from `.env` only. |
+| `run_evals.py`, `eval_set.csv`, `eval_runs/` | Evals (see [EVALS.md](EVALS.md)) |
+| `tests/` | Offline and live tests |
+| `initial_setup/` | The provided store database and reviews API, unchanged |
 
-Decisions:
+Key decisions:
 
-- **Model.** Groq `qwen/qwen3.8-27b` for the agent, photo recognition and (Step 4) the off-topic check. Pricing: https://groq.com/pricing
-- **Preferences.** Stored in a `preferences` table in `store.db`. `setup_db.py` only resets `products` and `reviews`, so saved preferences survive. They are applied in code inside `search_products`, not left to the model.
-- **Ratings.** Come only from `initial_setup/reviews_api.py`.
-- **Critical replies are written by code.** Order confirmations (with order ID), order history and "Preference saved" are built from tool results, not worded by the model. Testing showed the model would otherwise invent orders or claim a preference was saved when it wasn't.
+- **Model.** Groq `qwen/qwen3.8-27b` handles chat, photos and the off-topic check. Pricing: https://groq.com/pricing
+- **Preferences.** Saved in a `preferences` table in `store.db`. `setup_db.py` only resets products and reviews, so preferences survive. They're applied in code inside `search_products`, not left to the model.
+- **Ratings.** Come only from `initial_setup/reviews_api.py`, with all search results fetched in one call.
+- **Critical replies come from code.** Order confirmations, order history and "Preference saved" messages are built from real tool results. In testing, the model sometimes claimed an order or a saved preference that didn't exist.
+- **Logging.** Each turn is written to `logs/turns.jsonl` (message, tool calls, reply) so problems can be traced.
 
-## Test
+## Tests
+
+| Script | Checks | Calls Groq? |
+|--------|--------|-------------|
+| `tests/test_intent.py` | Order confirmation, order history and preference rules | No |
+| `tests/test_search.py` | Product search and filters | No |
+| `tests/test_assignment_checks.py` | The six build checks plus ordering and preference edge cases | Yes |
+| `tests/test_guardrails.py` | Both guardrails | Yes |
+| `run_evals.py` | The eval set (see [EVALS.md](EVALS.md)) | Yes |
+
+Run any of them with `.venv\Scripts\python.exe <script>`. For example:
 
 ```bash
-.venv\Scripts\python.exe tests\test_intent.py
+.venv\Scripts\python.exe run_evals.py --model openai/gpt-oss-20b
 ```
 
-```bash
-.venv\Scripts\python.exe tests\test_assignment_checks.py 3
-```
-
-The second command calls Groq, runs the assignment's six checks plus edge cases three times, then removes the orders and preferences it created.
+Live scripts use a gpt-oss model for chat by default, so testing doesn't use up Qwen's daily allowance. They remove the orders and preferences they create. Don't use the app while one is running, because both write to `store.db`.
 
 ## Reset
 
-- Clear orders: delete `store.db` and re-run `setup_db.py`.
-- Clear preferences: say "I no longer want organic only", or delete `store.db` as above.
+- **Remove all orders:** delete `store.db` and run `setup_db.py` again.
+- **Remove the organic preference:** say `I no longer want organic only`.

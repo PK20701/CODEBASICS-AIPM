@@ -33,40 +33,38 @@ def ensure_preferences_table() -> None:
 
 # --- Products -------------------------------------------------------------
 
-def _term_matches(term: str, text: str) -> bool:
-    # "honeys" should still find "honey"; nothing fancier than that.
-    return term in text or (len(term) > 3 and term.endswith("s") and term[:-1] in text)
-
-
 def search_products(keyword: str, max_price: float | None = None,
                     is_organic: bool | None = None) -> list[dict]:
     """PRD FR-01/02: every word of the keyword must appear in name, description or category.
 
     Products whose name or category match win; descriptions are only searched
-    when nothing matches by name or category. Otherwise "honey" would also
-    return Organic Granola ("...granola with honey...").
+    when the store has nothing by that name or category. Otherwise "honey" would
+    also return Organic Granola ("...granola with honey..."). The choice is made
+    before the price/organic filters, so "organic oats" finds no oats rather than
+    falling back to granola.
     """
-    sql = "SELECT id, name, category, price, description, is_organic FROM products WHERE 1=1"
-    params: list = []
-    if max_price is not None:
-        sql += " AND price <= ?"
-        params.append(max_price)
-    if is_organic:
-        sql += " AND is_organic = 1"
-    sql += " ORDER BY id"
-
     with closing(_connect()) as conn:
-        rows = [dict(r) for r in conn.execute(sql, params)]
+        rows = [dict(r) for r in conn.execute(
+            "SELECT id, name, category, price, description, is_organic FROM products ORDER BY id"
+        )]
 
-    terms = keyword.lower().split()
+    everything = " ".join(f"{r['name']} {r['category']} {r['description']}" for r in rows).lower()
+    # "oats" should find Rolled Oats, not Oat Milk; only fall back to the
+    # singular ("honeys" -> "honey") when the word as typed matches nothing.
+    terms = [t if t in everything or len(t) <= 3 or not t.endswith("s") else t[:-1]
+             for t in keyword.lower().split()]
 
     def matching(fields: tuple[str, ...]) -> list[dict]:
         return [
             r for r in rows
-            if all(_term_matches(t, " ".join(r[f] for f in fields).lower()) for t in terms)
+            if all(t in " ".join(r[f] for f in fields).lower() for t in terms)
         ]
 
-    return matching(("name", "category")) or matching(("name", "category", "description"))
+    found = matching(("name", "category")) or matching(("name", "category", "description"))
+    return [
+        r for r in found
+        if (max_price is None or r["price"] <= max_price) and (not is_organic or r["is_organic"])
+    ]
 
 
 def get_product(product_id: int) -> dict | None:

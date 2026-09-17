@@ -1,3 +1,4 @@
 groq
 streamlit
 python-dotenv
+pillow

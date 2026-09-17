@@ -4,3 +4,13 @@ E02,rating filter,olive oil with a rating above 4.5,,"search_products, then get_
 E03,ordering,yes,The previous reply listed one product: #1. Oat Milk (ID:30),checkout,product id = 30,One order placed for Oat Milk. Reply has an order ID.
 E04,order history,what have I ordered before?,At least one order exists,get_order_history,none,Reply lists the earlier order with product name and price.
 E05,off-topic,write me a poem about honey,,none (guardrail stops it),none,Polite redirect back to shopping. No tool is called.
+E06,photo search,find this,Image: resources/honey.png,"describe_product_image, then search_products",search = honey,"A list of honeys from the store, each line with (ID:X). No other product types. Nothing is ordered."
+E07,off-topic photo,find this,Image: resources/elephant.png,none (guardrail stops it),none,Polite redirect back to shopping. No tool is called.
+E08,saved preference applied,show me honey,Saved preference: organic only,search_products,"search = honey, organic = yes","Only organic honeys: Organic Raw, Organic Manuka, Organic Buckwheat, Organic Acacia. No Wildflower, Clover, Orange Blossom or Creamed Honey."
+E09,ambiguous confirmation,maybe,The previous reply listed one product: #1. Oat Milk (ID:30),none (no checkout),none,No order is placed. Reply asks the shopper to confirm with yes or the item number.
+E10,product not sold,do you sell almond butter?,,search_products,search = almond butter,Says the store has no almond butter. No product list and no invented product or price.
+E11,cheapest item,cheapest oat milk,,search_products,search = oat milk,"Only Oat Milk at $4.49, as a one-item list, followed by ""Would you like to order it? Just say yes or give me the number."""
+E12,ordering by position,the second one,"The previous reply listed three products: #1. Organic Raw Honey (ID:1), #2. Organic Buckwheat Honey (ID:5), #3. Organic Acacia Honey (ID:7)",checkout,product id = 5,One order placed for Organic Buckwheat Honey. Reply has an order ID.
+E13,yes with several choices,yes,"The previous reply listed three products: #1. Organic Raw Honey (ID:1), #2. Organic Buckwheat Honey (ID:5), #3. Organic Acacia Honey (ID:7)",none (no checkout),none,No order is placed. Reply asks which number the shopper wants.
+E14,saving a preference,never show me anything over $20,,save_preference,max price = 20,Confirms the preference is saved: nothing over $20 from now on.
+E15,photo search (oats),find this,Image: resources/oats.png,"describe_product_image, then search_products",search = oat,"A list of oat products (Rolled Oats, Steel-Cut Oats). Each line has (ID:X). Nothing is ordered."

@@ -1,6 +1,5 @@
 """The agent's tools (PRD §7): JSON schemas for the model plus their implementations."""
 
-import base64
 import json
 import re
 import sys
@@ -9,11 +8,10 @@ from groq import RateLimitError
 
 import db
 from config import (LLM_TEMPERATURE, ROOT, TOOL_MAX_TOKENS, VISION_MODEL, VISION_REASONING_EFFORT,
-                    ServiceBusy,
-                    groq_client)
+                    busy_error, groq_client, prepare_image)
 
 sys.path.insert(0, str(ROOT))
-from initial_setup.reviews_api import get_product_rating  # noqa: E402  (PRD FR-09)
+from initial_setup.reviews_api import get_ratings_for_products  # noqa: E402  (PRD FR-09)
 
 
 TOOL_SCHEMAS = [
@@ -25,7 +23,7 @@ TOOL_SCHEMAS = [
                 "Keyword search across product name, description and category. "
                 "Use a short product keyword such as 'honey' or 'olive oil'; put 'organic' in "
                 "is_organic, not in the keyword. Saved shopper preferences are applied automatically. "
-                "Does not return ratings -- call get_rating for each result."
+                "Does not return ratings; call get_rating with the result IDs."
             ),
             "parameters": {
                 "type": "object",
@@ -42,11 +40,16 @@ TOOL_SCHEMAS = [
         "type": "function",
         "function": {
             "name": "get_rating",
-            "description": "Average customer rating and review count for one product, from the reviews API.",
+            "description": (
+                "Average customer rating and review count from the reviews API. "
+                "Pass all search results at once in product_ids."
+            ),
             "parameters": {
                 "type": "object",
-                "properties": {"product_id": {"type": "integer"}},
-                "required": ["product_id"],
+                "properties": {
+                    "product_ids": {"type": "array", "items": {"type": "integer"}},
+                    "product_id": {"type": ["integer", "null"], "description": "Single product (older form)."},
+                },
             },
         },
     },
@@ -125,6 +128,10 @@ class ToolContext:
         # GR-02: the product the shopper's latest message clearly confirmed (intent.py), if any.
         self.confirmed_product_id = confirmed_product_id
         self.order_placed = False
+        # Set when the GR-01 image check already identified the photo.
+        self.image_description: dict | None = None
+        # PRD FR-04: the organic filter applies only when the shopper asked for it.
+        self.organic_requested = False
 
 
 # --- Implementations ------------------------------------------------------
@@ -133,6 +140,11 @@ def search_products(ctx: ToolContext, keyword: str, max_price: float | None = No
                     is_organic: bool | None = None) -> dict:
     prefs = db.get_preferences()
     applied = []
+    ignored = None
+    if is_organic and not ctx.organic_requested:
+        # e.g. a photo that "looks organic" must not hide non-organic matches.
+        is_organic = None
+        ignored = "is_organic was ignored: the shopper did not ask for organic."
     # PRD FR-25: saved preferences are enforced here, not left to the model.
     if prefs["organic_only"]:
         is_organic = True
@@ -150,7 +162,7 @@ def search_products(ctx: ToolContext, keyword: str, max_price: float | None = No
     return {
         "filters_used": {"keyword": keyword, "max_price": max_price, "is_organic": bool(is_organic)},
         "saved_preferences_applied": applied,
-        "note": note,
+        "note": note or ignored,
         "results": [
             {"id": p["id"], "name": p["name"], "price": p["price"], "is_organic": bool(p["is_organic"])}
             for p in products
@@ -158,8 +170,12 @@ def search_products(ctx: ToolContext, keyword: str, max_price: float | None = No
     }
 
 
-def get_rating(ctx: ToolContext, product_id: int) -> dict:
-    return get_product_rating(int(product_id))
+def get_rating(ctx: ToolContext, product_ids: list | None = None, product_id: int | None = None) -> dict:
+    ids = [int(i) for i in (product_ids or [])] + ([int(product_id)] if product_id is not None else [])
+    if not ids:
+        return {"error": "Give product_ids."}
+    # One call to the reviews API for all candidates (PRD FR-09).
+    return {"ratings": get_ratings_for_products(ids)}
 
 
 def checkout(ctx: ToolContext, product_id: int) -> dict:
@@ -193,33 +209,29 @@ def checkout(ctx: ToolContext, product_id: int) -> dict:
 def describe_product_image(ctx: ToolContext) -> dict:
     if not ctx.image_bytes:
         return {"error": "The shopper has not attached a photo to this message."}
-    b64 = base64.b64encode(ctx.image_bytes).decode()
-    client = groq_client()
-    try:
-        resp = _describe(client, b64, ctx.image_mime)
-    except RateLimitError as exc:
-        raise ServiceBusy("ShopMate has hit the Groq free-tier usage limit. Please try again later.") from exc
-    return _parse_json(resp.choices[0].message.content or "")
-
-
-def _describe(client, b64: str, mime: str):
-    return client.chat.completions.create(
-        model=VISION_MODEL,
-        temperature=LLM_TEMPERATURE,
-        reasoning_effort=VISION_REASONING_EFFORT,
-        max_tokens=TOOL_MAX_TOKENS,
-        messages=[{
-            "role": "user",
-            "content": [
-                {"type": "text", "text": (
-                    "Identify the grocery product in this photo. Reply with JSON only: "
-                    '{"product": "<what it is>", "search_keyword": "<one or two generic words, e.g. honey>", '
-                    '"looks_organic": true|false, "is_product": true|false}'
-                )},
-                {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}},
-            ],
-        }],
+    if ctx.image_description:
+        # The off-topic check already looked at this photo; don't pay for a second look.
+        return ctx.image_description
+    mime, b64 = prepare_image(ctx.image_bytes)
+    prompt = (
+        "Identify the grocery product in this photo. Reply with JSON only: "
+        '{"product": "<what it is>", "search_keyword": "<one or two generic words, e.g. honey>", '
+        '"looks_organic": true|false}'
     )
+    try:
+        resp = groq_client().chat.completions.create(
+            model=VISION_MODEL,
+            temperature=LLM_TEMPERATURE,
+            reasoning_effort=VISION_REASONING_EFFORT,
+            max_tokens=TOOL_MAX_TOKENS,
+            messages=[{"role": "user", "content": [
+                {"type": "text", "text": prompt},
+                {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}},
+            ]}],
+        )
+    except RateLimitError as exc:
+        raise busy_error(exc) from exc
+    return _parse_json(resp.choices[0].message.content or "")
 
 
 def get_order_history(ctx: ToolContext) -> dict:
@@ -267,6 +279,9 @@ def coerce_args(args: dict) -> dict:
                 value = float(str(value).replace("$", ""))
             elif key in INT_ARGS:
                 value = int(str(value).replace("#", ""))
+            elif key == "product_ids":
+                items = value if isinstance(value, list) else re.findall(r"\d+", str(value))
+                value = [int(str(i).replace("#", "")) for i in items]
         except ValueError:
             continue
         out[key] = value
