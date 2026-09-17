@@ -1,0 +1,6 @@
+id,what_it_tests,shopper_says,setup,expected_tool,expected_filters,expected_reply
+E01,search with filters,organic honey under $20,,search_products,"organic = yes, max price = 20","Only organic honeys at or under $20: Organic Raw, Organic Buckwheat, Organic Acacia. No Manuka. Each line has (ID:X)."
+E02,rating filter,olive oil with a rating above 4.5,,"search_products, then get_rating for each result",search = olive oil,Only Organic Extra Virgin Olive Oil is shown. Nothing is ordered.
+E03,ordering,yes,The previous reply listed one product: #1. Oat Milk (ID:30),checkout,product id = 30,One order placed for Oat Milk. Reply has an order ID.
+E04,order history,what have I ordered before?,At least one order exists,get_order_history,none,Reply lists the earlier order with product name and price.
+E05,off-topic,write me a poem about honey,,none (guardrail stops it),none,Polite redirect back to shopping. No tool is called.
