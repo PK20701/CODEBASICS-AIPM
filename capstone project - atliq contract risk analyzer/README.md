@@ -1,4 +1,4 @@
-# AtliQ Contract Risk Analyzer (prototype)
+# ContractGuard: AtliQ Contract Risk Analyzer (prototype)
 
 A web tool that reads an incoming contract, checks every clause against AtliQ's own history, and gives the signer a short list of what to look at, most serious first. It never signs, sends or approves anything. A person decides.
 
@@ -55,7 +55,7 @@ python dev_server.py
 * **Groq automatically takes over** when Gemini is rate-limited or down (`gpt-oss-120b`, `qwen3.8-27b`, `gpt-oss-20b`). A small "backup model used" badge shows in the header. Groq's free tier is tighter (about 8,000 tokens a minute per model), so it can sustain roughly three reviews a minute.
 * If both are exhausted, the app says so and nothing is lost; try again in a minute.
 * Override with env vars: `GEMINI_MODEL_FAST`, `GEMINI_MODEL_SMART`, `GEMINI_ROTATION`, `GROQ_MODEL`, `GROQ_ROTATION`. `FORCE_GEMINI_FAIL=1` forces the backup path for testing.
-* **Measured cost**: about 11,000 input and 2,500 output tokens for a typical 10 to 15 page contract, 4 to 40 seconds. Free tier today; at paid flash-lite rates a review is a fraction of a cent.
+* **Cost**: the 15 dataset drafts (about 2,900 tokens each) used about 11,000 input and 2,500 output tokens per review. A typical real contract is longer (about 6,000 tokens, 10 pages), modelled at about 18,000 input and 4,000 output tokens, roughly 5 cents a review with the recommended two-tier setup (a 40-page outlier is about 12 cents). Free tier today. See the cost estimate for the assumptions.
 
 ## Data and privacy
 
@@ -89,13 +89,14 @@ python tests/test_units.py                 # 54 offline unit tests: quotes, rati
 python tests/eval_synthetic.py             # full pipeline on S01-S10 against the answer key
 python -u tests/run_real.py                # full pipeline on the 15 real incoming drafts
 FORCE_GEMINI_FAIL=1 python tests/eval_synthetic.py S06 S09 S07   # backup-model path
+python tests/live_check.py https://your-app.vercel.app S06 S02 S07 S09 S01   # same calls the browser makes, against the deployed site
 ```
 
 Results at submission (Gemini free tier):
 
 * Unit tests: 54 of 54 pass.
 * Synthetic set: 13 of 13 expected findings found, 0 false alarms on the two clean contracts (S01, S05), 0 unverified quotes on model findings except one empty-title item that is now filtered.
-* Real drafts: 15 of 15 reviewed, every clause read (e.g. 85 of 85 on the 85-clause Harrington MSA), 4 to 40 seconds each. LoopMart's genuinely mutual NDA correctly gives no findings.
+* Real drafts: 15 of 15 reviewed, every clause read (e.g. 85 of 85 on the 85-clause Harrington MSA), 4 to 40 seconds each (the drafts are shorter than a typical real contract). LoopMart's genuinely mutual NDA correctly gives no findings.
 * Backup path: with Gemini forced off, three reviews in a row matched the answer key on Groq before its free-tier token limit was reached.
 
 ## Known limits
