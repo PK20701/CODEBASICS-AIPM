@@ -68,6 +68,10 @@ const fmt=(v,c)=>v==null?'n/a':(c||'$')+Number(v).toLocaleString('en-US',{maximu
 const money=v=>v==null?'n/a':(v<0?'-':'')+(Math.abs(v)>=1000?'$'+Math.round(Math.abs(v)/1000)+'k':'$'+Math.abs(v));
 const greeting=()=>{const h=new Date().getHours();return h<12?'Good morning':h<17?'Good afternoon':'Good evening'};
 const regStatus=r=>(!r.end)?'active':(r.end<today()?'expired':'active');
+const entryStatus=r=>r.status==='pending_confirmation'?{t:'to confirm',k:'warn'}:r.status==='rejected'?{t:'rejected',k:'tag'}:(()=>{const x=regStatus(r);return{t:x,k:x==='active'?'sev-Negotiable':'tag'}})();
+const pendingN=()=>S.entries.filter(e=>e.status==='pending_confirmation').length;
+const regCount=()=>REG.length+S.entries.filter(e=>e.status!=='rejected').length;
+const confirmedEntries=()=>S.entries.filter(e=>e.status==='confirmed').map(e=>({id:e.id,contract_id:e.contract_id,counterparty:e.counterparty,type:e.type,clause:e.clause,bound:e.bound,restricted_activity:e.restricted_activity,scope:e.scope,start:e.start,end:e.end,quote:e.quote,takeaway:e.takeaway,status:'confirmed'}));
 const allContracts=()=>BASE.concat(S.added);
 const latest=cid=>{const v=S.reviews[cid];return v&&v.length?v[v.length-1]:null};
 const vLabel=v=>v.status==='draft'?'Draft saved':v.status==='in_signing'?'In manual signing':v.status==='deferred'?'Signing deferred':'Reviewed';
@@ -104,15 +108,15 @@ function home(){const cs=allContracts();const waiting=cs.filter(c=>/review/i.tes
  const regs=REG.concat(S.entries.map(e=>Object.assign({},e)));
  $('#app').innerHTML=`<div class="row sp"><div><div class="sub" style="font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--acc)">ContractGuard</div><div class="sub" style="margin-bottom:2px">AtliQ Contract Risk Analyzer: a second pair of eyes before you sign</div><h1>${greeting()}, ${esc(S.user)}</h1><div class="sub">${waiting} contract${waiting==1?'':'s'} waiting for review${drafts?' · '+drafts+' draft saved':''}</div></div>
   <button class="fab" title="Add contract or version" aria-label="Add contract or version" onclick="go('#/new')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
-  <div class="row" style="margin:16px 0 8px"><span class="chip ${homeTab==='contracts'?'on':''}" onclick="homeTab='contracts';home()">Contracts ${cs.length}</span><span class="chip ${homeTab==='commitments'?'on':''}" onclick="homeTab='commitments';home()">Past commitments ${regs.length}</span>
+  <div class="row" style="margin:16px 0 8px"><span class="chip ${homeTab==='contracts'?'on':''}" onclick="homeTab='contracts';home()">Contracts ${cs.length}</span><span class="chip ${homeTab==='commitments'?'on':''}" onclick="homeTab='commitments';home()">Past commitments ${regCount()}${pendingN()?' · '+pendingN()+' to confirm':''}</span>
    ${homeTab==='contracts'?chips.map(c=>`<span class="chip ${homeFilter===c?'on':''}" onclick="homeFilter='${c}';home()" style="background:${homeFilter===c?'':'transparent'};border-color:var(--line)">${c}</span>`).join(''):''}
    <input id="q" placeholder="Search" value="${esc(homeQ)}" style="max-width:220px;margin-left:auto" oninput="homeQ=this.value.toLowerCase();homeRows()"></div>
   <div class="card" style="padding:4px 8px" id="tbl"></div>`;
  homeRows()}
 function homeRows(){const cs=allContracts();const regs=REG.concat(S.entries);let html;
- if(homeTab==='commitments'){const q=homeQ;const rs=regs.filter(r=>!q||(r.counterparty+' '+r.type+' '+(r.restricted_activity||'')).toLowerCase().includes(q));
-  html=`<table><tr><th>Client</th><th class="hm">Type</th><th>What is restricted</th><th class="hm">Until</th><th>Status</th></tr>`+rs.map(r=>{const st=r.status==='pending_confirmation'?'pending':regStatus(r);
-   return`<tr class="r" onclick="showCommitment('${esc(r.id)}')"><td>${esc(r.counterparty)}</td><td class="hm">${esc((r.type||'').replace(/_/g,' '))}</td><td>${esc(r.restricted_activity||'')}</td><td class="hm">${esc(r.end||'no end date')}</td><td><span class="pill ${st==='active'?'sev-Negotiable':st==='expired'?'tag':'warn'}">${st==='pending'?'to confirm':st}</span></td></tr>`}).join('')+'</table>';
+ if(homeTab==='commitments'){const q=homeQ;const rs=regs.filter(r=>!q||(r.counterparty+' '+r.type+' '+(r.restricted_activity||'')).toLowerCase().includes(q));rs.sort((a,b)=>(b.status==='pending_confirmation')-(a.status==='pending_confirmation'));
+  html=(pendingN()?`<div class="mut" style="padding:10px 8px"><b>${pendingN()} restriction${pendingN()>1?'s':''} waiting for confirmation.</b> Open one, check it against the source clause, then confirm or reject it. Only confirmed restrictions are used in future reviews.</div>`:'')+`<table><tr><th>Client</th><th class="hm">Type</th><th>What is restricted</th><th class="hm">Until</th><th>Status</th></tr>`+rs.map(r=>{const st=entryStatus(r);
+   return`<tr class="r" onclick="showCommitment('${esc(r.id)}')"><td>${esc(r.counterparty)}</td><td class="hm">${esc((r.type||'').replace(/_/g,' '))}</td><td>${esc(r.restricted_activity||'')}</td><td class="hm">${esc(r.end||'no end date')}</td><td><span class="pill ${st.k}">${st.t}</span></td></tr>`}).join('')+'</table>';
   $('#tbl').innerHTML=html;return}
  let rows=cs.filter(c=>{const st=statusOf(c).t;
   if(homeFilter==='Needs review')return /review|serious open|Draft|deferred/i.test(st)&&!/Signed/i.test(c.status);
@@ -121,12 +125,29 @@ function homeRows(){const cs=allContracts();const regs=REG.concat(S.entries);let
  html=`<table><tr><th>ID</th><th>Client</th><th>Type</th><th class="hm">Country</th><th class="hm">Value</th><th>Status</th><th></th></tr>`+rows.map(c=>{const st=statusOf(c);
   return`<tr class="r" onclick="go('#/contract/${encodeURIComponent(c.id)}')"><td>${esc(c.id)}</td><td>${esc(c.counterparty)}</td><td>${esc(c.type)}</td><td class="hm">${esc(c.country||'')}</td><td class="hm">${money(c.value)}</td><td><span class="pill ${st.k}">${esc(st.t)}</span>${c.restrictions?` <span class="pill tag">${c.restrictions} restriction${c.restrictions>1?'s':''}</span>`:''}</td><td>&rsaquo;</td></tr>`}).join('')+'</table>';
  $('#tbl').innerHTML=html}
-function showCommitment(id){const r=REG.concat(S.entries).find(x=>x.id===id);if(!r)return;const st=r.status==='pending_confirmation'?'to confirm':regStatus(r);
- modal(`<div class="row sp"><b>${esc(r.counterparty)}</b><span class="pill ${st==='active'?'sev-Negotiable':'tag'}">${st}</span></div>
+function showCommitment(id){const r=REG.concat(S.entries).find(x=>x.id===id);if(!r)return;if(r.status==='pending_confirmation')return confirmModal(r);const st=entryStatus(r);
+ modal(`<div class="row sp"><b>${esc(r.counterparty)}</b><span class="pill ${st.k}">${st.t}</span></div>
  <div class="mut">${esc((r.type||'').replace(/_/g,' '))} · clause ${esc(r.clause||'')} · ${esc(r.bound||'')}</div>
  <div class="quote">${r.quote?esc(r.quote):'<span class="mut">No verified quote</span>'}</div>
- <div class="mut">Runs until: ${esc(r.end||'no end date')} ${r.end_basis?'('+esc(r.end_basis)+')':''}</div>${r.exception?`<p class="mut"><b>Exception:</b> ${esc(r.exception)}</p>`:''}${r.takeaway?`<p><b>Takeaway:</b> ${esc(r.takeaway)}</p>`:''}
+ <div class="mut">Runs until: ${esc(r.end||'no end date')} ${r.end_basis?'('+esc(r.end_basis)+')':''}</div>${r.exception?`<p class="mut"><b>Exception:</b> ${esc(r.exception)}</p>`:''}${r.takeaway?`<p><b>Takeaway:</b> ${esc(r.takeaway)}</p>`:''}${r.status==='confirmed'?`<p class="mut">Confirmed by ${esc(r.confirmed_by||'')} on ${esc((r.confirmed_at||'').slice(0,10))}. Used in every new review.</p>`:''}${r.status==='rejected'?`<p class="mut">Rejected by ${esc(r.rejected_by||'')} on ${esc((r.rejected_at||'').slice(0,10))}${r.rejected_reason?': '+esc(r.rejected_reason):''}. Not used in reviews.</p>`:''}
  <div class="row" style="margin-top:10px">${r.file?`<a href="${esc(r.file)}" target="_blank">Open source contract</a>`:''}<button onclick="closeModal()" style="margin-left:auto">Close</button></div>`)}
+function confirmModal(r){const g=((r.scope&&r.scope.geography)||[]).join(', ');const cu=(r.scope&&r.scope.customers)||'';
+ modal(`<div class="row sp"><b>Confirm this restriction</b><span class="pill warn">to confirm</span></div>
+ <div class="mut" style="margin:2px 0 8px">Taken from ${esc(r.counterparty)}, ${esc((r.type||'').replace(/_/g,' '))}, clause ${esc(r.clause||'?')}. Check it against the clause, correct anything, then confirm. It is only used in future reviews once you confirm it.</div>
+ <div class="quote">${r.quote?esc(r.quote):'<span class="mut">No verified quote. Read the clause in the contract before confirming.</span>'}</div>
+ <label>What is restricted</label><input id="cr_act" value="${esc(r.restricted_activity||'')}">
+ <div class="grid g2" style="margin-top:8px"><div><label>Who or which customers it covers</label><input id="cr_cu" value="${esc(cu)}"></div><div><label>Where (comma separated; blank means worldwide)</label><input id="cr_geo" value="${esc(g==='Worldwide'?'':g)}"></div></div>
+ <div class="grid g2" style="margin-top:8px"><div><label>Runs until (blank means no end date)</label><input id="cr_end" type="date" value="${esc(r.end||'')}"></div><div><label>Reason, if you reject it (optional)</label><input id="cr_rej" placeholder="For example: it does not restrict AtliQ"></div></div>
+ <div class="row" style="margin-top:12px"><button class="pri" onclick="confirmEntry('${esc(r.id)}')">Confirm</button><button onclick="rejectEntry('${esc(r.id)}')">Reject</button><button onclick="closeModal()" style="margin-left:auto">Cancel</button></div>`)}
+function confirmEntry(id){const e=S.entries.find(x=>x.id===id);if(!e)return;const v=i=>$('#'+i).value.trim();
+ const geo=v('cr_geo').split(',').map(x=>x.trim()).filter(Boolean);
+ e.restricted_activity=v('cr_act')||e.restricted_activity;e.scope={customers:v('cr_cu'),geography:geo.length?geo:['Worldwide']};e.end=v('cr_end')||null;
+ e.takeaway=e.counterparty+', clause '+(e.clause||'?')+': '+e.restricted_activity+(e.scope.customers?' for '+e.scope.customers:'')+(geo.length?' in '+geo.join(', '):'')+(e.end?', until '+e.end:', with no end date')+'. Check before taking similar work.';
+ e.status='confirmed';e.confirmed_by=S.user;e.confirmed_at=new Date().toISOString();
+ S.audit.push({at:e.confirmed_at,who:S.user,what:'Confirmed restriction '+e.id,cid:e.contract_id});save();closeModal();route()}
+function rejectEntry(id){const e=S.entries.find(x=>x.id===id);if(!e)return;
+ e.status='rejected';e.rejected_by=S.user;e.rejected_at=new Date().toISOString();e.rejected_reason=($('#cr_rej')||{value:''}).value.trim();
+ S.audit.push({at:e.rejected_at,who:S.user,what:'Rejected restriction '+e.id,cid:e.contract_id,comment:e.rejected_reason});save();closeModal();route()}
 function modal(inner){$('#modal').innerHTML=`<div class="modal" onclick="if(event.target===this)closeModal()"><div class="card">${inner}</div></div>`}
 function closeModal(){$('#modal').innerHTML=''}
 function showPrinciples(){modal(`<b>AtliQ's principles</b><p class="mut">A preference, not a rule. Every contract is judged on its own context.</p><ul>${PRINC.map(p=>`<li>${esc(p.text)}</li>`).join('')}</ul>
@@ -140,7 +161,7 @@ async function contractPage(id){const c=allContracts().find(x=>x.id===id);if(!c)
  <div class="row">${c.file?`<button class="pri" onclick="startFromSample('${esc(c.file)}','${esc(id)}')">Review this contract</button>`:''}<button onclick="go('#/new/${encodeURIComponent(id)}')">New version</button></div></div>
  <div class="grid g4" style="margin-top:14px"><div class="tile"><b>${money(c.value)}</b><span>value</span></div><div class="tile"><b>${esc(c.signed||c.received||'n/a')}</b><span>${c.signed?'signed':'received'}</span></div><div class="tile"><b>${esc(c.expiry||'n/a')}</b><span>expires</span></div><div class="tile"><b>${esc(c.requested_by||'n/a')}</b><span>brought in by</span></div></div>
  ${c.notes?`<p class="mut">Tracker note: ${esc(c.notes)}</p>`:''}
- <h2>Restrictions in this contract</h2>${regs.length?regs.map(r=>{const st=r.status==='pending_confirmation'?'to confirm':regStatus(r);return`<div class="find" onclick="showCommitment('${esc(r.id)}')"><div class="fh"><span class="pill ${st==='active'?'sev-Negotiable':'tag'}">${st}</span><span class="t">${esc((r.type||'').replace(/_/g,' '))}: ${esc(r.restricted_activity||'')}</span><span class="mut">until ${esc(r.end||'no end date')}</span></div></div>`}).join(''):'<div class="mut">None recorded.</div>'}
+ <h2>Restrictions in this contract</h2>${regs.length?regs.map(r=>{const st=entryStatus(r);return`<div class="find" onclick="showCommitment('${esc(r.id)}')"><div class="fh"><span class="pill ${st.k}">${st.t}</span><span class="t">${esc((r.type||'').replace(/_/g,' '))}: ${esc(r.restricted_activity||'')}</span><span class="mut">until ${esc(r.end||'no end date')}</span></div></div>`}).join(''):'<div class="mut">None recorded.</div>'}
  <h2>Reviews</h2>${vs.length?vs.map(v=>`<div class="find" onclick="go('#/review/${encodeURIComponent(id)}/${v.ver}')"><div class="fh"><span class="pill ${v.status==='draft'||v.status==='deferred'?'warn':'ok'}">${vLabel(v)}</span><span class="t">Version ${v.ver}</span><span class="mut">${esc(v.created.slice(0,10))} · ${(v.findings||[]).length} findings</span></div></div>`).join(''):'<div class="mut">No review yet.</div>'}
  ${(()=>{const v=latest(id);if(!v||v.status==='draft')return '';const d=v.details||{};const F=v.findings||[];const lm=v.liability_multiple;
   const rows=F.filter(f=>f.severity!=='Minor'||v.answers[f.id]).map(f=>{const an=v.answers[f.id];return`<tr><td><span class="pill sev-${f.severity}">${f.severity}</span></td><td>${esc(f.title)}</td><td>${an?(an.choice==='accepted'?'<span class="pill ok">Accepted</span>':'<span class="pill warn">Needs review</span>'):'<span class="mut">Open</span>'}</td><td>${an?esc(an.comment||''):''}<div class="mut">${an?esc(an.by)+' · '+esc(an.at.slice(0,10)):''}</div></td></tr>`}).join('');
@@ -207,7 +228,7 @@ async function runReview(){const out=(document.querySelector('input[name=out]:ch
  const d=Object.assign({},RUN.details,{counterparty:v('f_cp'),doc_type:v('f_ty'),atliq_entity:v('f_en'),client_country:v('f_co'),term_months:nz(v('f_tm')),annual_fee:nz(v('f_af')),total_value:nz(v('f_tv')),governing_law:v('f_gl')});
  const cid=v('f_id').trim()||('C-N'+(S.added.length+1));const verOf=RUN.verOf;
  RUN.details=d;RUN.cid=cid;RUN.out=out;
- const ckey=await hash(RUN.text+'|'+RUN.notes+'|'+JSON.stringify([d.atliq_entity,d.annual_fee,d.total_value,d.term_months,d.governing_law,d.client_country,d.counterparty]));
+ const ckey=await hash(RUN.text+'|'+RUN.notes+'|'+JSON.stringify([d.atliq_entity,d.annual_fee,d.total_value,d.term_months,d.governing_law,d.client_country,d.counterparty,confirmedEntries().map(e=>[e.id,e.end,e.restricted_activity])]));
  const steps=[{k:'rules',t:'Checking entity, law, documents and amounts'},{k:'conf',t:'Checking past commitments (17 contracts on file)'},{k:'cl',t:'Reviewing every clause'}];if(RUN.notes)steps.push({k:'notes',t:'Reading the unofficial discussions'});steps.push({k:'done',t:'Putting the review together'});
  const paint=()=>{$('#app').innerHTML=`<h1>Reviewing…</h1><div class="sub">${esc(d.counterparty||'')} · ${RUN.clausesN} clauses</div><div class="card" style="margin-top:12px"><ul class="steps" style="list-style:none;padding:0;margin:0">${steps.map(s=>`<li class="${s.s||''}">${esc(s.t)}${s.x?' <span class="mut">'+esc(s.x)+'&nbsp;</span>':''}</li>`).join('')}</ul><div class="bar" style="margin-top:12px"><i id="pb" style="width:${RUN.pct||2}%"></i></div></div>`};
  const mark=(k,s,x)=>{const st=steps.find(z=>z.k===k);if(st){st.s=s;if(x!==undefined)st.x=x}paint()};
@@ -217,7 +238,7 @@ async function runReview(){const out=(document.querySelector('input[name=out]:ch
   if(!res){
    const seg=await api({action:'segment',text:RUN.text});const total=seg.clauses.length;const batches=seg.batches.map(b=>b.map(id=>seg.clauses.find(c=>c.id===id)));
    mark('rules','run');const rules=await api({action:'rules',details:d,text:RUN.text});mark('rules','done');RUN.pct=12;
-   const pConf=(async()=>{mark('conf','run');try{const r=await api({action:'conflicts',details:d,text:RUN.text});trackMeta(r.meta);mark('conf','done');return r}catch(e){mark('conf','bad','could not finish');return{conflicts:[],checked:0,error:e.message}}})();
+   const pConf=(async()=>{mark('conf','run');try{const r=await api({action:'conflicts',details:d,text:RUN.text,extra_register:confirmedEntries(),exclude_contract:cid});trackMeta(r.meta);mark('conf','done');return r}catch(e){mark('conf','bad','could not finish');return{conflicts:[],checked:0,error:e.message}}})();
    const pNotes=RUN.notes?(async()=>{mark('notes','run');try{const r=await api({action:'notes',notes:RUN.notes,details:d,text:RUN.text});trackMeta(r.meta);mark('notes','done');return r}catch(e){mark('notes','bad','could not finish');return{items:[],error:e.message}}})():Promise.resolve({items:[]});
    mark('cl','run','0 of '+batches.length);const analysis=[];const couldNot=[];let done=0;let idx=0;
    const worker=async()=>{while(idx<batches.length){const i=idx++;const b=batches[i];try{const r=await api({action:'analyze',clauses:b,details:d,text:RUN.text});trackMeta(r.meta);analysis.push(r)}catch(e){b.forEach(c=>couldNot.push({id:c.id,why:e.message}))}done++;RUN.pct=12+Math.round(80*done/batches.length);mark('cl','run',done+' of '+batches.length)}};
@@ -251,7 +272,7 @@ function reviewPage(cid,ver){const v=getRev(cid,ver);if(!v)return go('#/');const
   <div class="tile"><b>${F.filter(f=>f.severity==='Serious').length} · ${F.filter(f=>f.severity==='Negotiable').length} · ${F.filter(f=>f.severity==='Minor').length}</b><span>serious · negotiable · minor</span></div>
   <div class="tile"><b>${d.total_value?fmt(d.total_value):'n/a'}</b><span>contract value${d.annual_fee?' · '+fmt(d.annual_fee)+' a year':''}</span></div>
   <div class="tile"><b>${lm?lm.toFixed(1)+'x fee':(v.liability_text==='unlimited'?'Unlimited':'n/a')}</b><span>liability cap · past contracts: about 1x</span></div></div>
- <div class="mut" style="margin:10px 0">Checked ${v.checked_register||0} past commitments from the 17 signed contracts on file (13 more signed contracts are not on file) · ${v.notes_attached?'unofficial notes included':'no unofficial notes'} · reviewed in ${v.seconds}s · Not legal advice</div>
+ <div class="mut" style="margin:10px 0">Checked ${v.checked_register||0} past commitments, including any you have confirmed (17 signed contracts are on file; 13 more are not) · ${v.notes_attached?'unofficial notes included':'no unofficial notes'} · reviewed in ${v.seconds}s · Not legal advice</div>
  <div class="row" style="margin:6px 0">${['All','Open','Serious','Negotiable','Minor','Unofficial'].map(x=>`<span class="chip ${FILTER===x?'on':''}" onclick="FILTER='${x}';reviewPage('${esc(cid)}',${v.ver})">${x}${x==='Open'?' '+F.filter(f=>!v.answers[f.id]).length:''}</span>`).join('')}</div>
  ${list.map(f=>findHtml(f,v,cid)).join('')||(F.length?'<div class="mut">Nothing in this view.</div>':'<div class="card"><b>No findings from the checks we ran.</b><div class="mut">This is not a clearance. The checks cover entity and law, amounts, past commitments and each clause, but please still read the contract before signing.</div></div>')}
  ${expired.length?`<h2>Expired restrictions (shown for confidence)</h2>${expired.map(f=>`<div class="mut">${esc(f.title)} · ended ${esc(f.register_end||'')}</div>`).join('')}`:''}
@@ -293,7 +314,8 @@ async function proceed(cid,ver){const v=getRev(cid,ver);const acc=Object.values(
  <div class="row" style="margin-top:12px"><button class="pri" id="cb" onclick="doProceed('${esc(cid)}',${ver})">Continue</button><button onclick="closeModal()">Cancel</button></div>`)}
 async function doProceed(cid,ver){const v=getRev(cid,ver);$('#cb').disabled=true;let entries=[];
  try{const r=await api({action:'register_entry',details:v.details,text:v.text||'',contract_id:cid},1);entries=r.entries||[]}catch(e){entries=[]}
- const ex=S.entries.filter(e=>e.contract_id!==cid);S.entries=ex.concat(entries.map(e=>Object.assign(e,{file:null,bound:e.bound||''})));
+ const keep=S.entries.filter(e=>e.contract_id!==cid||e.status!=='pending_confirmation');const known=new Set(keep.filter(e=>e.contract_id===cid).map(e=>e.quote||e.restricted_activity));
+ const fresh=entries.filter(e=>!known.has(e.quote||e.restricted_activity)).map(e=>Object.assign(e,{id:e.id+'-v'+ver,file:null,bound:e.bound||''}));S.entries=keep.concat(fresh);
  const c=allContracts().find(x=>x.id===cid);if(c){c.status='In manual signing';c.restrictions=entries.length||c.restrictions}
  const a=S.added.find(x=>x.id===cid);if(a){a.status='In manual signing';a.restrictions=entries.length}
  v.status='in_signing';S.audit.push({at:new Date().toISOString(),who:S.user,what:'Proceeded to manual signing',cid,ver,entries:entries.length});save();closeModal();downloadSummary(cid,ver);reviewPage(cid,ver);rateModal(cid,ver)}

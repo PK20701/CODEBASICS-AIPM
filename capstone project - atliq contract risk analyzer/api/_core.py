@@ -176,15 +176,21 @@ def _post(url, headers, body, timeout=55):
 
 
 def parse_json(text):
+    """Parse the model's JSON. Repairs trailing commas; anything else unparseable raises LLMError so the caller can retry or fall back."""
     t = (text or '').strip()
     t = re.sub(r'^```(?:json)?\s*|\s*```$', '', t, flags=re.S).strip()
-    try:
-        return json.loads(t)
-    except Exception:
-        a, b = t.find('{'), t.rfind('}')
-        if a >= 0 and b > a:
-            return json.loads(t[a:b + 1])
-        raise LLMError('model did not return JSON')
+    candidates = [t]
+    a, b = t.find('{'), t.rfind('}')
+    if a >= 0 and b > a:
+        candidates.append(t[a:b + 1])
+    for c in list(candidates):
+        candidates.append(re.sub(r',\s*([}\]])', r'\1', c))
+    for c in candidates:
+        try:
+            return json.loads(c)
+        except Exception:
+            continue
+    raise LLMError('model did not return valid JSON')
 
 
 GEMINI_ROTATION = 'gemini-flash-lite-latest,gemini-3.1-flash-lite,gemini-3-flash-preview,gemini-3.6-flash'
@@ -329,7 +335,7 @@ Return JSON with exactly these keys:
  "mentions_baa_or_dpa": "text of any reference to a BAA or DPA, else null",
  "insurance_requirements": [{{"type": "cyber|liability|e&o|other", "amount_usd": number, "clause_id": "x", "quote": "exact text"}}],
  "rates": [{{"role": "text", "rate": number, "currency": "USD", "unit": "hour|day|month", "clause_id": "x"}}],
- "restrictive_covenants": [{{"type": "non_compete|exclusivity|mfn_pricing|non_solicit|ip_assignment|data_location|other", "who_is_bound": "AtliQ|client|both", "summary": "max 30 words", "restricted_activity": "text", "geography": ["..."], "clause_id": "x", "quote": "exact text", "duration_basis": "term|term_plus_months|fixed_months|perpetual|unknown", "months_after_term": number or null}}]
+ "restrictive_covenants": [{{"type": "non_compete|exclusivity|mfn_pricing|non_solicit|ip_assignment|data_location|other", "who_is_bound": "AtliQ|client|both", "summary": "max 30 words", "restricted_activity": "text", "customers": "who or what kind of customer the restriction covers, e.g. any other hotel group", "geography": ["..."], "clause_id": "x", "quote": "exact text", "duration_basis": "term|term_plus_months|fixed_months|perpetual|unknown", "months_after_term": number or null}}]
 }}
 Contract text:
 \"\"\"
@@ -612,12 +618,12 @@ def geo_match(r, d):
     return False
 
 
-def keyword_conflicts(details, text):
+def keyword_conflicts(details, text, reg=None):
     """Deterministic matching on register fields and keywords. Also the fallback when no model is available."""
     d = details or {}
     hay = ' '.join([text.lower(), (d.get('services_summary') or '').lower()])  # not the model's industry label: it can be wrong
     out = []
-    for r in register():
+    for r in (reg if reg is not None else register()):
         why, rel = None, None
         if r['type'] in ('non_compete', 'exclusivity'):
             sc = r['scope'].get('customers', '').lower()
@@ -636,7 +642,9 @@ def keyword_conflicts(details, text):
                     why, rel = 'Work on a competing data platform for a client in India or the GCC.', 'likely'
                 else:
                     why, rel = 'The deal involves a data platform; the client is outside India and the GCC, so this is probably allowed (clause 7.3), but confirm no partner fee is involved.', 'possible'
-        elif r['type'] == 'ip_assignment' and 'pipekit' in hay:
+        if why is None and str(r['id']).startswith('N-') and r['type'] in ('non_compete', 'exclusivity'):
+            why, rel = new_entry_match(r, d, hay)
+        if r['type'] == 'ip_assignment' and 'pipekit' in hay and why is None:
             why, rel = 'The deal reuses PipeKit, which passed to Northwind in the delivered configuration.', 'likely'
         elif r['type'] == 'mfn_pricing':
             for rate in (d.get('rates') or []):
@@ -655,10 +663,10 @@ def keyword_conflicts(details, text):
     return out
 
 
-def action_conflicts(details, contract_text, **_):
-    reg = register()
+def action_conflicts(details, contract_text, extra_register=None, exclude_contract=None, **_):
+    reg = register() + sanitize_extra(extra_register, exclude_contract)
     by_id = {r['id']: r for r in reg}
-    kw = keyword_conflicts(details, contract_text)
+    kw = keyword_conflicts(details, contract_text, reg)
     d = details or {}
     compact = [{'id': r['id'], 'who': r['counterparty'], 'type': r['type'], 'activity': r['restricted_activity'], 'scope': r['scope'], 'ends': r.get('end')} for r in reg]
     meta, matches = None, []
@@ -825,20 +833,81 @@ def compute_end(details, cov):
     return date(y, m, d).isoformat()
 
 
+def make_takeaway(who, clause, activity, customers, geography, end):
+    t = '%s, clause %s: %s' % (who or 'Counterparty', clause or '?', activity or 'restriction')
+    if customers:
+        t += ' for ' + customers
+    if geography:
+        t += ' in ' + ', '.join(geography)
+    t += (', until %s' % end) if end else ', with no end date'
+    return t + '. Check before taking similar work.'
+
+
+ENTRY_TYPES = ('non_compete', 'exclusivity', 'mfn_pricing', 'non_solicit', 'ip_assignment', 'data_location', 'other')
+
+
+def sanitize_extra(extra, exclude_contract=None):
+    """Confirmed register entries sent by the browser. Keep only well-formed ones, with safe defaults."""
+    out, seen = [], set()
+    for e in (extra or [])[:80]:
+        if not isinstance(e, dict) or e.get('status') != 'confirmed':
+            continue
+        eid = str(e.get('id') or '')[:60]
+        if not eid or eid in seen or e.get('contract_id') == exclude_contract:
+            continue
+        seen.add(eid)
+        sc = e.get('scope') if isinstance(e.get('scope'), dict) else {}
+        geo = [str(g)[:40] for g in (sc.get('geography') or []) if isinstance(g, str)][:12] or ['Worldwide']
+        end = e.get('end') if isinstance(e.get('end'), str) and re.match(r'^\d{4}-\d{2}-\d{2}$', e.get('end')) else None
+        out.append({'id': eid, 'contract_id': str(e.get('contract_id') or '')[:40], 'counterparty': str(e.get('counterparty') or 'Counterparty')[:80],
+                    'type': e.get('type') if e.get('type') in ENTRY_TYPES else 'other', 'clause': str(e.get('clause') or '')[:20], 'bound': str(e.get('bound') or '')[:80],
+                    'restricted_activity': str(e.get('restricted_activity') or '')[:300], 'scope': {'customers': str(sc.get('customers') or '')[:200], 'geography': geo},
+                    'start': e.get('start') if isinstance(e.get('start'), str) else None, 'end': end, 'quote': str(e.get('quote') or '')[:600] or None,
+                    'file': None, 'exception': None, 'takeaway': str(e.get('takeaway') or '')[:400]})
+    return out
+
+
+STOP = set('provide providing services service software develop developing offering offer other third parties party customers customer clients client any all same similar work'.split())
+
+
+def _words(text):
+    return {w for w in re.findall(r'[a-z]{5,}', (text or '').lower().replace('-', ' ')) if w not in STOP}
+
+
+def new_entry_match(r, d, hay):
+    """Match a newly confirmed restriction (non-compete or exclusivity) against a deal: region, kind of customer, kind of work."""
+    geo = geo_match(r, d)
+    cust_words = _words((r.get('scope') or {}).get('customers'))
+    act_words = _words(r.get('restricted_activity'))
+    cust = any(w in hay or w.rstrip('s') in hay for w in cust_words)
+    act = any(w in hay or w.rstrip('s') in hay for w in act_words)
+    where = 'in the restricted region' if geo else 'outside the stated region'
+    if geo and cust and act:
+        return 'The deal matches a restriction recently confirmed from %s: the same kind of customer and work, %s.' % (r['counterparty'], where), 'likely'
+    if (geo and (cust or act)) or (cust and act):
+        return 'The deal may fall under a restriction confirmed from %s (customer or work matches, region %s). Confirm the scope.' % (r['counterparty'], 'matches' if geo else 'differs'), 'possible'
+    return None, None
+
+
 def action_register_entry(details, contract_text, contract_id='NEW', **_):
     d = details or {}
     entries = []
     for i, c in enumerate(d.get('restrictive_covenants') or []):
         ok = verify_quote(c.get('quote') or '', contract_text)
+        end = compute_end(d, c)
+        activity = c.get('restricted_activity') or c.get('summary') or ''
+        geo = [g for g in (c.get('geography') or []) if isinstance(g, str)]
+        cust = c.get('customers') if isinstance(c.get('customers'), str) else ''
         entries.append({'id': 'N-%s-%d' % (contract_id, i + 1), 'contract_id': contract_id, 'counterparty': d.get('counterparty'), 'type': c.get('type'),
-                        'clause': c.get('clause_id'), 'bound': c.get('who_is_bound'), 'restricted_activity': c.get('restricted_activity') or c.get('summary'),
-                        'quote': c.get('quote') if ok else None, 'verified': ok, 'start': d.get('effective_date'), 'end': compute_end(d, c),
-                        'status': 'pending_confirmation', 'summary': c.get('summary')})
+                        'clause': c.get('clause_id'), 'bound': c.get('who_is_bound'), 'restricted_activity': activity,
+                        'scope': {'customers': cust, 'geography': geo}, 'quote': c.get('quote') if ok else None, 'verified': ok,
+                        'start': d.get('effective_date'), 'end': end, 'status': 'pending_confirmation', 'summary': c.get('summary'),
+                        'file': None, 'exception': None, 'takeaway': make_takeaway(d.get('counterparty'), c.get('clause_id'), activity, cust, geo, end)})
     return {'entries': entries}
 
 
 # ----------------------------------------------------------------------------- whole pipeline (tests and local use)
-def run_review(contract_text, notes_text='', context=None, workers=2):
+def run_review(contract_text, notes_text='', context=None, workers=2, extra_register=None, exclude_contract=None):
     t0 = time.time()
     ex = action_extract(contract_text)
     details = dict(ex['details'])
@@ -849,7 +918,7 @@ def run_review(contract_text, notes_text='', context=None, workers=2):
     batches = make_batches(clauses)
     with ThreadPoolExecutor(max_workers=workers) as pool:
         futs = [pool.submit(action_analyze, b, details, contract_text) for b in batches]
-        conf = pool.submit(action_conflicts, details, contract_text)
+        conf = pool.submit(action_conflicts, details, contract_text, extra_register, exclude_contract)
         nt = pool.submit(action_notes, notes_text, details, contract_text)
         analyzed = [f.result() for f in futs]
         conflicts, notes = conf.result(), nt.result()

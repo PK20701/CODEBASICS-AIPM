@@ -1,8 +1,8 @@
 {
  "id": "S06",
  "label": "S06 Sterling Care (health data, no BAA, $5M cyber)",
- "seconds": 5.9,
- "findings": 3,
+ "seconds": 6.3,
+ "findings": 2,
  "serious": 2,
  "must": 2,
  "found": 2,
@@ -10,52 +10,52 @@
  "false_alarms": 0,
  "unverified": [],
  "providers": [
-  "groq"
+  "gemini"
  ],
- "tokens_in": 4509,
- "tokens_out": 2208,
+ "tokens_in": 4483,
+ "tokens_out": 1102,
  "clauses": "14/14",
  "liability": "1.0x annual fee",
  "details": {
   "doc_type": "MSA",
-  "title": "MASTER SERVICES AGREEMENT",
+  "title": "Master Services Agreement",
   "counterparty": "Sterling Care Network Inc.",
-  "client_country": "United States",
+  "client_country": "USA",
   "client_industry": "healthcare",
   "atliq_entity": "Inc",
   "effective_date": null,
   "term_months": 18,
   "end_date": null,
-  "governing_law": "laws of the State of Texas",
+  "governing_law": "State of Texas",
   "courts_or_seat": null,
   "governing_law_source": {
    "clause_id": "8.1",
    "quote": "This Agreement is governed by the laws of the State of Texas."
   },
-  "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of ____________, 2026 between:\n\n**Sterling Care Network Inc.**, a Texas corporation having its principal office at 500 Main Street, Houston, Texas 77002 (\"Sterling\"); and\n\n**AtliQ Inc**, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "parties_quote": "Sterling Care Network Inc., a Texas corporation having its principal office at 500 Main Street, Houston, Texas 77002 (\"Sterling\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
   "payment_source": {
    "clause_id": "2.1",
    "quote": "Sterling shall pay USD 270,000 in total in monthly instalments, within thirty (30) days of receipt of each invoice."
   },
   "currency": "USD",
   "total_value": 270000.0,
-  "annual_fee": null,
+  "annual_fee": 180000.0,
   "payment_days": 30,
-  "services_summary": "Data engineering and analytics services to improve patient scheduling and clinic utilisation",
+  "services_summary": "Data engineering and analytics services to improve patient scheduling and clinic utilisation.",
   "regions_of_service": [
-   "United States"
+   "USA"
   ],
   "liability_cap": {
    "kind": "multiple_of_fees",
    "multiple": 1,
    "amount": null,
-   "basis": "limited to the fees paid in the twelve (12) months before the claim",
+   "basis": "fees paid in the twelve (12) months before the claim",
    "clause_id": "6.1",
    "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
   },
   "delay_penalty": {
    "present": false,
-   "per": null,
+   "per": "none",
    "rate_percent": null,
    "capped": null,
    "excludes_client_delay": null,
@@ -88,11 +88,6 @@
    "Serious",
    "rule",
    "Cyber insurance of $5,000,000 required; AtliQ holds $1M"
-  ],
-  [
-   "Minor",
-   "contract",
-   "Confidentiality term longer than benchmark"
   ]
  ],
  "all_findings": [
@@ -123,20 +118,6 @@
    "unsure": false,
    "absence": false,
    "id": "F02"
-  },
-  {
-   "source": "contract",
-   "topic": "confidentiality",
-   "severity": "Minor",
-   "title": "Confidentiality term longer than benchmark",
-   "why": "Longer than typical 6-12 month survival period in past contracts.",
-   "comparison": "Benchmark is 6 to 12 months; 3 years is an outlier.",
-   "clause_id": "5.2",
-   "quote": "survive for three (3) years after termination",
-   "claimed_quote": null,
-   "verified": true,
-   "unsure": false,
-   "id": "F03"
   }
  ]
 }

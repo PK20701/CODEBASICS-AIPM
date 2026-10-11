@@ -1,21 +1,19 @@
 {
  "id": "S02",
  "label": "S02 Coastal Mutual Insurance (Brightwater-type)",
- "seconds": 8.1,
- "findings": 6,
+ "seconds": 13.4,
+ "findings": 7,
  "serious": 5,
  "must": 4,
  "found": 4,
  "missed": [],
  "false_alarms": 0,
- "unverified": [
-  "F05"
- ],
+ "unverified": [],
  "providers": [
-  "groq"
+  "gemini"
  ],
- "tokens_in": 4646,
- "tokens_out": 4464,
+ "tokens_in": 4614,
+ "tokens_out": 1957,
  "clauses": "16/16",
  "liability": "unlimited",
  "details": {
@@ -28,8 +26,8 @@
   "effective_date": null,
   "term_months": 12,
   "end_date": null,
-  "governing_law": "laws of the State of Florida",
-  "courts_or_seat": "courts of Miami-Dade County",
+  "governing_law": "the laws of the State of Florida",
+  "courts_or_seat": "the courts of Miami-Dade County",
   "governing_law_source": {
    "clause_id": "9.1",
    "quote": "This Agreement is governed by the laws of the State of Florida and the courts of Miami-Dade County."
@@ -43,7 +41,7 @@
   "total_value": 120000.0,
   "annual_fee": null,
   "payment_days": 60,
-  "services_summary": "Design and build a claims analytics platform for Client.",
+  "services_summary": "Design and build a claims analytics platform for Client in three milestones.",
   "regions_of_service": [
    "United States"
   ],
@@ -53,7 +51,7 @@
    "amount": null,
    "basis": "Vendor's liability under this Agreement is unlimited.",
    "clause_id": "6.1",
-   "quote": "Vendor's liability under this Agreement is unlimited."
+   "quote": "Vendor's liability under this Agreement is unlimited. Client's liability is limited to the fees payable under this Agreement."
   },
   "delay_penalty": {
    "present": true,
@@ -87,22 +85,27 @@
   [
    "Serious",
    "contract",
-   "Indemnity covers client negligence"
+   "Client acquires AtliQ pre-existing tools"
   ],
   [
    "Serious",
    "contract",
-   "Client can terminate without paying for work"
+   "One-sided indemnity covers client negligence"
   ],
   [
    "Serious",
    "contract",
-   "Client ownership of pre\u2011existing tools"
+   "Termination for convenience without work-in-progress payment"
   ],
   [
    "Negotiable",
    "rule",
    "Payment in 60 days"
+  ],
+  [
+   "Negotiable",
+   "contract",
+   "Restrictive termination right for AtliQ"
   ]
  ],
  "all_findings": [
@@ -114,7 +117,7 @@
    "why": "No limit protects AtliQ.",
    "comparison": "Past contracts: 8 of 10 cap liability at about 1x fees; highest seen 2x.",
    "clause_id": "6.1",
-   "quote": "Vendor's liability under this Agreement is unlimited.",
+   "quote": "Vendor's liability under this Agreement is unlimited. Client's liability is limited to the fees payable under this Agreement.",
    "verified": true,
    "unsure": false,
    "absence": false,
@@ -136,13 +139,13 @@
   },
   {
    "source": "contract",
-   "topic": "indemnity",
+   "topic": "ip",
    "severity": "Serious",
-   "title": "Indemnity covers client negligence",
-   "why": "AtliQ would bear liability for client\u2019s own fault.",
-   "comparison": "AtliQ expects mutual indemnity, not covering other's negligence.",
-   "clause_id": "5.1",
-   "quote": "Vendor shall indemnify, defend and hold harmless Client ... including claims arising from Client's own negligence.",
+   "title": "Client acquires AtliQ pre-existing tools",
+   "why": "AtliQ loses ownership of its reusable pre-existing background tools.",
+   "comparison": "Northwind is the only past exception; standard is AtliQ keeps tools.",
+   "clause_id": "4.1",
+   "quote": "All work product, including Vendor's pre-existing tools incorporated in it, is owned by Client on creation.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,
@@ -150,13 +153,13 @@
   },
   {
    "source": "contract",
-   "topic": "termination",
+   "topic": "indemnity",
    "severity": "Serious",
-   "title": "Client can terminate without paying for work",
-   "why": "AtliQ may lose compensation for services already performed.",
-   "comparison": "Standard contracts require payment for work done on termination.",
-   "clause_id": "8.1",
-   "quote": "Client may terminate at any time for convenience without payment for work in progress.",
+   "title": "One-sided indemnity covers client negligence",
+   "why": "Makes AtliQ cover damages caused by the client's own fault.",
+   "comparison": "Principles require mutual indemnity and exclude covering client negligence.",
+   "clause_id": "5.1",
+   "quote": "Vendor shall indemnify, defend and hold harmless Client from all claims, losses and costs arising from the Services or this Agreement, including claims arising from Client's own negligence.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,
@@ -164,16 +167,16 @@
   },
   {
    "source": "contract",
-   "topic": "ip",
+   "topic": "termination",
    "severity": "Serious",
-   "title": "Client ownership of pre\u2011existing tools",
-   "why": "AtliQ loses rights to its own tools, contrary to standard practice.",
-   "comparison": "Usually client owns deliverables but AtliQ retains pre\u2011existing IP.",
-   "clause_id": "4.1",
-   "quote": null,
-   "claimed_quote": "All work product, including Vendor's pre\u2011existing tools incorporated in it, is owned by Client on creation.",
-   "verified": false,
-   "unsure": true,
+   "title": "Termination for convenience without work-in-progress payment",
+   "why": "AtliQ performs uncompensated work if terminated for convenience.",
+   "comparison": "Principles state AtliQ must be paid for work done on termination.",
+   "clause_id": "8.1",
+   "quote": "Client may terminate at any time for convenience without payment for work in progress.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
    "id": "F05"
   },
   {
@@ -189,6 +192,20 @@
    "unsure": false,
    "absence": false,
    "id": "F06"
+  },
+  {
+   "source": "contract",
+   "topic": "termination",
+   "severity": "Negotiable",
+   "title": "Restrictive termination right for AtliQ",
+   "why": "Denies AtliQ standard exit rights for other material client breaches.",
+   "comparison": "Unusual restriction compared to standard commercial agreements.",
+   "clause_id": "8.2",
+   "quote": "Vendor may terminate only for Client's non-payment continuing for ninety (90) days.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F07"
   }
  ]
 }

@@ -11,6 +11,7 @@ Built for the AI PM capstone. Dataset "today" is 28 Sep 2026, so a few register 
 3. **Review** (typically 5 to 40 seconds): every clause is read. Findings are shown one line each, **Serious / Negotiable / Minor**, most serious first. Open one to see the exact quote from the contract, why it matters, and how it compares with past contracts.
 4. **Decide**: *Accept risk* (a written reason is required for Serious ones) or *Needs review*. *Save draft* at any time.
 5. **Proceed to manual signing**: records the contract as "in manual signing", queues any new restrictions (with computed end dates) for confirmation in the register, and downloads a summary with every decision and reason.
+   Restrictions queued here appear in the **Past commitments** tab as "to confirm". Open one, check it against the source clause, correct the activity, customers, region or end date, then **Confirm** (or **Reject**). Only confirmed restrictions are used in later conflict checks; the contract being reviewed never collides with its own restrictions.
 6. **Rate the review**: one tap, optional stars, reasons only when something was missed or the rating is 3 or lower. Never blocks.
 
 ## How it works (rules where a rule is enough, a model only for reading)
@@ -65,7 +66,7 @@ python dev_server.py
 
 ## What was added to the dataset
 
-* `public/samples/synthetic/`: 10 invented contracts for testing and demo, plus 2 note files (call notes, chat export). Built by `tools/make_synthetic.py` with an answer key in `tests/answer_key.json`.
+* `public/samples/synthetic/`: 11 invented contracts for testing and demo (S01 to S10 are the core set; S11 shows the register building itself), plus 2 note files (call notes, chat export). Built by `tools/make_synthetic.py` with an answer key in `tests/answer_key.json`.
 
 | ID | Case | What a correct review must find |
 |---|---|---|
@@ -79,13 +80,15 @@ python dev_server.py
 | S08 | Redwood Software (US client) on the India entity | Wrong entity and law |
 | S09 | Fieldstone Foods + call notes | Verbal 10% year-2 discount not in the contract |
 | S10 | Bluewater Marine + chat export | Scope cut and 60-day payment agreed in chat, not in the contract |
+| S11 | Coral Bay Hotels (Abu Dhabi), a second hotel group | The Al Noor collision; and, once S07's new restriction has been confirmed, a collision with Marina Bay too |
 
 The 15 incoming drafts and 17 signed contracts from the dataset are also available in the sample picker and the contract pages.
 
 ## Tests
 
 ```bash
-python tests/test_units.py                 # 54 offline unit tests: quotes, ratios, dates, entity/law, documents, segmentation, merge, API
+python tests/test_units.py                 # 63 offline unit tests: quotes, ratios, dates, entity/law, documents, segmentation, merge, confirmed register, API
+python tests/test_register_chain.py        # sign S07, confirm its restriction, review S11: the new restriction must be found (uses the model)
 python tests/eval_synthetic.py             # full pipeline on S01-S10 against the answer key
 python -u tests/run_real.py                # full pipeline on the 15 real incoming drafts
 FORCE_GEMINI_FAIL=1 python tests/eval_synthetic.py S06 S09 S07   # backup-model path
@@ -94,7 +97,8 @@ python tests/live_check.py https://your-app.vercel.app S06 S02 S07 S09 S01   # s
 
 Results at submission (Gemini free tier):
 
-* Unit tests: 54 of 54 pass.
+* Unit tests: 63 of 63 pass.
+* Register chain: a restriction extracted from S07 and confirmed by a person is found when S11 (another hotel group in the UAE) is reviewed; a pending, rejected or same-contract entry is never used.
 * Synthetic set: 13 of 13 expected findings found, 0 false alarms on the two clean contracts (S01, S05), 0 unverified quotes on model findings except one empty-title item that is now filtered.
 * Real drafts: 15 of 15 reviewed, every clause read (e.g. 85 of 85 on the 85-clause Harrington MSA), 4 to 40 seconds each (the drafts are shorter than a typical real contract). LoopMart's genuinely mutual NDA correctly gives no findings.
 * Backup path: with Gemini forced off, three reviews in a row matched the answer key on Groq before its free-tier token limit was reached.

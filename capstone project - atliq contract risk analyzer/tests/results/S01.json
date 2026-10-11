@@ -1,8 +1,8 @@
 {
  "id": "S01",
  "label": "S01 Orion Retail MSA (clean)",
- "seconds": 16.8,
- "findings": 4,
+ "seconds": 4.9,
+ "findings": 0,
  "serious": 0,
  "must": 0,
  "found": 0,
@@ -12,27 +12,27 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 6077,
- "tokens_out": 1812,
+ "tokens_in": 6192,
+ "tokens_out": 1132,
  "clauses": "20/20",
  "liability": "1.0x annual fee",
  "details": {
   "doc_type": "MSA",
   "title": "Master Services Agreement",
   "counterparty": "Orion Retail Partners Inc.",
-  "client_country": "USA",
+  "client_country": "United States",
   "client_industry": "retail",
   "atliq_entity": "Inc",
   "effective_date": null,
   "term_months": 24,
   "end_date": null,
-  "governing_law": "State of New York",
+  "governing_law": "New York",
   "courts_or_seat": "state and federal courts in New York County",
   "governing_law_source": {
    "clause_id": "9.1",
    "quote": "This Agreement is governed by the laws of the State of New York, and the state and federal courts in New York County have exclusive jurisdiction."
   },
-  "parties_quote": "Orion Retail Partners Inc., an Ohio corporation having its principal office at 40 East Broad Street, Columbus, Ohio 43215 (\"Orion\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "parties_quote": "Orion Retail Partners Inc., an Ohio corporation having its principal office at 40 East Broad Street, Columbus, Ohio 43215 (\"Orion\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
   "payment_source": {
    "clause_id": "3.3",
    "quote": "Orion shall pay each undisputed invoice within thirty (30) days of receipt."
@@ -43,13 +43,13 @@
   "payment_days": 30,
   "services_summary": "Data engineering and business intelligence services for store-level sales reporting.",
   "regions_of_service": [
-   "USA"
+   "United States"
   ],
   "liability_cap": {
    "kind": "multiple_of_fees",
    "multiple": 1,
    "amount": null,
-   "basis": "fees paid or payable in the twelve (12) months before the claim",
+   "basis": "the fees paid or payable in the twelve (12) months before the claim",
    "clause_id": "7.2",
    "quote": "Each party's total liability under this Agreement is limited to the fees paid or payable in the twelve (12) months before the claim, except for fraud or wilful misconduct."
   },
@@ -93,84 +93,6 @@
   ],
   "restrictive_covenants": []
  },
- "titles": [
-  [
-   "Minor",
-   "contract",
-   "Delay penalty terms"
-  ],
-  [
-   "Minor",
-   "contract",
-   "Mutual indemnity"
-  ],
-  [
-   "Minor",
-   "contract",
-   "Liability cap"
-  ],
-  [
-   "Minor",
-   "contract",
-   "Governing Law: New York"
-  ]
- ],
- "all_findings": [
-  {
-   "source": "contract",
-   "topic": "delay_penalty",
-   "severity": "Minor",
-   "title": "Delay penalty terms",
-   "why": "The penalty is capped and excludes client-caused delays, which aligns with AtliQ's principles.",
-   "comparison": "Matches the Al Noor benchmark and is more favorable than the Brightwater outlier.",
-   "clause_id": "4.2",
-   "quote": "If Vendor is late with a milestone for reasons within its control, Orion's sole remedy is a credit of one percent (1%) of that milestone's fee per week of delay, capped at five percent (5%) of the milestone fee.",
-   "claimed_quote": null,
-   "verified": true,
-   "unsure": false,
-   "id": "F01"
-  },
-  {
-   "source": "contract",
-   "topic": "indemnity",
-   "severity": "Minor",
-   "title": "Mutual indemnity",
-   "why": "The indemnity is mutual and limited to the party's own actions, protecting AtliQ from covering Orion's negligence.",
-   "comparison": "Aligns with AtliQ's principle of mutual indemnity.",
-   "clause_id": "7.1",
-   "quote": "Each party shall indemnify the other against third-party claims arising from its own gross negligence, wilful misconduct or breach of confidentiality.",
-   "claimed_quote": null,
-   "verified": true,
-   "unsure": false,
-   "id": "F02"
-  },
-  {
-   "source": "contract",
-   "topic": "liability",
-   "severity": "Minor",
-   "title": "Liability cap",
-   "why": "The cap is set at 1x the annual fees, which is reasonable and proportionate to the contract value.",
-   "comparison": "Consistent with 8 of 10 past contracts which cap liability at 1x fees.",
-   "clause_id": "7.2",
-   "quote": "Each party's total liability under this Agreement is limited to the fees paid or payable in the twelve (12) months before the claim",
-   "claimed_quote": null,
-   "verified": true,
-   "unsure": false,
-   "id": "F03"
-  },
-  {
-   "source": "contract",
-   "topic": "governing_law",
-   "severity": "Minor",
-   "title": "Governing Law: New York",
-   "why": "AtliQ Inc. typically uses US-based governing law; New York is consistent with this practice.",
-   "comparison": "Consistent with AtliQ Inc. principles for US entity contracts.",
-   "clause_id": "9.1",
-   "quote": "This Agreement is governed by the laws of the State of New York, and the state and federal courts in New York County have exclusive jurisdiction.",
-   "claimed_quote": null,
-   "verified": true,
-   "unsure": false,
-   "id": "F04"
-  }
- ]
+ "titles": [],
+ "all_findings": []
 }

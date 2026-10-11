@@ -3,36 +3,36 @@
   "doc_type": "MSA",
   "title": "Master Services Agreement",
   "counterparty": "Lakeshore Grocers Inc.",
-  "client_country": "United States",
+  "client_country": "USA",
   "client_industry": "retail",
   "atliq_entity": "Inc",
   "effective_date": null,
   "term_months": 24,
   "end_date": null,
   "governing_law": "State of Illinois",
-  "courts_or_seat": "Singapore International Arbitration Centre",
+  "courts_or_seat": "Singapore",
   "governing_law_source": {
    "clause_id": "13.1, 13.3",
-   "quote": "This Agreement shall be governed by the laws of the State of Illinois, without regard to its conflict of laws rules. ... Any dispute not so resolved shall be finally resolved by arbitration administered by the Singapore International Arbitration Centre (\"SIAC\") in accordance with the SIAC Arbitration Rules then in force. The seat of arbitration shall be Singapore."
+   "quote": "This Agreement shall be governed by the laws of the State of Illinois, without regard to its conflict of laws rules. ... The seat of arbitration shall be Singapore."
   },
   "parties_quote": "Lakeshore Grocers Inc., an Illinois corporation having its principal office at 222 West Wacker Drive, 14th Floor, Chicago, Illinois 60606 (\"Lakeshore\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
   "payment_source": {
    "clause_id": "4.3",
-   "quote": "Vendor shall invoice upon completion of each milestone. Lakeshore shall pay undisputed amounts within thirty (30) days of receipt of invoice."
+   "quote": "Lakeshore shall pay undisputed amounts within thirty (30) days of receipt of invoice."
   },
   "currency": "USD",
   "total_value": 64000.0,
   "annual_fee": null,
   "payment_days": 30,
-  "services_summary": "Data engineering and business intelligence services, including cloud lakehouse migration, pipeline builds, semantic layer, and Power BI dashboards.",
+  "services_summary": "Data engineering and business intelligence services including cloud lakehouse migration, automated data ingestion pipelines, semantic layer creation, and Power BI dashboard development.",
   "regions_of_service": [
-   "United States"
+   "USA"
   ],
   "liability_cap": {
    "kind": "multiple_of_fees",
    "multiple": 1,
    "amount": null,
-   "basis": "Fees paid or payable under the applicable SOW in the twelve (12) months preceding the claim",
+   "basis": "FEES PAID OR PAYABLE UNDER THE APPLICABLE SOW IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM",
    "clause_id": "9.2",
    "quote": "EACH PARTY'S AGGREGATE LIABILITY UNDER THIS AGREEMENT SHALL NOT EXCEED THE FEES PAID OR PAYABLE UNDER THE APPLICABLE SOW IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, EXCEPT FOR BREACH OF CONFIDENTIALITY, INDEMNIFICATION OBLIGATIONS, OR GROSS NEGLIGENCE OR WILLFUL MISCONDUCT."
   },
@@ -43,7 +43,7 @@
    "capped": true,
    "excludes_client_delay": true,
    "clause_id": "11.1",
-   "quote": "If Vendor fails to complete a milestone by the date specified in the SOW due to causes attributable to Vendor, Lakeshore may assess liquidated damages of one-half percent (0.5%) of the affected Milestone Fee per week of delay, up to a maximum of five percent (5%) of that Milestone Fee."
+   "quote": "Lakeshore may assess liquidated damages of one-half percent (0.5%) of the affected Milestone Fee per week of delay, up to a maximum of five percent (5%) of that Milestone Fee."
   },
   "mutual_confidentiality": true,
   "one_sided_note": null,
@@ -61,7 +61,7 @@
     "type": "e&o",
     "amount_usd": 2000000,
     "clause_id": "14.4",
-    "quote": "and professional liability ($2,000,000) insurance."
+    "quote": "professional liability ($2,000,000) insurance."
    }
   ],
   "rates": [
@@ -91,8 +91,9 @@
    {
     "type": "non_solicit",
     "who_is_bound": "both",
-    "summary": "Neither party shall solicit the other's employees engaged in the Services during the term and for twelve months thereafter.",
-    "restricted_activity": "solicit the other's employees engaged in the Services",
+    "summary": "Neither party shall solicit the other's employees engaged in the Services during the term and for twelve (12) months thereafter.",
+    "restricted_activity": "solicit the other's employees",
+    "customers": null,
     "geography": [],
     "clause_id": "14.2",
     "quote": "Neither party shall solicit the other's employees engaged in the Services during the term and for twelve (12) months thereafter.",
@@ -108,11 +109,11 @@
    "source": "rule",
    "topic": "governing_law",
    "severity": "Serious",
-   "title": "US entity with courts or arbitration outside the US (Singapore International Arbitration Centre)",
+   "title": "US entity with courts or arbitration outside the US (Singapore)",
    "why": "AtliQ Inc has no presence abroad; a dispute would be run in a foreign forum.",
    "comparison": "Principle: US law and US courts for AtliQ Inc.",
    "clause_id": "13.1, 13.3",
-   "quote": "This Agreement shall be governed by the laws of the State of Illinois, without regard to its conflict of laws rules. ... Any dispute not so resolved shall be finally resolved by arbitration administered by the Singapore International Arbitration Centre (\"SIAC\") in accordance with the SIAC Arbitration Rules then in force. The seat of arbitration shall be Singapore.",
+   "quote": "This Agreement shall be governed by the laws of the State of Illinois, without regard to its conflict of laws rules. ... The seat of arbitration shall be Singapore.",
    "verified": true,
    "unsure": false,
    "absence": false,
@@ -123,7 +124,7 @@
    "topic": "mfn_pricing",
    "severity": "Serious",
    "title": "Crestline Retail Inc: Offering lower rates to any other customer for substantially similar services",
-   "why": "MFN pricing applies to offering lower rates to any other customer for substantially similar services worldwide.",
+   "why": "Crestline Retail Inc MFN pricing applies to offering lower rates to any other customer worldwide for substantially similar services.",
    "comparison": "Any rate below Crestline's rate card for similar services (for example a senior data engineer under $85/hr) triggers a retroactive credit to Crestline.",
    "clause_id": "6.4",
    "quote": "Supplier represents and warrants that the rates, fees and other commercial terms offered to Crestline under this Agreement are and shall remain no less favorable than those offered by Supplier or its Affiliates to any other customer for substantially similar services during the Term.",
@@ -142,9 +143,9 @@
    "source": "contract",
    "topic": "liability",
    "severity": "Serious",
-   "title": "Uncapped liability carve-outs",
-   "why": "Removes the liability cap for common breach categories, exposing AtliQ to unlimited damages.",
-   "comparison": "Principles prefer strict 1x fee caps without broad carve-outs.",
+   "title": "Liability cap exceptions",
+   "why": "The exceptions to the liability cap (indemnification and confidentiality) effectively make the liability uncapped for those categories.",
+   "comparison": "AtliQ prefers a hard cap on all liability to ensure proportionality to contract value.",
    "clause_id": "9.2",
    "quote": "EXCEPT FOR BREACH OF CONFIDENTIALITY, INDEMNIFICATION OBLIGATIONS, OR GROSS NEGLIGENCE OR WILLFUL MISCONDUCT.",
    "claimed_quote": null,
@@ -154,13 +155,13 @@
   },
   {
    "source": "contract",
-   "topic": "renewal",
-   "severity": "Negotiable",
-   "title": "Automatic annual renewal",
-   "why": "Locks AtliQ into extended terms without active re-signing or pricing review.",
-   "comparison": "Most past contracts do not include auto-renewal terms.",
-   "clause_id": "5.1",
-   "quote": "renewing automatically for successive one-year periods unless either party gives sixty (60) days' notice of non-renewal.",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "Unilateral IP Indemnity",
+   "why": "This is a one-way indemnity. AtliQ is fully liable for IP infringement claims without a reciprocal obligation from Lakeshore.",
+   "comparison": "AtliQ principles require mutual indemnity. This is one-sided.",
+   "clause_id": "10.1",
+   "quote": "Vendor shall defend and indemnify Lakeshore against third-party claims alleging that the Deliverables infringe a U.S. patent, copyright or trademark or misappropriate a trade secret.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,
@@ -168,17 +169,31 @@
   },
   {
    "source": "contract",
-   "topic": "indemnity",
+   "topic": "data_protection",
+   "severity": "Serious",
+   "title": "Incorporation of external security requirements",
+   "why": "AtliQ has not reviewed the content of this external schedule, which may impose onerous or unachievable security obligations.",
+   "comparison": "Standard practice is to review all security requirements before signing.",
+   "clause_id": "S3",
+   "quote": "Lakeshore standard vendor security schedule v3.2 \u2014 attached separately.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": true,
+   "id": "F05"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
    "severity": "Negotiable",
-   "title": "One-sided IP Indemnification",
-   "why": "AtliQ provides indemnification for IP infringement without a reciprocal obligation from Lakeshore for client-provided materials.",
-   "comparison": "AtliQ's principles prefer mutual indemnities.",
-   "clause_id": "10.1",
-   "quote": "Vendor shall defend and indemnify Lakeshore against third-party claims alleging that the Deliverables infringe a U.S. patent, copyright or trademark or misappropriate a trade secret.",
+   "title": "Fixed rate card for 24 months",
+   "why": "Locking in rates for the full term prevents AtliQ from adjusting for inflation or increased labor costs.",
+   "comparison": "Standard practice is often annual rate adjustments; this is more restrictive than typical contracts.",
+   "clause_id": "4.2",
+   "quote": "the rates set out in the Rate Card, which shall remain fixed for the first twenty-four (24) months of this Agreement.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,
-   "id": "F05"
+   "id": "F06"
   },
   {
    "source": "register",
@@ -198,69 +213,83 @@
    "register_counterparty": "CloudSpan Technologies",
    "exception": "Clause 7.3: does not restrict services outside India and the GCC, or to a customer that independently selected a platform, provided AtliQ holds no partner appointment with, and receives no fee from, that platform's provider.",
    "relevance": "possible",
-   "id": "F06"
+   "id": "F07"
+  },
+  {
+   "source": "contract",
+   "topic": "renewal",
+   "severity": "Minor",
+   "title": "Automatic renewal clause",
+   "why": "Automatic renewals can lead to unintended contract extensions if the notice period is missed.",
+   "comparison": "Not explicitly mentioned in principles, but requires internal tracking to avoid unwanted extensions.",
+   "clause_id": "5.1",
+   "quote": "renewing automatically for successive one-year periods unless either party gives sixty (60) days' notice of non-renewal.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F08"
   }
  ],
  "liability_multiple": 1.0,
  "liability_text": "1.0x annual fee",
  "checked_register": 14,
- "seconds": 8.0,
+ "seconds": 16.3,
  "calls": [
   {
    "provider": "gemini",
-   "model": "gemini-flash-lite-latest",
-   "ms": 3591,
-   "in": 3466,
-   "out": 1307
+   "model": "gemini-3.1-flash-lite",
+   "ms": 5464,
+   "in": 3489,
+   "out": 1258
   },
   {
    "provider": "gemini",
-   "model": "gemini-flash-lite-latest",
-   "ms": 1165,
+   "model": "gemini-3.1-flash-lite",
+   "ms": 2089,
    "in": 1824,
-   "out": 132
+   "out": 275
   },
   {
    "provider": "gemini",
-   "model": "gemini-flash-lite-latest",
-   "ms": 2225,
+   "model": "gemini-3.1-flash-lite",
+   "ms": 3472,
    "in": 1796,
-   "out": 391
+   "out": 398
   },
   {
    "provider": "gemini",
-   "model": "gemini-flash-lite-latest",
-   "ms": 1848,
+   "model": "gemini-3.1-flash-lite",
+   "ms": 2530,
    "in": 1806,
-   "out": 428
+   "out": 450
   },
   {
    "provider": "gemini",
-   "model": "gemini-flash-lite-latest",
-   "ms": 915,
+   "model": "gemini-3.1-flash-lite",
+   "ms": 4748,
    "in": 1532,
-   "out": 54
+   "out": 180
   },
   {
    "provider": "gemini",
    "model": "gemini-flash-lite-latest",
-   "ms": 1365,
-   "in": 1356,
-   "out": 55
+   "ms": 5046,
+   "in": 1357,
+   "out": 69
   }
  ],
- "tokens_in": 11780,
- "tokens_out": 2367,
+ "tokens_in": 11804,
+ "tokens_out": 2630,
  "all_findings": [
   {
    "source": "rule",
    "topic": "governing_law",
    "severity": "Serious",
-   "title": "US entity with courts or arbitration outside the US (Singapore International Arbitration Centre)",
+   "title": "US entity with courts or arbitration outside the US (Singapore)",
    "why": "AtliQ Inc has no presence abroad; a dispute would be run in a foreign forum.",
    "comparison": "Principle: US law and US courts for AtliQ Inc.",
    "clause_id": "13.1, 13.3",
-   "quote": "This Agreement shall be governed by the laws of the State of Illinois, without regard to its conflict of laws rules. ... Any dispute not so resolved shall be finally resolved by arbitration administered by the Singapore International Arbitration Centre (\"SIAC\") in accordance with the SIAC Arbitration Rules then in force. The seat of arbitration shall be Singapore.",
+   "quote": "This Agreement shall be governed by the laws of the State of Illinois, without regard to its conflict of laws rules. ... The seat of arbitration shall be Singapore.",
    "verified": true,
    "unsure": false,
    "absence": false,
@@ -271,7 +300,7 @@
    "topic": "mfn_pricing",
    "severity": "Serious",
    "title": "Crestline Retail Inc: Offering lower rates to any other customer for substantially similar services",
-   "why": "MFN pricing applies to offering lower rates to any other customer for substantially similar services worldwide.",
+   "why": "Crestline Retail Inc MFN pricing applies to offering lower rates to any other customer worldwide for substantially similar services.",
    "comparison": "Any rate below Crestline's rate card for similar services (for example a senior data engineer under $85/hr) triggers a retroactive credit to Crestline.",
    "clause_id": "6.4",
    "quote": "Supplier represents and warrants that the rates, fees and other commercial terms offered to Crestline under this Agreement are and shall remain no less favorable than those offered by Supplier or its Affiliates to any other customer for substantially similar services during the Term.",
@@ -290,9 +319,9 @@
    "source": "contract",
    "topic": "liability",
    "severity": "Serious",
-   "title": "Uncapped liability carve-outs",
-   "why": "Removes the liability cap for common breach categories, exposing AtliQ to unlimited damages.",
-   "comparison": "Principles prefer strict 1x fee caps without broad carve-outs.",
+   "title": "Liability cap exceptions",
+   "why": "The exceptions to the liability cap (indemnification and confidentiality) effectively make the liability uncapped for those categories.",
+   "comparison": "AtliQ prefers a hard cap on all liability to ensure proportionality to contract value.",
    "clause_id": "9.2",
    "quote": "EXCEPT FOR BREACH OF CONFIDENTIALITY, INDEMNIFICATION OBLIGATIONS, OR GROSS NEGLIGENCE OR WILLFUL MISCONDUCT.",
    "claimed_quote": null,
@@ -302,13 +331,13 @@
   },
   {
    "source": "contract",
-   "topic": "renewal",
-   "severity": "Negotiable",
-   "title": "Automatic annual renewal",
-   "why": "Locks AtliQ into extended terms without active re-signing or pricing review.",
-   "comparison": "Most past contracts do not include auto-renewal terms.",
-   "clause_id": "5.1",
-   "quote": "renewing automatically for successive one-year periods unless either party gives sixty (60) days' notice of non-renewal.",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "Unilateral IP Indemnity",
+   "why": "This is a one-way indemnity. AtliQ is fully liable for IP infringement claims without a reciprocal obligation from Lakeshore.",
+   "comparison": "AtliQ principles require mutual indemnity. This is one-sided.",
+   "clause_id": "10.1",
+   "quote": "Vendor shall defend and indemnify Lakeshore against third-party claims alleging that the Deliverables infringe a U.S. patent, copyright or trademark or misappropriate a trade secret.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,
@@ -316,17 +345,31 @@
   },
   {
    "source": "contract",
-   "topic": "indemnity",
+   "topic": "data_protection",
+   "severity": "Serious",
+   "title": "Incorporation of external security requirements",
+   "why": "AtliQ has not reviewed the content of this external schedule, which may impose onerous or unachievable security obligations.",
+   "comparison": "Standard practice is to review all security requirements before signing.",
+   "clause_id": "S3",
+   "quote": "Lakeshore standard vendor security schedule v3.2 \u2014 attached separately.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": true,
+   "id": "F05"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
    "severity": "Negotiable",
-   "title": "One-sided IP Indemnification",
-   "why": "AtliQ provides indemnification for IP infringement without a reciprocal obligation from Lakeshore for client-provided materials.",
-   "comparison": "AtliQ's principles prefer mutual indemnities.",
-   "clause_id": "10.1",
-   "quote": "Vendor shall defend and indemnify Lakeshore against third-party claims alleging that the Deliverables infringe a U.S. patent, copyright or trademark or misappropriate a trade secret.",
+   "title": "Fixed rate card for 24 months",
+   "why": "Locking in rates for the full term prevents AtliQ from adjusting for inflation or increased labor costs.",
+   "comparison": "Standard practice is often annual rate adjustments; this is more restrictive than typical contracts.",
+   "clause_id": "4.2",
+   "quote": "the rates set out in the Rate Card, which shall remain fixed for the first twenty-four (24) months of this Agreement.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,
-   "id": "F05"
+   "id": "F06"
   },
   {
    "source": "register",
@@ -346,7 +389,21 @@
    "register_counterparty": "CloudSpan Technologies",
    "exception": "Clause 7.3: does not restrict services outside India and the GCC, or to a customer that independently selected a platform, provided AtliQ holds no partner appointment with, and receives no fee from, that platform's provider.",
    "relevance": "possible",
-   "id": "F06"
+   "id": "F07"
+  },
+  {
+   "source": "contract",
+   "topic": "renewal",
+   "severity": "Minor",
+   "title": "Automatic renewal clause",
+   "why": "Automatic renewals can lead to unintended contract extensions if the notice period is missed.",
+   "comparison": "Not explicitly mentioned in principles, but requires internal tracking to avoid unwanted extensions.",
+   "clause_id": "5.1",
+   "quote": "renewing automatically for successive one-year periods unless either party gives sixty (60) days' notice of non-renewal.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F08"
   }
  ]
 }

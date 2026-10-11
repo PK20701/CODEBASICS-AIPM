@@ -42,6 +42,10 @@
   "notes": "samples/synthetic/S10_bluewater_chat_export.md"
  },
  {
+  "file": "samples/synthetic/S11_coral_bay_hotels_msa.md",
+  "label": "S11 Coral Bay Hotels (Abu Dhabi; collides with Marina Bay once S07 is confirmed)"
+ },
+ {
   "file": "samples/incoming/2026-09-10_harrington_health_msa_draft.md",
   "label": "Incoming: harrington health msa draft"
  },

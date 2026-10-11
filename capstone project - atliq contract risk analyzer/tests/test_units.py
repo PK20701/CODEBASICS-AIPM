@@ -207,6 +207,50 @@ class Register(unittest.TestCase):
         self.assertNotIn('R-02', {k['register_id'] for k in core.keyword_conflicts(d, 'rates')})
 
 
+class ConfirmedRegister(unittest.TestCase):
+    ENTRY = {'id': 'N-C-N02-1', 'contract_id': 'C-N02', 'counterparty': 'Marina Bay Resorts LLC', 'type': 'non_compete', 'clause': '3.1',
+             'restricted_activity': 'provide revenue-management services to any other hotel group', 'status': 'confirmed', 'end': '2028-05-01',
+             'scope': {'customers': 'any other hotel group', 'geography': ['United Arab Emirates']}, 'quote': 'Vendor shall not provide revenue-management services'}
+    HOTEL = {'client_country': 'United Arab Emirates', 'regions_of_service': ['UAE'], 'services_summary': 'revenue management analytics for hotels'}
+
+    def ids(self, details, text, extra, exclude=None):
+        reg = core.register() + core.sanitize_extra(extra, exclude)
+        return {k['register_id']: k['relevance'] for k in core.keyword_conflicts(details, text, reg)}
+
+    def test_confirmed_entry_matches_a_similar_new_deal(self):
+        m = self.ids(self.HOTEL, 'Coral Bay hotels in Abu Dhabi: revenue management analytics', [self.ENTRY])
+        self.assertEqual(m.get('N-C-N02-1'), 'likely')
+
+    def test_same_contract_is_excluded(self):
+        self.assertNotIn('N-C-N02-1', self.ids(self.HOTEL, 'hotel revenue management in Abu Dhabi', [self.ENTRY], exclude='C-N02'))
+
+    def test_pending_and_rejected_entries_are_ignored(self):
+        for st in ('pending_confirmation', 'rejected'):
+            e = dict(self.ENTRY, status=st)
+            self.assertNotIn('N-C-N02-1', self.ids(self.HOTEL, 'hotel revenue management in Abu Dhabi', [e]))
+
+    def test_unrelated_deal_does_not_match(self):
+        food = {'client_country': 'United States', 'regions_of_service': [], 'services_summary': 'demand forecasting for a food company'}
+        self.assertNotIn('N-C-N02-1', self.ids(food, 'Fieldstone Foods demand forecasting services in Iowa', [self.ENTRY]))
+
+    def test_missing_geography_means_worldwide(self):
+        e = dict(self.ENTRY, scope={'customers': 'any other hotel group', 'geography': []})
+        self.assertEqual(core.sanitize_extra([e])[0]['scope']['geography'], ['Worldwide'])
+
+    def test_bad_input_is_dropped(self):
+        junk = ['x', None, {'id': ''}, dict(self.ENTRY, end='not a date'), dict(self.ENTRY, id='N-2', type='weird')]
+        out = core.sanitize_extra(junk)
+        self.assertEqual(len(out), 2)
+        self.assertIsNone(out[0]['end'])
+        self.assertEqual(out[1]['type'], 'other')
+
+    def test_takeaway_text_names_who_what_where_until(self):
+        t = core.make_takeaway('Marina Bay', '3.1', 'provide revenue-management services', 'any other hotel group', ['UAE'], '2028-05-01')
+        self.assertIn('Marina Bay', t)
+        self.assertIn('UAE', t)
+        self.assertIn('2028-05-01', t)
+
+
 class Merge(unittest.TestCase):
     def f(self, **k):
         base = {'source': 'contract', 'topic': 'x', 'severity': 'Minor', 'title': 't', 'clause_id': '1', 'quote': 'q', 'verified': True}
@@ -241,6 +285,13 @@ class ModelOutputHardening(unittest.TestCase):
 
     def test_parse_json_finds_object_in_chatter(self):
         self.assertEqual(core.parse_json('Sure! {"a": 2} hope that helps'), {'a': 2})
+
+    def test_parse_json_repairs_trailing_commas(self):
+        self.assertEqual(core.parse_json('{"a": [1, 2,], "b": {"c": 3,},}'), {'a': [1, 2], 'b': {'c': 3}})
+
+    def test_parse_json_broken_object_raises_llm_error_not_json_error(self):
+        with self.assertRaises(core.LLMError):
+            core.parse_json('{"findings": [ {"title": "x" ')
 
     def test_parse_json_rejects_garbage(self):
         with self.assertRaises(core.LLMError):

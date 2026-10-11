@@ -12,12 +12,12 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4291,
- "tokens_out": 1079,
+ "tokens_in": 4362,
+ "tokens_out": 1000,
  "clauses": "13/13",
  "liability": "20.8x annual fee",
  "details": {
-  "doc_type": "MSA",
+  "doc_type": "SOW",
   "title": "SERVICES AGREEMENT",
   "counterparty": "Maple Street Bakery Inc.",
   "client_country": "United States",
@@ -69,19 +69,7 @@
   "mentions_baa_or_dpa": null,
   "insurance_requirements": [],
   "rates": [],
-  "restrictive_covenants": [
-   {
-    "type": "ip_assignment",
-    "who_is_bound": "client",
-    "summary": "Client owns the dashboard created for it.",
-    "restricted_activity": "Client ownership of created dashboard",
-    "geography": [],
-    "clause_id": "3.1",
-    "quote": "Client owns the dashboard created for it.",
-    "duration_basis": "perpetual",
-    "months_after_term": null
-   }
-  ]
+  "restrictive_covenants": []
  },
  "titles": [
   [

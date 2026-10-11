@@ -1,19 +1,19 @@
 {
  "id": "S07",
  "label": "S07 Marina Bay Resorts (Dubai, collides with Al Noor)",
- "seconds": 7.4,
+ "seconds": 4.0,
  "findings": 2,
- "serious": 1,
+ "serious": 2,
  "must": 1,
  "found": 1,
  "missed": [],
  "false_alarms": 0,
  "unverified": [],
  "providers": [
-  "groq"
+  "gemini"
  ],
- "tokens_in": 4525,
- "tokens_out": 4252,
+ "tokens_in": 4472,
+ "tokens_out": 1169,
  "clauses": "13/13",
  "liability": "1.0x annual fee",
  "details": {
@@ -25,23 +25,23 @@
   "atliq_entity": "Pvt Ltd",
   "effective_date": "2026-11-01",
   "term_months": 12,
-  "end_date": null,
+  "end_date": "2027-10-31",
   "governing_law": "laws of India",
-  "courts_or_seat": "courts of Pune have exclusive jurisdiction",
+  "courts_or_seat": "courts of Pune",
   "governing_law_source": {
    "clause_id": "8.1",
-   "quote": "8.1 This Agreement is governed by the laws of India and the courts of Pune have exclusive jurisdiction."
+   "quote": "This Agreement is governed by the laws of India and the courts of Pune have exclusive jurisdiction."
   },
-  "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of 1 November 2026 (the \"Effective Date\") between:\n\n**Marina Bay Resorts LLC**, a company incorporated in Dubai, United Arab Emirates, having its registered office at Sheikh Zayed Road, Dubai (\"Marina Bay\"); and\n\n**AtliQ Technologies Private Limited**, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
+  "parties_quote": "Marina Bay Resorts LLC, a company incorporated in Dubai, United Arab Emirates, having its registered office at Sheikh Zayed Road, Dubai (\"Marina Bay\"); and AtliQ Technologies Private Limited, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
   "payment_source": {
    "clause_id": "2.1",
-   "quote": "2.1 Marina Bay shall pay USD 150,000 in total, within thirty (30) days of receipt of each invoice."
+   "quote": "Marina Bay shall pay USD 150,000 in total, within thirty (30) days of receipt of each invoice."
   },
   "currency": "USD",
   "total_value": 150000.0,
-  "annual_fee": null,
+  "annual_fee": 150000.0,
   "payment_days": 30,
-  "services_summary": "Revenue-management analytics and guest analytics services, including a booking-engine module for four resorts in Dubai and Abu Dhabi.",
+  "services_summary": "Revenue-management analytics, guest analytics services, and a booking-engine module for four resorts.",
   "regions_of_service": [
    "United Arab Emirates"
   ],
@@ -49,13 +49,13 @@
    "kind": "multiple_of_fees",
    "multiple": 1,
    "amount": null,
-   "basis": "limited to the fees paid in the twelve (12) months before the claim",
+   "basis": "fees paid in the twelve (12) months before the claim",
    "clause_id": "6.1",
-   "quote": "6.1 Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+   "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
   },
   "delay_penalty": {
    "present": false,
-   "per": null,
+   "per": "none",
    "rate_percent": null,
    "capped": null,
    "excludes_client_delay": null,
@@ -71,16 +71,17 @@
   "rates": [],
   "restrictive_covenants": [
    {
-    "type": "exclusivity",
+    "type": "non_compete",
     "who_is_bound": "AtliQ",
-    "summary": "Vendor shall not provide revenue-management services to any other hotel group in the UAE for six months after term.",
-    "restricted_activity": "provide revenue-management services to any other hotel group in the United Arab Emirates",
+    "summary": "Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates for six months after the end of the term.",
+    "restricted_activity": "provide revenue-management services",
+    "customers": "any other hotel group",
     "geography": [
      "United Arab Emirates"
     ],
     "clause_id": "3.1",
-    "quote": "3.1 For six (6) months after the end of the term, Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates.",
-    "duration_basis": "fixed_months",
+    "quote": "For six (6) months after the end of the term, Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates.",
+    "duration_basis": "term_plus_months",
     "months_after_term": 6
    }
   ]
@@ -92,9 +93,9 @@
    "Al Noor Hospitality Group: Data analytics, AI or revenue-management services"
   ],
   [
-   "Minor",
-   "register",
-   "CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competing cloud data-warehouse, lakehouse or analytics platform"
+   "Serious",
+   "contract",
+   "Post-Term Exclusivity Restriction"
   ]
  ],
  "all_findings": [
@@ -103,7 +104,7 @@
    "topic": "non_compete",
    "severity": "Serious",
    "title": "Al Noor Hospitality Group: Data analytics, AI or revenue-management services",
-   "why": "Same industry, region, activity, and non-compete still active until 2029.",
+   "why": "Al Noor non-compete prohibits data analytics, AI, or revenue-management services for any hospitality business in the UAE until 2029.",
    "comparison": "Do not take analytics, AI or revenue-management work for hotel groups in the GCC until about September 2029 without Al Noor's written consent.",
    "clause_id": "12.1",
    "quote": "the Supplier undertakes that neither it nor any of its Affiliates shall, during the Restricted Period, directly or indirectly, provide data analytics, artificial intelligence or revenue-management services to any Hospitality Business in the GCC.",
@@ -119,23 +120,17 @@
    "id": "F01"
   },
   {
-   "source": "register",
+   "source": "contract",
    "topic": "exclusivity",
-   "severity": "Minor",
-   "title": "CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competing cloud data-warehouse, lakehouse or analytics platform",
-   "why": "Exclusivity may restrict partnering with competing cloud analytics vendors in UAE, unclear if booking engine uses such vendor.",
-   "comparison": "Do not partner with another cloud data-warehouse or lakehouse vendor in India or the GCC while the CloudSpan agreement runs.",
-   "clause_id": "7.1",
-   "quote": "during the Term Partner and its Affiliates shall not act as an implementation, reseller or referral partner for any Competing Platform in India or the GCC.",
+   "severity": "Serious",
+   "title": "Post-Term Exclusivity Restriction",
+   "why": "Restricts AtliQ from working with other clients in the UAE region for six months post-term.",
+   "comparison": "AtliQ principles avoid exclusivity commitments.",
+   "clause_id": "3.1",
+   "quote": "For six (6) months after the end of the term, Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates.",
+   "claimed_quote": null,
    "verified": true,
-   "unsure": true,
-   "register_id": "R-03",
-   "register_status": "active",
-   "register_end": "2028-08-31",
-   "register_file": "samples/signed/2025-09-01_cloudspan_strategic_partnership_agreement.md",
-   "register_counterparty": "CloudSpan Technologies",
-   "exception": "Clause 7.3: does not restrict services outside India and the GCC, or to a customer that independently selected a platform, provided AtliQ holds no partner appointment with, and receives no fee from, that platform's provider.",
-   "relevance": "possible",
+   "unsure": false,
    "id": "F02"
   }
  ]

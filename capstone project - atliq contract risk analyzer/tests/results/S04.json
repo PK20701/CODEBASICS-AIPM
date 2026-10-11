@@ -1,8 +1,8 @@
 {
  "id": "S04",
  "label": "S04 Vantage Biosciences (\"mutual\" NDA, one-sided)",
- "seconds": 3.8,
- "findings": 3,
+ "seconds": 3.9,
+ "findings": 4,
  "serious": 3,
  "must": 1,
  "found": 1,
@@ -12,8 +12,8 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4011,
- "tokens_out": 1077,
+ "tokens_in": 4080,
+ "tokens_out": 1232,
  "clauses": "8/8",
  "liability": "unlimited",
  "details": {
@@ -26,20 +26,22 @@
   "effective_date": null,
   "term_months": null,
   "end_date": null,
-  "governing_law": "laws of the Commonwealth of Massachusetts",
+  "governing_law": "Commonwealth of Massachusetts",
   "courts_or_seat": null,
   "governing_law_source": {
    "clause_id": "6.1",
    "quote": "This Agreement is governed by the laws of the Commonwealth of Massachusetts."
   },
-  "parties_quote": "Vantage Biosciences Inc., a Massachusetts corporation having its principal office at 1 Kendall Square, Cambridge, Massachusetts 02139 (the \"Company\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\") (the \"Recipient\").",
+  "parties_quote": "Vantage Biosciences Inc., a Massachusetts corporation having its principal office at 1 Kendall Square, Cambridge, Massachusetts 02139 (the \"Company\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\") (\"Recipient\").",
   "payment_source": {},
   "currency": "USD",
   "total_value": null,
   "annual_fee": null,
   "payment_days": null,
   "services_summary": "Explore a data analytics engagement.",
-  "regions_of_service": [],
+  "regions_of_service": [
+   "United States"
+  ],
   "liability_cap": {
    "kind": "unlimited",
    "multiple": null,
@@ -58,7 +60,7 @@
    "quote": null
   },
   "mutual_confidentiality": false,
-  "one_sided_note": "The Company has no obligation to keep confidential any information it receives from the Recipient, and may use that information for any purpose.",
+  "one_sided_note": "Despite being titled a Mutual Non-Disclosure Agreement, obligations bind AtliQ (the Recipient) only, and Section 3.2 explicitly states the Company has no obligation to keep confidential any information it receives.",
   "handles_phi": false,
   "handles_eu_personal_data": false,
   "mentions_baa_or_dpa": null,
@@ -81,6 +83,11 @@
    "Serious",
    "contract",
    "Company has no confidentiality obligations"
+  ],
+  [
+   "Negotiable",
+   "contract",
+   "Extended confidentiality obligation period"
   ]
  ],
  "all_findings": [
@@ -103,7 +110,7 @@
    "topic": "confidentiality",
    "severity": "Serious",
    "title": "One-sided definition of Confidential Information",
-   "why": "Protects only the Company's information, ignoring AtliQ's disclosures.",
+   "why": "Protects only Vantage Biosciences, leaving AtliQ's disclosures unprotected.",
    "comparison": "AtliQ principles require confidentiality to be mutual.",
    "clause_id": "2.1",
    "quote": "\"Confidential Information\" means all information disclosed by the Company to the Recipient",
@@ -117,14 +124,28 @@
    "topic": "confidentiality",
    "severity": "Serious",
    "title": "Company has no confidentiality obligations",
-   "why": "Exposes AtliQ's shared information to misuse by the client without restriction.",
-   "comparison": "AtliQ principles require confidentiality to be mutual.",
+   "why": "AtliQ shares could be used freely by Vantage Biosciences without restriction.",
+   "comparison": "Violates the principle that confidentiality should be mutual.",
    "clause_id": "3.2",
    "quote": "The Company has no obligation to keep confidential any information it receives from the Recipient, and may use that information for any purpose.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,
    "id": "F03"
+  },
+  {
+   "source": "contract",
+   "topic": "confidentiality",
+   "severity": "Negotiable",
+   "title": "Extended confidentiality obligation period",
+   "why": "Binds AtliQ to a long 7-year post-term obligation.",
+   "comparison": "Past contracts usually require 6 to 12 months after the term.",
+   "clause_id": "4.1",
+   "quote": "The Recipient's obligations continue for seven (7) years from the date of this Agreement, and indefinitely for trade secrets.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F04"
   }
  ]
 }

@@ -1,26 +1,24 @@
 {
  "id": "S10",
  "label": "S10 Bluewater Marine + chat (scope cut, 60-day payment)",
- "seconds": 4.4,
- "findings": 3,
+ "seconds": 5.3,
+ "findings": 4,
  "serious": 0,
  "must": 2,
  "found": 2,
  "missed": [],
  "false_alarms": 0,
- "unverified": [
-  "F03"
- ],
+ "unverified": [],
  "providers": [
   "gemini"
  ],
- "tokens_in": 5390,
- "tokens_out": 987,
+ "tokens_in": 5485,
+ "tokens_out": 1288,
  "clauses": "11/11",
  "liability": "1.0x annual fee",
  "details": {
   "doc_type": "MSA",
-  "title": "Master Services Agreement",
+  "title": "MASTER SERVICES AGREEMENT",
   "counterparty": "Bluewater Marine Supplies Inc.",
   "client_country": "United States",
   "client_industry": "logistics",
@@ -28,13 +26,13 @@
   "effective_date": null,
   "term_months": 12,
   "end_date": null,
-  "governing_law": "State of Washington",
+  "governing_law": "laws of the State of Washington",
   "courts_or_seat": null,
   "governing_law_source": {
    "clause_id": "7.1",
    "quote": "This Agreement is governed by the laws of the State of Washington."
   },
-  "parties_quote": "Bluewater Marine Supplies Inc., a Washington corporation having its principal office at 1200 Alaskan Way, Seattle, Washington 98101 (\"Bluewater\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "parties_quote": "Bluewater Marine Supplies Inc., a Washington corporation having its principal office at 1200 Alaskan Way, Seattle, Washington 98101 (\"Bluewater\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
   "payment_source": {
    "clause_id": "2.1",
    "quote": "Bluewater shall pay USD 84,000 in total in monthly instalments, within thirty (30) days of receipt of each invoice."
@@ -43,7 +41,7 @@
   "total_value": 84000.0,
   "annual_fee": 84000.0,
   "payment_days": 30,
-  "services_summary": "Customer analytics dashboard and mobile reporting application.",
+  "services_summary": "Provide a customer analytics dashboard and a mobile reporting application as set out in SOW-1.",
   "regions_of_service": [
    "United States"
   ],
@@ -71,23 +69,41 @@
   "mentions_baa_or_dpa": null,
   "insurance_requirements": [],
   "rates": [],
-  "restrictive_covenants": []
+  "restrictive_covenants": [
+   {
+    "type": "ip_assignment",
+    "who_is_bound": "client",
+    "summary": "Bluewater owns the Deliverables. Vendor keeps its pre-existing tools.",
+    "restricted_activity": "ownership of deliverables",
+    "customers": "none",
+    "geography": [],
+    "clause_id": "3.1",
+    "quote": "Bluewater owns the Deliverables. Vendor keeps its pre-existing tools.",
+    "duration_basis": "perpetual",
+    "months_after_term": null
+   }
+  ]
  },
  "titles": [
   [
    "Negotiable",
    "unofficial",
-   "Bluewater asked to drop the mobile app from phase 1 and do dashboard only."
+   "Client asked to drop the mobile app and do dashboard only."
   ],
   [
    "Negotiable",
    "unofficial",
-   "Bluewater requested 60-day payment terms instead of the standard 30 days."
+   "AtliQ agreed to dashboard only for the same price, conflicting with contract scope."
   ],
   [
-   "Minor",
-   "contract",
-   ""
+   "Negotiable",
+   "unofficial",
+   "Client requested 60-day payment terms instead of 30 days."
+  ],
+  [
+   "Negotiable",
+   "unofficial",
+   "AtliQ accepted 60-day payment terms informally."
   ]
  ],
  "all_findings": [
@@ -95,7 +111,7 @@
    "source": "unofficial",
    "topic": "informal_term",
    "severity": "Negotiable",
-   "title": "Bluewater asked to drop the mobile app from phase 1 and do dashboard only.",
+   "title": "Client asked to drop the mobile app and do dashboard only.",
    "why": "Unofficial and not binding, but it affects the deal. The contract does not reflect it.",
    "comparison": "",
    "clause_id": null,
@@ -111,7 +127,23 @@
    "source": "unofficial",
    "topic": "informal_term",
    "severity": "Negotiable",
-   "title": "Bluewater requested 60-day payment terms instead of the standard 30 days.",
+   "title": "AtliQ agreed to dashboard only for the same price, conflicting with contract scope.",
+   "why": "Unofficial and not binding, but it affects the deal. The contract does not reflect it.",
+   "comparison": "",
+   "clause_id": null,
+   "quote": "sure, we can do dashboard only, same price works for us",
+   "verified": true,
+   "unsure": true,
+   "kind": "scope",
+   "contract_reflects": "no",
+   "register_id": null,
+   "id": "F02"
+  },
+  {
+   "source": "unofficial",
+   "topic": "informal_term",
+   "severity": "Negotiable",
+   "title": "Client requested 60-day payment terms instead of 30 days.",
    "why": "Unofficial and not binding, but it affects the deal. The contract does not reflect it.",
    "comparison": "",
    "clause_id": null,
@@ -121,21 +153,23 @@
    "kind": "payment",
    "contract_reflects": "no",
    "register_id": null,
-   "id": "F02"
+   "id": "F03"
   },
   {
-   "source": "contract",
-   "topic": "other",
-   "severity": "Minor",
-   "title": "",
-   "why": "",
+   "source": "unofficial",
+   "topic": "informal_term",
+   "severity": "Negotiable",
+   "title": "AtliQ accepted 60-day payment terms informally.",
+   "why": "Unofficial and not binding, but it affects the deal. The contract does not reflect it.",
    "comparison": "",
    "clause_id": null,
-   "quote": null,
-   "claimed_quote": "",
-   "verified": false,
+   "quote": "should be OK, we will make it work",
+   "verified": true,
    "unsure": true,
-   "id": "F03"
+   "kind": "payment",
+   "contract_reflects": "no",
+   "register_id": null,
+   "id": "F04"
   }
  ]
 }

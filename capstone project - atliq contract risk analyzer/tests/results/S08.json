@@ -1,7 +1,7 @@
 {
  "id": "S08",
  "label": "S08 Redwood Software (wrong entity and law)",
- "seconds": 16.8,
+ "seconds": 3.5,
  "findings": 2,
  "serious": 1,
  "must": 1,
@@ -12,15 +12,15 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4251,
- "tokens_out": 1190,
+ "tokens_in": 4317,
+ "tokens_out": 1008,
  "clauses": "11/11",
  "liability": "1.0x annual fee",
  "details": {
   "doc_type": "MSA",
-  "title": "MASTER SERVICES AGREEMENT",
+  "title": "Master Services Agreement",
   "counterparty": "Redwood Software Inc.",
-  "client_country": "USA",
+  "client_country": "United States",
   "client_industry": "software",
   "atliq_entity": "Pvt Ltd",
   "effective_date": null,
@@ -41,9 +41,9 @@
   "total_value": 96000.0,
   "annual_fee": 96000.0,
   "payment_days": 30,
-  "services_summary": "Vendor shall provide data engineering services to Redwood for its product usage analytics.",
+  "services_summary": "Data engineering services for product usage analytics.",
   "regions_of_service": [
-   "USA"
+   "United States"
   ],
   "liability_cap": {
    "kind": "multiple_of_fees",
@@ -73,11 +73,12 @@
    {
     "type": "ip_assignment",
     "who_is_bound": "AtliQ",
-    "summary": "Redwood owns the Deliverables created under the agreement.",
-    "restricted_activity": "Redwood owns the Deliverables.",
+    "summary": "Redwood owns the Deliverables. Vendor keeps its pre-existing tools.",
+    "restricted_activity": "Ownership of Deliverables",
+    "customers": "none",
     "geography": [],
     "clause_id": "3.1",
-    "quote": "Redwood owns the Deliverables.",
+    "quote": "Redwood owns the Deliverables. Vendor keeps its pre-existing tools.",
     "duration_basis": "perpetual",
     "months_after_term": null
    }

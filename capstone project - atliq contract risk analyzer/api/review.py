@@ -46,7 +46,7 @@ def dispatch(body):
     if a == 'analyze':
         return core.action_analyze(body.get('clauses') or [], body.get('details') or {}, body.get('text', ''))
     if a == 'conflicts':
-        return core.action_conflicts(body.get('details') or {}, body.get('text', ''))
+        return core.action_conflicts(body.get('details') or {}, body.get('text', ''), body.get('extra_register'), body.get('exclude_contract'))
     if a == 'notes':
         return core.action_notes(body.get('notes', ''), body.get('details') or {}, body.get('text', ''))
     if a == 'register_entry':

@@ -196,6 +196,19 @@ N10 = """Chat export - Bluewater project channel, 2 Oct 2026
 [10:11] Marcus (Bluewater): great, I will tell legal to leave the contract as is
 """
 
+# ---- S11 follow-on hotel deal: collides with S07's new restriction once a person has confirmed it
+C['S11'] = doc('MASTER SERVICES AGREEMENT',
+               'This Master Services Agreement (the "**Agreement**") is made as of 1 July 2027 (the "**Effective Date**") between:',
+               '**Coral Bay Hotels LLC**, a company incorporated in Abu Dhabi, United Arab Emirates, having its registered office at Corniche Road, Abu Dhabi ("**Coral Bay**"); and\n\n' + ATLIQ_PVT + '.',
+               [('Services', ["Vendor shall provide revenue-management analytics and demand forecasting services for Coral Bay's three hotels in Abu Dhabi."]),
+                ('Term and fees', ['The term is twelve (12) months from the Effective Date. Coral Bay shall pay USD 110,000 in total, within thirty (30) days of receipt of each invoice.']),
+                ('Intellectual property', ['Coral Bay owns the Deliverables. Vendor keeps its pre-existing tools.']),
+                ('Confidentiality', STD_CONF),
+                ('Liability', ["Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."]),
+                ('Termination', ["Either party may terminate on sixty (60) days' notice. Coral Bay shall pay for work performed to the termination date."]),
+                ('Governing law', ['This Agreement is governed by the laws of India and the courts of Pune have exclusive jurisdiction.']),
+                ('General', STD_GEN)])
+
 NAMES = {
     'S01': ('S01_orion_retail_msa_clean.md', 'S01 Orion Retail MSA (clean)'),
     'S02': ('S02_coastal_mutual_insurance_agreement.md', 'S02 Coastal Mutual Insurance (Brightwater-type)'),
@@ -207,6 +220,7 @@ NAMES = {
     'S08': ('S08_redwood_software_wrong_entity.md', 'S08 Redwood Software (wrong entity and law)'),
     'S09': ('S09_fieldstone_foods_msa.md', 'S09 Fieldstone Foods + call notes (verbal 10% discount)'),
     'S10': ('S10_bluewater_marine_msa.md', 'S10 Bluewater Marine + chat (scope cut, 60-day payment)'),
+    'S11': ('S11_coral_bay_hotels_msa.md', 'S11 Coral Bay Hotels (Abu Dhabi; collides with Marina Bay once S07 is confirmed)'),
 }
 NOTES = {'S09': ('S09_fieldstone_call_notes.md', N09), 'S10': ('S10_bluewater_chat_export.md', N10)}
 
@@ -221,6 +235,7 @@ KEY = {
     'S07': {'must': [{'register': 'R-01', 'sev': 'Serious'}]},
     'S08': {'must': [{'topic': 'governing_law', 'sev': 'Serious'}]},
     'S09': {'must': [{'source': 'unofficial', 'sev': 'Negotiable', 'mentions': ['discount', '10%']}]},
+    'S11': {'must': [{'register': 'R-01', 'sev': 'Serious'}]},
     'S10': {'must': [{'source': 'unofficial', 'sev': 'Negotiable', 'mentions': ['60', 'payment', 'pay']}, {'source': 'unofficial', 'sev': 'Negotiable', 'mentions': ['mobile', 'scope', 'dashboard']}]},
 }
 CONTEXT = {k: {} for k in KEY}

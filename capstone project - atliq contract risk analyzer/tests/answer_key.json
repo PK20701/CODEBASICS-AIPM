@@ -118,6 +118,17 @@
   "notes": "samples/synthetic/S09_fieldstone_call_notes.md",
   "label": "S09 Fieldstone Foods + call notes (verbal 10% discount)"
  },
+ "S11": {
+  "must": [
+   {
+    "register": "R-01",
+    "sev": "Serious"
+   }
+  ],
+  "file": "samples/synthetic/S11_coral_bay_hotels_msa.md",
+  "notes": null,
+  "label": "S11 Coral Bay Hotels (Abu Dhabi; collides with Marina Bay once S07 is confirmed)"
+ },
  "S10": {
   "must": [
    {

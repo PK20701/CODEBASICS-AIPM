@@ -1,81 +1,74 @@
 [
  {
-  "id": "S06",
-  "label": "S06 Sterling Care (health data, no BAA, $5M cyber)",
-  "seconds": 5.9,
-  "findings": 3,
-  "serious": 2,
-  "must": 2,
-  "found": 2,
+  "id": "S02",
+  "label": "S02 Coastal Mutual Insurance (Brightwater-type)",
+  "seconds": 13.4,
+  "findings": 7,
+  "serious": 5,
+  "must": 4,
+  "found": 4,
   "missed": [],
   "false_alarms": 0,
   "unverified": [],
   "providers": [
-   "groq"
+   "gemini"
   ],
-  "tokens_in": 4509,
-  "tokens_out": 2208,
-  "clauses": "14/14",
-  "liability": "1.0x annual fee",
+  "tokens_in": 4614,
+  "tokens_out": 1957,
+  "clauses": "16/16",
+  "liability": "unlimited",
   "details": {
    "doc_type": "MSA",
-   "title": "MASTER SERVICES AGREEMENT",
-   "counterparty": "Sterling Care Network Inc.",
+   "title": "SOFTWARE DEVELOPMENT AND SERVICES AGREEMENT",
+   "counterparty": "Coastal Mutual Insurance Company",
    "client_country": "United States",
-   "client_industry": "healthcare",
+   "client_industry": "insurance",
    "atliq_entity": "Inc",
    "effective_date": null,
-   "term_months": 18,
+   "term_months": 12,
    "end_date": null,
-   "governing_law": "laws of the State of Texas",
-   "courts_or_seat": null,
+   "governing_law": "the laws of the State of Florida",
+   "courts_or_seat": "the courts of Miami-Dade County",
    "governing_law_source": {
-    "clause_id": "8.1",
-    "quote": "This Agreement is governed by the laws of the State of Texas."
+    "clause_id": "9.1",
+    "quote": "This Agreement is governed by the laws of the State of Florida and the courts of Miami-Dade County."
    },
-   "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of ____________, 2026 between:\n\n**Sterling Care Network Inc.**, a Texas corporation having its principal office at 500 Main Street, Houston, Texas 77002 (\"Sterling\"); and\n\n**AtliQ Inc**, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+   "parties_quote": "This Agreement is made as of ____________, 2026 between:\n\n**Coastal Mutual Insurance Company**, a Florida corporation having its principal office at 800 Brickell Avenue, Miami, Florida 33131 (\"**Client**\"); and\n\n**AtliQ Inc**, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"**Vendor**\").",
    "payment_source": {
-    "clause_id": "2.1",
-    "quote": "Sterling shall pay USD 270,000 in total in monthly instalments, within thirty (30) days of receipt of each invoice."
+    "clause_id": "2.2",
+    "quote": "Client shall pay each invoice within sixty (60) days of the invoice date."
    },
    "currency": "USD",
-   "total_value": 270000.0,
+   "total_value": 120000.0,
    "annual_fee": null,
-   "payment_days": 30,
-   "services_summary": "Data engineering and analytics services to improve patient scheduling and clinic utilisation",
+   "payment_days": 60,
+   "services_summary": "Design and build a claims analytics platform for Client in three milestones.",
    "regions_of_service": [
     "United States"
    ],
    "liability_cap": {
-    "kind": "multiple_of_fees",
-    "multiple": 1,
+    "kind": "unlimited",
+    "multiple": null,
     "amount": null,
-    "basis": "limited to the fees paid in the twelve (12) months before the claim",
+    "basis": "Vendor's liability under this Agreement is unlimited.",
     "clause_id": "6.1",
-    "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+    "quote": "Vendor's liability under this Agreement is unlimited. Client's liability is limited to the fees payable under this Agreement."
    },
    "delay_penalty": {
-    "present": false,
-    "per": null,
-    "rate_percent": null,
+    "present": true,
+    "per": "week",
+    "rate_percent": 2,
     "capped": null,
-    "excludes_client_delay": null,
-    "clause_id": null,
-    "quote": null
+    "excludes_client_delay": false,
+    "clause_id": "3.1",
+    "quote": "If Vendor fails to complete any milestone by its due date, Vendor shall pay Client liquidated damages of two percent (2%) of the total project fee for each week of delay until completion."
    },
    "mutual_confidentiality": true,
    "one_sided_note": null,
-   "handles_phi": true,
+   "handles_phi": false,
    "handles_eu_personal_data": false,
    "mentions_baa_or_dpa": null,
-   "insurance_requirements": [
-    {
-     "type": "cyber",
-     "amount_usd": 5000000,
-     "clause_id": "3.2",
-     "quote": "Vendor shall maintain, throughout the term, cyber liability insurance of not less than USD 5,000,000 per claim."
-    }
-   ],
+   "insurance_requirements": [],
    "rates": [],
    "restrictive_covenants": []
   },
@@ -83,65 +76,87 @@
    [
     "Serious",
     "rule",
-    "Health data but no BAA referenced"
+    "Liability is unlimited"
    ],
    [
     "Serious",
     "rule",
-    "Cyber insurance of $5,000,000 required; AtliQ holds $1M"
+    "Delay penalty with no exclusion for client-caused delay"
    ],
    [
-    "Minor",
+    "Serious",
     "contract",
-    "Confidentiality term longer than benchmark"
+    "Client acquires AtliQ pre-existing tools"
+   ],
+   [
+    "Serious",
+    "contract",
+    "One-sided indemnity covers client negligence"
+   ],
+   [
+    "Serious",
+    "contract",
+    "Termination for convenience without work-in-progress payment"
+   ],
+   [
+    "Negotiable",
+    "rule",
+    "Payment in 60 days"
+   ],
+   [
+    "Negotiable",
+    "contract",
+    "Restrictive termination right for AtliQ"
    ]
   ]
  },
  {
-  "id": "S09",
-  "label": "S09 Fieldstone Foods + call notes (verbal 10% discount)",
-  "seconds": 6.4,
-  "findings": 2,
-  "serious": 0,
+  "id": "S11",
+  "label": "S11 Coral Bay Hotels (Abu Dhabi; collides with Marina Bay once S07 is confirmed)",
+  "seconds": 16.5,
+  "findings": 1,
+  "serious": 1,
   "must": 1,
   "found": 1,
   "missed": [],
   "false_alarms": 0,
   "unverified": [],
   "providers": [
-   "groq"
+   "gemini"
   ],
-  "tokens_in": 5505,
-  "tokens_out": 3069,
-  "clauses": "10/10",
+  "tokens_in": 4316,
+  "tokens_out": 896,
+  "clauses": "11/11",
   "liability": "1.0x annual fee",
   "details": {
    "doc_type": "MSA",
-   "title": "Master Services Agreement",
-   "counterparty": "Fieldstone Foods Inc.",
-   "client_country": "USA",
-   "client_industry": "other",
-   "atliq_entity": "Inc",
-   "effective_date": null,
-   "term_months": 24,
-   "end_date": null,
-   "governing_law": "State of Iowa",
-   "courts_or_seat": null,
+   "title": "MASTER SERVICES AGREEMENT",
+   "counterparty": "Coral Bay Hotels LLC",
+   "client_country": "United Arab Emirates",
+   "client_industry": "hospitality",
+   "atliq_entity": "Pvt Ltd",
+   "effective_date": "2027-07-01",
+   "term_months": 12,
+   "end_date": "2028-06-30",
+   "governing_law": "laws of India",
+   "courts_or_seat": "courts of Pune",
    "governing_law_source": {
     "clause_id": "7.1",
-    "quote": "This Agreement is governed by the laws of the State of Iowa."
+    "quote": "This Agreement is governed by the laws of India and the courts of Pune have exclusive jurisdiction."
    },
-   "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of ____________, 2026 between: **Fieldstone Foods Inc.**, an Iowa corporation having its principal office at 300 Walnut Street, Des Moines, Iowa 50309 (\"Fieldstone\"); and **AtliQ Inc**, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+   "parties_quote": "Coral Bay Hotels LLC, a company incorporated in Abu Dhabi, United Arab Emirates, having its registered office at Corniche Road, Abu Dhabi (\"Coral Bay\"); and\n\nAtliQ Technologies Private Limited, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
    "payment_source": {
     "clause_id": "2.1",
-    "quote": "Fieldstone shall pay USD 300,000 in total (USD 150,000 per year), invoiced monthly, within thirty (30) days of receipt."
+    "quote": "Coral Bay shall pay USD 110,000 in total, within thirty (30) days of receipt of each invoice."
    },
    "currency": "USD",
-   "total_value": 300000.0,
-   "annual_fee": 150000.0,
+   "total_value": 110000.0,
+   "annual_fee": 110000.0,
    "payment_days": 30,
-   "services_summary": "Demand forecasting and data engineering services as set out in SOW-1.",
-   "regions_of_service": [],
+   "services_summary": "Revenue-management analytics and demand forecasting services for Coral Bay's three hotels in Abu Dhabi.",
+   "regions_of_service": [
+    "United Arab Emirates"
+   ],
    "liability_cap": {
     "kind": "multiple_of_fees",
     "multiple": 1,
@@ -170,119 +185,10 @@
   },
   "titles": [
    [
-    "Negotiable",
-    "unofficial",
-    "10% discount on year 2 fees conditional on signing by end of October."
-   ],
-   [
-    "Negotiable",
-    "unofficial",
-    "One extra dashboard for warehouse team included at no additional charge."
-   ]
-  ]
- },
- {
-  "id": "S07",
-  "label": "S07 Marina Bay Resorts (Dubai, collides with Al Noor)",
-  "seconds": 7.4,
-  "findings": 2,
-  "serious": 1,
-  "must": 1,
-  "found": 1,
-  "missed": [],
-  "false_alarms": 0,
-  "unverified": [],
-  "providers": [
-   "groq"
-  ],
-  "tokens_in": 4525,
-  "tokens_out": 4252,
-  "clauses": "13/13",
-  "liability": "1.0x annual fee",
-  "details": {
-   "doc_type": "MSA",
-   "title": "Master Services Agreement",
-   "counterparty": "Marina Bay Resorts LLC",
-   "client_country": "United Arab Emirates",
-   "client_industry": "hospitality",
-   "atliq_entity": "Pvt Ltd",
-   "effective_date": "2026-11-01",
-   "term_months": 12,
-   "end_date": null,
-   "governing_law": "laws of India",
-   "courts_or_seat": "courts of Pune have exclusive jurisdiction",
-   "governing_law_source": {
-    "clause_id": "8.1",
-    "quote": "8.1 This Agreement is governed by the laws of India and the courts of Pune have exclusive jurisdiction."
-   },
-   "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of 1 November 2026 (the \"Effective Date\") between:\n\n**Marina Bay Resorts LLC**, a company incorporated in Dubai, United Arab Emirates, having its registered office at Sheikh Zayed Road, Dubai (\"Marina Bay\"); and\n\n**AtliQ Technologies Private Limited**, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
-   "payment_source": {
-    "clause_id": "2.1",
-    "quote": "2.1 Marina Bay shall pay USD 150,000 in total, within thirty (30) days of receipt of each invoice."
-   },
-   "currency": "USD",
-   "total_value": 150000.0,
-   "annual_fee": null,
-   "payment_days": 30,
-   "services_summary": "Revenue-management analytics and guest analytics services, including a booking-engine module for four resorts in Dubai and Abu Dhabi.",
-   "regions_of_service": [
-    "United Arab Emirates"
-   ],
-   "liability_cap": {
-    "kind": "multiple_of_fees",
-    "multiple": 1,
-    "amount": null,
-    "basis": "limited to the fees paid in the twelve (12) months before the claim",
-    "clause_id": "6.1",
-    "quote": "6.1 Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
-   },
-   "delay_penalty": {
-    "present": false,
-    "per": null,
-    "rate_percent": null,
-    "capped": null,
-    "excludes_client_delay": null,
-    "clause_id": null,
-    "quote": null
-   },
-   "mutual_confidentiality": true,
-   "one_sided_note": null,
-   "handles_phi": false,
-   "handles_eu_personal_data": false,
-   "mentions_baa_or_dpa": null,
-   "insurance_requirements": [],
-   "rates": [],
-   "restrictive_covenants": [
-    {
-     "type": "exclusivity",
-     "who_is_bound": "AtliQ",
-     "summary": "Vendor shall not provide revenue-management services to any other hotel group in the UAE for six months after term.",
-     "restricted_activity": "provide revenue-management services to any other hotel group in the United Arab Emirates",
-     "geography": [
-      "United Arab Emirates"
-     ],
-     "clause_id": "3.1",
-     "quote": "3.1 For six (6) months after the end of the term, Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates.",
-     "duration_basis": "fixed_months",
-     "months_after_term": 6
-    }
-   ]
-  },
-  "titles": [
-   [
     "Serious",
     "register",
     "Al Noor Hospitality Group: Data analytics, AI or revenue-management services"
-   ],
-   [
-    "Minor",
-    "register",
-    "CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competing cloud data-warehouse, lakehouse or analytics platform"
    ]
   ]
- },
- {
-  "id": "S08",
-  "error": "QuotaError: HTTP 429 {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m1sb3dpwey3871e8q32d6y2v` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7"
  }
 ]
