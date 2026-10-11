@@ -1,0 +1,130 @@
+{
+ "id": "S04",
+ "label": "S04 Vantage Biosciences (\"mutual\" NDA, one-sided)",
+ "seconds": 3.8,
+ "findings": 3,
+ "serious": 3,
+ "must": 1,
+ "found": 1,
+ "missed": [],
+ "false_alarms": 0,
+ "unverified": [],
+ "providers": [
+  "gemini"
+ ],
+ "tokens_in": 4011,
+ "tokens_out": 1077,
+ "clauses": "8/8",
+ "liability": "unlimited",
+ "details": {
+  "doc_type": "NDA",
+  "title": "Mutual Non-Disclosure Agreement",
+  "counterparty": "Vantage Biosciences Inc.",
+  "client_country": "United States",
+  "client_industry": "healthcare",
+  "atliq_entity": "Inc",
+  "effective_date": null,
+  "term_months": null,
+  "end_date": null,
+  "governing_law": "laws of the Commonwealth of Massachusetts",
+  "courts_or_seat": null,
+  "governing_law_source": {
+   "clause_id": "6.1",
+   "quote": "This Agreement is governed by the laws of the Commonwealth of Massachusetts."
+  },
+  "parties_quote": "Vantage Biosciences Inc., a Massachusetts corporation having its principal office at 1 Kendall Square, Cambridge, Massachusetts 02139 (the \"Company\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\") (the \"Recipient\").",
+  "payment_source": {},
+  "currency": "USD",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": null,
+  "services_summary": "Explore a data analytics engagement.",
+  "regions_of_service": [],
+  "liability_cap": {
+   "kind": "unlimited",
+   "multiple": null,
+   "amount": null,
+   "basis": "liable for all losses arising from any breach, without limit",
+   "clause_id": "5.1",
+   "quote": "The Recipient shall be liable for all losses arising from any breach, without limit, and the Company may seek injunctive relief without proof of damage."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": false,
+  "one_sided_note": "The Company has no obligation to keep confidential any information it receives from the Recipient, and may use that information for any purpose.",
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": []
+ },
+ "titles": [
+  [
+   "Serious",
+   "rule",
+   "Liability is unlimited"
+  ],
+  [
+   "Serious",
+   "contract",
+   "One-sided definition of Confidential Information"
+  ],
+  [
+   "Serious",
+   "contract",
+   "Company has no confidentiality obligations"
+  ]
+ ],
+ "all_findings": [
+  {
+   "source": "rule",
+   "topic": "liability",
+   "severity": "Serious",
+   "title": "Liability is unlimited",
+   "why": "No limit protects AtliQ.",
+   "comparison": "Past contracts: 8 of 10 cap liability at about 1x fees; highest seen 2x.",
+   "clause_id": "5.1",
+   "quote": "The Recipient shall be liable for all losses arising from any breach, without limit, and the Company may seek injunctive relief without proof of damage.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  },
+  {
+   "source": "contract",
+   "topic": "confidentiality",
+   "severity": "Serious",
+   "title": "One-sided definition of Confidential Information",
+   "why": "Protects only the Company's information, ignoring AtliQ's disclosures.",
+   "comparison": "AtliQ principles require confidentiality to be mutual.",
+   "clause_id": "2.1",
+   "quote": "\"Confidential Information\" means all information disclosed by the Company to the Recipient",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "confidentiality",
+   "severity": "Serious",
+   "title": "Company has no confidentiality obligations",
+   "why": "Exposes AtliQ's shared information to misuse by the client without restriction.",
+   "comparison": "AtliQ principles require confidentiality to be mutual.",
+   "clause_id": "3.2",
+   "quote": "The Company has no obligation to keep confidential any information it receives from the Recipient, and may use that information for any purpose.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F03"
+  }
+ ]
+}

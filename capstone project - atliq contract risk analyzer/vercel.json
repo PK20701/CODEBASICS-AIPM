@@ -1,0 +1,4 @@
+{
+  "functions": { "api/review.py": { "maxDuration": 60 } },
+  "outputDirectory": "public"
+}

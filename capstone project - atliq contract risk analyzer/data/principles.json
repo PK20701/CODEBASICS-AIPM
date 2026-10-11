@@ -1,0 +1,38 @@
+[
+ {
+  "id": "P1",
+  "text": "Delay penalties must be capped and must exclude delays caused by the client, scope changes or outside events."
+ },
+ {
+  "id": "P2",
+  "text": "Liability should be about 1x the fees and never unlimited; it should be proportionate to the contract value. (A preference, not a rule.)"
+ },
+ {
+  "id": "P3",
+  "text": "Indemnity should be mutual. AtliQ does not cover the other side's own negligence."
+ },
+ {
+  "id": "P4",
+  "text": "Payment within 30 days, 45 at most."
+ },
+ {
+  "id": "P5",
+  "text": "Governing law: India for AtliQ Technologies Pvt Ltd, the US for AtliQ Inc. Exceptions are possible but should be deliberate."
+ },
+ {
+  "id": "P6",
+  "text": "The client owns what AtliQ builds for them; AtliQ keeps its own pre-existing tools."
+ },
+ {
+  "id": "P7",
+  "text": "On termination, AtliQ is paid for work done."
+ },
+ {
+  "id": "P8",
+  "text": "Confidentiality should be mutual. A contract titled mutual must be checked for what each side is actually bound to."
+ },
+ {
+  "id": "P9",
+  "text": "No clash with promises AtliQ has already made: non-competes, exclusivity, most-favoured pricing, IP handed over, data location."
+ }
+]

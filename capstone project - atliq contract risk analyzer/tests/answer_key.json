@@ -1,0 +1,146 @@
+{
+ "S01": {
+  "no_serious": true,
+  "max_serious": 0,
+  "must": [],
+  "file": "samples/synthetic/S01_orion_retail_msa_clean.md",
+  "notes": null,
+  "label": "S01 Orion Retail MSA (clean)"
+ },
+ "S02": {
+  "must": [
+   {
+    "topic": "liability",
+    "sev": "Serious"
+   },
+   {
+    "topic": "delay_penalty",
+    "sev": "Serious"
+   },
+   {
+    "topic": "payment",
+    "sev": "Negotiable"
+   },
+   {
+    "topic": "indemnity",
+    "sev": "Negotiable"
+   }
+  ],
+  "file": "samples/synthetic/S02_coastal_mutual_insurance_agreement.md",
+  "notes": null,
+  "label": "S02 Coastal Mutual Insurance (Brightwater-type)"
+ },
+ "S03": {
+  "must": [
+   {
+    "topic": "liability",
+    "sev": "Serious"
+   }
+  ],
+  "file": "samples/synthetic/S03_maple_street_bakery_small_sow.md",
+  "notes": null,
+  "label": "S03 Maple Street Bakery ($500k cap on $24k)"
+ },
+ "S04": {
+  "must": [
+   {
+    "topic": "confidentiality",
+    "sev": "Negotiable",
+    "also": [
+     "nda",
+     "mutual",
+     "one_sided",
+     "one-sided"
+    ]
+   }
+  ],
+  "file": "samples/synthetic/S04_vantage_biosciences_one_sided_nda.md",
+  "notes": null,
+  "label": "S04 Vantage Biosciences (\"mutual\" NDA, one-sided)"
+ },
+ "S05": {
+  "no_serious": true,
+  "max_serious": 0,
+  "must": [],
+  "file": "samples/synthetic/S05_granite_peak_mutual_nda.md",
+  "notes": null,
+  "label": "S05 Granite Peak (truly mutual NDA)"
+ },
+ "S06": {
+  "must": [
+   {
+    "topic": "data_protection",
+    "sev": "Serious"
+   },
+   {
+    "topic": "insurance",
+    "sev": "Serious"
+   }
+  ],
+  "file": "samples/synthetic/S06_sterling_care_msa_no_baa.md",
+  "notes": null,
+  "label": "S06 Sterling Care (health data, no BAA, $5M cyber)"
+ },
+ "S07": {
+  "must": [
+   {
+    "register": "R-01",
+    "sev": "Serious"
+   }
+  ],
+  "file": "samples/synthetic/S07_marina_bay_resorts_msa.md",
+  "notes": null,
+  "label": "S07 Marina Bay Resorts (Dubai, collides with Al Noor)"
+ },
+ "S08": {
+  "must": [
+   {
+    "topic": "governing_law",
+    "sev": "Serious"
+   }
+  ],
+  "file": "samples/synthetic/S08_redwood_software_wrong_entity.md",
+  "notes": null,
+  "label": "S08 Redwood Software (wrong entity and law)"
+ },
+ "S09": {
+  "must": [
+   {
+    "source": "unofficial",
+    "sev": "Negotiable",
+    "mentions": [
+     "discount",
+     "10%"
+    ]
+   }
+  ],
+  "file": "samples/synthetic/S09_fieldstone_foods_msa.md",
+  "notes": "samples/synthetic/S09_fieldstone_call_notes.md",
+  "label": "S09 Fieldstone Foods + call notes (verbal 10% discount)"
+ },
+ "S10": {
+  "must": [
+   {
+    "source": "unofficial",
+    "sev": "Negotiable",
+    "mentions": [
+     "60",
+     "payment",
+     "pay"
+    ]
+   },
+   {
+    "source": "unofficial",
+    "sev": "Negotiable",
+    "mentions": [
+     "mobile",
+     "scope",
+     "dashboard"
+    ]
+   }
+  ],
+  "file": "samples/synthetic/S10_bluewater_marine_msa.md",
+  "notes": "samples/synthetic/S10_bluewater_chat_export.md",
+  "label": "S10 Bluewater Marine + chat (scope cut, 60-day payment)"
+ }
+}

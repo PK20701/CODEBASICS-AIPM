@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AtliQ Contract Risk Analyzer</title>
+<title>ContractGuard - AtliQ Contract Risk Analyzer</title>
 <style>
 :root{--bg:#f6f7f9;--card:#fff;--ink:#14181e;--mut:#5b6573;--line:#e3e6ea;--acc:#1f3a5f;--accb:#2f7bf6;--red:#b3261e;--redbg:#fdecea;--amb:#8a5a00;--ambbg:#fff4dc;--grn:#1b6b3a;--grnbg:#e6f4ea;--gry:#eef0f3;--r:12px}
 @media (prefers-color-scheme:dark){:root{--bg:#0f1318;--card:#171c23;--ink:#e8ebef;--mut:#9aa4b2;--line:#2a313b;--acc:#8fb4ff;--accb:#5b9bff;--redbg:#3a1d1b;--red:#ff9d94;--ambbg:#3a2f12;--amb:#f5c76b;--grnbg:#16301f;--grn:#7fd49a;--gry:#222932}}
@@ -50,7 +50,7 @@ textarea{min-height:150px;resize:vertical}label{font-size:12px;color:var(--mut);
 </style>
 </head>
 <body>
-<div class="top"><div class="brand" onclick="go('#/')">AtliQ <small>Contract Risk Analyzer</small></div><div class="row"><span id="badge"></span><a onclick="showPrinciples()" class="sub">Principles</a><span class="sub" id="who"></span></div></div>
+<div class="top"><div class="brand" onclick="go('#/')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-4px;margin-right:6px"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>ContractGuard <small>by AtliQ</small></div><div class="row"><span id="badge"></span><a onclick="showPrinciples()" class="sub">Principles</a><span class="sub" id="who"></span></div></div>
 <div class="wrap" id="app"></div>
 <div id="modal"></div>
 <script>
@@ -102,7 +102,7 @@ function home(){const cs=allContracts();const waiting=cs.filter(c=>/review/i.tes
   if(homeFilter==='Signed')return /Signed/i.test(c.status)&&!latest(c.id);
   return true}).filter(c=>!homeQ||(c.id+' '+c.counterparty+' '+c.type).toLowerCase().includes(homeQ));
  const regs=REG.concat(S.entries.map(e=>Object.assign({},e)));
- $('#app').innerHTML=`<div class="row sp"><div><h1>${greeting()}, ${esc(S.user)}</h1><div class="sub">${waiting} contract${waiting==1?'':'s'} waiting for review${drafts?' · '+drafts+' draft saved':''}</div></div>
+ $('#app').innerHTML=`<div class="row sp"><div><div class="sub" style="font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--acc)">ContractGuard</div><div class="sub" style="margin-bottom:2px">AtliQ Contract Risk Analyzer: a second pair of eyes before you sign</div><h1>${greeting()}, ${esc(S.user)}</h1><div class="sub">${waiting} contract${waiting==1?'':'s'} waiting for review${drafts?' · '+drafts+' draft saved':''}</div></div>
   <button class="fab" title="Add contract or version" aria-label="Add contract or version" onclick="go('#/new')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
   <div class="row" style="margin:16px 0 8px"><span class="chip ${homeTab==='contracts'?'on':''}" onclick="homeTab='contracts';home()">Contracts ${cs.length}</span><span class="chip ${homeTab==='commitments'?'on':''}" onclick="homeTab='commitments';home()">Past commitments ${regs.length}</span>
    ${homeTab==='contracts'?chips.map(c=>`<span class="chip ${homeFilter===c?'on':''}" onclick="homeFilter='${c}';home()" style="background:${homeFilter===c?'':'transparent'};border-color:var(--line)">${c}</span>`).join(''):''}

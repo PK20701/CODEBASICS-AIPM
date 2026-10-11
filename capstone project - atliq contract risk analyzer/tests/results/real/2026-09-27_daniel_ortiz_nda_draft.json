@@ -1,0 +1,90 @@
+{
+ "details": {
+  "doc_type": "NDA",
+  "title": "Mutual Nondisclosure Agreement",
+  "counterparty": "Daniel Ortiz",
+  "client_country": "United States",
+  "client_industry": "other",
+  "atliq_entity": "Inc",
+  "effective_date": null,
+  "term_months": null,
+  "end_date": null,
+  "governing_law": "State of Texas",
+  "courts_or_seat": "state and federal courts located in Travis County, Texas",
+  "governing_law_source": {
+   "clause_id": "8.1",
+   "quote": "This Agreement is governed by the laws of the State of Texas. The Parties submit to the jurisdiction of the state and federal courts located in Travis County, Texas."
+  },
+  "parties_quote": "This Mutual Nondisclosure Agreement (this \"Agreement\") is entered into as of ____________, 2026 (the \"Effective Date\") between AtliQ Inc, a Delaware corporation with its principal place of business at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"AtliQ\"), and Daniel Ortiz, an individual residing at 4718 Avenue F, Austin, Texas 78751 (\"Mr. Ortiz\").",
+  "payment_source": {
+   "clause_id": null,
+   "quote": null
+  },
+  "currency": "USD",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": null,
+  "services_summary": "Exchange information in connection with a proposed and ongoing engagement of Mr. Ortiz as an independent contractor providing data engineering services.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "none_stated",
+   "multiple": null,
+   "amount": null,
+   "basis": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": []
+ },
+ "clauses_total": 13,
+ "clauses_reviewed": 13,
+ "findings": [],
+ "liability_multiple": null,
+ "liability_text": "not stated",
+ "checked_register": 14,
+ "seconds": 3.7,
+ "calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 2665,
+   "in": 1883,
+   "out": 593
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1071,
+   "in": 1841,
+   "out": 111
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1004,
+   "in": 1348,
+   "out": 9
+  }
+ ],
+ "tokens_in": 5072,
+ "tokens_out": 713,
+ "all_findings": []
+}

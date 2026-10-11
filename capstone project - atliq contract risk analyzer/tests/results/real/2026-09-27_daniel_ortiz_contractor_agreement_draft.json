@@ -1,0 +1,147 @@
+{
+ "details": {
+  "doc_type": "Other",
+  "title": "Independent Contractor Agreement",
+  "counterparty": "Daniel Ortiz",
+  "client_country": "United States",
+  "client_industry": "healthcare",
+  "atliq_entity": "Inc",
+  "effective_date": null,
+  "term_months": 6,
+  "end_date": null,
+  "governing_law": "laws of the State of Texas",
+  "courts_or_seat": "state and federal courts located in Travis County, Texas",
+  "governing_law_source": {
+   "clause_id": "10.1",
+   "quote": "This Agreement is governed by the laws of the State of Texas, without regard to its conflict of laws principles. The Parties submit to the exclusive jurisdiction of the state and federal courts located in Travis County, Texas."
+  },
+  "parties_quote": "This Independent Contractor Agreement (this \"Agreement\") is entered into as of ____________, 2026 (the \"Effective Date\") by and between:\n\nAtliQ Inc, a Delaware corporation (EIN 88-4410273) with its principal place of business at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (the \"Company\"); and\n\nDaniel Ortiz, an individual residing at 4718 Avenue F, Austin, Texas 78751 (the \"Contractor\").",
+  "payment_source": {
+   "clause_id": "3.2",
+   "quote": "The Contractor shall submit a monthly invoice with a summary of hours worked. The Company shall pay each undisputed invoice within thirty (30) days of receipt, by ACH transfer in U.S. Dollars."
+  },
+  "currency": "USD",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": 30,
+  "services_summary": "Data engineering: build and test ingestion pipelines from Harrington's electronic health record, patient accounting and scheduling systems into the cloud data platform.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 1,
+   "amount": null,
+   "basis": "total fees paid or payable to the Contractor under this Agreement in the twelve (12) months preceding the claim",
+   "clause_id": "9.2",
+   "quote": "Each Party's aggregate liability under this Agreement shall not exceed the total fees paid or payable to the Contractor under this Agreement in the twelve (12) months preceding the claim, except for breach of Section 7 or a Party's fraud or willful misconduct."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": true,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [
+   {
+    "role": "Contractor",
+    "rate": 70,
+    "currency": "USD",
+    "unit": "hour",
+    "clause_id": "Engagement Schedule No. 1"
+   }
+  ],
+  "restrictive_covenants": [
+   {
+    "type": "non_solicit",
+    "who_is_bound": "both",
+    "summary": "During the term and for six months after, neither party shall solicit for employment any employee of the other party with whom they worked.",
+    "restricted_activity": "solicit for employment any employee of the other Party with whom it worked in connection with the Services",
+    "geography": [],
+    "clause_id": "8.1",
+    "quote": "During the term and for six (6) months after it, neither Party shall knowingly solicit for employment any employee of the other Party with whom it worked in connection with the Services.",
+    "duration_basis": "term_plus_months",
+    "months_after_term": 6
+   }
+  ]
+ },
+ "clauses_total": 32,
+ "clauses_reviewed": 32,
+ "findings": [
+  {
+   "source": "rule",
+   "topic": "data_protection",
+   "severity": "Serious",
+   "title": "Health data but no BAA referenced",
+   "why": "A HIPAA Business Associate Agreement is required before patient data moves.",
+   "comparison": "Healthcare deals need an NDA, a BAA and the services contract (CareBridge, Harrington).",
+   "clause_id": null,
+   "quote": null,
+   "verified": true,
+   "unsure": false,
+   "absence": true,
+   "id": "F01"
+  }
+ ],
+ "liability_multiple": 1.0,
+ "liability_text": "1.0x annual fee",
+ "checked_register": 14,
+ "seconds": 6.3,
+ "calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 3219,
+   "in": 2807,
+   "out": 992
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1714,
+   "in": 1772,
+   "out": 132
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1543,
+   "in": 2169,
+   "out": 137
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1519,
+   "in": 1352,
+   "out": 120
+  }
+ ],
+ "tokens_in": 8100,
+ "tokens_out": 1381,
+ "all_findings": [
+  {
+   "source": "rule",
+   "topic": "data_protection",
+   "severity": "Serious",
+   "title": "Health data but no BAA referenced",
+   "why": "A HIPAA Business Associate Agreement is required before patient data moves.",
+   "comparison": "Healthcare deals need an NDA, a BAA and the services contract (CareBridge, Harrington).",
+   "clause_id": null,
+   "quote": null,
+   "verified": true,
+   "unsure": false,
+   "absence": true,
+   "id": "F01"
+  }
+ ]
+}

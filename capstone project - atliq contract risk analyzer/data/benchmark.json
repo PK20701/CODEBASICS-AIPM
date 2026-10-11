@@ -1,0 +1,81 @@
+{
+ "source": "17 signed contracts on file (13 more of the 30 known contracts are not on file)",
+ "contracts_on_file": 17,
+ "contracts_known": 30,
+ "liability_cap_multiple_of_fees": {
+  "values": [
+   {
+    "contract": "PayTrack MSA",
+    "multiple": 1.0,
+    "basis": "fees under the SOW"
+   },
+   {
+    "contract": "Acme MSA",
+    "multiple": 1.0,
+    "basis": "fees under the SOW"
+   },
+   {
+    "contract": "Sunrise Foods MSA",
+    "multiple": 1.0,
+    "basis": "fees under the SOW"
+   },
+   {
+    "contract": "Northwind MSA",
+    "multiple": 1.0,
+    "basis": "charges under the SOW"
+   },
+   {
+    "contract": "Trustline MSA",
+    "multiple": 1.0,
+    "basis": "total fees"
+   },
+   {
+    "contract": "Crestline MSA",
+    "multiple": 1.0,
+    "basis": "fees in the preceding 12 months"
+   },
+   {
+    "contract": "Al Noor MSA",
+    "multiple": 1.0,
+    "basis": "fees in the preceding 12 months"
+   },
+   {
+    "contract": "Orbit Travels MSA",
+    "multiple": 1.0,
+    "basis": "fees in the preceding 12 months"
+   },
+   {
+    "contract": "Brightwater MSA",
+    "multiple": 1.5,
+    "basis": "150% of contract value"
+   },
+   {
+    "contract": "CareBridge BAA",
+    "multiple": 2.0,
+    "basis": "fees in the preceding 12 months"
+   }
+  ],
+  "typical": 1.0,
+  "max_seen": 2.0,
+  "summary": "8 of 10 client contracts cap liability at about 1x fees; the highest seen is 2x."
+ },
+ "delay_penalties": {
+  "summary": "Acme, Northwind and Trustline: 0.5% of the milestone fee per week, capped at 5% of that milestone, client-caused delay excluded. Al Noor: 1% of milestone fees per week capped at 10% of total fees, client delay excluded. Brightwater (the outlier that cost AtliQ): 1% of contract value per day, no cap, no client-delay exclusion."
+ },
+ "payment_days": {
+  "values": {
+   "30": 6,
+   "45": 2
+  },
+  "summary": "30 days in most contracts; 45 days in Brightwater and Trustline."
+ },
+ "governing_law": {
+  "summary": "India for most Pvt Ltd contracts (Mumbai, Pune or Delhi seats). Exceptions: Al Noor (DIFC), Northwind (English law, accepted), Brightwater (English law on a US-entity contract, signed under time pressure). US entity contracts: Ohio (Crestline), Texas (Harrington NDA), Arizona (CareBridge BAA)."
+ },
+ "ip": {
+  "summary": "Client owns deliverables on payment; AtliQ keeps pre-existing tools and licenses them. Northwind is the exception: pre-existing materials incorporated in deliverables also pass to the client."
+ },
+ "non_solicit": {
+  "summary": "Mutual, 6 to 12 months after the term in most contracts. Meridian NDA is one-way for 24 months."
+ }
+}

@@ -1,0 +1,39 @@
+S01 S01 Orion Retail MSA (clean)                      16.8s found 0/0  serious 0  false-alarm 0  unverified 0  clauses 20/20  gemini  tokens 6077/1812
+      [Minor/contract] Delay penalty terms
+      [Minor/contract] Mutual indemnity
+      [Minor/contract] Liability cap
+      [Minor/contract] Governing Law: New York
+S02 S02 Coastal Mutual Insurance (Brightwater-type)   11.0s found 4/4  serious 5  false-alarm 0  unverified 0  clauses 16/16  gemini  tokens 4538/2076
+      [Serious/rule] Liability is unlimited
+      [Serious/rule] Delay penalty with no exclusion for client-caused delay
+      [Serious/contract] Client owns pre-existing tools
+      [Serious/contract] One-sided indemnity covering client negligence
+      [Serious/contract] Termination for convenience without payment
+      [Negotiable/rule] Payment in 60 days
+      [Negotiable/contract] Restricted vendor termination rights
+S03 S03 Maple Street Bakery ($500k cap on $24k)        3.8s found 1/1  serious 1  false-alarm 0  unverified 0  clauses 13/13  gemini  tokens 4291/1079
+      [Serious/rule] Liability cap is 20.8x annual fee
+S04 S04 Vantage Biosciences ("mutual" NDA, one-sided   3.8s found 1/1  serious 3  false-alarm 0  unverified 0  clauses 8/8  gemini  tokens 4011/1077
+      [Serious/rule] Liability is unlimited
+      [Serious/contract] One-sided definition of Confidential Information
+      [Serious/contract] Company has no confidentiality obligations
+S05 S05 Granite Peak (truly mutual NDA)                3.0s found 0/0  serious 0  false-alarm 0  unverified 0  clauses 7/7  gemini  tokens 3985/587
+S06 S06 Sterling Care (health data, no BAA, $5M cybe   3.6s found 2/2  serious 2  false-alarm 0  unverified 0  clauses 14/14  gemini  tokens 4415/1089
+      [Serious/rule] Health data but no BAA referenced
+      [Serious/rule] Cyber insurance of $5,000,000 required; AtliQ holds $1M
+      [Negotiable/contract] High cyber liability insurance requirement
+S07 S07 Marina Bay Resorts (Dubai, collides with Al    9.2s found 1/1  serious 2  false-alarm 0  unverified 0  clauses 13/13  gemini  tokens 4406/1336
+      [Serious/register] Al Noor Hospitality Group: Data analytics, AI or revenue-management services
+      [Serious/contract] Post-Term Exclusivity Restriction
+S08 S08 Redwood Software (wrong entity and law)       16.8s found 1/1  serious 1  false-alarm 0  unverified 0  clauses 11/11  gemini  tokens 4251/1190
+      [Serious/rule] AtliQ Pvt Ltd named for a US client
+      [Negotiable/rule] Indian entity under non-Indian law (laws of the State of California)
+S09 S09 Fieldstone Foods + call notes (verbal 10% di  13.2s found 1/1  serious 0  false-alarm 0  unverified 0  clauses 10/10  gemini  tokens 5360/1203
+      [Negotiable/unofficial] 10% discount on year 2 fees if signed by end of October.
+      [Minor/unofficial] One extra warehouse dashboard added at no charge.
+S10 S10 Bluewater Marine + chat (scope cut, 60-day p   4.4s found 2/2  serious 0  false-alarm 0  unverified 1  clauses 11/11  gemini  tokens 5390/987
+      [Negotiable/unofficial] Bluewater asked to drop the mobile app from phase 1 and do dashboard only.
+      [Negotiable/unofficial] Bluewater requested 60-day payment terms instead of the standard 30 days.
+      [Minor/contract] 
+
+TOTAL must found 13/13, false alarms 0, errors 0

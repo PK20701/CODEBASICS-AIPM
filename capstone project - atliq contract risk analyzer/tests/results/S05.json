@@ -1,0 +1,71 @@
+{
+ "id": "S05",
+ "label": "S05 Granite Peak (truly mutual NDA)",
+ "seconds": 3.0,
+ "findings": 0,
+ "serious": 0,
+ "must": 0,
+ "found": 0,
+ "missed": [],
+ "false_alarms": 0,
+ "unverified": [],
+ "providers": [
+  "gemini"
+ ],
+ "tokens_in": 3985,
+ "tokens_out": 587,
+ "clauses": "7/7",
+ "liability": "not stated",
+ "details": {
+  "doc_type": "NDA",
+  "title": "Mutual Non-Disclosure Agreement",
+  "counterparty": "Granite Peak Logistics LLC",
+  "client_country": "United States",
+  "client_industry": "logistics",
+  "atliq_entity": "Inc",
+  "effective_date": null,
+  "term_months": 36,
+  "end_date": null,
+  "governing_law": "State of Delaware",
+  "courts_or_seat": null,
+  "governing_law_source": {
+   "clause_id": "6.1",
+   "quote": "This Agreement is governed by the laws of the State of Delaware."
+  },
+  "parties_quote": "Granite Peak Logistics LLC, a Colorado limited liability company having its principal office at 1700 Lincoln Street, Denver, Colorado 80203 (\"Granite Peak\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "payment_source": {},
+  "currency": "USD",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": null,
+  "services_summary": "Discuss a possible analytics engagement and exchange confidential information for that purpose only.",
+  "regions_of_service": [],
+  "liability_cap": {
+   "kind": "none_stated",
+   "multiple": null,
+   "amount": null,
+   "basis": "",
+   "clause_id": null,
+   "quote": ""
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": ""
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": []
+ },
+ "titles": [],
+ "all_findings": []
+}

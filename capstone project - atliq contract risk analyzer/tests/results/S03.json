@@ -1,0 +1,109 @@
+{
+ "id": "S03",
+ "label": "S03 Maple Street Bakery ($500k cap on $24k)",
+ "seconds": 3.8,
+ "findings": 1,
+ "serious": 1,
+ "must": 1,
+ "found": 1,
+ "missed": [],
+ "false_alarms": 0,
+ "unverified": [],
+ "providers": [
+  "gemini"
+ ],
+ "tokens_in": 4291,
+ "tokens_out": 1079,
+ "clauses": "13/13",
+ "liability": "20.8x annual fee",
+ "details": {
+  "doc_type": "MSA",
+  "title": "SERVICES AGREEMENT",
+  "counterparty": "Maple Street Bakery Inc.",
+  "client_country": "United States",
+  "client_industry": "hospitality",
+  "atliq_entity": "Inc",
+  "effective_date": null,
+  "term_months": 12,
+  "end_date": null,
+  "governing_law": "laws of the Commonwealth of Pennsylvania",
+  "courts_or_seat": null,
+  "governing_law_source": {
+   "clause_id": "7.1",
+   "quote": "This Agreement is governed by the laws of the Commonwealth of Pennsylvania."
+  },
+  "parties_quote": "Maple Street Bakery Inc., a Pennsylvania corporation having its principal office at 18 Maple Street, Lancaster, Pennsylvania 17602 (\"Client\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "payment_source": {
+   "clause_id": "2.2",
+   "quote": "Client shall pay each invoice within thirty (30) days of receipt."
+  },
+  "currency": "USD",
+  "total_value": 24000.0,
+  "annual_fee": 24000.0,
+  "payment_days": 30,
+  "services_summary": "Build and maintain a daily sales dashboard for Client's eight bakery outlets.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "fixed_amount",
+   "multiple": null,
+   "amount": 500000,
+   "basis": "The aggregate liability of Vendor under or in connection with this Agreement shall not exceed USD 500,000.",
+   "clause_id": "5.2",
+   "quote": "The aggregate liability of Vendor under or in connection with this Agreement shall not exceed USD 500,000."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "ip_assignment",
+    "who_is_bound": "client",
+    "summary": "Client owns the dashboard created for it.",
+    "restricted_activity": "Client ownership of created dashboard",
+    "geography": [],
+    "clause_id": "3.1",
+    "quote": "Client owns the dashboard created for it.",
+    "duration_basis": "perpetual",
+    "months_after_term": null
+   }
+  ]
+ },
+ "titles": [
+  [
+   "Serious",
+   "rule",
+   "Liability cap is 20.8x annual fee"
+  ]
+ ],
+ "all_findings": [
+  {
+   "source": "rule",
+   "topic": "liability",
+   "severity": "Serious",
+   "title": "Liability cap is 20.8x annual fee",
+   "why": "The cap is out of line with the contract value.",
+   "comparison": "Past contracts: 8 of 10 cap liability at about 1x fees; highest seen 2x.",
+   "clause_id": "5.2",
+   "quote": "The aggregate liability of Vendor under or in connection with this Agreement shall not exceed USD 500,000.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  }
+ ]
+}

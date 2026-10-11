@@ -1,0 +1,194 @@
+{
+ "id": "S02",
+ "label": "S02 Coastal Mutual Insurance (Brightwater-type)",
+ "seconds": 8.1,
+ "findings": 6,
+ "serious": 5,
+ "must": 4,
+ "found": 4,
+ "missed": [],
+ "false_alarms": 0,
+ "unverified": [
+  "F05"
+ ],
+ "providers": [
+  "groq"
+ ],
+ "tokens_in": 4646,
+ "tokens_out": 4464,
+ "clauses": "16/16",
+ "liability": "unlimited",
+ "details": {
+  "doc_type": "MSA",
+  "title": "SOFTWARE DEVELOPMENT AND SERVICES AGREEMENT",
+  "counterparty": "Coastal Mutual Insurance Company",
+  "client_country": "United States",
+  "client_industry": "insurance",
+  "atliq_entity": "Inc",
+  "effective_date": null,
+  "term_months": 12,
+  "end_date": null,
+  "governing_law": "laws of the State of Florida",
+  "courts_or_seat": "courts of Miami-Dade County",
+  "governing_law_source": {
+   "clause_id": "9.1",
+   "quote": "This Agreement is governed by the laws of the State of Florida and the courts of Miami-Dade County."
+  },
+  "parties_quote": "This Agreement is made as of ____________, 2026 between:\n\n**Coastal Mutual Insurance Company**, a Florida corporation having its principal office at 800 Brickell Avenue, Miami, Florida 33131 (\"**Client**\"); and\n\n**AtliQ Inc**, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"**Vendor**\").",
+  "payment_source": {
+   "clause_id": "2.2",
+   "quote": "Client shall pay each invoice within sixty (60) days of the invoice date."
+  },
+  "currency": "USD",
+  "total_value": 120000.0,
+  "annual_fee": null,
+  "payment_days": 60,
+  "services_summary": "Design and build a claims analytics platform for Client.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "unlimited",
+   "multiple": null,
+   "amount": null,
+   "basis": "Vendor's liability under this Agreement is unlimited.",
+   "clause_id": "6.1",
+   "quote": "Vendor's liability under this Agreement is unlimited."
+  },
+  "delay_penalty": {
+   "present": true,
+   "per": "week",
+   "rate_percent": 2,
+   "capped": null,
+   "excludes_client_delay": false,
+   "clause_id": "3.1",
+   "quote": "If Vendor fails to complete any milestone by its due date, Vendor shall pay Client liquidated damages of two percent (2%) of the total project fee for each week of delay until completion."
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": []
+ },
+ "titles": [
+  [
+   "Serious",
+   "rule",
+   "Liability is unlimited"
+  ],
+  [
+   "Serious",
+   "rule",
+   "Delay penalty with no exclusion for client-caused delay"
+  ],
+  [
+   "Serious",
+   "contract",
+   "Indemnity covers client negligence"
+  ],
+  [
+   "Serious",
+   "contract",
+   "Client can terminate without paying for work"
+  ],
+  [
+   "Serious",
+   "contract",
+   "Client ownership of pre\u2011existing tools"
+  ],
+  [
+   "Negotiable",
+   "rule",
+   "Payment in 60 days"
+  ]
+ ],
+ "all_findings": [
+  {
+   "source": "rule",
+   "topic": "liability",
+   "severity": "Serious",
+   "title": "Liability is unlimited",
+   "why": "No limit protects AtliQ.",
+   "comparison": "Past contracts: 8 of 10 cap liability at about 1x fees; highest seen 2x.",
+   "clause_id": "6.1",
+   "quote": "Vendor's liability under this Agreement is unlimited.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  },
+  {
+   "source": "rule",
+   "topic": "delay_penalty",
+   "severity": "Serious",
+   "title": "Delay penalty with no exclusion for client-caused delay",
+   "why": "AtliQ could pay for delays it did not cause (Brightwater).",
+   "comparison": "Past contracts cap penalties at 5% of the milestone and exclude client delay (3 of 3).",
+   "clause_id": "3.1",
+   "quote": "If Vendor fails to complete any milestone by its due date, Vendor shall pay Client liquidated damages of two percent (2%) of the total project fee for each week of delay until completion.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "Indemnity covers client negligence",
+   "why": "AtliQ would bear liability for client\u2019s own fault.",
+   "comparison": "AtliQ expects mutual indemnity, not covering other's negligence.",
+   "clause_id": "5.1",
+   "quote": "Vendor shall indemnify, defend and hold harmless Client ... including claims arising from Client's own negligence.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F03"
+  },
+  {
+   "source": "contract",
+   "topic": "termination",
+   "severity": "Serious",
+   "title": "Client can terminate without paying for work",
+   "why": "AtliQ may lose compensation for services already performed.",
+   "comparison": "Standard contracts require payment for work done on termination.",
+   "clause_id": "8.1",
+   "quote": "Client may terminate at any time for convenience without payment for work in progress.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F04"
+  },
+  {
+   "source": "contract",
+   "topic": "ip",
+   "severity": "Serious",
+   "title": "Client ownership of pre\u2011existing tools",
+   "why": "AtliQ loses rights to its own tools, contrary to standard practice.",
+   "comparison": "Usually client owns deliverables but AtliQ retains pre\u2011existing IP.",
+   "clause_id": "4.1",
+   "quote": null,
+   "claimed_quote": "All work product, including Vendor's pre\u2011existing tools incorporated in it, is owned by Client on creation.",
+   "verified": false,
+   "unsure": true,
+   "id": "F05"
+  },
+  {
+   "source": "rule",
+   "topic": "payment",
+   "severity": "Negotiable",
+   "title": "Payment in 60 days",
+   "why": "Long payment terms hurt cash flow.",
+   "comparison": "Principle: 30 days, 45 at most.",
+   "clause_id": "2.2",
+   "quote": "Client shall pay each invoice within sixty (60) days of the invoice date.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F06"
+  }
+ ]
+}

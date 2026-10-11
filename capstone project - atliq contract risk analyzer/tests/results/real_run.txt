@@ -1,0 +1,167 @@
+
+2026-09-10_harrington_health_msa_draft.md
+   12.1s  clauses 85/85  S/N/M 9/8/1  unverified 0  gemini  tokens 18833/4922
+    [Serious/rule] Delay penalty with no cap and no exclusion for client-caused delay
+    [Serious/rule] Cyber insurance of $5,000,000 required; AtliQ holds $1M
+    [Serious/contract] Unlimited Rejection and Refund Right
+    [Serious/contract] Broad Cross-Agreement Set-off
+    [Serious/contract] Unpaid work in progress on termination for convenience
+    [Serious/contract] Assignment of AtliQ's pre-existing materials
+    [Serious/contract] One-sided indemnity covering client's own negligence
+    [Serious/contract] Uncapped contractor liability including indirect losses
+    [Serious/contract] Uncapped security incident remediation costs
+    [Negotiable/rule] Payment in 90 days
+    [Negotiable/contract] Unilateral Client Policy Updates
+    [Negotiable/contract] Deemed Acceptance Excluded
+    [Negotiable/contract] Continued Performance During Disputes
+    [Negotiable/contract] Client indemnity limited to gross negligence
+    [Negotiable/contract] Offshore PHI Restrictions
+    [Negotiable/contract] One-Sided Assignment Restrictions
+    [Negotiable/contract] Force Majeure Excludes Article 12 Obligations
+    [Minor/contract] Unilateral Personnel Removal
+
+2026-09-15_travelhub_services_agreement_draft.md
+   22.2s  clauses 48/48  S/N/M 6/2/2  unverified 0  gemini  tokens 10593/2670
+    [Serious/rule] US entity under non-US law (laws of the Emirate of Dubai and the applicable federal laws of the
+    [Serious/rule] AtliQ Inc named for a non-US client (United Arab Emirates)
+    [Serious/register] Al Noor Hospitality Group: Data analytics, AI or revenue-management services
+    [Serious/contract] Liability cap excludes confidentiality and wilful misconduct
+    [Serious/contract] Unilateral IP indemnity
+    [Serious/contract] Performance-based acceptance criteria
+    [Negotiable/contract] Invoices to be raised by AtliQ Pvt Ltd
+    [Negotiable/contract] Specific IP assignment of AI models
+    [Minor/contract] Compliance with Saudi law
+    [Minor/contract] Data location restriction
+
+2026-09-16_harrington_health_baa_draft.md
+    7.5s  clauses 29/29  S/N/M 3/5/0  unverified 0  gemini  tokens 13961/2498
+    [Serious/rule] Liability is unlimited
+    [Serious/rule] Cyber insurance of $5,000,000 required; AtliQ holds $1M
+    [Serious/contract] One-Sided Indemnity and Uncapped Liability
+    [Negotiable/contract] Strict US Data Location and Subcontractor Restrictions
+    [Negotiable/contract] Unpaid Litigation Support Requirement
+    [Negotiable/contract] Restriction on AI model training using PHI
+    [Negotiable/contract] Termination of MSA via BAA breach
+    [Negotiable/contract] Unilateral amendment by Covered Entity for HIPAA
+
+2026-09-18_gulf_crown_hotels_msa_draft.md
+    9.0s  clauses 62/62  S/N/M 2/8/2  unverified 0  gemini  tokens 13810/3242
+    [Serious/register] Al Noor Hospitality Group: Data analytics, AI or revenue-management services
+    [Serious/contract] Delay penalties calculated as percentage of total contract value
+    [Negotiable/rule] Indian entity under non-Indian law (Kingdom of Saudi Arabia)
+    [Negotiable/rule] Payment in 60 days
+    [Negotiable/contract] Termination for convenience limits payment
+    [Negotiable/contract] Liability cap excludes certain clauses from the aggregate limit
+    [Negotiable/contract] One-sided IP indemnity provided by AtliQ
+    [Negotiable/contract] Delay penalty exclusions only cover force majeure
+    [Negotiable/contract] Strict data localization requirement in Saudi Arabia
+    [Negotiable/contract] Arabic Text Prevails in Inconsistency
+    [Minor/contract] Transition assistance required on termination
+    [Minor/contract] Mandatory Cloud Hosting Within KSA Region
+
+2026-09-19_lakeshore_grocers_msa_draft.md
+    8.0s  clauses 53/53  S/N/M 3/2/1  unverified 0  gemini  tokens 11780/2367
+    [Serious/rule] US entity with courts or arbitration outside the US (Singapore International Arbitration Centre
+    [Serious/register] Crestline Retail Inc: Offering lower rates to any other customer for substantially similar serv
+    [Serious/contract] Uncapped liability carve-outs
+    [Negotiable/contract] Automatic annual renewal
+    [Negotiable/contract] One-sided IP Indemnification
+    [Minor/register] CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competin
+
+2026-09-21_blueorchid_hotels_pilot_agreement_draft.md
+   36.2s  clauses 50/50  S/N/M 2/1/4  unverified 0  gemini  tokens 12035/2274
+    [Serious/register] Al Noor Hospitality Group: Data analytics, AI or revenue-management services
+    [Serious/contract] Termination lacks payment for work performed
+    [Negotiable/contract] Performance-based success criteria
+    [Minor/register] Expired restriction: Orbit Travels (Developing, licensing or providing travel-booking software)
+    [Minor/contract] Extended confidentiality duration
+    [Minor/contract] Broad data protection compliance
+    [Minor/contract] International data locations (UAE, Oman)
+
+2026-09-23_rheinwerk_analytics_services_agreement_draft.md
+    7.7s  clauses 55/55  S/N/M 2/2/4  unverified 0  gemini  tokens 12221/2442
+    [Serious/register] Northwind Logistics: Reusing tools or frameworks (including the PipeKit accelerator) built into
+    [Serious/contract] Perpetual, irrevocable license granted for proprietary tool
+    [Negotiable/rule] Indian entity under non-Indian law (laws of the Federal Republic of Germany)
+    [Negotiable/contract] Subcontracting Restricted
+    [Minor/register] CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competin
+    [Minor/contract] Client acquires exclusive rights upon full payment
+    [Minor/contract] Delay penalty of 0.5 percent per week
+    [Minor/contract] Exclusion of client-caused and force majeure delays
+
+2026-09-24_datavane_strategic_partnership_agreement_draft.md
+   10.6s  clauses 69/69  S/N/M 10/4/1  unverified 0  gemini  tokens 15919/3577
+    [Serious/rule] AtliQ Pvt Ltd named for a US client
+    [Serious/register] CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competin
+    [Serious/contract] Broad Non-Compete restricting services to Datavane Accounts
+    [Serious/contract] Unilateral termination for convenience by Datavane
+    [Serious/contract] No termination for convenience for Partner
+    [Serious/contract] Forfeiture of unpaid revenue share upon termination
+    [Serious/contract] Perpetual license to Partner connectors and accelerators
+    [Serious/contract] Uncapped and One-Sided Partner Indemnity
+    [Serious/contract] Partner Liability Excluded from Caps
+    [Serious/contract] Unilateral Program Terms Amendments
+    [Negotiable/rule] Indian entity under non-Indian law (laws of the State of Delaware)
+    [Negotiable/rule] Payment in 60 days
+    [Negotiable/contract] Automatic renewal for successive one-year periods
+    [Negotiable/contract] Asymmetric Assignment Rights
+    [Minor/register] Al Noor Hospitality Group: Data analytics, AI or revenue-management services
+
+2026-09-24_sunrise_foods_sow2_draft.md
+    4.5s  clauses 16/16  S/N/M 0/0/1  unverified 0  gemini  tokens 5457/1048
+    [Minor/register] Sunrise Foods: Soliciting the other party's employees engaged in the Services
+
+2026-09-25_finserve_capital_mutual_nda_draft.md
+   20.9s  clauses 27/27  S/N/M 6/1/2  unverified 0  gemini  tokens 7598/2515
+    [Serious/contract] One-sided confidentiality definition
+    [Serious/contract] Onerous data breach notification timeline
+    [Serious/contract] Perpetual confidentiality obligations
+    [Serious/contract] Restrictive non-compete clause
+    [Serious/contract] Non-solicitation of employees
+    [Serious/contract] Unilateral indemnity
+    [Negotiable/contract] Injunctive relief without proof of damage
+    [Minor/register] CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competin
+    [Minor/contract] Asymmetric assignment rights
+
+2026-09-26_kriti_data_labs_subcontractor_agreement_draft.md
+   18.8s  clauses 57/57  S/N/M 7/3/1  unverified 1  gemini  tokens 13835/3241
+    [Serious/rule] Delay penalty with no cap
+    [Serious/rule] Payment in 120 days
+    [Serious/contract] Parties and fee direction reversed
+    [Serious/contract] No payment for work in progress on termination
+    [Serious/contract] Vendor retains all IP in deliverables and tools
+    [Serious/contract] Indemnity covers AtliQ's own negligence
+    [Serious/contract] Vendor liability is completely uncapped
+    [Negotiable/rule] EU personal data but no DPA referenced
+    [Negotiable/contract] Unlimited rejection and refund rights
+    [Negotiable/contract] One-sided confidentiality obligations
+    [Minor/contract] Liability cap applies only to AtliQ
+
+2026-09-27_daniel_ortiz_contractor_agreement_draft.md
+    6.3s  clauses 32/32  S/N/M 1/0/0  unverified 0  gemini  tokens 8100/1381
+    [Serious/rule] Health data but no BAA referenced
+
+2026-09-27_daniel_ortiz_nda_draft.md
+    3.7s  clauses 13/13  S/N/M 0/0/0  unverified 0  gemini  tokens 5072/713
+
+2026-09-27_loopmart_mutual_nda_draft.md
+    5.0s  clauses 17/17  S/N/M 0/0/0  unverified 0  gemini  tokens 6597/796
+
+2026-09-27_marcus_reed_contractor_agreement_draft.md
+   17.3s  clauses 37/37  S/N/M 5/2/7  unverified 0  gemini  tokens 9143/3341
+    [Serious/rule] AtliQ Pvt Ltd named for a US client
+    [Serious/contract] Full-time exclusivity requirement
+    [Serious/contract] Assignment of all IP including pre-existing tools
+    [Serious/contract] Global non-compete clause
+    [Serious/contract] Unfair termination notice period
+    [Negotiable/rule] Payment in 60 days
+    [Negotiable/contract] Unilateral exchange rate determination
+    [Minor/register] CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competin
+    [Minor/contract] Broad IP assignment
+    [Minor/contract] Unilateral confidentiality obligations
+    [Minor/contract] Payment limited to approved hours
+    [Minor/contract] One-sided indemnity
+    [Minor/contract] Unilateral restriction on assignment
+    [Minor/contract] Stamp duty burden on Contractor
+
+TOTAL 15 files, 190s, tokens in 164954 out 37027, avg per contract in 10996 out 2468

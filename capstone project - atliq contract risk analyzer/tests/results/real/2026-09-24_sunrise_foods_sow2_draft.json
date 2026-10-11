@@ -1,0 +1,132 @@
+{
+ "details": {
+  "doc_type": "SOW",
+  "title": "Statement of Work No. 2 - Distributor Portal v2 and Sales Performance Dashboard",
+  "counterparty": "Sunrise Foods Pvt Ltd",
+  "client_country": "India",
+  "client_industry": "food",
+  "atliq_entity": "Pvt Ltd",
+  "effective_date": null,
+  "term_months": null,
+  "end_date": null,
+  "governing_law": "laws of India",
+  "courts_or_seat": "arbitration seated in Pune",
+  "governing_law_source": {
+   "clause_id": "12",
+   "quote": "governing law (laws of India) and dispute resolution (arbitration seated in Pune)"
+  },
+  "parties_quote": "This Statement of Work (\"SOW\") is entered into on ____________ 2026 between Sunrise Foods Pvt Ltd, having its registered office at Sunrise House, NH 66 Bypass, Edappally, Kochi 682024, Kerala, India (\"Client\"), and AtliQ Technologies Pvt Ltd, having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India, GSTIN 27AAKCA4821F1Z3 (\"AtliQ\").",
+  "payment_source": {
+   "clause_id": "5.2",
+   "quote": "AtliQ shall invoice each Milestone Fee on acceptance of the relevant Milestone. The Client shall pay within thirty (30) days of receipt of invoice, as per the MSA."
+  },
+  "currency": "USD",
+  "total_value": 45000.0,
+  "annual_fee": null,
+  "payment_days": 30,
+  "services_summary": "Extend distributor portal v2 and build a sales performance dashboard with Power BI, mobile-responsive design, ERP integration and Malayalam/Tamil support.",
+  "regions_of_service": [
+   "India"
+  ],
+  "liability_cap": {
+   "kind": "other",
+   "multiple": null,
+   "amount": null,
+   "basis": "as set out in the MSA",
+   "clause_id": "12",
+   "quote": "limitation of liability... are as set out in the MSA"
+  },
+  "delay_penalty": {
+   "present": true,
+   "per": "week",
+   "rate_percent": 0.5,
+   "capped": true,
+   "excludes_client_delay": true,
+   "clause_id": "8",
+   "quote": "If AtliQ fails to achieve a Milestone by its Target Date for reasons attributable to AtliQ, the Client shall be entitled to a service credit equal to 0.5% (half a percent) of the Milestone Fee of the delayed Milestone for each complete week of delay."
+  },
+  "mutual_confidentiality": null,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": []
+ },
+ "clauses_total": 16,
+ "clauses_reviewed": 16,
+ "findings": [
+  {
+   "source": "register",
+   "topic": "non_solicit",
+   "severity": "Minor",
+   "title": "Sunrise Foods: Soliciting the other party's employees engaged in the Services",
+   "why": "Involves Sunrise Foods non-solicit commitments for employees engaged in the services through October 2028.",
+   "comparison": "Mutual non-solicit, low impact.",
+   "clause_id": "15.1",
+   "quote": "Neither Party shall solicit the employees of the other Party engaged in the Services during the term of the relevant SOW and six (6) months thereafter.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-14",
+   "register_status": "active",
+   "register_end": "2028-10-17",
+   "register_file": "samples/signed/2025-04-18_sunrise_foods_msa.md",
+   "register_counterparty": "Sunrise Foods",
+   "exception": "Mutual.",
+   "relevance": "possible",
+   "id": "F01"
+  }
+ ],
+ "liability_multiple": null,
+ "liability_text": "not stated",
+ "checked_register": 14,
+ "seconds": 4.5,
+ "calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 2830,
+   "in": 2317,
+   "out": 726
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1304,
+   "in": 1786,
+   "out": 132
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1648,
+   "in": 1354,
+   "out": 190
+  }
+ ],
+ "tokens_in": 5457,
+ "tokens_out": 1048,
+ "all_findings": [
+  {
+   "source": "register",
+   "topic": "non_solicit",
+   "severity": "Minor",
+   "title": "Sunrise Foods: Soliciting the other party's employees engaged in the Services",
+   "why": "Involves Sunrise Foods non-solicit commitments for employees engaged in the services through October 2028.",
+   "comparison": "Mutual non-solicit, low impact.",
+   "clause_id": "15.1",
+   "quote": "Neither Party shall solicit the employees of the other Party engaged in the Services during the term of the relevant SOW and six (6) months thereafter.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-14",
+   "register_status": "active",
+   "register_end": "2028-10-17",
+   "register_file": "samples/signed/2025-04-18_sunrise_foods_msa.md",
+   "register_counterparty": "Sunrise Foods",
+   "exception": "Mutual.",
+   "relevance": "possible",
+   "id": "F01"
+  }
+ ]
+}

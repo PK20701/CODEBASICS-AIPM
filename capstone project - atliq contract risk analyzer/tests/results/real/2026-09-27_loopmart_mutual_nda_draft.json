@@ -1,0 +1,97 @@
+{
+ "details": {
+  "doc_type": "NDA",
+  "title": "Mutual Non-Disclosure Agreement",
+  "counterparty": "LOOPMART RETAIL PRIVATE LIMITED",
+  "client_country": "India",
+  "client_industry": "retail",
+  "atliq_entity": "Pvt Ltd",
+  "effective_date": null,
+  "term_months": 24,
+  "end_date": null,
+  "governing_law": "India",
+  "courts_or_seat": "Bengaluru",
+  "governing_law_source": {
+   "clause_id": "10.3",
+   "quote": "This Agreement is governed by the laws of India. The courts at Bengaluru shall have exclusive jurisdiction."
+  },
+  "parties_quote": "LOOPMART RETAIL PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at No. 27, 3rd Floor, 100 Feet Road, Indiranagar, Bengaluru 560038, Karnataka, India (\"LoopMart\"); and\n\nATLIQ TECHNOLOGIES PRIVATE LIMITED, a company incorporated under the Companies Act, 2013 (CIN U72900MH2019PTC321456; GSTIN 27AAKCA4821F1Z3), having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"AtliQ\")",
+  "payment_source": {
+   "clause_id": null,
+   "quote": null
+  },
+  "currency": "INR",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": null,
+  "services_summary": "Mutual non-disclosure agreement for discussions regarding a customer analytics and demand-forecasting solution.",
+  "regions_of_service": [
+   "India"
+  ],
+  "liability_cap": {
+   "kind": "none_stated",
+   "multiple": null,
+   "amount": null,
+   "basis": "",
+   "clause_id": null,
+   "quote": ""
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": []
+ },
+ "clauses_total": 17,
+ "clauses_reviewed": 17,
+ "findings": [],
+ "liability_multiple": null,
+ "liability_text": "not stated",
+ "checked_register": 14,
+ "seconds": 5.0,
+ "calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 2772,
+   "in": 2130,
+   "out": 628
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1399,
+   "in": 1933,
+   "out": 135
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1099,
+   "in": 1187,
+   "out": 28
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1143,
+   "in": 1347,
+   "out": 5
+  }
+ ],
+ "tokens_in": 6597,
+ "tokens_out": 796,
+ "all_findings": []
+}

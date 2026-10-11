@@ -1,0 +1,128 @@
+{
+ "id": "S08",
+ "label": "S08 Redwood Software (wrong entity and law)",
+ "seconds": 16.8,
+ "findings": 2,
+ "serious": 1,
+ "must": 1,
+ "found": 1,
+ "missed": [],
+ "false_alarms": 0,
+ "unverified": [],
+ "providers": [
+  "gemini"
+ ],
+ "tokens_in": 4251,
+ "tokens_out": 1190,
+ "clauses": "11/11",
+ "liability": "1.0x annual fee",
+ "details": {
+  "doc_type": "MSA",
+  "title": "MASTER SERVICES AGREEMENT",
+  "counterparty": "Redwood Software Inc.",
+  "client_country": "USA",
+  "client_industry": "software",
+  "atliq_entity": "Pvt Ltd",
+  "effective_date": null,
+  "term_months": 12,
+  "end_date": null,
+  "governing_law": "laws of the State of California",
+  "courts_or_seat": "courts of San Francisco County, California",
+  "governing_law_source": {
+   "clause_id": "7.1",
+   "quote": "This Agreement is governed by the laws of the State of California, and the parties submit to the exclusive jurisdiction of the courts of San Francisco County, California."
+  },
+  "parties_quote": "Redwood Software Inc., a California corporation having its principal office at 200 Mission Street, San Francisco, California 94105 (\"Redwood\"); and AtliQ Technologies Private Limited, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
+  "payment_source": {
+   "clause_id": "2.1",
+   "quote": "Redwood shall pay USD 96,000 in total in monthly instalments, within thirty (30) days of receipt of each invoice."
+  },
+  "currency": "USD",
+  "total_value": 96000.0,
+  "annual_fee": 96000.0,
+  "payment_days": 30,
+  "services_summary": "Vendor shall provide data engineering services to Redwood for its product usage analytics.",
+  "regions_of_service": [
+   "USA"
+  ],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 1,
+   "amount": null,
+   "basis": "fees paid in the twelve (12) months before the claim",
+   "clause_id": "5.1",
+   "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "ip_assignment",
+    "who_is_bound": "AtliQ",
+    "summary": "Redwood owns the Deliverables created under the agreement.",
+    "restricted_activity": "Redwood owns the Deliverables.",
+    "geography": [],
+    "clause_id": "3.1",
+    "quote": "Redwood owns the Deliverables.",
+    "duration_basis": "perpetual",
+    "months_after_term": null
+   }
+  ]
+ },
+ "titles": [
+  [
+   "Serious",
+   "rule",
+   "AtliQ Pvt Ltd named for a US client"
+  ],
+  [
+   "Negotiable",
+   "rule",
+   "Indian entity under non-Indian law (laws of the State of California)"
+  ]
+ ],
+ "all_findings": [
+  {
+   "source": "rule",
+   "topic": "governing_law",
+   "severity": "Serious",
+   "title": "AtliQ Pvt Ltd named for a US client",
+   "why": "US clients contract with AtliQ Inc.",
+   "comparison": "Entity sheet: AtliQ Inc serves the United States only.",
+   "clause_id": "Parties",
+   "quote": "Redwood Software Inc., a California corporation having its principal office at 200 Mission Street, San Francisco, California 94105 (\"Redwood\"); and AtliQ Technologies Private Limited, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  },
+  {
+   "source": "rule",
+   "topic": "governing_law",
+   "severity": "Negotiable",
+   "title": "Indian entity under non-Indian law (laws of the State of California)",
+   "why": "Disputes would be fought under foreign law and courts.",
+   "comparison": "Principle: India for AtliQ Pvt Ltd. Past exceptions (Al Noor DIFC, Northwind English law) were deliberate.",
+   "clause_id": "7.1",
+   "quote": "This Agreement is governed by the laws of the State of California, and the parties submit to the exclusive jurisdiction of the courts of San Francisco County, California.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F02"
+  }
+ ]
+}

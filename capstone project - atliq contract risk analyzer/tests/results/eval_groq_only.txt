@@ -1,0 +1,13 @@
+S06 S06 Sterling Care (health data, no BAA, $5M cybe   5.9s found 2/2  serious 2  false-alarm 0  unverified 0  clauses 14/14  groq  tokens 4509/2208
+      [Serious/rule] Health data but no BAA referenced
+      [Serious/rule] Cyber insurance of $5,000,000 required; AtliQ holds $1M
+      [Minor/contract] Confidentiality term longer than benchmark
+S09 S09 Fieldstone Foods + call notes (verbal 10% di   6.4s found 1/1  serious 0  false-alarm 0  unverified 0  clauses 10/10  groq  tokens 5505/3069
+      [Negotiable/unofficial] 10% discount on year 2 fees conditional on signing by end of October.
+      [Negotiable/unofficial] One extra dashboard for warehouse team included at no additional charge.
+S07 S07 Marina Bay Resorts (Dubai, collides with Al    7.4s found 1/1  serious 1  false-alarm 0  unverified 0  clauses 13/13  groq  tokens 4525/4252
+      [Serious/register] Al Noor Hospitality Group: Data analytics, AI or revenue-management services
+      [Minor/register] CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competing clo
+S08 ERROR QuotaError: HTTP 429 {"error":{"message":"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01m1sb3dpwey3871e8q32d6y2v` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7
+
+TOTAL must found 4/4, false alarms 0, errors 1

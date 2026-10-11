@@ -1,0 +1,142 @@
+{
+ "id": "S07",
+ "label": "S07 Marina Bay Resorts (Dubai, collides with Al Noor)",
+ "seconds": 7.4,
+ "findings": 2,
+ "serious": 1,
+ "must": 1,
+ "found": 1,
+ "missed": [],
+ "false_alarms": 0,
+ "unverified": [],
+ "providers": [
+  "groq"
+ ],
+ "tokens_in": 4525,
+ "tokens_out": 4252,
+ "clauses": "13/13",
+ "liability": "1.0x annual fee",
+ "details": {
+  "doc_type": "MSA",
+  "title": "Master Services Agreement",
+  "counterparty": "Marina Bay Resorts LLC",
+  "client_country": "United Arab Emirates",
+  "client_industry": "hospitality",
+  "atliq_entity": "Pvt Ltd",
+  "effective_date": "2026-11-01",
+  "term_months": 12,
+  "end_date": null,
+  "governing_law": "laws of India",
+  "courts_or_seat": "courts of Pune have exclusive jurisdiction",
+  "governing_law_source": {
+   "clause_id": "8.1",
+   "quote": "8.1 This Agreement is governed by the laws of India and the courts of Pune have exclusive jurisdiction."
+  },
+  "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of 1 November 2026 (the \"Effective Date\") between:\n\n**Marina Bay Resorts LLC**, a company incorporated in Dubai, United Arab Emirates, having its registered office at Sheikh Zayed Road, Dubai (\"Marina Bay\"); and\n\n**AtliQ Technologies Private Limited**, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
+  "payment_source": {
+   "clause_id": "2.1",
+   "quote": "2.1 Marina Bay shall pay USD 150,000 in total, within thirty (30) days of receipt of each invoice."
+  },
+  "currency": "USD",
+  "total_value": 150000.0,
+  "annual_fee": null,
+  "payment_days": 30,
+  "services_summary": "Revenue-management analytics and guest analytics services, including a booking-engine module for four resorts in Dubai and Abu Dhabi.",
+  "regions_of_service": [
+   "United Arab Emirates"
+  ],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 1,
+   "amount": null,
+   "basis": "limited to the fees paid in the twelve (12) months before the claim",
+   "clause_id": "6.1",
+   "quote": "6.1 Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": null,
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "exclusivity",
+    "who_is_bound": "AtliQ",
+    "summary": "Vendor shall not provide revenue-management services to any other hotel group in the UAE for six months after term.",
+    "restricted_activity": "provide revenue-management services to any other hotel group in the United Arab Emirates",
+    "geography": [
+     "United Arab Emirates"
+    ],
+    "clause_id": "3.1",
+    "quote": "3.1 For six (6) months after the end of the term, Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates.",
+    "duration_basis": "fixed_months",
+    "months_after_term": 6
+   }
+  ]
+ },
+ "titles": [
+  [
+   "Serious",
+   "register",
+   "Al Noor Hospitality Group: Data analytics, AI or revenue-management services"
+  ],
+  [
+   "Minor",
+   "register",
+   "CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competing cloud data-warehouse, lakehouse or analytics platform"
+  ]
+ ],
+ "all_findings": [
+  {
+   "source": "register",
+   "topic": "non_compete",
+   "severity": "Serious",
+   "title": "Al Noor Hospitality Group: Data analytics, AI or revenue-management services",
+   "why": "Same industry, region, activity, and non-compete still active until 2029.",
+   "comparison": "Do not take analytics, AI or revenue-management work for hotel groups in the GCC until about September 2029 without Al Noor's written consent.",
+   "clause_id": "12.1",
+   "quote": "the Supplier undertakes that neither it nor any of its Affiliates shall, during the Restricted Period, directly or indirectly, provide data analytics, artificial intelligence or revenue-management services to any Hospitality Business in the GCC.",
+   "verified": true,
+   "unsure": false,
+   "register_id": "R-01",
+   "register_status": "active",
+   "register_end": "2029-09-14",
+   "register_file": "samples/signed/2025-03-15_al_noor_hospitality_msa.md",
+   "register_counterparty": "Al Noor Hospitality Group",
+   "exception": "Clause 12.4 lets Al Noor waive it per engagement by written consent. Waiver letter of 10 Feb 2026 allows only the Seaside Hotels (Muscat) demand-forecasting SOW; not follow-on SOWs, other hotels or Affiliates.",
+   "relevance": "likely",
+   "id": "F01"
+  },
+  {
+   "source": "register",
+   "topic": "exclusivity",
+   "severity": "Minor",
+   "title": "CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competing cloud data-warehouse, lakehouse or analytics platform",
+   "why": "Exclusivity may restrict partnering with competing cloud analytics vendors in UAE, unclear if booking engine uses such vendor.",
+   "comparison": "Do not partner with another cloud data-warehouse or lakehouse vendor in India or the GCC while the CloudSpan agreement runs.",
+   "clause_id": "7.1",
+   "quote": "during the Term Partner and its Affiliates shall not act as an implementation, reseller or referral partner for any Competing Platform in India or the GCC.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-03",
+   "register_status": "active",
+   "register_end": "2028-08-31",
+   "register_file": "samples/signed/2025-09-01_cloudspan_strategic_partnership_agreement.md",
+   "register_counterparty": "CloudSpan Technologies",
+   "exception": "Clause 7.3: does not restrict services outside India and the GCC, or to a customer that independently selected a platform, provided AtliQ holds no partner appointment with, and receives no fee from, that platform's provider.",
+   "relevance": "possible",
+   "id": "F02"
+  }
+ ]
+}

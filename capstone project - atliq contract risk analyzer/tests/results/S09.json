@@ -1,0 +1,118 @@
+{
+ "id": "S09",
+ "label": "S09 Fieldstone Foods + call notes (verbal 10% discount)",
+ "seconds": 6.4,
+ "findings": 2,
+ "serious": 0,
+ "must": 1,
+ "found": 1,
+ "missed": [],
+ "false_alarms": 0,
+ "unverified": [],
+ "providers": [
+  "groq"
+ ],
+ "tokens_in": 5505,
+ "tokens_out": 3069,
+ "clauses": "10/10",
+ "liability": "1.0x annual fee",
+ "details": {
+  "doc_type": "MSA",
+  "title": "Master Services Agreement",
+  "counterparty": "Fieldstone Foods Inc.",
+  "client_country": "USA",
+  "client_industry": "other",
+  "atliq_entity": "Inc",
+  "effective_date": null,
+  "term_months": 24,
+  "end_date": null,
+  "governing_law": "State of Iowa",
+  "courts_or_seat": null,
+  "governing_law_source": {
+   "clause_id": "7.1",
+   "quote": "This Agreement is governed by the laws of the State of Iowa."
+  },
+  "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of ____________, 2026 between: **Fieldstone Foods Inc.**, an Iowa corporation having its principal office at 300 Walnut Street, Des Moines, Iowa 50309 (\"Fieldstone\"); and **AtliQ Inc**, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "payment_source": {
+   "clause_id": "2.1",
+   "quote": "Fieldstone shall pay USD 300,000 in total (USD 150,000 per year), invoiced monthly, within thirty (30) days of receipt."
+  },
+  "currency": "USD",
+  "total_value": 300000.0,
+  "annual_fee": 150000.0,
+  "payment_days": 30,
+  "services_summary": "Demand forecasting and data engineering services as set out in SOW-1.",
+  "regions_of_service": [],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 1,
+   "amount": null,
+   "basis": "fees paid in the twelve (12) months before the claim",
+   "clause_id": "5.1",
+   "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": []
+ },
+ "titles": [
+  [
+   "Negotiable",
+   "unofficial",
+   "10% discount on year 2 fees conditional on signing by end of October."
+  ],
+  [
+   "Negotiable",
+   "unofficial",
+   "One extra dashboard for warehouse team included at no additional charge."
+  ]
+ ],
+ "all_findings": [
+  {
+   "source": "unofficial",
+   "topic": "informal_term",
+   "severity": "Negotiable",
+   "title": "10% discount on year 2 fees conditional on signing by end of October.",
+   "why": "Unofficial and not binding, but it affects the deal. The contract does not reflect it.",
+   "comparison": "",
+   "clause_id": null,
+   "quote": "Jay agreed on the call to a 10% discount on the year 2 fees if they sign by the end of October.",
+   "verified": true,
+   "unsure": true,
+   "kind": "price",
+   "contract_reflects": "no",
+   "register_id": null,
+   "id": "F01"
+  },
+  {
+   "source": "unofficial",
+   "topic": "informal_term",
+   "severity": "Negotiable",
+   "title": "One extra dashboard for warehouse team included at no additional charge.",
+   "why": "Unofficial and not binding, but it affects the deal. The contract does not reflect it.",
+   "comparison": "",
+   "clause_id": null,
+   "quote": "Jay also said AtliQ would add one extra dashboard for the warehouse team at no charge.",
+   "verified": true,
+   "unsure": true,
+   "kind": "scope",
+   "contract_reflects": "no",
+   "register_id": null,
+   "id": "F02"
+  }
+ ]
+}

@@ -1,0 +1,362 @@
+{
+ "details": {
+  "doc_type": "BAA",
+  "title": "Exhibit D - Business Associate Agreement",
+  "counterparty": "Harrington Health Systems, Inc.",
+  "client_country": "United States",
+  "client_industry": "healthcare",
+  "atliq_entity": "Inc",
+  "effective_date": null,
+  "term_months": null,
+  "end_date": null,
+  "governing_law": "the State of Texas and applicable federal law",
+  "courts_or_seat": null,
+  "governing_law_source": {
+   "clause_id": "12.5",
+   "quote": "This BAA shall be governed by the laws of the State of Texas and applicable federal law, and venue shall lie as provided in the Master Services Agreement."
+  },
+  "parties_quote": "This Business Associate Agreement (this \"BAA\") is entered into as of the Effective Date of the Master Services Agreement (as defined below) by and between Harrington Health Systems, Inc., a Texas nonprofit corporation with its principal place of business at 6400 Fannin Street, Suite 1800, Houston, Texas 77030, on behalf of itself and its Affiliates that are covered entities (\"Covered Entity\" or \"Harrington\"), and AtliQ Inc, a Delaware corporation with its principal place of business at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Business Associate\").",
+  "payment_source": {
+   "clause_id": null,
+   "quote": null
+  },
+  "currency": "USD",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": null,
+  "services_summary": "Services that involve the creation, receipt, maintenance or transmission of Protected Health Information on behalf of Covered Entity.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "unlimited",
+   "multiple": null,
+   "amount": null,
+   "basis": "The obligations of Business Associate under this Article 8 are not subject to any limitation or exclusion of liability",
+   "clause_id": "8.2",
+   "quote": "The obligations of Business Associate under this Article 8 are not subject to any limitation or exclusion of liability, and shall apply notwithstanding any limitation of liability in the Master Services Agreement."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": false,
+  "one_sided_note": "Obligations bind Business Associate only.",
+  "handles_phi": true,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": "This Business Associate Agreement (this \"BAA\") is entered into...",
+  "insurance_requirements": [
+   {
+    "type": "cyber",
+    "amount_usd": 5000000,
+    "clause_id": "8.3",
+    "quote": "Business Associate shall maintain, throughout the term of this BAA and for three (3) years thereafter, cyber liability and network security and privacy insurance with limits of not less than Five Million U.S. Dollars ($5,000,000) per claim and in the aggregate..."
+   }
+  ],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "ip_assignment",
+    "who_is_bound": "client",
+    "summary": "All PHI and data derived from PHI remains sole property of Covered Entity.",
+    "restricted_activity": "Business Associate acquires no right, title or interest in PHI.",
+    "geography": [],
+    "clause_id": "10.1",
+    "quote": "As between the Parties, all PHI and all data derived from PHI is and shall remain the sole property of Covered Entity. Business Associate acquires no right, title or interest in PHI by reason of this BAA or the Master Services Agreement.",
+    "duration_basis": "perpetual",
+    "months_after_term": null
+   },
+   {
+    "type": "data_location",
+    "who_is_bound": "AtliQ",
+    "summary": "Domestic Performance: Do not process PHI outside the United States.",
+    "restricted_activity": "Access, view, create, receive, maintain, transmit, store or process PHI from or at any location outside the United States",
+    "geography": [
+     "United States"
+    ],
+    "clause_id": "4.1",
+    "quote": "Business Associate shall not, and shall ensure that no Subcontractor shall, access, view, create, receive, maintain, transmit, store or process PHI from or at any location outside the United States, whether directly or by remote access.",
+    "duration_basis": "term",
+    "months_after_term": null
+   }
+  ]
+ },
+ "clauses_total": 29,
+ "clauses_reviewed": 29,
+ "findings": [
+  {
+   "source": "rule",
+   "topic": "liability",
+   "severity": "Serious",
+   "title": "Liability is unlimited",
+   "why": "No limit protects AtliQ.",
+   "comparison": "Past contracts: 8 of 10 cap liability at about 1x fees; highest seen 2x.",
+   "clause_id": "8.2",
+   "quote": "The obligations of Business Associate under this Article 8 are not subject to any limitation or exclusion of liability, and shall apply notwithstanding any limitation of liability in the Master Services Agreement.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  },
+  {
+   "source": "rule",
+   "topic": "insurance",
+   "severity": "Serious",
+   "title": "Cyber insurance of $5,000,000 required; AtliQ holds $1M",
+   "why": "AtliQ would be in breach on signing.",
+   "comparison": "AtliQ facts: cyber cover is $1,000,000.",
+   "clause_id": "8.3",
+   "quote": "Business Associate shall maintain, throughout the term of this BAA and for three (3) years thereafter, cyber liability and network security and privacy insurance with limits of not less than Five Million U.S. Dollars ($5,000,000) per claim and in the aggregate...",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "One-Sided Indemnity and Uncapped Liability",
+   "why": "Exposes AtliQ to massive, uncapped third-party risks and regulatory costs without reciprocity.",
+   "comparison": "Violates AtliQ preference for mutual indemnity and 1x-2x fee liability caps.",
+   "clause_id": "P19",
+   "quote": "Business Associate shall defend, indemnify and hold harmless Covered Entity... The obligations of Business Associate under this Article 8 are not subject to any limitation or exclusion of liability",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F03"
+  },
+  {
+   "source": "contract",
+   "topic": "data_protection",
+   "severity": "Negotiable",
+   "title": "Strict US Data Location and Subcontractor Restrictions",
+   "why": "Restricts offshore delivery and remote access support for this client.",
+   "comparison": "AtliQ typically utilizes offshore resources; this requires 100% US-based personnel for handling PHI.",
+   "clause_id": "P13",
+   "quote": "Business Associate shall not, and shall ensure that no Subcontractor shall, access, view, create, receive, maintain, transmit, store or process PHI from or at any location outside the United States",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F04"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Unpaid Litigation Support Requirement",
+   "why": "AtliQ staff time for litigation support is uncompensated.",
+   "comparison": "Past contracts do not typically require free expert or witness testimony.",
+   "clause_id": "P17",
+   "quote": "Business Associate shall make itself and its workforce reasonably available to Covered Entity, at no cost, to testify in any litigation or administrative proceeding",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F05"
+  },
+  {
+   "source": "contract",
+   "topic": "ip",
+   "severity": "Negotiable",
+   "title": "Restriction on AI model training using PHI",
+   "why": "Limits AtliQ's ability to use generalized learnings or models across other clients.",
+   "comparison": "AtliQ principles protect pre-existing tools, but restrictions on client data usage in BAAs are common for HIPAA compliance.",
+   "clause_id": "P23",
+   "quote": "Business Associate shall not use PHI, or any data derived from PHI, to train, tune or evaluate any machine learning or artificial intelligence model other than models developed exclusively for Covered Entity",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F06"
+  },
+  {
+   "source": "contract",
+   "topic": "termination",
+   "severity": "Negotiable",
+   "title": "Termination of MSA via BAA breach",
+   "why": "A breach of this BAA permits termination of the entire Master Services Agreement.",
+   "comparison": "Standard risk in healthcare BAAs tied to MSAs, but links operational contracts to privacy compliance.",
+   "clause_id": "P25",
+   "quote": "Covered Entity may, at its option, (a) provide Business Associate an opportunity to cure... and terminate this BAA and the Master Services Agreement if Business Associate does not cure",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F07"
+  },
+  {
+   "source": "contract",
+   "topic": "amendment",
+   "severity": "Negotiable",
+   "title": "Unilateral amendment by Covered Entity for HIPAA",
+   "why": "Allows one-sided changes to contract terms without AtliQ's consent.",
+   "comparison": "Deviates from mutual agreement, though common for regulatory compliance updates in healthcare.",
+   "clause_id": "P26",
+   "quote": "Covered Entity may amend this BAA by written notice to the extent required to comply with HIPAA.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F08"
+  }
+ ],
+ "liability_multiple": null,
+ "liability_text": "unlimited",
+ "checked_register": 14,
+ "seconds": 7.5,
+ "calls": [
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 3519,
+   "in": 5103,
+   "out": 1171
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1369,
+   "in": 2492,
+   "out": 95
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 2433,
+   "in": 2430,
+   "out": 649
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 2057,
+   "in": 2586,
+   "out": 514
+  },
+  {
+   "provider": "gemini",
+   "model": "gemini-flash-lite-latest",
+   "ms": 1491,
+   "in": 1350,
+   "out": 69
+  }
+ ],
+ "tokens_in": 13961,
+ "tokens_out": 2498,
+ "all_findings": [
+  {
+   "source": "rule",
+   "topic": "liability",
+   "severity": "Serious",
+   "title": "Liability is unlimited",
+   "why": "No limit protects AtliQ.",
+   "comparison": "Past contracts: 8 of 10 cap liability at about 1x fees; highest seen 2x.",
+   "clause_id": "8.2",
+   "quote": "The obligations of Business Associate under this Article 8 are not subject to any limitation or exclusion of liability, and shall apply notwithstanding any limitation of liability in the Master Services Agreement.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  },
+  {
+   "source": "rule",
+   "topic": "insurance",
+   "severity": "Serious",
+   "title": "Cyber insurance of $5,000,000 required; AtliQ holds $1M",
+   "why": "AtliQ would be in breach on signing.",
+   "comparison": "AtliQ facts: cyber cover is $1,000,000.",
+   "clause_id": "8.3",
+   "quote": "Business Associate shall maintain, throughout the term of this BAA and for three (3) years thereafter, cyber liability and network security and privacy insurance with limits of not less than Five Million U.S. Dollars ($5,000,000) per claim and in the aggregate...",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "One-Sided Indemnity and Uncapped Liability",
+   "why": "Exposes AtliQ to massive, uncapped third-party risks and regulatory costs without reciprocity.",
+   "comparison": "Violates AtliQ preference for mutual indemnity and 1x-2x fee liability caps.",
+   "clause_id": "P19",
+   "quote": "Business Associate shall defend, indemnify and hold harmless Covered Entity... The obligations of Business Associate under this Article 8 are not subject to any limitation or exclusion of liability",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F03"
+  },
+  {
+   "source": "contract",
+   "topic": "data_protection",
+   "severity": "Negotiable",
+   "title": "Strict US Data Location and Subcontractor Restrictions",
+   "why": "Restricts offshore delivery and remote access support for this client.",
+   "comparison": "AtliQ typically utilizes offshore resources; this requires 100% US-based personnel for handling PHI.",
+   "clause_id": "P13",
+   "quote": "Business Associate shall not, and shall ensure that no Subcontractor shall, access, view, create, receive, maintain, transmit, store or process PHI from or at any location outside the United States",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F04"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Unpaid Litigation Support Requirement",
+   "why": "AtliQ staff time for litigation support is uncompensated.",
+   "comparison": "Past contracts do not typically require free expert or witness testimony.",
+   "clause_id": "P17",
+   "quote": "Business Associate shall make itself and its workforce reasonably available to Covered Entity, at no cost, to testify in any litigation or administrative proceeding",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F05"
+  },
+  {
+   "source": "contract",
+   "topic": "ip",
+   "severity": "Negotiable",
+   "title": "Restriction on AI model training using PHI",
+   "why": "Limits AtliQ's ability to use generalized learnings or models across other clients.",
+   "comparison": "AtliQ principles protect pre-existing tools, but restrictions on client data usage in BAAs are common for HIPAA compliance.",
+   "clause_id": "P23",
+   "quote": "Business Associate shall not use PHI, or any data derived from PHI, to train, tune or evaluate any machine learning or artificial intelligence model other than models developed exclusively for Covered Entity",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F06"
+  },
+  {
+   "source": "contract",
+   "topic": "termination",
+   "severity": "Negotiable",
+   "title": "Termination of MSA via BAA breach",
+   "why": "A breach of this BAA permits termination of the entire Master Services Agreement.",
+   "comparison": "Standard risk in healthcare BAAs tied to MSAs, but links operational contracts to privacy compliance.",
+   "clause_id": "P25",
+   "quote": "Covered Entity may, at its option, (a) provide Business Associate an opportunity to cure... and terminate this BAA and the Master Services Agreement if Business Associate does not cure",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F07"
+  },
+  {
+   "source": "contract",
+   "topic": "amendment",
+   "severity": "Negotiable",
+   "title": "Unilateral amendment by Covered Entity for HIPAA",
+   "why": "Allows one-sided changes to contract terms without AtliQ's consent.",
+   "comparison": "Deviates from mutual agreement, though common for regulatory compliance updates in healthcare.",
+   "clause_id": "P26",
+   "quote": "Covered Entity may amend this BAA by written notice to the extent required to comply with HIPAA.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F08"
+  }
+ ]
+}

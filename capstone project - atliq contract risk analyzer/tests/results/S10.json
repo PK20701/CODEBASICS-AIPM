@@ -1,0 +1,141 @@
+{
+ "id": "S10",
+ "label": "S10 Bluewater Marine + chat (scope cut, 60-day payment)",
+ "seconds": 4.4,
+ "findings": 3,
+ "serious": 0,
+ "must": 2,
+ "found": 2,
+ "missed": [],
+ "false_alarms": 0,
+ "unverified": [
+  "F03"
+ ],
+ "providers": [
+  "gemini"
+ ],
+ "tokens_in": 5390,
+ "tokens_out": 987,
+ "clauses": "11/11",
+ "liability": "1.0x annual fee",
+ "details": {
+  "doc_type": "MSA",
+  "title": "Master Services Agreement",
+  "counterparty": "Bluewater Marine Supplies Inc.",
+  "client_country": "United States",
+  "client_industry": "logistics",
+  "atliq_entity": "Inc",
+  "effective_date": null,
+  "term_months": 12,
+  "end_date": null,
+  "governing_law": "State of Washington",
+  "courts_or_seat": null,
+  "governing_law_source": {
+   "clause_id": "7.1",
+   "quote": "This Agreement is governed by the laws of the State of Washington."
+  },
+  "parties_quote": "Bluewater Marine Supplies Inc., a Washington corporation having its principal office at 1200 Alaskan Way, Seattle, Washington 98101 (\"Bluewater\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "payment_source": {
+   "clause_id": "2.1",
+   "quote": "Bluewater shall pay USD 84,000 in total in monthly instalments, within thirty (30) days of receipt of each invoice."
+  },
+  "currency": "USD",
+  "total_value": 84000.0,
+  "annual_fee": 84000.0,
+  "payment_days": 30,
+  "services_summary": "Customer analytics dashboard and mobile reporting application.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 1,
+   "amount": null,
+   "basis": "fees paid in the twelve (12) months before the claim",
+   "clause_id": "5.1",
+   "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": []
+ },
+ "titles": [
+  [
+   "Negotiable",
+   "unofficial",
+   "Bluewater asked to drop the mobile app from phase 1 and do dashboard only."
+  ],
+  [
+   "Negotiable",
+   "unofficial",
+   "Bluewater requested 60-day payment terms instead of the standard 30 days."
+  ],
+  [
+   "Minor",
+   "contract",
+   ""
+  ]
+ ],
+ "all_findings": [
+  {
+   "source": "unofficial",
+   "topic": "informal_term",
+   "severity": "Negotiable",
+   "title": "Bluewater asked to drop the mobile app from phase 1 and do dashboard only.",
+   "why": "Unofficial and not binding, but it affects the deal. The contract does not reflect it.",
+   "comparison": "",
+   "clause_id": null,
+   "quote": "can we drop the mobile app from phase 1? budget is tight, dashboard only for now",
+   "verified": true,
+   "unsure": true,
+   "kind": "scope",
+   "contract_reflects": "no",
+   "register_id": null,
+   "id": "F01"
+  },
+  {
+   "source": "unofficial",
+   "topic": "informal_term",
+   "severity": "Negotiable",
+   "title": "Bluewater requested 60-day payment terms instead of the standard 30 days.",
+   "why": "Unofficial and not binding, but it affects the deal. The contract does not reflect it.",
+   "comparison": "",
+   "clause_id": null,
+   "quote": "also our finance team pays on 60 day cycles, hope that is fine",
+   "verified": true,
+   "unsure": true,
+   "kind": "payment",
+   "contract_reflects": "no",
+   "register_id": null,
+   "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Minor",
+   "title": "",
+   "why": "",
+   "comparison": "",
+   "clause_id": null,
+   "quote": null,
+   "claimed_quote": "",
+   "verified": false,
+   "unsure": true,
+   "id": "F03"
+  }
+ ]
+}
