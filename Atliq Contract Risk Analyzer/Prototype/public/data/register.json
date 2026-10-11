@@ -1,0 +1,323 @@
+[
+ {
+  "id": "R-01",
+  "contract_id": "C-007",
+  "counterparty": "Al Noor Hospitality Group",
+  "file": "samples/signed/2025-03-15_al_noor_hospitality_msa.md",
+  "type": "non_compete",
+  "clause": "12.1",
+  "bound": "AtliQ Technologies Pvt Ltd and its Affiliates (including AtliQ Inc)",
+  "restricted_activity": "Data analytics, AI or revenue-management services",
+  "scope": {
+   "customers": "Any hospitality business (hotels, resorts, serviced apartments, and providers of revenue management or guest analytics to them)",
+   "geography": [
+    "UAE",
+    "Saudi Arabia",
+    "Qatar",
+    "Kuwait",
+    "Bahrain",
+    "Oman"
+   ]
+  },
+  "start": "2025-03-15",
+  "end": "2029-09-14",
+  "end_basis": "Term (to 14 Mar 2028) plus 18 months (clause 1.14)",
+  "quote": "the Supplier undertakes that neither it nor any of its Affiliates shall, during the Restricted Period, directly or indirectly, provide data analytics, artificial intelligence or revenue-management services to any Hospitality Business in the GCC.",
+  "exception": "Clause 12.4 lets Al Noor waive it per engagement by written consent. Waiver letter of 10 Feb 2026 allows only the Seaside Hotels (Muscat) demand-forecasting SOW; not follow-on SOWs, other hotels or Affiliates.",
+  "waiver_file": "samples/signed/2026-02-10_al_noor_waiver_letter.md",
+  "waiver_quote": "This consent is strictly limited to the Seaside SOW.",
+  "takeaway": "Do not take analytics, AI or revenue-management work for hotel groups in the GCC until about September 2029 without Al Noor's written consent."
+ },
+ {
+  "id": "R-02",
+  "contract_id": "C-002",
+  "counterparty": "Crestline Retail Inc",
+  "file": "samples/signed/2024-08-01_crestline_retail_msa.md",
+  "type": "mfn_pricing",
+  "clause": "6.4",
+  "bound": "AtliQ Inc and its Affiliates",
+  "restricted_activity": "Offering lower rates to any other customer for substantially similar services",
+  "scope": {
+   "customers": "Any other customer",
+   "geography": [
+    "Worldwide"
+   ]
+  },
+  "start": "2024-08-01",
+  "end": "2027-07-31",
+  "end_basis": "During the Term (to 31 Jul 2027)",
+  "quote": "Supplier represents and warrants that the rates, fees and other commercial terms offered to Crestline under this Agreement are and shall remain no less favorable than those offered by Supplier or its Affiliates to any other customer for substantially similar services during the Term.",
+  "exception": "Lower rates must be reported and applied to Crestline retroactively, with a credit within 30 days. Rate card: Senior Data Engineer $85/hr, Data Engineer $62/hr, BI Developer $58/hr.",
+  "takeaway": "Any rate below Crestline's rate card for similar services (for example a senior data engineer under $85/hr) triggers a retroactive credit to Crestline."
+ },
+ {
+  "id": "R-03",
+  "contract_id": "C-032",
+  "counterparty": "CloudSpan Technologies",
+  "file": "samples/signed/2025-09-01_cloudspan_strategic_partnership_agreement.md",
+  "type": "exclusivity",
+  "clause": "7.1",
+  "bound": "AtliQ Technologies Pvt Ltd and its Affiliates",
+  "restricted_activity": "Acting as implementation, reseller or referral partner for any competing cloud data-warehouse, lakehouse or analytics platform",
+  "scope": {
+   "customers": "Any competing platform vendor",
+   "geography": [
+    "India",
+    "UAE",
+    "Saudi Arabia",
+    "Qatar",
+    "Kuwait",
+    "Bahrain",
+    "Oman"
+   ]
+  },
+  "start": "2025-09-01",
+  "end": "2028-08-31",
+  "end_basis": "During the Term (to 31 Aug 2028)",
+  "quote": "during the Term Partner and its Affiliates shall not act as an implementation, reseller or referral partner for any Competing Platform in India or the GCC.",
+  "exception": "Clause 7.3: does not restrict services outside India and the GCC, or to a customer that independently selected a platform, provided AtliQ holds no partner appointment with, and receives no fee from, that platform's provider.",
+  "takeaway": "Do not partner with another cloud data-warehouse or lakehouse vendor in India or the GCC while the CloudSpan agreement runs."
+ },
+ {
+  "id": "R-04",
+  "contract_id": "C-001",
+  "counterparty": "Orbit Travels",
+  "file": "samples/signed/2022-07-01_orbit_travels_msa_scanned.md",
+  "type": "non_compete",
+  "clause": "6.1",
+  "bound": "AtliQ Technologies Pvt Ltd",
+  "restricted_activity": "Developing, licensing or providing travel-booking software",
+  "scope": {
+   "customers": "Online travel agencies",
+   "geography": [
+    "India"
+   ]
+  },
+  "start": "2022-07-01",
+  "end": "2025-06-30",
+  "end_basis": "Term (to 30 Jun 2024) plus 12 months",
+  "quote": "it shall not develop, license or provide travel-booking software to any online travel agency operating in India.",
+  "exception": "Clause 6.2: hotels, airlines and other businesses that are not online travel agencies are not restricted. Scanned copy with OCR errors; read with care.",
+  "takeaway": "Expired. Shown for confidence: AtliQ could not build travel-booking software for Indian online travel agencies until 30 June 2025."
+ },
+ {
+  "id": "R-05",
+  "contract_id": "C-020",
+  "counterparty": "Meridian Healthcare",
+  "file": "samples/signed/2026-07-16_meridian_healthcare_nda.md",
+  "type": "non_solicit",
+  "clause": "7.3",
+  "bound": "AtliQ (Recipient) only; not mutual",
+  "restricted_activity": "Soliciting or hiring Meridian employees or consultants AtliQ dealt with",
+  "scope": {
+   "customers": "Meridian Healthcare staff",
+   "geography": [
+    "Worldwide"
+   ]
+  },
+  "start": "2026-07-16",
+  "end": "2031-07-16",
+  "end_basis": "Three-year term plus 24 months",
+  "quote": "the Recipient shall not, directly or indirectly, solicit for employment or engagement, or employ or engage, any employee or consultant of Meridian with whom the Recipient had contact in connection with the Purpose, without Meridian's prior written consent.",
+  "exception": "One-way: binds AtliQ only.",
+  "takeaway": "One-way non-solicit and no-hire for 24 months after the NDA ends."
+ },
+ {
+  "id": "R-06",
+  "contract_id": "C-009",
+  "counterparty": "Northwind Logistics",
+  "file": "samples/signed/2025-06-20_northwind_logistics_msa.md",
+  "type": "ip_assignment",
+  "clause": "9.2",
+  "bound": "AtliQ Technologies Pvt Ltd",
+  "restricted_activity": "Reusing tools or frameworks (including the PipeKit accelerator) built into Northwind's deliverables",
+  "scope": {
+   "customers": "Any other client",
+   "geography": [
+    "Worldwide"
+   ]
+  },
+  "start": "2025-06-20",
+  "end": null,
+  "end_basis": "Perpetual assignment",
+  "quote": "All Intellectual Property Rights in the Deliverables, including any software, tools, frameworks, libraries and pre-existing materials incorporated into the Deliverables, shall vest in the Client absolutely upon payment of the Charges for the relevant Milestone.",
+  "exception": "SOW-1 builds the pipeline with AtliQ's proprietary PipeKit accelerator, which is incorporated into the deliverable, so rights in that PipeKit configuration pass to Northwind on payment.",
+  "takeaway": "PipeKit as delivered to Northwind belongs to Northwind. Check before promising to reuse PipeKit 'like we did for Northwind'."
+ },
+ {
+  "id": "R-07",
+  "contract_id": "C-005",
+  "counterparty": "PayTrack Technologies",
+  "file": "samples/signed/2025-01-22_paytrack_technologies_msa.md",
+  "type": "data_location",
+  "clause": "7.2",
+  "bound": "AtliQ Technologies Pvt Ltd",
+  "restricted_activity": "Storing client payment data outside India",
+  "scope": {
+   "customers": "PayTrack data",
+   "geography": [
+    "India"
+   ]
+  },
+  "start": "2025-01-22",
+  "end": null,
+  "end_basis": "Indefinite for Client Data (clause 7.3)",
+  "quote": "AtliQ acknowledges that Client Data may include payment system data subject to RBI data localisation requirements, and shall ensure that such data is stored only in India.",
+  "exception": "",
+  "takeaway": "PayTrack data must stay in India."
+ },
+ {
+  "id": "R-08",
+  "contract_id": "C-002",
+  "counterparty": "Crestline Retail Inc",
+  "file": "samples/signed/2024-08-01_crestline_retail_msa.md",
+  "type": "data_location",
+  "clause": "13.3",
+  "bound": "AtliQ Inc",
+  "restricted_activity": "Accessing Crestline production data from outside the United States",
+  "scope": {
+   "customers": "Crestline data",
+   "geography": [
+    "United States"
+   ]
+  },
+  "start": "2024-08-01",
+  "end": "2027-07-31",
+  "end_basis": "During the Term",
+  "quote": "Supplier shall not access Crestline production data from outside the United States without Crestline's prior written approval.",
+  "exception": "Prior written approval from Crestline.",
+  "takeaway": "The Pune team needs Crestline's written approval before touching production data."
+ },
+ {
+  "id": "R-09",
+  "contract_id": "C-007",
+  "counterparty": "Al Noor Hospitality Group",
+  "file": "samples/signed/2025-03-15_al_noor_hospitality_msa.md",
+  "type": "data_location",
+  "clause": "16.3",
+  "bound": "AtliQ Technologies Pvt Ltd",
+  "restricted_activity": "Transferring Al Noor guest data outside the UAE",
+  "scope": {
+   "customers": "Al Noor guest data",
+   "geography": [
+    "UAE"
+   ]
+  },
+  "start": "2025-03-15",
+  "end": "2028-03-14",
+  "end_basis": "During the Term",
+  "quote": "The Supplier shall not transfer Guest Data outside the UAE without the Client's prior written consent. Any Guest Data accessed from India shall be accessed remotely from UAE-hosted environments only.",
+  "exception": "",
+  "takeaway": "Guest data stays in UAE-hosted environments."
+ },
+ {
+  "id": "R-10",
+  "contract_id": "C-043",
+  "counterparty": "CareBridge Clinics",
+  "file": "samples/signed/2025-10-06_carebridge_clinics_baa.md",
+  "type": "data_location",
+  "clause": "3.2",
+  "bound": "AtliQ Inc and any subcontractor",
+  "restricted_activity": "Accessing PHI outside the United States",
+  "scope": {
+   "customers": "CareBridge patient data",
+   "geography": [
+    "United States"
+   ]
+  },
+  "start": "2025-10-06",
+  "end": "2026-10-05",
+  "end_basis": "BAA runs until the MSA expires (5 Oct 2026); PHI protections may survive",
+  "quote": "No PHI shall be accessed, stored or processed outside the United States.",
+  "exception": "Personnel outside the United States may access de-identified data only, inside an approved environment. Subcontractors need a matching BAA (clause 6.1).",
+  "takeaway": "Only de-identified data offshore; subcontractors need a matching BAA."
+ },
+ {
+  "id": "R-11",
+  "contract_id": "C-006",
+  "counterparty": "Acme Retail Group",
+  "file": "samples/signed/2025-03-10_acme_retail_group_msa.md",
+  "type": "non_solicit",
+  "clause": "14.1",
+  "bound": "Both parties (mutual)",
+  "restricted_activity": "Soliciting the other party's employees involved in the Services",
+  "scope": {
+   "customers": "Acme staff",
+   "geography": [
+    "Worldwide"
+   ]
+  },
+  "start": "2025-03-10",
+  "end": "2027-09-09",
+  "end_basis": "Two-year term plus 6 months",
+  "quote": "During the term and for six (6) months thereafter, neither Party shall solicit any employee of the other Party who was involved in the Services.",
+  "exception": "Mutual.",
+  "takeaway": "Mutual non-solicit, low impact."
+ },
+ {
+  "id": "R-12",
+  "contract_id": "C-005",
+  "counterparty": "PayTrack Technologies",
+  "file": "samples/signed/2025-01-22_paytrack_technologies_msa.md",
+  "type": "non_solicit",
+  "clause": "13.1",
+  "bound": "Both parties (mutual)",
+  "restricted_activity": "Soliciting the other party's employees engaged in the Services",
+  "scope": {
+   "customers": "PayTrack staff",
+   "geography": [
+    "Worldwide"
+   ]
+  },
+  "start": "2025-01-22",
+  "end": "2028-01-21",
+  "end_basis": "Two-year term plus 12 months",
+  "quote": "Neither Party shall solicit for employment the other Party's employees engaged in the Services during the term and for twelve (12) months thereafter.",
+  "exception": "Mutual.",
+  "takeaway": "Mutual non-solicit, low impact."
+ },
+ {
+  "id": "R-13",
+  "contract_id": "C-009",
+  "counterparty": "Northwind Logistics",
+  "file": "samples/signed/2025-06-20_northwind_logistics_msa.md",
+  "type": "non_solicit",
+  "clause": "8.2",
+  "bound": "Both parties (mutual)",
+  "restricted_activity": "Soliciting the other party's employees engaged in the Services",
+  "scope": {
+   "customers": "Northwind staff",
+   "geography": [
+    "Worldwide"
+   ]
+  },
+  "start": "2025-06-20",
+  "end": "2028-12-19",
+  "end_basis": "Three-year term plus 6 months",
+  "quote": "Neither party shall, during the term and for six (6) months afterwards, solicit any employee of the other party engaged in the Services.",
+  "exception": "Mutual.",
+  "takeaway": "Mutual non-solicit, low impact."
+ },
+ {
+  "id": "R-14",
+  "contract_id": "C-008",
+  "counterparty": "Sunrise Foods",
+  "file": "samples/signed/2025-04-18_sunrise_foods_msa.md",
+  "type": "non_solicit",
+  "clause": "15.1",
+  "bound": "Both parties (mutual)",
+  "restricted_activity": "Soliciting the other party's employees engaged in the Services",
+  "scope": {
+   "customers": "Sunrise staff",
+   "geography": [
+    "Worldwide"
+   ]
+  },
+  "start": "2025-04-18",
+  "end": "2028-10-17",
+  "end_basis": "Three-year term plus 6 months (approximate)",
+  "quote": "Neither Party shall solicit the employees of the other Party engaged in the Services during the term of the relevant SOW and six (6) months thereafter.",
+  "exception": "Mutual.",
+  "takeaway": "Mutual non-solicit, low impact."
+ }
+]

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AtliQ Contract Risk Analyzer</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#14181e;--mut:#5b6573;--line:#e3e6ea;--acc:#1f3a5f;--accb:#2f7bf6;--red:#b3261e;--redbg:#fdecea;--amb:#8a5a00;--ambbg:#fff4dc;--grn:#1b6b3a;--grnbg:#e6f4ea;--gry:#eef0f3;--r:12px}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1318;--card:#171c23;--ink:#e8ebef;--mut:#9aa4b2;--line:#2a313b;--acc:#8fb4ff;--accb:#5b9bff;--redbg:#3a1d1b;--red:#ff9d94;--ambbg:#3a2f12;--amb:#f5c76b;--grnbg:#16301f;--grn:#7fd49a;--gry:#222932}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accb);text-decoration:none;cursor:pointer}
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.brand{font-weight:600;color:var(--acc);cursor:pointer}.brand small{font-weight:400;color:var(--mut);margin-left:8px}
+.wrap{max-width:1040px;margin:0 auto;padding:20px 16px 90px}
+h1{font-size:24px;margin:6px 0 2px;font-weight:600}h2{font-size:16px;margin:22px 0 8px;font-weight:600}
+.sub{color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
+button,.btn{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:9px;cursor:pointer}
+button:hover{border-color:var(--mut)}button.pri{background:var(--acc);color:#fff;border-color:var(--acc)}@media (prefers-color-scheme:dark){button.pri{color:#0f1318}}
+button[disabled]{opacity:.45;cursor:not-allowed}
+.fab{width:42px;height:42px;border-radius:50%;padding:0;display:grid;place-items:center;background:var(--acc);border-color:var(--acc);color:#fff}@media (prefers-color-scheme:dark){.fab{color:#0f1318}}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;background:var(--gry);color:var(--mut);cursor:pointer;border:1px solid transparent}
+.chip.on{background:var(--acc);color:#fff}@media (prefers-color-scheme:dark){.chip.on{color:#0f1318}}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;white-space:nowrap}
+.sev-Serious{background:var(--redbg);color:var(--red)}.sev-Negotiable{background:var(--ambbg);color:var(--amb)}.sev-Minor{background:var(--gry);color:var(--mut)}
+.ok{background:var(--grnbg);color:var(--grn)}.tag{background:var(--gry);color:var(--mut)}.warn{background:var(--ambbg);color:var(--amb)}
+table{width:100%;border-collapse:collapse}th{font-size:12px;font-weight:500;color:var(--mut);text-align:left;padding:8px 8px;border-bottom:1px solid var(--line)}
+td{padding:11px 8px;border-bottom:1px solid var(--line);font-size:14px}tr.r{cursor:pointer}tr.r:hover td{background:var(--gry)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:8px 10px;width:100%}
+textarea{min-height:150px;resize:vertical}label{font-size:12px;color:var(--mut);display:block;margin-bottom:3px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g4{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}.tile b{display:block;font-size:22px;font-weight:600}.tile span{font-size:12px;color:var(--mut)}
+.drop{border:1.5px dashed var(--line);border-radius:var(--r);padding:12px;background:var(--card)}
+.find{border:1px solid var(--line);border-left:4px solid var(--line);border-radius:10px;background:var(--card);margin:8px 0}
+.find.s-Serious{border-left-color:var(--red)}.find.s-Negotiable{border-left-color:#d9a21b}
+.fh{display:flex;gap:10px;align-items:center;padding:11px 14px;cursor:pointer}.fh .t{flex:1;font-weight:500}
+.fb{padding:2px 14px 14px;border-top:1px solid var(--line)}
+.quote{background:var(--gry);border-radius:8px;padding:9px 12px;margin:8px 0;font-size:13.5px}
+.mut{color:var(--mut);font-size:13px}.hide{display:none}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;z-index:20;padding:16px}
+.modal .card{max-width:480px;width:100%}
+.foot{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 16px;z-index:6}
+.foot .in{max-width:1040px;margin:0 auto;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.steps li{margin:6px 0;color:var(--mut)}.steps li.done{color:var(--ink)}.steps li.done:before{content:"\2713  ";color:var(--grn)}.steps li.run:before{content:"\2022  ";color:var(--accb)}.steps li.bad{color:var(--amb)}
+.bar{height:6px;border-radius:6px;background:var(--gry);overflow:hidden}.bar i{display:block;height:100%;background:var(--accb);width:0;transition:width .3s}
+.star{font-size:24px;cursor:pointer;color:var(--mut);background:none;border:0;padding:2px}.star.on{color:#e0a800}
+.links a{margin-right:14px}
+@media (max-width:640px){.hm{display:none}td{padding:10px 4px}.card{overflow-x:auto}#q{max-width:none!important;margin-left:0!important;width:100%}h1{font-size:21px}.fh{flex-wrap:wrap}.fh .t{flex-basis:100%;order:3}}
+</style>
+</head>
+<body>
+<div class="top"><div class="brand" onclick="go('#/')">AtliQ <small>Contract Risk Analyzer</small></div><div class="row"><span id="badge"></span><a onclick="showPrinciples()" class="sub">Principles</a><span class="sub" id="who"></span></div></div>
+<div class="wrap" id="app"></div>
+<div id="modal"></div>
+<script>
+'use strict';
+const KEY='atliq_v1';
+let S, BASE=[], REG=[], SAMPLES=[], PRINC=[];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fresh=()=>({user:'Karandeep',added:[],reviews:{},entries:[],feedback:[],audit:[],usage:{calls:0,tin:0,tout:0,fallbacks:0},cache:{}});
+function load(){try{return Object.assign(fresh(),JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){return fresh()}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function go(h){location.hash=h}
+const today=()=>new Date().toISOString().slice(0,10);
+const fmt=(v,c)=>v==null?'n/a':(c||'$')+Number(v).toLocaleString('en-US',{maximumFractionDigits:0});
+const money=v=>v==null?'n/a':(v<0?'-':'')+(Math.abs(v)>=1000?'$'+Math.round(Math.abs(v)/1000)+'k':'$'+Math.abs(v));
+const greeting=()=>{const h=new Date().getHours();return h<12?'Good morning':h<17?'Good afternoon':'Good evening'};
+const regStatus=r=>(!r.end)?'active':(r.end<today()?'expired':'active');
+const allContracts=()=>BASE.concat(S.added);
+const latest=cid=>{const v=S.reviews[cid];return v&&v.length?v[v.length-1]:null};
+const vLabel=v=>v.status==='draft'?'Draft saved':v.status==='in_signing'?'In manual signing':v.status==='deferred'?'Signing deferred':'Reviewed';
+function statusOf(c){const v=latest(c.id);if(v){const open=(v.findings||[]).filter(f=>f.severity==='Serious'&&!(v.answers||{})[f.id]).length;
+ if(v.status==='in_signing')return{t:'In manual signing',k:'ok'};if(v.status==='deferred')return{t:'Signing deferred',k:'warn'};if(v.status==='draft')return{t:'Draft saved',k:'warn'};return open?{t:open+' serious open',k:'sev-Serious'}:{t:'Reviewed',k:'ok'}}
+ return{t:c.status||'Unknown',k:'tag'}}
+
+async function api(body,tries){tries=tries||2;
+ for(let i=0;i<tries;i++){
+  let r,j;try{r=await fetch('/api/review',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});j=await r.json()}catch(e){j={error:'network',message:'Could not reach the server.'};r={status:0}}
+  if(r.status===200)return j;
+  if(r.status===429&&i<tries-1){await new Promise(s=>setTimeout(s,9000));continue}
+  const err=new Error(j.message||'Request failed');err.code=j.error;throw err}}
+function trackMeta(m){if(!m)return;S.usage.calls++;S.usage.tin+=m.in||0;S.usage.tout+=m.out||0;if(m.fallback){S.usage.fallbacks++}save();badge()}
+function badge(){const f=S.usage.fallbacks;$('#badge').innerHTML=f?'<span class="pill warn" title="Gemini was busy; Groq answered">backup model used</span>':''}
+
+/* ---------------- routing ---------------- */
+function route(){const h=location.hash||'#/';const p=h.slice(2).split('/');$('#modal').innerHTML='';
+ if(h==='#/'||h==='#'||p[0]==='')return home();
+ if(p[0]==='new')return newPage(p[1]);
+ if(p[0]==='contract')return contractPage(decodeURIComponent(p[1]));
+ if(p[0]==='review')return reviewPage(decodeURIComponent(p[1]),+p[2]);
+ home()}
+
+/* ---------------- home ---------------- */
+let homeFilter='All',homeQ='',homeTab='contracts';
+function home(){const cs=allContracts();const waiting=cs.filter(c=>/review/i.test(c.status)||/serious|deferred/i.test(statusOf(c).t)).length;const drafts=Object.keys(S.reviews).filter(k=>latest(k).status==='draft').length;
+ const chips=['All','Needs review','Drafts','Signed'];
+ let rows=cs.filter(c=>{const st=statusOf(c).t;
+  if(homeFilter==='Needs review')return /review|serious open|Draft|deferred/i.test(st)&&!/Signed/i.test(c.status);
+  if(homeFilter==='Drafts')return /Draft/i.test(st);
+  if(homeFilter==='Signed')return /Signed/i.test(c.status)&&!latest(c.id);
+  return true}).filter(c=>!homeQ||(c.id+' '+c.counterparty+' '+c.type).toLowerCase().includes(homeQ));
+ const regs=REG.concat(S.entries.map(e=>Object.assign({},e)));
+ $('#app').innerHTML=`<div class="row sp"><div><h1>${greeting()}, ${esc(S.user)}</h1><div class="sub">${waiting} contract${waiting==1?'':'s'} waiting for review${drafts?' · '+drafts+' draft saved':''}</div></div>
+  <button class="fab" title="Add contract or version" aria-label="Add contract or version" onclick="go('#/new')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
+  <div class="row" style="margin:16px 0 8px"><span class="chip ${homeTab==='contracts'?'on':''}" onclick="homeTab='contracts';home()">Contracts ${cs.length}</span><span class="chip ${homeTab==='commitments'?'on':''}" onclick="homeTab='commitments';home()">Past commitments ${regs.length}</span>
+   ${homeTab==='contracts'?chips.map(c=>`<span class="chip ${homeFilter===c?'on':''}" onclick="homeFilter='${c}';home()" style="background:${homeFilter===c?'':'transparent'};border-color:var(--line)">${c}</span>`).join(''):''}
+   <input id="q" placeholder="Search" value="${esc(homeQ)}" style="max-width:220px;margin-left:auto" oninput="homeQ=this.value.toLowerCase();homeRows()"></div>
+  <div class="card" style="padding:4px 8px" id="tbl"></div>`;
+ homeRows()}
+function homeRows(){const cs=allContracts();const regs=REG.concat(S.entries);let html;
+ if(homeTab==='commitments'){const q=homeQ;const rs=regs.filter(r=>!q||(r.counterparty+' '+r.type+' '+(r.restricted_activity||'')).toLowerCase().includes(q));
+  html=`<table><tr><th>Client</th><th class="hm">Type</th><th>What is restricted</th><th class="hm">Until</th><th>Status</th></tr>`+rs.map(r=>{const st=r.status==='pending_confirmation'?'pending':regStatus(r);
+   return`<tr class="r" onclick="showCommitment('${esc(r.id)}')"><td>${esc(r.counterparty)}</td><td class="hm">${esc((r.type||'').replace(/_/g,' '))}</td><td>${esc(r.restricted_activity||'')}</td><td class="hm">${esc(r.end||'no end date')}</td><td><span class="pill ${st==='active'?'sev-Negotiable':st==='expired'?'tag':'warn'}">${st==='pending'?'to confirm':st}</span></td></tr>`}).join('')+'</table>';
+  $('#tbl').innerHTML=html;return}
+ let rows=cs.filter(c=>{const st=statusOf(c).t;
+  if(homeFilter==='Needs review')return /review|serious open|Draft|deferred/i.test(st)&&!/Signed/i.test(c.status);
+  if(homeFilter==='Drafts')return /Draft/i.test(st);
+  if(homeFilter==='Signed')return /Signed/i.test(c.status)&&!latest(c.id);return true}).filter(c=>!homeQ||(c.id+' '+c.counterparty+' '+c.type).toLowerCase().includes(homeQ));
+ html=`<table><tr><th>ID</th><th>Client</th><th>Type</th><th class="hm">Country</th><th class="hm">Value</th><th>Status</th><th></th></tr>`+rows.map(c=>{const st=statusOf(c);
+  return`<tr class="r" onclick="go('#/contract/${encodeURIComponent(c.id)}')"><td>${esc(c.id)}</td><td>${esc(c.counterparty)}</td><td>${esc(c.type)}</td><td class="hm">${esc(c.country||'')}</td><td class="hm">${money(c.value)}</td><td><span class="pill ${st.k}">${esc(st.t)}</span>${c.restrictions?` <span class="pill tag">${c.restrictions} restriction${c.restrictions>1?'s':''}</span>`:''}</td><td>&rsaquo;</td></tr>`}).join('')+'</table>';
+ $('#tbl').innerHTML=html}
+function showCommitment(id){const r=REG.concat(S.entries).find(x=>x.id===id);if(!r)return;const st=r.status==='pending_confirmation'?'to confirm':regStatus(r);
+ modal(`<div class="row sp"><b>${esc(r.counterparty)}</b><span class="pill ${st==='active'?'sev-Negotiable':'tag'}">${st}</span></div>
+ <div class="mut">${esc((r.type||'').replace(/_/g,' '))} · clause ${esc(r.clause||'')} · ${esc(r.bound||'')}</div>
+ <div class="quote">${r.quote?esc(r.quote):'<span class="mut">No verified quote</span>'}</div>
+ <div class="mut">Runs until: ${esc(r.end||'no end date')} ${r.end_basis?'('+esc(r.end_basis)+')':''}</div>${r.exception?`<p class="mut"><b>Exception:</b> ${esc(r.exception)}</p>`:''}${r.takeaway?`<p><b>Takeaway:</b> ${esc(r.takeaway)}</p>`:''}
+ <div class="row" style="margin-top:10px">${r.file?`<a href="${esc(r.file)}" target="_blank">Open source contract</a>`:''}<button onclick="closeModal()" style="margin-left:auto">Close</button></div>`)}
+function modal(inner){$('#modal').innerHTML=`<div class="modal" onclick="if(event.target===this)closeModal()"><div class="card">${inner}</div></div>`}
+function closeModal(){$('#modal').innerHTML=''}
+function showPrinciples(){modal(`<b>AtliQ's principles</b><p class="mut">A preference, not a rule. Every contract is judged on its own context.</p><ul>${PRINC.map(p=>`<li>${esc(p.text)}</li>`).join('')}</ul>
+ <div class="mut">Model use this session: ${S.usage.calls} calls, ${S.usage.tin.toLocaleString()} tokens in, ${S.usage.tout.toLocaleString()} out.</div><div class="row" style="margin-top:8px"><button onclick="if(confirm('Clear all saved drafts, answers and feedback on this browser?')){localStorage.removeItem(KEY);location.hash='#/';location.reload()}">Reset demo data</button><button onclick="closeModal()" style="margin-left:auto">Close</button></div>`)}
+
+/* ---------------- contract page ---------------- */
+async function contractPage(id){const c=allContracts().find(x=>x.id===id);if(!c){return go('#/')}
+ const vs=S.reviews[id]||[];const regs=REG.concat(S.entries).filter(r=>r.contract_id===id);
+ $('#app').innerHTML=`<a onclick="go('#/')" class="sub">&lsaquo; All contracts</a>
+ <div class="row sp"><div><h1>${esc(c.counterparty)} · ${esc(c.type)}</h1><div class="sub">${esc(c.id)} · ${esc(c.country||'country n/a')} · AtliQ ${esc(c.entity||'entity n/a')} · ${esc(c.status)}</div></div>
+ <div class="row">${c.file?`<button class="pri" onclick="startFromSample('${esc(c.file)}','${esc(id)}')">Review this contract</button>`:''}<button onclick="go('#/new/${encodeURIComponent(id)}')">New version</button></div></div>
+ <div class="grid g4" style="margin-top:14px"><div class="tile"><b>${money(c.value)}</b><span>value</span></div><div class="tile"><b>${esc(c.signed||c.received||'n/a')}</b><span>${c.signed?'signed':'received'}</span></div><div class="tile"><b>${esc(c.expiry||'n/a')}</b><span>expires</span></div><div class="tile"><b>${esc(c.requested_by||'n/a')}</b><span>brought in by</span></div></div>
+ ${c.notes?`<p class="mut">Tracker note: ${esc(c.notes)}</p>`:''}
+ <h2>Restrictions in this contract</h2>${regs.length?regs.map(r=>{const st=r.status==='pending_confirmation'?'to confirm':regStatus(r);return`<div class="find" onclick="showCommitment('${esc(r.id)}')"><div class="fh"><span class="pill ${st==='active'?'sev-Negotiable':'tag'}">${st}</span><span class="t">${esc((r.type||'').replace(/_/g,' '))}: ${esc(r.restricted_activity||'')}</span><span class="mut">until ${esc(r.end||'no end date')}</span></div></div>`}).join(''):'<div class="mut">None recorded.</div>'}
+ <h2>Reviews</h2>${vs.length?vs.map(v=>`<div class="find" onclick="go('#/review/${encodeURIComponent(id)}/${v.ver}')"><div class="fh"><span class="pill ${v.status==='draft'||v.status==='deferred'?'warn':'ok'}">${vLabel(v)}</span><span class="t">Version ${v.ver}</span><span class="mut">${esc(v.created.slice(0,10))} · ${(v.findings||[]).length} findings</span></div></div>`).join(''):'<div class="mut">No review yet.</div>'}
+ ${c.file?`<h2>Contract text</h2><div class="card mut" id="ctext">Loading…</div>`:''}`;
+ if(c.file){try{const t=await (await fetch(c.file)).text();const el=$('#ctext');if(el)el.innerHTML='<pre style="white-space:pre-wrap;font:13px/1.5 ui-monospace,Consolas,monospace;max-height:340px;overflow:auto;margin:0">'+esc(t)+'</pre>'}catch(e){}}}
+async function startFromSample(file,cid){go('#/new/'+encodeURIComponent(cid));await new Promise(r=>setTimeout(r,60));pickSample(file)}
+
+/* ---------------- new contract / version ---------------- */
+let NEWV={sample:null,notesSample:null};
+function newPage(verOf){verOf=verOf?decodeURIComponent(verOf):'';NEWV={sample:null,notesSample:null};
+ const cs=allContracts();
+ $('#app').innerHTML=`<a onclick="go('#/')" class="sub">&lsaquo; Back</a><h1>Add contract or version</h1>
+ <div class="row" style="margin:10px 0"><span class="chip ${verOf?'':'on'}" id="mNew" onclick="setMode(false)">New contract</span><span class="chip ${verOf?'on':''}" id="mVer" onclick="setMode(true)">New version of existing</span>
+  <select id="verOf" style="max-width:260px;${verOf?'':'display:none'}">${cs.map(c=>`<option value="${esc(c.id)}" ${c.id===verOf?'selected':''}>${esc(c.id)} · ${esc(c.counterparty)}</option>`).join('')}</select></div>
+ <div class="grid g2"><div class="drop"><b>Contract</b><div class="mut" style="margin-bottom:6px">Paste the text or choose a file (text, Markdown, PDF or Word).</div><textarea id="ctext" placeholder="Paste the contract here"></textarea>
+   <div class="row" style="margin-top:6px"><input type="file" id="cfile" accept=".txt,.md,.pdf,.docx" style="max-width:260px"><select id="sample" onchange="pickSample(this.value)" style="max-width:240px"><option value="">Try a sample…</option>${SAMPLES.map(s=>`<option value="${esc(s.file)}">${esc(s.label)}</option>`).join('')}</select></div></div>
+  <div class="drop"><b>Unofficial discussions <span class="mut">(optional)</span></b><div class="mut" style="margin-bottom:6px">Call notes, a summary or a transcript. Reviewed as unofficial terms, not as contract clauses.</div><textarea id="ntext" placeholder="Paste notes or a transcript"></textarea>
+   <div class="row" style="margin-top:6px"><input type="file" id="nfile" accept=".txt,.md,.pdf,.docx" style="max-width:260px"></div></div></div>
+ <div class="row" style="margin-top:14px"><button class="pri" id="goBtn" onclick="startReview()">Review</button><span class="mut" id="msg"></span></div>
+ <div class="mut" style="margin-top:8px">We read the client, type, term and fees from the contract and you confirm them. Not legal advice.</div>`;
+ $('#cfile').onchange=e=>readFile(e.target.files[0],'ctext');$('#nfile').onchange=e=>readFile(e.target.files[0],'ntext')}
+function setMode(v){$('#verOf').style.display=v?'':'none';$('#mNew').classList.toggle('on',!v);$('#mVer').classList.toggle('on',v)}
+async function readFile(f,target){if(!f)return;const n=f.name.toLowerCase();
+ if(/\.(txt|md)$/.test(n)){$('#'+target).value=await f.text();return}
+ $('#msg').textContent='Converting '+f.name+'…';const buf=new Uint8Array(await f.arrayBuffer());let bin='';for(let i=0;i<buf.length;i++)bin+=String.fromCharCode(buf[i]);
+ try{const r=await api({action:'convert',name:f.name,data:btoa(bin)},1);$('#'+target).value=r.text;$('#msg').textContent=''}catch(e){$('#msg').textContent='Could not read that file: '+e.message}}
+async function pickSample(file){if(!file)return;const s=SAMPLES.find(x=>x.file===file)||{file:file,label:file};
+ try{$('#ctext').value=await (await fetch(file)).text();NEWV.sample=s;$('#sample').value=SAMPLES.find(x=>x.file===file)?file:'';
+  if(s.notes){$('#ntext').value=await (await fetch(s.notes)).text();NEWV.notesSample=s.notes}}catch(e){}}
+
+/* ---------------- review pipeline ---------------- */
+const hash=async t=>{const b=new TextEncoder().encode(t);const d=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(d)).slice(0,8).map(x=>x.toString(16).padStart(2,'0')).join('')};
+let RUN=null;
+async function startReview(){const text=$('#ctext').value.trim(),notes=$('#ntext').value.trim();
+ if(text.length<200){$('#msg').textContent='Paste or upload a contract first.';return}
+ $('#goBtn').disabled=true;$('#msg').textContent='Reading the contract…';
+ const verOf=$('#mVer').classList.contains('on')?$('#verOf').value:'';
+ try{const key=await hash(text);let ex=S.cache['ex'+key];
+  if(!ex){ex=await api({action:'extract',text});trackMeta(ex.meta);S.cache['ex'+key]=ex;save()}
+  RUN={text,notes,verOf,key,details:ex.details,clausesN:ex.clauses};confirmPage()}catch(e){$('#goBtn').disabled=false;$('#msg').textContent=e.message+' Try again in a minute.'}}
+function confirmPage(){const d=RUN.details,v=RUN.verOf;const cs=allContracts();const ex=v?cs.find(c=>c.id===v):null;
+ const next='C-N'+String(S.added.length+1).padStart(2,'0');
+ $('#app').innerHTML=`<h1>Confirm the details</h1><div class="sub">Read from the contract. Please correct anything that is wrong.</div>
+ <div class="card" style="margin-top:12px"><div class="grid g3">
+  <div><label>Contract ID</label><input id="f_id" value="${esc(ex?ex.id:next)}" ${ex?'disabled':''}></div>
+  <div><label>Client</label><input id="f_cp" value="${esc(ex?ex.counterparty:(d.counterparty||''))}"></div>
+  <div><label>Type</label><select id="f_ty">${['MSA','SOW','NDA','BAA','DPA','Partnership','Amendment','Other'].map(t=>`<option ${t===(d.doc_type||'Other')?'selected':''}>${t}</option>`).join('')}</select></div>
+  <div><label>AtliQ entity</label><select id="f_en">${['Pvt Ltd','Inc','Unknown'].map(t=>`<option ${t===(d.atliq_entity||'Unknown')?'selected':''}>${t}</option>`).join('')}</select></div>
+  <div><label>Client country</label><input id="f_co" value="${esc(d.client_country||'')}"></div>
+  <div><label>Term (months)</label><input id="f_tm" type="number" value="${d.term_months||''}"></div>
+  <div><label>Annual fee, last 12 months (USD)</label><input id="f_af" type="number" value="${d.annual_fee?Math.round(d.annual_fee):(d.total_value&&d.term_months?Math.round(d.total_value/d.term_months*12):'')}"></div>
+  <div><label>Total contract value (USD)</label><input id="f_tv" type="number" value="${d.total_value?Math.round(d.total_value):''}"></div>
+  <div><label>Governing law</label><input id="f_gl" value="${esc(d.governing_law||'')}"></div></div>
+  <div style="margin-top:14px"><b>Were any terms agreed outside the contract (calls, chats)?</b>
+   <div class="row" style="margin-top:6px"><label style="margin:0"><input type="radio" name="out" value="no" style="width:auto"> No</label><label style="margin:0"><input type="radio" name="out" value="yes" style="width:auto" ${RUN.notes?'checked':''}> Yes${RUN.notes?' (notes attached)':' (add them on the previous screen)'}</label></div><div class="mut" id="omsg"></div></div></div>
+ <div class="row" style="margin-top:14px"><button class="pri" onclick="runReview()">Continue review</button><button onclick="newPage(RUN.verOf)">Back</button></div>`}
+const SEVN={Serious:0,Negotiable:1,Minor:2};
+async function runReview(){const out=(document.querySelector('input[name=out]:checked')||{}).value;if(!out){$('#omsg').textContent='Please answer this question.';return}
+ const v=id=>$('#'+id).value;const nz=x=>x===''?null:Number(x);
+ const d=Object.assign({},RUN.details,{counterparty:v('f_cp'),doc_type:v('f_ty'),atliq_entity:v('f_en'),client_country:v('f_co'),term_months:nz(v('f_tm')),annual_fee:nz(v('f_af')),total_value:nz(v('f_tv')),governing_law:v('f_gl')});
+ const cid=v('f_id').trim()||('C-N'+(S.added.length+1));const verOf=RUN.verOf;
+ RUN.details=d;RUN.cid=cid;RUN.out=out;
+ const ckey=await hash(RUN.text+'|'+RUN.notes+'|'+JSON.stringify([d.atliq_entity,d.annual_fee,d.total_value,d.term_months,d.governing_law,d.client_country,d.counterparty]));
+ const steps=[{k:'rules',t:'Checking entity, law, documents and amounts'},{k:'conf',t:'Checking past commitments (17 contracts on file)'},{k:'cl',t:'Reviewing every clause'}];if(RUN.notes)steps.push({k:'notes',t:'Reading the unofficial discussions'});steps.push({k:'done',t:'Putting the review together'});
+ const paint=()=>{$('#app').innerHTML=`<h1>Reviewing…</h1><div class="sub">${esc(d.counterparty||'')} · ${RUN.clausesN} clauses</div><div class="card" style="margin-top:12px"><ul class="steps" style="list-style:none;padding:0;margin:0">${steps.map(s=>`<li class="${s.s||''}">${esc(s.t)}${s.x?' <span class="mut">'+esc(s.x)+'&nbsp;</span>':''}</li>`).join('')}</ul><div class="bar" style="margin-top:12px"><i id="pb" style="width:${RUN.pct||2}%"></i></div></div>`};
+ const mark=(k,s,x)=>{const st=steps.find(z=>z.k===k);if(st){st.s=s;if(x!==undefined)st.x=x}paint()};
+ paint();const t0=Date.now();
+ try{
+  let res=S.cache['rv'+ckey];
+  if(!res){
+   const seg=await api({action:'segment',text:RUN.text});const total=seg.clauses.length;const batches=seg.batches.map(b=>b.map(id=>seg.clauses.find(c=>c.id===id)));
+   mark('rules','run');const rules=await api({action:'rules',details:d,text:RUN.text});mark('rules','done');RUN.pct=12;
+   const pConf=(async()=>{mark('conf','run');try{const r=await api({action:'conflicts',details:d,text:RUN.text});trackMeta(r.meta);mark('conf','done');return r}catch(e){mark('conf','bad','could not finish');return{conflicts:[],checked:0,error:e.message}}})();
+   const pNotes=RUN.notes?(async()=>{mark('notes','run');try{const r=await api({action:'notes',notes:RUN.notes,details:d,text:RUN.text});trackMeta(r.meta);mark('notes','done');return r}catch(e){mark('notes','bad','could not finish');return{items:[],error:e.message}}})():Promise.resolve({items:[]});
+   mark('cl','run','0 of '+batches.length);const analysis=[];const couldNot=[];let done=0;let idx=0;
+   const worker=async()=>{while(idx<batches.length){const i=idx++;const b=batches[i];try{const r=await api({action:'analyze',clauses:b,details:d,text:RUN.text});trackMeta(r.meta);analysis.push(r)}catch(e){b.forEach(c=>couldNot.push({id:c.id,why:e.message}))}done++;RUN.pct=12+Math.round(80*done/batches.length);mark('cl','run',done+' of '+batches.length)}};
+   await Promise.all([worker(),worker()]);mark('cl',couldNot.length?'bad':'done',couldNot.length?couldNot.length+' clauses could not be checked':undefined);
+   const conf=await pConf,nt=await pNotes;mark('done','run');
+   const m=await api({action:'merge',rules:rules.findings,conflicts:conf.conflicts,notes:nt.items,analysis:analysis.flatMap(a=>a.findings)});
+   const reviewed=new Set(analysis.flatMap(a=>a.reviewed));
+   res={findings:m.findings,clauses_total:total,clauses_reviewed:reviewed.size,could_not:couldNot,liability_multiple:rules.liability_multiple,liability_text:rules.liability_text,checked_register:conf.checked||0,checked_contracts:conf.checked_contracts||0,seconds:Math.round((Date.now()-t0)/1000)};
+   S.cache['rv'+ckey]=res;save()}
+  const vs=S.reviews[cid]||(S.reviews[cid]=[]);const ver={ver:vs.length+1,created:new Date().toISOString(),status:'draft',details:d,findings:res.findings,answers:{},clauses_total:res.clauses_total,clauses_reviewed:res.clauses_reviewed,could_not:res.could_not,liability_multiple:res.liability_multiple,liability_text:res.liability_text,checked_register:res.checked_register,checked_contracts:res.checked_contracts,seconds:res.seconds,notes_attached:!!RUN.notes,out:RUN.out,text:RUN.text.slice(0,120000)};
+  vs.push(ver);if(!verOf&&!allContracts().find(c=>c.id===cid)){S.added.push({id:cid,counterparty:d.counterparty||'New contract',type:d.doc_type,entity:d.atliq_entity,country:d.client_country,value:d.total_value,status:'In review',received:today(),restrictions:0,requested_by:S.user,notes:''})}
+  S.audit.push({at:new Date().toISOString(),who:S.user,what:'Review created',cid,ver:ver.ver});save();go('#/review/'+encodeURIComponent(cid)+'/'+ver.ver)
+ }catch(e){$('#app').innerHTML=`<h1>The review stopped</h1><div class="card"><p>${esc(e.message)}</p><p class="mut">Both models are busy or unreachable. Nothing was lost; try again in a minute.</p><button class="pri" onclick="confirmPage()">Try again</button></div>`}}
+
+/* ---------------- review page ---------------- */
+let OPEN={},FILTER='All';
+function getRev(cid,ver){const vs=S.reviews[cid]||[];return vs.find(v=>v.ver===ver)||vs[vs.length-1]}
+function reviewPage(cid,ver){const v=getRev(cid,ver);if(!v)return go('#/');const c=allContracts().find(x=>x.id===cid)||{};const d=v.details;
+ const F=v.findings||[];const cnt=s=>F.filter(f=>f.severity===s&&f.source!=='unofficial'||f.severity===s&&f.source==='unofficial').length;
+ const list=F.filter(f=>FILTER==='All'||(FILTER==='Open'&&!v.answers[f.id])||(FILTER==='Unofficial'&&f.source==='unofficial')||FILTER===f.severity);
+ const openSer=F.filter(f=>f.severity==='Serious'&&!v.answers[f.id]).length;const nrN=F.filter(f=>v.answers[f.id]&&v.answers[f.id].choice==='needs_review').length;const sers=F.filter(f=>f.severity==='Serious').length;
+ const reg=F.filter(f=>f.source==='register');const expired=reg.filter(f=>f.register_status==='expired');
+ const period=d.term_months?(d.term_months+' months'+(d.effective_date?' from '+d.effective_date:'')):'term not stated';
+ const lm=v.liability_multiple;
+ $('#app').innerHTML=`<a onclick="go('#/contract/${encodeURIComponent(cid)}')" class="sub">&lsaquo; ${esc(c.counterparty||'Contract')}</a>
+ <div class="row sp" style="margin-top:6px"><div><h1>${esc(d.counterparty||c.counterparty||'Contract')} · ${esc(d.doc_type||'')}</h1><div class="sub">${esc(cid)} · ${esc(d.client_country||'country n/a')} · AtliQ ${esc(d.atliq_entity||'n/a')} · ${esc(period)} · version ${v.ver}</div></div>
+  <span class="pill ${v.status==='draft'||v.status==='deferred'?'warn':'ok'}">${vLabel(v)}</span></div>
+ ${v.status==='deferred'&&v.deferred?`<div class="card" style="margin-top:10px"><b>Signing deferred</b> by ${esc(v.deferred.by)} on ${esc(v.deferred.at.slice(0,10))}${v.deferred.reason?'<div class="mut">'+esc(v.deferred.reason)+'</div>':''}</div>`:''}
+ <div class="grid g4" style="margin-top:12px">
+  <div class="tile"><b>${v.clauses_reviewed} of ${v.clauses_total}</b><span>clauses reviewed${v.could_not&&v.could_not.length?' · '+v.could_not.length+' could not be checked':''}</span></div>
+  <div class="tile"><b>${F.filter(f=>f.severity==='Serious').length} · ${F.filter(f=>f.severity==='Negotiable').length} · ${F.filter(f=>f.severity==='Minor').length}</b><span>serious · negotiable · minor</span></div>
+  <div class="tile"><b>${d.total_value?fmt(d.total_value):'n/a'}</b><span>contract value${d.annual_fee?' · '+fmt(d.annual_fee)+' a year':''}</span></div>
+  <div class="tile"><b>${lm?lm.toFixed(1)+'x fee':(v.liability_text==='unlimited'?'Unlimited':'n/a')}</b><span>liability cap · past contracts: about 1x</span></div></div>
+ <div class="mut" style="margin:10px 0">Checked ${v.checked_register||0} past commitments from the 17 signed contracts on file (13 more signed contracts are not on file) · ${v.notes_attached?'unofficial notes included':'no unofficial notes'} · reviewed in ${v.seconds}s · Not legal advice</div>
+ <div class="row" style="margin:6px 0">${['All','Open','Serious','Negotiable','Minor','Unofficial'].map(x=>`<span class="chip ${FILTER===x?'on':''}" onclick="FILTER='${x}';reviewPage('${esc(cid)}',${v.ver})">${x}${x==='Open'?' '+F.filter(f=>!v.answers[f.id]).length:''}</span>`).join('')}</div>
+ ${list.map(f=>findHtml(f,v,cid)).join('')||(F.length?'<div class="mut">Nothing in this view.</div>':'<div class="card"><b>No findings from the checks we ran.</b><div class="mut">This is not a clearance. The checks cover entity and law, amounts, past commitments and each clause, but please still read the contract before signing.</div></div>')}
+ ${expired.length?`<h2>Expired restrictions (shown for confidence)</h2>${expired.map(f=>`<div class="mut">${esc(f.title)} · ended ${esc(f.register_end||'')}</div>`).join('')}`:''}
+ ${v.could_not&&v.could_not.length?`<h2>Could not check</h2><div class="mut">Clauses ${v.could_not.map(x=>esc(x.id)).join(', ')} could not be reviewed (model busy). Please read them yourself.</div>`:''}
+ <div class="foot"><div class="in"><span class="mut" id="prog">${openSer?openSer+' of '+sers+' serious finding'+(sers==1?'':'s')+' still need an answer':nrN?(v.status==='deferred'?'Signing deferred. ':'')+nrN+' marked needs review. Resolve '+(nrN==1?'it':'them')+(v.status==='deferred'?' to proceed to signing.':' to sign, or defer signing.'):'All serious findings answered'}</span>
+  <div class="row"><button onclick="saveDraft('${esc(cid)}',${v.ver})">Save draft</button>${v.status==='in_signing'?`<button onclick="rateModal('${esc(cid)}',${v.ver})">Rate this review</button>`:`${v.status==='deferred'?'':`<button ${nrN&&!openSer?'class="pri"':''} onclick="deferModal('${esc(cid)}',${v.ver})">Defer signing</button>`}<button ${!openSer&&!nrN?'class="pri"':''} ${openSer||nrN?'disabled':''} onclick="proceed('${esc(cid)}',${v.ver})">Proceed to manual signing</button>`}</div></div></div>`}
+function findHtml(f,v,cid){const a=v.answers[f.id];const open=OPEN[f.id];
+ const src={contract:'Contract',register:'Past commitment',rule:'Check',unofficial:'Unofficial note'}[f.source]||f.source;
+ const stat=a?(a.choice==='accepted'?'<span class="pill ok">Accepted</span>':'<span class="pill warn">Needs review</span>'):'<span class="mut">Open</span>';
+ let reg='';if(f.source==='register'){reg=`<div class="mut">${esc(f.register_counterparty)} · clause ${esc(f.clause_id)} · <span class="pill ${f.register_status==='active'?'sev-Negotiable':'tag'}">${f.register_status}</span> ${f.register_end?'until '+esc(f.register_end):'no end date'}</div>${f.exception?`<div class="mut" style="margin-top:4px"><b>Exception:</b> ${esc(f.exception)}</div>`:''}`}
+ return`<div class="find s-${f.severity}"><div class="fh" onclick="OPEN['${f.id}']=!OPEN['${f.id}'];reviewPage('${esc(cid)}',${v.ver})"><span class="pill sev-${f.severity}">${f.severity}</span><span class="pill tag">${src}</span><span class="t">${esc(f.title)}</span>${stat}<span>${open?'&#9650;':'&#9660;'}</span></div>
+ ${open?`<div class="fb">${f.unsure?'<div class="pill warn" style="margin-top:8px">Not sure, please cross-check</div>':''}
+  ${f.quote?`<div class="quote">${esc(f.quote)}${f.clause_id?`<div class="mut" style="margin-top:4px">${f.source==='unofficial'?'From the notes':'Clause '+esc(f.clause_id)}</div>`:''}</div>`:(f.absence?'<div class="mut" style="margin-top:8px">Based on what the contract does not mention.</div>':'<div class="quote mut">No verified quote. Please read the clause yourself.</div>')}
+  ${f.why?`<p style="margin:6px 0"><b>Why it matters:</b> ${esc(f.why)}</p>`:''}${f.comparison?`<p class="mut" style="margin:4px 0">${esc(f.comparison)}</p>`:''}${reg}
+  ${a?`<div class="quote"><b>${a.choice==='accepted'?'Accepted':'Marked for review'}</b> by ${esc(a.by)} on ${esc(a.at.slice(0,16).replace('T',' '))}${a.comment?'<br>'+esc(a.comment):''}</div>`:''}
+  <div class="row" style="margin-top:8px"><button onclick="answer('${f.id}','accepted','${esc(cid)}',${v.ver},${f.severity==='Serious'})">${a&&a.choice==='accepted'?'Edit comment':'Accept risk'}</button><button onclick="answer('${f.id}','needs_review','${esc(cid)}',${v.ver},false)">Needs review</button></div></div>`:''}</div>`}
+function answer(fid,choice,cid,ver,required){const v=getRev(cid,ver);const cur=(v.answers[fid]||{}).comment||'';
+ modal(`<b>${choice==='accepted'?'Accept this risk?':'Mark for review'}</b><div class="mut" style="margin:4px 0 8px">${choice==='accepted'?(required?'A reason is required for serious findings. It goes in the audit log.':'Add a reason if you like. It goes in the audit log.'):'Add a note for whoever picks it up (optional).'}</div>
+ <textarea id="cm" style="min-height:90px" placeholder="${choice==='accepted'?'Why are you accepting it?':'What should be checked or negotiated?'}" oninput="$('#okb').disabled=${required}&&!this.value.trim()">${esc(cur)}</textarea>
+ <div class="row" style="margin-top:10px"><button class="pri" id="okb" ${required&&!cur.trim()?'disabled':''} onclick="commitAnswer('${fid}','${choice}','${esc(cid)}',${ver})">Confirm</button><button onclick="closeModal()">Cancel</button></div>`)}
+function commitAnswer(fid,choice,cid,ver){const v=getRev(cid,ver);const a={choice,comment:$('#cm').value.trim(),at:new Date().toISOString(),by:S.user};v.answers[fid]=a;
+ S.audit.push({at:a.at,who:S.user,what:(choice==='accepted'?'Accepted risk ':'Marked for review ')+fid,cid,ver,comment:a.comment});save();closeModal();reviewPage(cid,ver)}
+function deferModal(cid,ver){const v=getRev(cid,ver);const items=(v.findings||[]).filter(f=>v.answers[f.id]&&v.answers[f.id].choice==='needs_review');
+ modal(`<b>Defer signing</b><p class="mut" style="margin:4px 0 8px">The review is completed and saved. Nothing is signed, and the contract is not added to the register as signed.</p>
+ <ul style="margin:6px 0 10px">${items.length?items.map(f=>`<li>${esc(f.title)}${v.answers[f.id].comment?' <span class="mut">('+esc(v.answers[f.id].comment)+')</span>':''}</li>`).join(''):'<li class="mut">No findings are marked needs review yet.</li>'}</ul>
+ <label>What has to happen before signing? (optional)</label><textarea id="dfr" style="min-height:80px" placeholder="For example: ask the client to cap liability at 1x fees"></textarea>
+ <div class="row" style="margin-top:10px"><button class="pri" onclick="doDefer('${esc(cid)}',${ver})">Defer signing</button><button onclick="closeModal()">Cancel</button></div>`)}
+function doDefer(cid,ver){const v=getRev(cid,ver);const r=($('#dfr')||{}).value||'';v.status='deferred';v.deferred={reason:r.trim(),at:new Date().toISOString(),by:S.user};
+ const c=allContracts().find(x=>x.id===cid);const a=S.added.find(x=>x.id===cid);if(a)a.status='Signing deferred';
+ S.audit.push({at:v.deferred.at,who:S.user,what:'Deferred signing',cid,ver,comment:v.deferred.reason});save();closeModal();downloadSummary(cid,ver);reviewPage(cid,ver);rateModal(cid,ver)}
+function saveDraft(cid,ver){const v=getRev(cid,ver);if(v.status!=='deferred')v.status='draft';save();const el=$('#prog');if(el)el.textContent='Draft saved. You can come back to it from the home page.';}
+
+/* ---------------- proceed, register entry, rating ---------------- */
+async function proceed(cid,ver){const v=getRev(cid,ver);const acc=Object.values(v.answers).filter(a=>a.choice==='accepted').length,nr=Object.values(v.answers).filter(a=>a.choice==='needs_review').length;
+ const openN=(v.findings||[]).filter(f=>!v.answers[f.id]).length;
+ modal(`<b>Ready for a person to sign</b><p class="mut">This tool does not sign, send or approve anything.</p>
+ <ul style="margin:6px 0 10px"><li>${acc} accepted (reasons are logged)</li><li>${openN} still open (not serious)</li></ul>
+ <div class="mut">Signer: ${esc(S.user)} (Dhaval if unavailable). Clicking continue records this contract in the register as "in manual signing" and queues any new restrictions for confirmation.</div>
+ <div class="row" style="margin-top:12px"><button class="pri" id="cb" onclick="doProceed('${esc(cid)}',${ver})">Continue</button><button onclick="closeModal()">Cancel</button></div>`)}
+async function doProceed(cid,ver){const v=getRev(cid,ver);$('#cb').disabled=true;let entries=[];
+ try{const r=await api({action:'register_entry',details:v.details,text:v.text||'',contract_id:cid},1);entries=r.entries||[]}catch(e){entries=[]}
+ const ex=S.entries.filter(e=>e.contract_id!==cid);S.entries=ex.concat(entries.map(e=>Object.assign(e,{file:null,bound:e.bound||''})));
+ const c=allContracts().find(x=>x.id===cid);if(c){c.status='In manual signing';c.restrictions=entries.length||c.restrictions}
+ const a=S.added.find(x=>x.id===cid);if(a){a.status='In manual signing';a.restrictions=entries.length}
+ v.status='in_signing';S.audit.push({at:new Date().toISOString(),who:S.user,what:'Proceeded to manual signing',cid,ver,entries:entries.length});save();closeModal();downloadSummary(cid,ver);reviewPage(cid,ver);rateModal(cid,ver)}
+function downloadSummary(cid,ver){const v=getRev(cid,ver);const d=v.details;
+ const rows=(v.findings||[]).map(f=>{const a=v.answers[f.id];return`<tr><td>${esc(f.severity)}</td><td>${esc(f.title)}</td><td>${esc(f.clause_id||'')}</td><td>${esc((f.quote||'').slice(0,200))}</td><td>${a?esc(a.choice+': '+a.comment):'open'}</td></tr>`}).join('');
+ const html=`<html><head><meta charset="utf-8"><title>Review ${esc(cid)} v${v.ver}</title><style>body{font:14px system-ui;margin:24px}td,th{border:1px solid #ccc;padding:6px;vertical-align:top}table{border-collapse:collapse;width:100%}</style></head><body><h2>${esc(d.counterparty)} · ${esc(d.doc_type)} · ${esc(cid)} v${v.ver}</h2><p>Clauses reviewed ${v.clauses_reviewed} of ${v.clauses_total}. Prepared by the AtliQ Contract Risk Analyzer for ${esc(S.user)} on ${today()}. Not legal advice. Nothing was signed or sent.${v.status==='deferred'?' Signing deferred'+(v.deferred&&v.deferred.reason?': '+esc(v.deferred.reason):'')+'.':''}</p><table><tr><th>Severity</th><th>Finding</th><th>Clause</th><th>Quote</th><th>Decision and reason</th></tr>${rows}</table></body></html>`;
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download='review-'+cid+'-v'+v.ver+'.html';document.body.appendChild(a);a.click();a.remove()}
+let RATE={};
+function rateModal(cid,ver){RATE={cid,ver,miss:null,stars:0,reasons:[]};drawRate()}
+function drawRate(){const low=RATE.miss==='yes'||(RATE.stars>0&&RATE.stars<=3);const R=['Missed a clause','Wrong finding','Too many findings','Too slow','Hard to read','Other'];
+ modal(`<b>How was this review?</b><div class="mut" style="margin:2px 0 10px">Skip any time. This never blocks you.</div>
+ <div class="row"><button class="${RATE.miss==='no'?'pri':''}" onclick="RATE.miss='no';drawRate()">Nothing missed</button><button class="${RATE.miss==='yes'?'pri':''}" onclick="RATE.miss='yes';drawRate()">Something missed</button></div>
+ <div style="margin:8px 0">${[1,2,3,4,5].map(i=>`<button class="star ${RATE.stars>=i?'on':''}" aria-label="${i} stars" onclick="RATE.stars=${i};drawRate()">&#9733;</button>`).join('')}</div>
+ ${low?`<div class="mut">What went wrong?</div><div class="row" style="margin:6px 0">${R.map(r=>`<span class="chip ${RATE.reasons.includes(r)?'on':''}" onclick="toggleReason('${r}')">${r}</span>`).join('')}</div><input id="rline" placeholder="Add a line (optional)">`:''}
+ <div class="row" style="margin-top:12px"><button class="pri" onclick="saveRate()">Save</button><button onclick="closeModal()">Skip</button></div>`)}
+function toggleReason(r){const i=RATE.reasons.indexOf(r);i<0?RATE.reasons.push(r):RATE.reasons.splice(i,1);const l=($('#rline')||{}).value;drawRate();if($('#rline'))$('#rline').value=l||''}
+function saveRate(){S.feedback.push({cid:RATE.cid,ver:RATE.ver,missed:RATE.miss,stars:RATE.stars,reasons:RATE.reasons,line:($('#rline')||{}).value||'',at:new Date().toISOString()});save();closeModal()}
+
+/* ---------------- boot ---------------- */
+async function boot(){S=load();$('#who').textContent=S.user;
+ try{[BASE,REG,SAMPLES,PRINC]=await Promise.all(['data/contracts.json','data/register.json','data/samples.json','data/principles.json'].map(u=>fetch(u).then(r=>r.json())))}catch(e){$('#app').innerHTML='<div class="card">Could not load data files.</div>';return}
+ badge();window.addEventListener('hashchange',route);route()}
+boot();
+</script>
+</body></html>

@@ -1,0 +1,104 @@
+[
+ {
+  "file": "samples/synthetic/S01_orion_retail_msa_clean.md",
+  "label": "S01 Orion Retail MSA (clean)"
+ },
+ {
+  "file": "samples/synthetic/S02_coastal_mutual_insurance_agreement.md",
+  "label": "S02 Coastal Mutual Insurance (Brightwater-type)"
+ },
+ {
+  "file": "samples/synthetic/S03_maple_street_bakery_small_sow.md",
+  "label": "S03 Maple Street Bakery ($500k cap on $24k)"
+ },
+ {
+  "file": "samples/synthetic/S04_vantage_biosciences_one_sided_nda.md",
+  "label": "S04 Vantage Biosciences (\"mutual\" NDA, one-sided)"
+ },
+ {
+  "file": "samples/synthetic/S05_granite_peak_mutual_nda.md",
+  "label": "S05 Granite Peak (truly mutual NDA)"
+ },
+ {
+  "file": "samples/synthetic/S06_sterling_care_msa_no_baa.md",
+  "label": "S06 Sterling Care (health data, no BAA, $5M cyber)"
+ },
+ {
+  "file": "samples/synthetic/S07_marina_bay_resorts_msa.md",
+  "label": "S07 Marina Bay Resorts (Dubai, collides with Al Noor)"
+ },
+ {
+  "file": "samples/synthetic/S08_redwood_software_wrong_entity.md",
+  "label": "S08 Redwood Software (wrong entity and law)"
+ },
+ {
+  "file": "samples/synthetic/S09_fieldstone_foods_msa.md",
+  "label": "S09 Fieldstone Foods + call notes (verbal 10% discount)",
+  "notes": "samples/synthetic/S09_fieldstone_call_notes.md"
+ },
+ {
+  "file": "samples/synthetic/S10_bluewater_marine_msa.md",
+  "label": "S10 Bluewater Marine + chat (scope cut, 60-day payment)",
+  "notes": "samples/synthetic/S10_bluewater_chat_export.md"
+ },
+ {
+  "file": "samples/incoming/2026-09-10_harrington_health_msa_draft.md",
+  "label": "Incoming: harrington health msa draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-15_travelhub_services_agreement_draft.md",
+  "label": "Incoming: travelhub services agreement draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-16_harrington_health_baa_draft.md",
+  "label": "Incoming: harrington health baa draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-18_gulf_crown_hotels_msa_draft.md",
+  "label": "Incoming: gulf crown hotels msa draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-19_lakeshore_grocers_msa_draft.md",
+  "label": "Incoming: lakeshore grocers msa draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-21_blueorchid_hotels_pilot_agreement_draft.md",
+  "label": "Incoming: blueorchid hotels pilot agreement draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-23_rheinwerk_analytics_services_agreement_draft.md",
+  "label": "Incoming: rheinwerk analytics services agreement draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-24_datavane_strategic_partnership_agreement_draft.md",
+  "label": "Incoming: datavane strategic partnership agreement draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-24_sunrise_foods_sow2_draft.md",
+  "label": "Incoming: sunrise foods sow2 draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-25_finserve_capital_mutual_nda_draft.md",
+  "label": "Incoming: finserve capital mutual nda draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-26_kriti_data_labs_subcontractor_agreement_draft.md",
+  "label": "Incoming: kriti data labs subcontractor agreement draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-27_daniel_ortiz_contractor_agreement_draft.md",
+  "label": "Incoming: daniel ortiz contractor agreement draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-27_daniel_ortiz_nda_draft.md",
+  "label": "Incoming: daniel ortiz nda draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-27_loopmart_mutual_nda_draft.md",
+  "label": "Incoming: loopmart mutual nda draft"
+ },
+ {
+  "file": "samples/incoming/2026-09-27_marcus_reed_contractor_agreement_draft.md",
+  "label": "Incoming: marcus reed contractor agreement draft"
+ }
+]
