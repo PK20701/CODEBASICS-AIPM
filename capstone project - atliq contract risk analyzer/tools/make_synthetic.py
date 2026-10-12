@@ -260,7 +260,12 @@ real = []
 for fn in sorted(os.listdir(inc)):
     base = fn[11:].rsplit('.', 1)[0].replace('_', ' ')
     real.append({'file': 'samples/incoming/' + fn, 'label': 'Incoming: ' + base})
-json.dump(samples + real, open(os.path.join(ROOT, 'public', 'data', 'samples.json'), 'w', encoding='utf-8'), indent=1)
+signed = []
+sg = os.path.join(ROOT, 'public', 'samples', 'signed')
+for fn in sorted(os.listdir(sg)):
+    if fn.endswith('.md'):
+        signed.append({'file': 'samples/signed/' + fn, 'label': 'Signed: ' + fn[11:].rsplit('.', 1)[0].replace('_', ' '), 'kind': 'signed'})
+json.dump(samples + real + signed, open(os.path.join(ROOT, 'public', 'data', 'samples.json'), 'w', encoding='utf-8'), indent=1)
 os.makedirs(os.path.join(ROOT, 'tests'), exist_ok=True)
 json.dump(KEY, open(os.path.join(ROOT, 'tests', 'answer_key.json'), 'w', encoding='utf-8'), indent=1)
 print('wrote', len(samples), 'synthetic contracts and', len(real), 'real drafts to samples.json')

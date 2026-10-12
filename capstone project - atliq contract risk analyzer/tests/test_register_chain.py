@@ -25,7 +25,7 @@ print('extracted from S07:', [(e['type'], e['restricted_activity'], e['scope'], 
 assert entries, 'no restriction extracted from S07'
 nc = [e for e in entries if e['type'] in ('non_compete', 'exclusivity')]
 assert nc, 'no non-compete found'
-assert nc[0]['end'] == '2028-05-01', 'end date should be 12 months term + 6 months after, from 1 Nov 2026: %s' % nc[0]['end']
+assert nc[0]['end'] == '2028-04-30', 'end date should be 12 months term + 6 months after, from 1 Nov 2026: %s' % nc[0]['end']
 
 
 def conflicts(extra, exclude=None):

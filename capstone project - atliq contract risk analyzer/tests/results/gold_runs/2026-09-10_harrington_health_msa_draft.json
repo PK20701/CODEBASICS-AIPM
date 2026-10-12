@@ -1,0 +1,357 @@
+{
+ "file": "incoming/2026-09-10_harrington_health_msa_draft.md",
+ "details": {
+  "doc_type": "MSA",
+  "title": "Master Professional Services Agreement",
+  "counterparty": "Harrington Health Systems, Inc.",
+  "client_country": "United States",
+  "client_industry": "healthcare",
+  "atliq_entity": "Inc",
+  "atliq_role": "supplier",
+  "effective_date": null,
+  "term_months": 36,
+  "end_date": null,
+  "governing_law": "State of Texas",
+  "courts_or_seat": "state or federal courts located in Harris County, Texas",
+  "governing_law_source": {
+   "clause_id": "14.1, 14.3",
+   "quote": "This Agreement shall be governed by and construed in accordance with the laws of the State of Texas, without regard to its conflict of laws principles. [...] Any action arising out of or relating to this Agreement shall be brought exclusively in the state or federal courts located in Harris County, Texas, and each Party irrevocably submits to the personal jurisdiction of such courts."
+  },
+  "parties_quote": "This Master Professional Services Agreement (together with all Exhibits, Statements of Work and amendments hereto, this \"Agreement\") is entered into as of the date of the last signature below (the \"Effective Date\") by and between Harrington Health Systems, Inc., a Texas nonprofit corporation with its principal place of business at 6400 Fannin Street, Suite 1800, Houston, Texas 77030 (\"Harrington\" or \"Client\"), and AtliQ Inc, a Delaware corporation with its principal place of business at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Contractor\").",
+  "payment_source": {
+   "clause_id": "4.3",
+   "quote": "Client shall pay each properly submitted, undisputed invoice within ninety (90) days after Client's receipt thereof."
+  },
+  "currency": "USD",
+  "total_value": 210000.0,
+  "annual_fee": null,
+  "payment_days": 90,
+  "services_summary": "Design and implement an enterprise clinical and operational analytics platform, dashboards, readmission-risk model, and knowledge transfer.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "other",
+   "multiple": null,
+   "amount": null,
+   "basis": "Client liability is capped at fees paid; Contractor liability is completely uncapped for all losses including indemnification, breach of BAA, and security incidents.",
+   "clause_id": "10.2, 10.3",
+   "quote": "CLIENT'S AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT SHALL NOT EXCEED THE FEES ACTUALLY PAID BY CLIENT TO CONTRACTOR UNDER THIS AGREEMENT. [...] NOTHING IN THIS AGREEMENT SHALL LIMIT OR EXCLUDE CONTRACTOR'S LIABILITY FOR ANY LOSSES, WHETHER DIRECT OR INDIRECT, ARISING OUT OF OR RELATING TO THIS AGREEMENT, INCLUDING CONTRACTOR'S INDEMNIFICATION OBLIGATIONS, BREACH OF THE BAA, OR ANY DATA SECURITY INCIDENT."
+  },
+  "delay_penalty": {
+   "present": true,
+   "per": "day",
+   "rate_percent": 2.0,
+   "capped": false,
+   "excludes_client_delay": null,
+   "clause_id": "11.2",
+   "quote": "if Contractor fails to achieve any Delivery Date, Contractor shall pay Client, as liquidated damages, an amount equal to two percent (2%) of the Total Contract Value for each calendar day from the Delivery Date until the date the applicable Deliverable is accepted."
+  },
+  "mutual_confidentiality": false,
+  "one_sided_note": "Confidentiality obligations restrict both parties, but Article 6.5 specifically grants Client the right to injunctive relief for breach while providing no reciprocal remedy for Contractor.",
+  "handles_phi": true,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": "Exhibit D \u2014 Business Associate Agreement",
+  "insurance_requirements": [
+   {
+    "type": "liability",
+    "amount_usd": 2000000.0,
+    "clause_id": "13.1",
+    "quote": "commercial general liability of $2,000,000 per occurrence"
+   },
+   {
+    "type": "e&o",
+    "amount_usd": 5000000.0,
+    "clause_id": "13.1",
+    "quote": "professional liability/errors and omissions of $5,000,000 per claim"
+   },
+   {
+    "type": "cyber",
+    "amount_usd": 5000000.0,
+    "clause_id": "13.1",
+    "quote": "cyber liability of $5,000,000 per claim"
+   },
+   {
+    "type": "other",
+    "amount_usd": 5000000.0,
+    "clause_id": "13.1",
+    "quote": "umbrella liability of $5,000,000"
+   }
+  ],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "ip_assignment",
+    "who_is_bound": "AtliQ",
+    "summary": "All deliverables and incorporated pre-existing materials are assigned to the client as works made for hire.",
+    "restricted_activity": "Assigning all right, title, and interest in deliverables and necessary pre-existing materials to the client.",
+    "customers": "none",
+    "geography": [],
+    "clause_id": "7.1, 7.2",
+    "quote": "All Deliverables shall be deemed \"works made for hire\" as defined in the U.S. Copyright Act, 17 U.S.C. \u00a7 101, and shall be the sole and exclusive property of Client from creation. [...] Contractor hereby irrevocably assigns, transfers and conveys to Client all right, title and interest therein, including all intellectual property rights, without further consideration.",
+    "duration_basis": "perpetual",
+    "months_after_term": null
+   },
+   {
+    "type": "data_location",
+    "who_is_bound": "AtliQ",
+    "summary": "No PHI may be accessed, stored, or processed outside the United States without prior written consent.",
+    "restricted_activity": "Accessing, storing, or processing PHI outside the United States.",
+    "customers": "none",
+    "geography": [
+     "United States"
+    ],
+    "clause_id": "12.4",
+    "quote": "No PHI shall be accessed, stored or processed outside the United States without Client's prior written consent. Any Contractor Personnel located outside the United States shall access only de-identified data within Client-controlled environments.",
+    "duration_basis": "term",
+    "months_after_term": null
+   }
+  ]
+ },
+ "quality": {
+  "level": "good",
+  "count": 0,
+  "examples": []
+ },
+ "findings": [
+  {
+   "source": "rule",
+   "topic": "delay_penalty",
+   "severity": "Serious",
+   "title": "Delay penalty with no cap",
+   "why": "AtliQ could pay for delays it did not cause (Brightwater).",
+   "comparison": "Past contracts cap penalties at 5% of the milestone and exclude client delay (3 of 3).",
+   "clause_id": "11.2",
+   "quote": "if Contractor fails to achieve any Delivery Date, Contractor shall pay Client, as liquidated damages, an amount equal to two percent (2%) of the Total Contract Value for each calendar day from the Delivery Date until the date the applicable Deliverable is accepted.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  },
+  {
+   "source": "rule",
+   "topic": "documents",
+   "severity": "Serious",
+   "title": "The HIPAA Business Associate Agreement is not signed yet: C-046 (In review)",
+   "why": "Patient data cannot move until the BAA is signed, ideally together with the services contract.",
+   "comparison": "Healthcare deals need an NDA, a BAA and the services contract; European work with personal data needs a DPA.",
+   "clause_id": null,
+   "quote": null,
+   "verified": true,
+   "unsure": false,
+   "absence": true,
+   "id": "F02"
+  },
+  {
+   "source": "rule",
+   "topic": "insurance",
+   "severity": "Serious",
+   "title": "Cyber insurance of $5,000,000 required; AtliQ holds $1M",
+   "why": "AtliQ would be in breach on signing.",
+   "comparison": "AtliQ facts: cyber cover is $1,000,000.",
+   "clause_id": "13.1",
+   "quote": "cyber liability of $5,000,000 per claim",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F03"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Serious",
+   "title": "Unlimited Rejection and Full Refund Rights",
+   "why": "Endless rejection loops and full refund rights expose AtliQ to un-capped financial clawbacks.",
+   "comparison": "Deviates from standard pay-for-work-done principles.",
+   "clause_id": "3.2",
+   "quote": "Client may repeat the acceptance process until the Deliverable conforms, or may, at its option, reject the Deliverable and receive a refund of all Fees paid in respect thereof.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F04"
+  },
+  {
+   "source": "contract",
+   "topic": "termination",
+   "severity": "Serious",
+   "title": "Termination for convenience does not pay for work in progress",
+   "why": "AtliQ does not get paid for unaccepted work in progress upon convenience termination.",
+   "comparison": "AtliQ's principle and past contracts require payment for all work done.",
+   "clause_id": "5.3",
+   "quote": "Upon such termination, Client's sole obligation shall be to pay Fees for Deliverables accepted by Client prior to the effective date of termination; Client shall have no obligation to pay for work in progress",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F05"
+  },
+  {
+   "source": "contract",
+   "topic": "ip",
+   "severity": "Serious",
+   "title": "Assignment of Pre-Existing Materials to Client",
+   "why": "AtliQ loses ownership of its own pre-existing tools if incorporated into deliverables.",
+   "comparison": "Principle states AtliQ keeps its own pre-existing tools (Northwind is the only past exception).",
+   "clause_id": "7.2",
+   "quote": "To the extent any Deliverable, or any Pre-Existing Materials incorporated into or necessary for the use of any Deliverable, does not qualify as a work made for hire, Contractor hereby irrevocably assigns... all right, title and interest therein",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F06"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "Indemnity covers client's own negligence",
+   "why": "AtliQ would be financially responsible for losses caused by the client's own negligence.",
+   "comparison": "Principles state AtliQ does not cover the other side's own negligence and indemnity should be mutual.",
+   "clause_id": "9.1",
+   "quote": "in each case regardless of whether such Losses are caused in whole or in part by the negligence of any Client Indemnitee.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F07"
+  },
+  {
+   "source": "contract",
+   "topic": "liability",
+   "severity": "Serious",
+   "title": "Uncapped and unlimited contractor liability",
+   "why": "Contractor liability is completely uncapped and includes indirect losses, creating extreme financial exposure.",
+   "comparison": "Past contracts cap liability at 1x to 2x fees; principles state liability should be about 1x and never unlimited.",
+   "clause_id": "10.3",
+   "quote": "NOTHING IN THIS AGREEMENT SHALL LIMIT OR EXCLUDE CONTRACTOR'S LIABILITY FOR ANY LOSSES, WHETHER DIRECT OR INDIRECT, ARISING OUT OF OR RELATING TO THIS AGREEMENT, INCLUDING CONTRACTOR'S INDEMNIFICATION OBLIGATIONS, BREACH OF THE BAA, OR ANY DATA SECURITY INCIDENT.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F08"
+  },
+  {
+   "source": "contract",
+   "topic": "data_protection",
+   "severity": "Serious",
+   "title": "Unlimited remediation costs for security incidents",
+   "why": "Imposes open-ended financial liability for security incidents without a cap or fault threshold.",
+   "comparison": "Past contracts do not feature open-ended remediation cost allocation without liability caps.",
+   "clause_id": "12.3",
+   "quote": "Contractor shall notify Client of any actual or reasonably suspected security incident affecting Client data within twenty-four (24) hours of discovery and shall bear all costs of investigation, notification, credit monitoring and remediation.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F09"
+  },
+  {
+   "source": "rule",
+   "topic": "payment",
+   "severity": "Negotiable",
+   "title": "Payment in 90 days",
+   "why": "Long payment terms hurt cash flow.",
+   "comparison": "Principle: 30 days, 45 at most.",
+   "clause_id": "4.3",
+   "quote": "Client shall pay each properly submitted, undisputed invoice within ninety (90) days after Client's receipt thereof.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F10"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Unilateral Client Policy Updates",
+   "why": "AtliQ must comply with future policy changes it has not seen, creating unexpected operational burdens.",
+   "comparison": "Not explicitly standard; creates unpredictable compliance costs.",
+   "clause_id": "2.3",
+   "quote": "in compliance with Applicable Law and Client's policies made available to Contractor, as updated from time to time.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F11"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Unilateral Personnel Removal and Costs",
+   "why": "Client can demand personnel removal at whim, and AtliQ absorbs all replacement costs.",
+   "comparison": "Unusual to bear all replacement costs regardless of reason.",
+   "clause_id": "2.4",
+   "quote": "Client may, in its sole discretion, request removal of any Contractor Personnel, and Contractor shall promptly replace such individual at no additional cost to Client.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F12"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Broad Cross-Agreement Set-off Right",
+   "why": "Allows withholding of payments based on disputes from entirely separate agreements.",
+   "comparison": "Risky clause not present in standard favorable terms.",
+   "clause_id": "4.5",
+   "quote": "Client may set off against any amount owed to Contractor any amount owed by Contractor to Client under this Agreement or any other agreement.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F13"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Negotiable",
+   "title": "Unilateral and narrow client indemnity",
+   "why": "Client indemnity is strictly limited to gross negligence or willful misconduct and is one-sided.",
+   "comparison": "Principles require mutual indemnity.",
+   "clause_id": "9.2",
+   "quote": "To the extent permitted by law, Client shall indemnify Contractor against third-party claims to the extent arising from Client's gross negligence or willful misconduct.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F14"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Minor",
+   "title": "Acceptance Cannot Be Deemed",
+   "why": "Prevents formal acceptance from ever being presumed, keeping deliverables in limbo indefinitely.",
+   "comparison": "Strict compared to standard commercial practices where use implies acceptance.",
+   "clause_id": "3.3",
+   "quote": "Acceptance shall not be deemed to occur by use in production, by payment, or by the passage of time.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F15"
+  },
+  {
+   "source": "contract",
+   "topic": "confidentiality",
+   "severity": "Minor",
+   "title": "One-sided injunctive relief without bond for confidentiality breach",
+   "why": "Only the Client gets the remedy of injunctive relief without bond.",
+   "comparison": "Confidentiality should be mutual, but this remedy clause is one-sided.",
+   "clause_id": "6.5",
+   "quote": "Contractor acknowledges that any breach of this Article may cause irreparable harm... and that Client shall be entitled to injunctive relief without the posting of bond.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F16"
+  },
+  {
+   "source": "contract",
+   "topic": "assignment",
+   "severity": "Minor",
+   "title": "Asymmetric assignment rights",
+   "why": "Restricts AtliQ's ability to transfer while allowing the client free assignment.",
+   "comparison": "Common in client-drafted agreements but creates unilateral restriction.",
+   "clause_id": "15.2",
+   "quote": "Contractor may not assign or transfer this Agreement... without Client's prior written consent. Client may assign this Agreement to any Affiliate or successor without consent.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F17"
+  }
+ ],
+ "seconds": 12.3
+}

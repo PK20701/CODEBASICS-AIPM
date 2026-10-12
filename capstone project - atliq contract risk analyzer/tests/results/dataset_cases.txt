@@ -1,0 +1,92 @@
+
+### 1 collides with something already signed  [2026-09-18_gulf_crown_hotels_msa_draft.m]
+    expect: Al Noor non-compete (Serious) | S/N/M 2/8/1 | clauses 62/62 | 8s
+    [Serious/register] Al Noor Hospitality Group: Data analytics, AI or revenue-management services
+    [Serious/contract] Delay penalties based on total contract value
+    [Negotiable/rule] Indian entity under non-Indian law (laws and regulations in force in the Kingdom of Saudi Ar
+    [Negotiable/rule] Payment in 60 days
+    [Negotiable/contract] Termination for convenience pays only for accepted services
+    [Negotiable/contract] Liability cap excludes confidentiality and data protection
+    [Negotiable/contract] Delay penalty excludes force majeure only
+
+### 1b collides on price  [2026-09-19_lakeshore_grocers_msa_draft.m]
+    expect: Crestline most-favoured pricing ($72 vs card) | S/N/M 4/1/1 | clauses 53/53 | 8s
+    [Serious/rule] US entity with courts or arbitration outside the US (Singapore)
+    [Serious/register] Crestline Retail Inc: Offering lower rates to any other customer for substantially similar s
+    [Serious/contract] Exceptions carve out liability cap
+    [Serious/contract] One-sided IP Infringement Indemnity
+    [Negotiable/contract] Automatic annual renewal requires tracking
+    [Minor/register] CloudSpan Technologies: Acting as implementation, reseller or referral partner for any compe
+
+### 2 buried one-sided clause / what Brightwater signed  [2025-11-28_brightwater_insurance_msa.md]
+    expect: uncapped LD and English law on a US entity | S/N/M 7/4/3 | clauses 45/45 | 15s
+    [Serious/rule] US entity under non-US law (England and Wales)
+    [Serious/rule] Health data but no BAA referenced
+    [Serious/contract] Broad Customer Set-Off Right
+    [Serious/contract] Uncapped Daily Liquidated Damages
+    [Serious/contract] Termination for convenience without payment for work done
+    [Serious/contract] Deliver work in progress without confirming payment
+    [Serious/contract] High mandatory insurance coverage required
+
+### 3 wrong law / entity  [2026-09-15_travelhub_services_agreement_]
+    expect: entity and law mismatch | S/N/M 3/5/1 | clauses 48/48 | 44s
+    [Serious/rule] US entity under non-US law (laws of the Emirate of Dubai and the applicable federal laws of 
+    [Serious/rule] AtliQ Inc named for a non-US client (United Arab Emirates)
+    [Serious/register] Al Noor Hospitality Group: Data analytics, AI or revenue-management services
+    [Negotiable/contract] Invoicing entity mismatch with contracting party
+    [Negotiable/contract] Specific AI models and weights assigned to client
+    [Negotiable/contract] Exception to liability cap for confidentiality breach
+    [Negotiable/contract] One-sided IP indemnification by AtliQ
+
+### 4 NDA that says mutual  [2026-09-25_finserve_capital_mutual_nda_d]
+    expect: non-compete and non-solicit inside a mutual NDA | S/N/M 5/3/2 | clauses 27/27 | 7s
+    [Serious/contract] One-sided confidentiality definition
+    [Serious/contract] Onerous data breach notification timeline
+    [Serious/contract] Perpetual confidentiality survival
+    [Serious/contract] Restrictive non-compete covenant
+    [Serious/contract] One-sided and uncapped indemnity for breach
+    [Negotiable/contract] Unilateral security policy compliance
+    [Negotiable/contract] Residuals clause favors Company
+
+### 5 AtliQ own paper (agency)  [2026-09-26_kriti_data_labs_subcontractor]
+    expect: clauses AtliQ rejects as a supplier, unfair to the other side | S/N/M 6/7/1 | clauses 57/57 | 9s
+    [Serious/rule] Payment in 120 days
+    [Serious/contract] Termination for Convenience Excludes Work in Progress
+    [Serious/contract] Vendor Retains IP in Deliverables and Outputs
+    [Serious/contract] One-Sided Indemnity Covering AtliQ's Negligence
+    [Serious/contract] Vendor Liability is Completely Uncapped
+    [Serious/contract] Excessive Liquidated Damages Without Exclusions
+    [Negotiable/rule] EU personal data but no DPA referenced
+
+### 5b AtliQ own paper (freelancer)  [2026-09-27_marcus_reed_contractor_agreem]
+    expect: same | S/N/M 3/2/1 | clauses 37/37 | 54s
+    [Serious/rule] AtliQ Pvt Ltd named for a US client
+    [Serious/contract] Full-time exclusivity requirement
+    [Serious/contract] Broad IP assignment
+    [Negotiable/rule] Payment in 60 days
+    [Negotiable/contract] Unilateral exchange rate determination
+    [Minor/register] CloudSpan Technologies: Acting as implementation, reseller or referral partner for any compe
+
+### 6 healthcare, document missing  [2026-09-10_harrington_health_msa_draft.m]
+    expect: BAA / insurance gap | S/N/M 8/7/2 | clauses 85/85 | 10s
+    [Serious/rule] Cyber insurance of $5,000,000 required; AtliQ holds $1M
+    [Serious/contract] Endless Rejection and Full Refund Risk
+    [Serious/contract] Unpaid work in progress on convenience termination
+    [Serious/contract] Assignment of Pre-Existing Materials
+    [Serious/contract] One-sided indemnity covering client's own negligence
+    [Serious/contract] Completely uncapped and broad contractor liability
+    [Serious/contract] Excessive daily liquidated damages with no cap or exclusions
+
+### 6b healthcare freelancer  [2026-09-27_daniel_ortiz_contractor_agree]
+    expect: PHI without BAA flow-down | S/N/M 1/0/0 | clauses 32/32 | 5s
+    [Serious/rule] Health data but no BAA referenced
+
+### 7 only looks risky  [2026-09-27_loopmart_mutual_nda_draft.md]
+    expect: no Serious finding | S/N/M 0/0/1 | clauses 17/17 | 41s
+    [Minor/register] CloudSpan Technologies: Acting as implementation, reseller or referral partner for any compe
+
+### 8 scanned copy  [2022-07-01_orbit_travels_msa_scanned.md]
+    expect: poor scan: should be flagged low confidence | S/N/M 1/0/2 | clauses 17/17 | 5s
+    [Serious/contract] Restrictive covenant restricts travel-booking software development in India
+    [Minor/register] Al Noor Hospitality Group: Data analytics, AI or revenue-management services
+    [Minor/register] Expired restriction: Orbit Travels (Developing, licensing or providing travel-booking softwa

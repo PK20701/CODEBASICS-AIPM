@@ -1,7 +1,7 @@
 {
  "id": "S08",
  "label": "S08 Redwood Software (wrong entity and law)",
- "seconds": 3.5,
+ "seconds": 41.7,
  "findings": 2,
  "serious": 1,
  "must": 1,
@@ -10,10 +10,11 @@
  "false_alarms": 0,
  "unverified": [],
  "providers": [
-  "gemini"
+  "gemini",
+  "groq"
  ],
- "tokens_in": 4317,
- "tokens_out": 1008,
+ "tokens_in": 4708,
+ "tokens_out": 2173,
  "clauses": "11/11",
  "liability": "1.0x annual fee",
  "details": {
@@ -23,23 +24,24 @@
   "client_country": "United States",
   "client_industry": "software",
   "atliq_entity": "Pvt Ltd",
+  "atliq_role": "supplier",
   "effective_date": null,
   "term_months": 12,
   "end_date": null,
   "governing_law": "laws of the State of California",
-  "courts_or_seat": "courts of San Francisco County, California",
+  "courts_or_seat": "exclusive jurisdiction of the courts of San Francisco County, California",
   "governing_law_source": {
    "clause_id": "7.1",
    "quote": "This Agreement is governed by the laws of the State of California, and the parties submit to the exclusive jurisdiction of the courts of San Francisco County, California."
   },
-  "parties_quote": "Redwood Software Inc., a California corporation having its principal office at 200 Mission Street, San Francisco, California 94105 (\"Redwood\"); and AtliQ Technologies Private Limited, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
+  "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of ____________, 2026 between:\n\n**Redwood Software Inc.**, a California corporation having its principal office at 200 Mission Street, San Francisco, California 94105 (\"Redwood\"); and\n\n**AtliQ Technologies Private Limited**, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
   "payment_source": {
    "clause_id": "2.1",
    "quote": "Redwood shall pay USD 96,000 in total in monthly instalments, within thirty (30) days of receipt of each invoice."
   },
   "currency": "USD",
   "total_value": 96000.0,
-  "annual_fee": 96000.0,
+  "annual_fee": null,
   "payment_days": 30,
   "services_summary": "Data engineering services for product usage analytics.",
   "regions_of_service": [
@@ -49,13 +51,13 @@
    "kind": "multiple_of_fees",
    "multiple": 1,
    "amount": null,
-   "basis": "fees paid in the twelve (12) months before the claim",
+   "basis": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim.",
    "clause_id": "5.1",
    "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
   },
   "delay_penalty": {
    "present": false,
-   "per": "none",
+   "per": null,
    "rate_percent": null,
    "capped": null,
    "excludes_client_delay": null,
@@ -69,20 +71,7 @@
   "mentions_baa_or_dpa": null,
   "insurance_requirements": [],
   "rates": [],
-  "restrictive_covenants": [
-   {
-    "type": "ip_assignment",
-    "who_is_bound": "AtliQ",
-    "summary": "Redwood owns the Deliverables. Vendor keeps its pre-existing tools.",
-    "restricted_activity": "Ownership of Deliverables",
-    "customers": "none",
-    "geography": [],
-    "clause_id": "3.1",
-    "quote": "Redwood owns the Deliverables. Vendor keeps its pre-existing tools.",
-    "duration_basis": "perpetual",
-    "months_after_term": null
-   }
-  ]
+  "restrictive_covenants": []
  },
  "titles": [
   [
@@ -105,7 +94,7 @@
    "why": "US clients contract with AtliQ Inc.",
    "comparison": "Entity sheet: AtliQ Inc serves the United States only.",
    "clause_id": "Parties",
-   "quote": "Redwood Software Inc., a California corporation having its principal office at 200 Mission Street, San Francisco, California 94105 (\"Redwood\"); and AtliQ Technologies Private Limited, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
+   "quote": "This Master Services Agreement (the \"Agreement\") is made as of ____________, 2026 between:\n\n**Redwood Software Inc.**, a California corporation having its principal office at 200 Mission Street, San Francisco, California 94105 (\"Redwood\"); and\n\n**AtliQ Technologies Private Limited**, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
    "verified": true,
    "unsure": false,
    "absence": false,

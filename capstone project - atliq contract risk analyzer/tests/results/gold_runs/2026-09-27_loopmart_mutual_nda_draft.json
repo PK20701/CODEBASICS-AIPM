@@ -1,0 +1,84 @@
+{
+ "file": "incoming/2026-09-27_loopmart_mutual_nda_draft.md",
+ "details": {
+  "doc_type": "NDA",
+  "title": "Mutual Non-Disclosure Agreement",
+  "counterparty": "LoopMart Retail Private Limited",
+  "client_country": "India",
+  "client_industry": "retail",
+  "atliq_entity": "Pvt Ltd",
+  "atliq_role": "partner",
+  "effective_date": null,
+  "term_months": 24,
+  "end_date": null,
+  "governing_law": "laws of India",
+  "courts_or_seat": "courts at Bengaluru",
+  "governing_law_source": {
+   "clause_id": "10.3",
+   "quote": "This Agreement is governed by the laws of India. The courts at Bengaluru shall have exclusive jurisdiction."
+  },
+  "parties_quote": "LOOPMART RETAIL PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at No. 27, 3rd Floor, 100 Feet Road, Indiranagar, Bengaluru 560038, Karnataka, India (\"LoopMart\"); and\n\nATLIQ TECHNOLOGIES PRIVATE LIMITED, a company incorporated under the Companies Act, 2013 (CIN U72900MH2019PTC321456; GSTIN 27AAKCA4821F1Z3), having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"AtliQ\"),",
+  "payment_source": {},
+  "currency": "INR",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": null,
+  "services_summary": "Discuss a possible engagement for AtliQ to build a customer analytics and demand-forecasting solution for LoopMart's stores and online storefront.",
+  "regions_of_service": [
+   "India"
+  ],
+  "liability_cap": {
+   "kind": "none_stated",
+   "multiple": null,
+   "amount": null,
+   "basis": "",
+   "clause_id": "",
+   "quote": ""
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": "",
+   "quote": ""
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": []
+ },
+ "quality": {
+  "level": "good",
+  "count": 0,
+  "examples": []
+ },
+ "findings": [
+  {
+   "source": "register",
+   "topic": "exclusivity",
+   "severity": "Negotiable",
+   "title": "CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competing cloud data-warehouse, lakehouse or analytics platform",
+   "why": "Exclusivity restricts acting as an implementation, reseller or referral partner for competing platforms in India.",
+   "comparison": "Do not partner with another cloud data-warehouse or lakehouse vendor in India or the GCC while the CloudSpan agreement runs.",
+   "clause_id": "7.1",
+   "quote": "during the Term Partner and its Affiliates shall not act as an implementation, reseller or referral partner for any Competing Platform in India or the GCC.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-03",
+   "register_status": "active",
+   "register_end": "2028-08-31",
+   "register_file": "samples/signed/2025-09-01_cloudspan_strategic_partnership_agreement.md",
+   "register_counterparty": "CloudSpan Technologies",
+   "exception": "Clause 7.3: does not restrict services outside India and the GCC, or to a customer that independently selected a platform, provided AtliQ holds no partner appointment with, and receives no fee from, that platform's provider.",
+   "relevance": "possible",
+   "id": "F01"
+  }
+ ],
+ "seconds": 4.5
+}

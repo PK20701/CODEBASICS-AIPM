@@ -1,0 +1,205 @@
+{
+ "file": "incoming/2026-09-25_finserve_capital_mutual_nda_draft.md",
+ "details": {
+  "doc_type": "NDA",
+  "title": "Mutual Non-Disclosure Agreement",
+  "counterparty": "FINSERVE CAPITAL PRIVATE LIMITED",
+  "client_country": "India",
+  "client_industry": "banking",
+  "atliq_entity": "Pvt Ltd",
+  "atliq_role": "supplier",
+  "effective_date": null,
+  "term_months": null,
+  "end_date": null,
+  "governing_law": "laws of India",
+  "courts_or_seat": "courts at Mumbai",
+  "governing_law_source": {
+   "clause_id": "11.4",
+   "quote": "This Agreement shall be governed by the laws of India, and the courts at Mumbai shall have exclusive jurisdiction."
+  },
+  "parties_quote": "**FINSERVE CAPITAL PRIVATE LIMITED**, a company incorporated under the Companies Act, 2013, having its registered office at 11th Floor, One BKC Tower, G Block, Bandra Kurla Complex, Bandra (East), Mumbai 400051, Maharashtra, India (together with its Affiliates, the \"Company\"); and\n\n**ATLIQ TECHNOLOGIES PRIVATE LIMITED**, a company incorporated under the Companies Act, 2013 (CIN U72900MH2019PTC321456; GSTIN 27AAKCA4821F1Z3), having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (the \"Recipient\")",
+  "payment_source": {},
+  "currency": "INR",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": null,
+  "services_summary": "Development of data analytics and reporting solutions for lending and wealth businesses.",
+  "regions_of_service": [
+   "India"
+  ],
+  "liability_cap": {
+   "kind": "none_stated",
+   "multiple": null,
+   "amount": null,
+   "basis": "",
+   "clause_id": "",
+   "quote": ""
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": false,
+  "one_sided_note": "Titled mutual, but obligations and restrictions (including confidentiality, residual use rights, survival, non-compete, and non-solicit) bind the Recipient (AtliQ) only, while the Company retains residual use rights and disclaims warranties.",
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "non_compete",
+    "who_is_bound": "AtliQ",
+    "summary": "Recipient shall not provide services similar to those contemplated by the Proposed Transaction to any Competitor.",
+    "restricted_activity": "provide services similar to those contemplated by the Proposed Transaction",
+    "customers": "any bank, non-banking financial company, wealth manager, broker or fintech platform operating in India that offers products substantially similar to those of the Company",
+    "geography": [
+     "India"
+    ],
+    "clause_id": "8.1",
+    "quote": "In order to protect the Confidential Information, the Recipient shall not, during the term of this Agreement and for a period of twelve (12) months after its termination, provide services similar to those contemplated by the Proposed Transaction to any Competitor.",
+    "duration_basis": "term_plus_months",
+    "months_after_term": 12
+   }
+  ]
+ },
+ "quality": {
+  "level": "good",
+  "count": 0,
+  "examples": []
+ },
+ "findings": [
+  {
+   "source": "contract",
+   "topic": "confidentiality",
+   "severity": "Serious",
+   "title": "One-sided definition of Confidential Information",
+   "why": "Protects only the client's information, making the NDA entirely unilateral despite being titled mutual or applied generally.",
+   "comparison": "Confidentiality should be mutual according to AtliQ's principles.",
+   "clause_id": "1.2",
+   "quote": "Confidential Information means all information, in any form, disclosed or made available by or on behalf of the Company to the Recipient",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F01"
+  },
+  {
+   "source": "contract",
+   "topic": "data_protection",
+   "severity": "Serious",
+   "title": "Extremely short personal data breach notification window",
+   "why": "A 6-hour notification window is operationally very difficult to meet and creates severe breach risk for AtliQ.",
+   "comparison": "Stricter than standard 24 to 72-hour statutory notification windows.",
+   "clause_id": "6.2",
+   "quote": "notify the Company of any personal data breach within six (6) hours",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "confidentiality",
+   "severity": "Serious",
+   "title": "Perpetual survival of confidentiality obligations",
+   "why": "Creates an indefinite liability and compliance burden for AtliQ.",
+   "comparison": "Most past contracts survive for 6 to 12 months, not in perpetuity.",
+   "clause_id": "7.2",
+   "quote": "The obligations of the Recipient under this Agreement shall survive termination and shall continue in perpetuity.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F03"
+  },
+  {
+   "source": "contract",
+   "topic": "non_compete",
+   "severity": "Serious",
+   "title": "Restrictive non-compete covenant covering competitors",
+   "why": "Blocks AtliQ from working with a broad category of financial competitors in India for 12 months.",
+   "comparison": "Conflicts with AtliQ's principle to avoid non-competes that restrict future business.",
+   "clause_id": "8.1",
+   "quote": "the Recipient shall not, during the term of this Agreement and for a period of twelve (12) months after its termination, provide services similar to those contemplated by the Proposed Transaction to any Competitor.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F04"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "One-sided and uncapped indemnification for breach",
+   "why": "Creates an unmutual, uncapped obligation covering all losses and legal fees for any breach.",
+   "comparison": "Indemnity should be mutual and proportionate.",
+   "clause_id": "10.2",
+   "quote": "The Recipient shall indemnify the Company for all losses, costs and expenses (including legal fees) arising from any breach of this Agreement",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F05"
+  },
+  {
+   "source": "contract",
+   "topic": "confidentiality",
+   "severity": "Negotiable",
+   "title": "Unilateral security policy compliance obligation",
+   "why": "AtliQ must dynamically comply with unilaterally changing client security policies without prior agreement.",
+   "comparison": "Not standard in standard mutual NDAs.",
+   "clause_id": "2.1",
+   "quote": "apply security measures no less stringent than those required under the Company's information-security policy as notified to the Recipient from time to time",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F06"
+  },
+  {
+   "source": "contract",
+   "topic": "non_compete",
+   "severity": "Negotiable",
+   "title": "Extended non-solicitation period of 24 months",
+   "why": "Restricts hiring for two years post-termination, limiting talent mobility.",
+   "comparison": "Most confidentiality agreements run 6 to 12 months.",
+   "clause_id": "8.2",
+   "quote": "for a period of twenty-four (24) months after its termination, directly or indirectly solicit, hire or engage any employee or consultant of the Company.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F07"
+  },
+  {
+   "source": "contract",
+   "topic": "ip",
+   "severity": "Minor",
+   "title": "Residuals clause limited to the Company",
+   "why": "Only grants residuals rights to the Company, leaving AtliQ exposed regarding unmemorized or general knowledge.",
+   "comparison": "Residuals clauses should generally be mutual.",
+   "clause_id": "4.1",
+   "quote": "Notwithstanding anything in this Agreement, the Company shall be free to use Residuals for any purpose",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F08"
+  },
+  {
+   "source": "contract",
+   "topic": "assignment",
+   "severity": "Minor",
+   "title": "Asymmetric assignment rights",
+   "why": "Only the counterparty can assign the agreement to affiliates, while AtliQ cannot.",
+   "comparison": "Standard is mutual restriction or mutual affiliate assignment.",
+   "clause_id": "11.3",
+   "quote": "The Recipient may not assign this Agreement. The Company may assign it to any Affiliate.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F09"
+  }
+ ],
+ "seconds": 6.2
+}

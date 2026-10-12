@@ -1,7 +1,7 @@
 {
  "id": "S01",
  "label": "S01 Orion Retail MSA (clean)",
- "seconds": 4.9,
+ "seconds": 6.4,
  "findings": 0,
  "serious": 0,
  "must": 0,
@@ -12,8 +12,8 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 6192,
- "tokens_out": 1132,
+ "tokens_in": 6661,
+ "tokens_out": 1146,
  "clauses": "20/20",
  "liability": "1.0x annual fee",
  "details": {
@@ -23,16 +23,17 @@
   "client_country": "United States",
   "client_industry": "retail",
   "atliq_entity": "Inc",
+  "atliq_role": "supplier",
   "effective_date": null,
   "term_months": 24,
   "end_date": null,
-  "governing_law": "New York",
+  "governing_law": "laws of the State of New York",
   "courts_or_seat": "state and federal courts in New York County",
   "governing_law_source": {
    "clause_id": "9.1",
    "quote": "This Agreement is governed by the laws of the State of New York, and the state and federal courts in New York County have exclusive jurisdiction."
   },
-  "parties_quote": "Orion Retail Partners Inc., an Ohio corporation having its principal office at 40 East Broad Street, Columbus, Ohio 43215 (\"Orion\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "parties_quote": "Orion Retail Partners Inc., an Ohio corporation having its principal office at 40 East Broad Street, Columbus, Ohio 43215 (\"Orion\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
   "payment_source": {
    "clause_id": "3.3",
    "quote": "Orion shall pay each undisputed invoice within thirty (30) days of receipt."
@@ -49,7 +50,7 @@
    "kind": "multiple_of_fees",
    "multiple": 1,
    "amount": null,
-   "basis": "the fees paid or payable in the twelve (12) months before the claim",
+   "basis": "fees paid or payable in the twelve (12) months before the claim",
    "clause_id": "7.2",
    "quote": "Each party's total liability under this Agreement is limited to the fees paid or payable in the twelve (12) months before the claim, except for fraud or wilful misconduct."
   },

@@ -1,9 +1,107 @@
 [
  {
+  "id": "S01",
+  "label": "S01 Orion Retail MSA (clean)",
+  "seconds": 6.4,
+  "findings": 0,
+  "serious": 0,
+  "must": 0,
+  "found": 0,
+  "missed": [],
+  "false_alarms": 0,
+  "unverified": [],
+  "providers": [
+   "gemini"
+  ],
+  "tokens_in": 6661,
+  "tokens_out": 1146,
+  "clauses": "20/20",
+  "liability": "1.0x annual fee",
+  "details": {
+   "doc_type": "MSA",
+   "title": "Master Services Agreement",
+   "counterparty": "Orion Retail Partners Inc.",
+   "client_country": "United States",
+   "client_industry": "retail",
+   "atliq_entity": "Inc",
+   "atliq_role": "supplier",
+   "effective_date": null,
+   "term_months": 24,
+   "end_date": null,
+   "governing_law": "laws of the State of New York",
+   "courts_or_seat": "state and federal courts in New York County",
+   "governing_law_source": {
+    "clause_id": "9.1",
+    "quote": "This Agreement is governed by the laws of the State of New York, and the state and federal courts in New York County have exclusive jurisdiction."
+   },
+   "parties_quote": "Orion Retail Partners Inc., an Ohio corporation having its principal office at 40 East Broad Street, Columbus, Ohio 43215 (\"Orion\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+   "payment_source": {
+    "clause_id": "3.3",
+    "quote": "Orion shall pay each undisputed invoice within thirty (30) days of receipt."
+   },
+   "currency": "USD",
+   "total_value": 180000.0,
+   "annual_fee": 90000.0,
+   "payment_days": 30,
+   "services_summary": "Data engineering and business intelligence services for store-level sales reporting.",
+   "regions_of_service": [
+    "United States"
+   ],
+   "liability_cap": {
+    "kind": "multiple_of_fees",
+    "multiple": 1,
+    "amount": null,
+    "basis": "fees paid or payable in the twelve (12) months before the claim",
+    "clause_id": "7.2",
+    "quote": "Each party's total liability under this Agreement is limited to the fees paid or payable in the twelve (12) months before the claim, except for fraud or wilful misconduct."
+   },
+   "delay_penalty": {
+    "present": true,
+    "per": "week",
+    "rate_percent": 1,
+    "capped": true,
+    "excludes_client_delay": true,
+    "clause_id": "4.2",
+    "quote": "If Vendor is late with a milestone for reasons within its control, Orion's sole remedy is a credit of one percent (1%) of that milestone's fee per week of delay, capped at five percent (5%) of the milestone fee. No credit applies where delay is caused by Orion, by a change in scope or by events outside Vendor's reasonable control."
+   },
+   "mutual_confidentiality": true,
+   "one_sided_note": null,
+   "handles_phi": false,
+   "handles_eu_personal_data": false,
+   "mentions_baa_or_dpa": null,
+   "insurance_requirements": [],
+   "rates": [
+    {
+     "role": "Senior Data Engineer",
+     "rate": 90,
+     "currency": "USD",
+     "unit": "hour",
+     "clause_id": "3.2"
+    },
+    {
+     "role": "Data Engineer",
+     "rate": 65,
+     "currency": "USD",
+     "unit": "hour",
+     "clause_id": "3.2"
+    },
+    {
+     "role": "BI Developer",
+     "rate": 60,
+     "currency": "USD",
+     "unit": "hour",
+     "clause_id": "3.2"
+    }
+   ],
+   "restrictive_covenants": []
+  },
+  "titles": []
+ },
+ {
   "id": "S02",
   "label": "S02 Coastal Mutual Insurance (Brightwater-type)",
-  "seconds": 13.4,
-  "findings": 7,
+  "seconds": 5.9,
+  "findings": 11,
   "serious": 5,
   "must": 4,
   "found": 4,
@@ -13,8 +111,8 @@
   "providers": [
    "gemini"
   ],
-  "tokens_in": 4614,
-  "tokens_out": 1957,
+  "tokens_in": 5022,
+  "tokens_out": 2224,
   "clauses": "16/16",
   "liability": "unlimited",
   "details": {
@@ -24,25 +122,26 @@
    "client_country": "United States",
    "client_industry": "insurance",
    "atliq_entity": "Inc",
+   "atliq_role": "supplier",
    "effective_date": null,
    "term_months": 12,
    "end_date": null,
-   "governing_law": "the laws of the State of Florida",
-   "courts_or_seat": "the courts of Miami-Dade County",
+   "governing_law": "State of Florida",
+   "courts_or_seat": "courts of Miami-Dade County",
    "governing_law_source": {
     "clause_id": "9.1",
     "quote": "This Agreement is governed by the laws of the State of Florida and the courts of Miami-Dade County."
    },
-   "parties_quote": "This Agreement is made as of ____________, 2026 between:\n\n**Coastal Mutual Insurance Company**, a Florida corporation having its principal office at 800 Brickell Avenue, Miami, Florida 33131 (\"**Client**\"); and\n\n**AtliQ Inc**, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"**Vendor**\").",
+   "parties_quote": "Coastal Mutual Insurance Company, a Florida corporation having its principal office at 800 Brickell Avenue, Miami, Florida 33131 (\"Client\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
    "payment_source": {
     "clause_id": "2.2",
     "quote": "Client shall pay each invoice within sixty (60) days of the invoice date."
    },
    "currency": "USD",
    "total_value": 120000.0,
-   "annual_fee": null,
+   "annual_fee": 120000.0,
    "payment_days": 60,
-   "services_summary": "Design and build a claims analytics platform for Client in three milestones.",
+   "services_summary": "Design and build a claims analytics platform in three milestones.",
    "regions_of_service": [
     "United States"
    ],
@@ -50,14 +149,14 @@
     "kind": "unlimited",
     "multiple": null,
     "amount": null,
-    "basis": "Vendor's liability under this Agreement is unlimited.",
+    "basis": "Vendor's liability under this Agreement is unlimited. Client's liability is limited to the fees payable under this Agreement.",
     "clause_id": "6.1",
     "quote": "Vendor's liability under this Agreement is unlimited. Client's liability is limited to the fees payable under this Agreement."
    },
    "delay_penalty": {
     "present": true,
     "per": "week",
-    "rate_percent": 2,
+    "rate_percent": 2.0,
     "capped": null,
     "excludes_client_delay": false,
     "clause_id": "3.1",
@@ -70,7 +169,20 @@
    "mentions_baa_or_dpa": null,
    "insurance_requirements": [],
    "rates": [],
-   "restrictive_covenants": []
+   "restrictive_covenants": [
+    {
+     "type": "ip_assignment",
+     "who_is_bound": "AtliQ",
+     "summary": "All work product including pre-existing tools incorporated in it is owned by Client on creation.",
+     "restricted_activity": "Pre-existing tools incorporated in work product are owned by Client on creation.",
+     "customers": null,
+     "geography": [],
+     "clause_id": "4.1",
+     "quote": "All work product, including Vendor's pre-existing tools incorporated in it, is owned by Client on creation.",
+     "duration_basis": "perpetual",
+     "months_after_term": null
+    }
+   ]
   },
   "titles": [
    [
@@ -86,17 +198,17 @@
    [
     "Serious",
     "contract",
-    "Client acquires AtliQ pre-existing tools"
+    "Client Owns Pre-Existing Tools"
    ],
    [
     "Serious",
     "contract",
-    "One-sided indemnity covers client negligence"
+    "Indemnity Covers Client Negligence"
    ],
    [
     "Serious",
     "contract",
-    "Termination for convenience without work-in-progress payment"
+    "No Payment for Work in Progress on Termination"
    ],
    [
     "Negotiable",
@@ -106,14 +218,34 @@
    [
     "Negotiable",
     "contract",
-    "Restrictive termination right for AtliQ"
+    "Restricted Vendor Termination Rights"
+   ],
+   [
+    "Minor",
+    "register",
+    "Acme Retail Group: Soliciting the other party's employees involved in the Services"
+   ],
+   [
+    "Minor",
+    "register",
+    "PayTrack Technologies: Soliciting the other party's employees engaged in the Services"
+   ],
+   [
+    "Minor",
+    "register",
+    "Northwind Logistics: Soliciting the other party's employees engaged in the Services"
+   ],
+   [
+    "Minor",
+    "register",
+    "Sunrise Foods: Soliciting the other party's employees engaged in the Services"
    ]
   ]
  },
  {
-  "id": "S11",
-  "label": "S11 Coral Bay Hotels (Abu Dhabi; collides with Marina Bay once S07 is confirmed)",
-  "seconds": 16.5,
+  "id": "S03",
+  "label": "S03 Maple Street Bakery ($500k cap on $24k)",
+  "seconds": 3.3,
   "findings": 1,
   "serious": 1,
   "must": 1,
@@ -124,17 +256,724 @@
   "providers": [
    "gemini"
   ],
-  "tokens_in": 4316,
-  "tokens_out": 896,
+  "tokens_in": 4771,
+  "tokens_out": 967,
+  "clauses": "13/13",
+  "liability": "20.8x annual fee",
+  "details": {
+   "doc_type": "Other",
+   "title": "SERVICES AGREEMENT",
+   "counterparty": "Maple Street Bakery Inc.",
+   "client_country": "United States",
+   "client_industry": "retail",
+   "atliq_entity": "Inc",
+   "atliq_role": "supplier",
+   "effective_date": null,
+   "term_months": 12,
+   "end_date": null,
+   "governing_law": "Commonwealth of Pennsylvania",
+   "courts_or_seat": null,
+   "governing_law_source": {
+    "clause_id": "7.1",
+    "quote": "This Agreement is governed by the laws of the Commonwealth of Pennsylvania."
+   },
+   "parties_quote": "Maple Street Bakery Inc., a Pennsylvania corporation having its principal office at 18 Maple Street, Lancaster, Pennsylvania 17602 (\"Client\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+   "payment_source": {
+    "clause_id": "2.2",
+    "quote": "Client shall pay each invoice within thirty (30) days of receipt."
+   },
+   "currency": "USD",
+   "total_value": 24000.0,
+   "annual_fee": 24000.0,
+   "payment_days": 30,
+   "services_summary": "Build and maintain a daily sales dashboard for Client's eight bakery outlets.",
+   "regions_of_service": [
+    "United States"
+   ],
+   "liability_cap": {
+    "kind": "fixed_amount",
+    "multiple": null,
+    "amount": 500000,
+    "basis": "The aggregate liability of Vendor under or in connection with this Agreement shall not exceed USD 500,000.",
+    "clause_id": "5.2",
+    "quote": "The aggregate liability of Vendor under or in connection with this Agreement shall not exceed USD 500,000."
+   },
+   "delay_penalty": {
+    "present": false,
+    "per": "none",
+    "rate_percent": null,
+    "capped": null,
+    "excludes_client_delay": null,
+    "clause_id": null,
+    "quote": null
+   },
+   "mutual_confidentiality": true,
+   "one_sided_note": null,
+   "handles_phi": false,
+   "handles_eu_personal_data": false,
+   "mentions_baa_or_dpa": null,
+   "insurance_requirements": [],
+   "rates": [],
+   "restrictive_covenants": []
+  },
+  "titles": [
+   [
+    "Serious",
+    "rule",
+    "Liability cap is 20.8x annual fee"
+   ]
+  ]
+ },
+ {
+  "id": "S04",
+  "label": "S04 Vantage Biosciences (\"mutual\" NDA, one-sided)",
+  "seconds": 4.3,
+  "findings": 4,
+  "serious": 3,
+  "must": 1,
+  "found": 1,
+  "missed": [],
+  "false_alarms": 0,
+  "unverified": [],
+  "providers": [
+   "gemini"
+  ],
+  "tokens_in": 4497,
+  "tokens_out": 1231,
+  "clauses": "8/8",
+  "liability": "unlimited",
+  "details": {
+   "doc_type": "NDA",
+   "title": "Mutual Non-Disclosure Agreement",
+   "counterparty": "Vantage Biosciences Inc.",
+   "client_country": "United States",
+   "client_industry": "healthcare",
+   "atliq_entity": "Inc",
+   "atliq_role": "supplier",
+   "effective_date": null,
+   "term_months": null,
+   "end_date": null,
+   "governing_law": "laws of the Commonwealth of Massachusetts",
+   "courts_or_seat": null,
+   "governing_law_source": {
+    "clause_id": "6.1",
+    "quote": "This Agreement is governed by the laws of the Commonwealth of Massachusetts."
+   },
+   "parties_quote": "Vantage Biosciences Inc., a Massachusetts corporation having its principal office at 1 Kendall Square, Cambridge, Massachusetts 02139 (the \"Company\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\") (the \"Recipient\").",
+   "payment_source": {},
+   "currency": "USD",
+   "total_value": null,
+   "annual_fee": null,
+   "payment_days": null,
+   "services_summary": "Explore a data analytics engagement.",
+   "regions_of_service": [
+    "United States"
+   ],
+   "liability_cap": {
+    "kind": "unlimited",
+    "multiple": null,
+    "amount": null,
+    "basis": "liable for all losses arising from any breach, without limit",
+    "clause_id": "5.1",
+    "quote": "The Recipient shall be liable for all losses arising from any breach, without limit, and the Company may seek injunctive relief without proof of damage."
+   },
+   "delay_penalty": {
+    "present": false,
+    "per": "none",
+    "rate_percent": null,
+    "capped": null,
+    "excludes_client_delay": null,
+    "clause_id": null,
+    "quote": null
+   },
+   "mutual_confidentiality": false,
+   "one_sided_note": "Titled mutual but obligations bind AtliQ (the Recipient) only; Section 3.2 explicitly states the Company has no obligation to keep information confidential.",
+   "handles_phi": false,
+   "handles_eu_personal_data": false,
+   "mentions_baa_or_dpa": null,
+   "insurance_requirements": [],
+   "rates": [],
+   "restrictive_covenants": []
+  },
+  "titles": [
+   [
+    "Serious",
+    "rule",
+    "Liability is unlimited"
+   ],
+   [
+    "Serious",
+    "contract",
+    "One-sided definition of Confidential Information"
+   ],
+   [
+    "Serious",
+    "contract",
+    "Company has no confidentiality obligations"
+   ],
+   [
+    "Negotiable",
+    "contract",
+    "Extended confidentiality and trade secret duration"
+   ]
+  ]
+ },
+ {
+  "id": "S05",
+  "label": "S05 Granite Peak (truly mutual NDA)",
+  "seconds": 3.3,
+  "findings": 0,
+  "serious": 0,
+  "must": 0,
+  "found": 0,
+  "missed": [],
+  "false_alarms": 0,
+  "unverified": [],
+  "providers": [
+   "gemini"
+  ],
+  "tokens_in": 4465,
+  "tokens_out": 704,
+  "clauses": "7/7",
+  "liability": "not stated",
+  "details": {
+   "doc_type": "NDA",
+   "title": "Mutual Non-Disclosure Agreement",
+   "counterparty": "Granite Peak Logistics LLC",
+   "client_country": "United States",
+   "client_industry": "logistics",
+   "atliq_entity": "Inc",
+   "atliq_role": "supplier",
+   "effective_date": null,
+   "term_months": 36,
+   "end_date": null,
+   "governing_law": "State of Delaware",
+   "courts_or_seat": null,
+   "governing_law_source": {
+    "clause_id": "6.1",
+    "quote": "This Agreement is governed by the laws of the State of Delaware."
+   },
+   "parties_quote": "Granite Peak Logistics LLC, a Colorado limited liability company having its principal office at 1700 Lincoln Street, Denver, Colorado 80203 (\"Granite Peak\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+   "payment_source": {},
+   "currency": "USD",
+   "total_value": null,
+   "annual_fee": null,
+   "payment_days": null,
+   "services_summary": "Discuss a possible analytics engagement and exchange confidential information.",
+   "regions_of_service": [],
+   "liability_cap": {
+    "kind": "none_stated",
+    "multiple": null,
+    "amount": null,
+    "basis": "",
+    "clause_id": null,
+    "quote": null
+   },
+   "delay_penalty": {
+    "present": false,
+    "per": "none",
+    "rate_percent": null,
+    "capped": null,
+    "excludes_client_delay": null,
+    "clause_id": null,
+    "quote": null
+   },
+   "mutual_confidentiality": true,
+   "one_sided_note": null,
+   "handles_phi": false,
+   "handles_eu_personal_data": false,
+   "mentions_baa_or_dpa": null,
+   "insurance_requirements": [],
+   "rates": [],
+   "restrictive_covenants": []
+  },
+  "titles": []
+ },
+ {
+  "id": "S06",
+  "label": "S06 Sterling Care (health data, no BAA, $5M cyber)",
+  "seconds": 3.6,
+  "findings": 3,
+  "serious": 3,
+  "must": 2,
+  "found": 2,
+  "missed": [],
+  "false_alarms": 0,
+  "unverified": [],
+  "providers": [
+   "gemini"
+  ],
+  "tokens_in": 4903,
+  "tokens_out": 1014,
+  "clauses": "14/14",
+  "liability": "1.0x annual fee",
+  "details": {
+   "doc_type": "MSA",
+   "title": "Master Services Agreement",
+   "counterparty": "Sterling Care Network Inc.",
+   "client_country": "United States",
+   "client_industry": "healthcare",
+   "atliq_entity": "Inc",
+   "atliq_role": "supplier",
+   "effective_date": null,
+   "term_months": 18,
+   "end_date": null,
+   "governing_law": "the laws of the State of Texas",
+   "courts_or_seat": null,
+   "governing_law_source": {
+    "clause_id": "8.1",
+    "quote": "This Agreement is governed by the laws of the State of Texas."
+   },
+   "parties_quote": "Sterling Care Network Inc., a Texas corporation having its principal office at 500 Main Street, Houston, Texas 77002 (\"Sterling\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+   "payment_source": {
+    "clause_id": "2.1",
+    "quote": "Sterling shall pay USD 270,000 in total in monthly instalments, within thirty (30) days of receipt of each invoice."
+   },
+   "currency": "USD",
+   "total_value": 270000.0,
+   "annual_fee": null,
+   "payment_days": 30,
+   "services_summary": "Data engineering and analytics services to improve patient scheduling and clinic utilisation.",
+   "regions_of_service": [
+    "United States"
+   ],
+   "liability_cap": {
+    "kind": "multiple_of_fees",
+    "multiple": 1,
+    "amount": null,
+    "basis": "fees paid in the twelve (12) months before the claim",
+    "clause_id": "6.1",
+    "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+   },
+   "delay_penalty": {
+    "present": false,
+    "per": "none",
+    "rate_percent": null,
+    "capped": null,
+    "excludes_client_delay": null,
+    "clause_id": null,
+    "quote": null
+   },
+   "mutual_confidentiality": true,
+   "one_sided_note": null,
+   "handles_phi": true,
+   "handles_eu_personal_data": false,
+   "mentions_baa_or_dpa": null,
+   "insurance_requirements": [
+    {
+     "type": "cyber",
+     "amount_usd": 5000000,
+     "clause_id": "3.2",
+     "quote": "Vendor shall maintain, throughout the term, cyber liability insurance of not less than USD 5,000,000 per claim."
+    }
+   ],
+   "rates": [],
+   "restrictive_covenants": []
+  },
+  "titles": [
+   [
+    "Serious",
+    "rule",
+    "Health data but no BAA referenced"
+   ],
+   [
+    "Serious",
+    "rule",
+    "Cyber insurance of $5,000,000 required; AtliQ holds $1M"
+   ],
+   [
+    "Serious",
+    "contract",
+    "High Cyber Insurance Requirement"
+   ]
+  ]
+ },
+ {
+  "id": "S07",
+  "label": "S07 Marina Bay Resorts (Dubai, collides with Al Noor)",
+  "seconds": 16.5,
+  "findings": 2,
+  "serious": 2,
+  "must": 1,
+  "found": 1,
+  "missed": [],
+  "false_alarms": 0,
+  "unverified": [],
+  "providers": [
+   "gemini"
+  ],
+  "tokens_in": 4888,
+  "tokens_out": 1351,
+  "clauses": "13/13",
+  "liability": "1.0x annual fee",
+  "details": {
+   "doc_type": "MSA",
+   "title": "Master Services Agreement",
+   "counterparty": "Marina Bay Resorts LLC",
+   "client_country": "United Arab Emirates",
+   "client_industry": "hospitality",
+   "atliq_entity": "Pvt Ltd",
+   "atliq_role": "supplier",
+   "effective_date": "2026-11-01",
+   "term_months": 12,
+   "end_date": "2027-10-31",
+   "governing_law": "laws of India",
+   "courts_or_seat": "courts of Pune",
+   "governing_law_source": {
+    "clause_id": "8.1",
+    "quote": "This Agreement is governed by the laws of India and the courts of Pune have exclusive jurisdiction."
+   },
+   "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of 1 November 2026 (the \"Effective Date\") between: Marina Bay Resorts LLC, a company incorporated in Dubai, United Arab Emirates, having its registered office at Sheikh Zayed Road, Dubai (\"Marina Bay\"); and AtliQ Technologies Private Limited, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
+   "payment_source": {
+    "clause_id": "2.1",
+    "quote": "Marina Bay shall pay USD 150,000 in total, within thirty (30) days of receipt of each invoice."
+   },
+   "currency": "USD",
+   "total_value": 150000.0,
+   "annual_fee": 150000.0,
+   "payment_days": 30,
+   "services_summary": "Revenue-management analytics and guest analytics services including a booking-engine module for Marina Bay's resorts.",
+   "regions_of_service": [
+    "United Arab Emirates"
+   ],
+   "liability_cap": {
+    "kind": "multiple_of_fees",
+    "multiple": 1,
+    "amount": null,
+    "basis": "fees paid in the twelve (12) months before the claim",
+    "clause_id": "6.1",
+    "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+   },
+   "delay_penalty": {
+    "present": false,
+    "per": "none",
+    "rate_percent": null,
+    "capped": null,
+    "excludes_client_delay": null,
+    "clause_id": null,
+    "quote": null
+   },
+   "mutual_confidentiality": true,
+   "one_sided_note": null,
+   "handles_phi": false,
+   "handles_eu_personal_data": false,
+   "mentions_baa_or_dpa": null,
+   "insurance_requirements": [],
+   "rates": [],
+   "restrictive_covenants": [
+    {
+     "type": "non_compete",
+     "who_is_bound": "AtliQ",
+     "summary": "Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates for six months after the end of the term.",
+     "restricted_activity": "provide revenue-management services",
+     "customers": "any other hotel group",
+     "geography": [
+      "United Arab Emirates"
+     ],
+     "clause_id": "3.1",
+     "quote": "For six (6) months after the end of the term, Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates.",
+     "duration_basis": "term_plus_months",
+     "months_after_term": 6
+    }
+   ]
+  },
+  "titles": [
+   [
+    "Serious",
+    "register",
+    "Al Noor Hospitality Group: Data analytics, AI or revenue-management services"
+   ],
+   [
+    "Serious",
+    "contract",
+    "Geographic non-compete restriction"
+   ]
+  ]
+ },
+ {
+  "id": "S08",
+  "label": "S08 Redwood Software (wrong entity and law)",
+  "seconds": 41.7,
+  "findings": 2,
+  "serious": 1,
+  "must": 1,
+  "found": 1,
+  "missed": [],
+  "false_alarms": 0,
+  "unverified": [],
+  "providers": [
+   "gemini",
+   "groq"
+  ],
+  "tokens_in": 4708,
+  "tokens_out": 2173,
   "clauses": "11/11",
   "liability": "1.0x annual fee",
   "details": {
    "doc_type": "MSA",
-   "title": "MASTER SERVICES AGREEMENT",
+   "title": "Master Services Agreement",
+   "counterparty": "Redwood Software Inc.",
+   "client_country": "United States",
+   "client_industry": "software",
+   "atliq_entity": "Pvt Ltd",
+   "atliq_role": "supplier",
+   "effective_date": null,
+   "term_months": 12,
+   "end_date": null,
+   "governing_law": "laws of the State of California",
+   "courts_or_seat": "exclusive jurisdiction of the courts of San Francisco County, California",
+   "governing_law_source": {
+    "clause_id": "7.1",
+    "quote": "This Agreement is governed by the laws of the State of California, and the parties submit to the exclusive jurisdiction of the courts of San Francisco County, California."
+   },
+   "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of ____________, 2026 between:\n\n**Redwood Software Inc.**, a California corporation having its principal office at 200 Mission Street, San Francisco, California 94105 (\"Redwood\"); and\n\n**AtliQ Technologies Private Limited**, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
+   "payment_source": {
+    "clause_id": "2.1",
+    "quote": "Redwood shall pay USD 96,000 in total in monthly instalments, within thirty (30) days of receipt of each invoice."
+   },
+   "currency": "USD",
+   "total_value": 96000.0,
+   "annual_fee": null,
+   "payment_days": 30,
+   "services_summary": "Data engineering services for product usage analytics.",
+   "regions_of_service": [
+    "United States"
+   ],
+   "liability_cap": {
+    "kind": "multiple_of_fees",
+    "multiple": 1,
+    "amount": null,
+    "basis": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim.",
+    "clause_id": "5.1",
+    "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+   },
+   "delay_penalty": {
+    "present": false,
+    "per": null,
+    "rate_percent": null,
+    "capped": null,
+    "excludes_client_delay": null,
+    "clause_id": null,
+    "quote": null
+   },
+   "mutual_confidentiality": true,
+   "one_sided_note": null,
+   "handles_phi": false,
+   "handles_eu_personal_data": false,
+   "mentions_baa_or_dpa": null,
+   "insurance_requirements": [],
+   "rates": [],
+   "restrictive_covenants": []
+  },
+  "titles": [
+   [
+    "Serious",
+    "rule",
+    "AtliQ Pvt Ltd named for a US client"
+   ],
+   [
+    "Negotiable",
+    "rule",
+    "Indian entity under non-Indian law (laws of the State of California)"
+   ]
+  ]
+ },
+ {
+  "id": "S09",
+  "label": "S09 Fieldstone Foods + call notes (verbal 10% discount)",
+  "seconds": 4.1,
+  "findings": 2,
+  "serious": 0,
+  "must": 1,
+  "found": 1,
+  "missed": [],
+  "false_alarms": 0,
+  "unverified": [],
+  "providers": [
+   "gemini"
+  ],
+  "tokens_in": 5908,
+  "tokens_out": 1012,
+  "clauses": "10/10",
+  "liability": "1.0x annual fee",
+  "details": {
+   "doc_type": "MSA",
+   "title": "Master Services Agreement",
+   "counterparty": "Fieldstone Foods Inc.",
+   "client_country": "United States",
+   "client_industry": "other",
+   "atliq_entity": "Inc",
+   "atliq_role": "supplier",
+   "effective_date": null,
+   "term_months": 24,
+   "end_date": null,
+   "governing_law": "laws of the State of Iowa",
+   "courts_or_seat": null,
+   "governing_law_source": {
+    "clause_id": "7.1",
+    "quote": "This Agreement is governed by the laws of the State of Iowa."
+   },
+   "parties_quote": "Fieldstone Foods Inc., an Iowa corporation having its principal office at 300 Walnut Street, Des Moines, Iowa 50309 (\"Fieldstone\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+   "payment_source": {
+    "clause_id": "2.1",
+    "quote": "Fieldstone shall pay USD 300,000 in total (USD 150,000 per year), invoiced monthly, within thirty (30) days of receipt."
+   },
+   "currency": "USD",
+   "total_value": 300000.0,
+   "annual_fee": 150000.0,
+   "payment_days": 30,
+   "services_summary": "Demand forecasting and data engineering services as set out in SOW-1.",
+   "regions_of_service": [],
+   "liability_cap": {
+    "kind": "multiple_of_fees",
+    "multiple": 1,
+    "amount": null,
+    "basis": "fees paid in the twelve (12) months before the claim",
+    "clause_id": "5.1",
+    "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+   },
+   "delay_penalty": {
+    "present": false,
+    "per": "none",
+    "rate_percent": null,
+    "capped": null,
+    "excludes_client_delay": null,
+    "clause_id": null,
+    "quote": null
+   },
+   "mutual_confidentiality": true,
+   "one_sided_note": null,
+   "handles_phi": false,
+   "handles_eu_personal_data": false,
+   "mentions_baa_or_dpa": null,
+   "insurance_requirements": [],
+   "rates": [],
+   "restrictive_covenants": []
+  },
+  "titles": [
+   [
+    "Negotiable",
+    "unofficial",
+    "10% discount on year 2 fees if signed by end of October"
+   ],
+   [
+    "Negotiable",
+    "unofficial",
+    "Add one extra warehouse dashboard at no charge"
+   ]
+  ]
+ },
+ {
+  "id": "S10",
+  "label": "S10 Bluewater Marine + chat (scope cut, 60-day payment)",
+  "seconds": 4.5,
+  "findings": 2,
+  "serious": 0,
+  "must": 2,
+  "found": 2,
+  "missed": [],
+  "false_alarms": 0,
+  "unverified": [],
+  "providers": [
+   "gemini"
+  ],
+  "tokens_in": 5923,
+  "tokens_out": 930,
+  "clauses": "11/11",
+  "liability": "1.0x annual fee",
+  "details": {
+   "doc_type": "MSA",
+   "title": "Master Services Agreement",
+   "counterparty": "Bluewater Marine Supplies Inc.",
+   "client_country": "United States",
+   "client_industry": "logistics",
+   "atliq_entity": "Inc",
+   "atliq_role": "supplier",
+   "effective_date": null,
+   "term_months": 12,
+   "end_date": null,
+   "governing_law": "State of Washington",
+   "courts_or_seat": null,
+   "governing_law_source": {
+    "clause_id": "7.1",
+    "quote": "This Agreement is governed by the laws of the State of Washington."
+   },
+   "parties_quote": "Bluewater Marine Supplies Inc., a Washington corporation having its principal office at 1200 Alaskan Way, Seattle, Washington 98101 (\"Bluewater\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+   "payment_source": {
+    "clause_id": "2.1",
+    "quote": "Bluewater shall pay USD 84,000 in total in monthly instalments, within thirty (30) days of receipt of each invoice."
+   },
+   "currency": "USD",
+   "total_value": 84000.0,
+   "annual_fee": 84000.0,
+   "payment_days": 30,
+   "services_summary": "Provide a customer analytics dashboard and a mobile reporting application.",
+   "regions_of_service": [],
+   "liability_cap": {
+    "kind": "multiple_of_fees",
+    "multiple": 1,
+    "amount": null,
+    "basis": "fees paid in the twelve (12) months before the claim",
+    "clause_id": "5.1",
+    "quote": "Each party's total liability is limited to the fees paid in the twelve (12) months before the claim."
+   },
+   "delay_penalty": {
+    "present": false,
+    "per": "none",
+    "rate_percent": null,
+    "capped": null,
+    "excludes_client_delay": null,
+    "clause_id": null,
+    "quote": null
+   },
+   "mutual_confidentiality": true,
+   "one_sided_note": null,
+   "handles_phi": false,
+   "handles_eu_personal_data": false,
+   "mentions_baa_or_dpa": null,
+   "insurance_requirements": [],
+   "rates": [],
+   "restrictive_covenants": []
+  },
+  "titles": [
+   [
+    "Negotiable",
+    "unofficial",
+    "Client asked to drop the mobile app and do dashboard only for phase 1 due to tight budget."
+   ],
+   [
+    "Negotiable",
+    "unofficial",
+    "Client requested 60-day payment terms instead of the standard 30 days."
+   ]
+  ]
+ },
+ {
+  "id": "S11",
+  "label": "S11 Coral Bay Hotels (Abu Dhabi; collides with Marina Bay once S07 is confirmed)",
+  "seconds": 3.5,
+  "findings": 1,
+  "serious": 1,
+  "must": 1,
+  "found": 1,
+  "missed": [],
+  "false_alarms": 0,
+  "unverified": [],
+  "providers": [
+   "gemini"
+  ],
+  "tokens_in": 4727,
+  "tokens_out": 908,
+  "clauses": "11/11",
+  "liability": "1.0x annual fee",
+  "details": {
+   "doc_type": "MSA",
+   "title": "Master Services Agreement",
    "counterparty": "Coral Bay Hotels LLC",
    "client_country": "United Arab Emirates",
    "client_industry": "hospitality",
    "atliq_entity": "Pvt Ltd",
+   "atliq_role": "supplier",
    "effective_date": "2027-07-01",
    "term_months": 12,
    "end_date": "2028-06-30",
@@ -153,7 +992,7 @@
    "total_value": 110000.0,
    "annual_fee": 110000.0,
    "payment_days": 30,
-   "services_summary": "Revenue-management analytics and demand forecasting services for Coral Bay's three hotels in Abu Dhabi.",
+   "services_summary": "Revenue-management analytics and demand forecasting services for Coral Bay's three hotels.",
    "regions_of_service": [
     "United Arab Emirates"
    ],

@@ -1,7 +1,7 @@
 {
  "id": "S09",
  "label": "S09 Fieldstone Foods + call notes (verbal 10% discount)",
- "seconds": 5.7,
+ "seconds": 4.1,
  "findings": 2,
  "serious": 0,
  "must": 1,
@@ -12,17 +12,18 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 5449,
- "tokens_out": 1127,
+ "tokens_in": 5908,
+ "tokens_out": 1012,
  "clauses": "10/10",
  "liability": "1.0x annual fee",
  "details": {
   "doc_type": "MSA",
-  "title": "MASTER SERVICES AGREEMENT",
+  "title": "Master Services Agreement",
   "counterparty": "Fieldstone Foods Inc.",
   "client_country": "United States",
   "client_industry": "other",
   "atliq_entity": "Inc",
+  "atliq_role": "supplier",
   "effective_date": null,
   "term_months": 24,
   "end_date": null,
@@ -32,7 +33,7 @@
    "clause_id": "7.1",
    "quote": "This Agreement is governed by the laws of the State of Iowa."
   },
-  "parties_quote": "Fieldstone Foods Inc., an Iowa corporation having its principal office at 300 Walnut Street, Des Moines, Iowa 50309 (\"Fieldstone\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "parties_quote": "Fieldstone Foods Inc., an Iowa corporation having its principal office at 300 Walnut Street, Des Moines, Iowa 50309 (\"Fieldstone\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
   "payment_source": {
    "clause_id": "2.1",
    "quote": "Fieldstone shall pay USD 300,000 in total (USD 150,000 per year), invoiced monthly, within thirty (30) days of receipt."
@@ -67,20 +68,7 @@
   "mentions_baa_or_dpa": null,
   "insurance_requirements": [],
   "rates": [],
-  "restrictive_covenants": [
-   {
-    "type": "ip_assignment",
-    "who_is_bound": "client",
-    "summary": "Fieldstone owns the Deliverables. Vendor keeps its pre-existing tools.",
-    "restricted_activity": "Deliverables ownership",
-    "customers": null,
-    "geography": [],
-    "clause_id": "3.1",
-    "quote": "Fieldstone owns the Deliverables. Vendor keeps its pre-existing tools.",
-    "duration_basis": "unknown",
-    "months_after_term": null
-   }
-  ]
+  "restrictive_covenants": []
  },
  "titles": [
   [
@@ -89,9 +77,9 @@
    "10% discount on year 2 fees if signed by end of October"
   ],
   [
-   "Minor",
+   "Negotiable",
    "unofficial",
-   "One extra warehouse dashboard added at no charge"
+   "Add one extra warehouse dashboard at no charge"
   ]
  ],
  "all_findings": [
@@ -114,8 +102,8 @@
   {
    "source": "unofficial",
    "topic": "informal_term",
-   "severity": "Minor",
-   "title": "One extra warehouse dashboard added at no charge",
+   "severity": "Negotiable",
+   "title": "Add one extra warehouse dashboard at no charge",
    "why": "Unofficial and not binding, but it affects the deal. The contract does not reflect it.",
    "comparison": "",
    "clause_id": null,

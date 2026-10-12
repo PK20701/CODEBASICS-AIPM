@@ -1,0 +1,185 @@
+{
+ "file": "incoming/2026-09-15_travelhub_services_agreement_draft.md",
+ "details": {
+  "doc_type": "SOW",
+  "title": "Software Development and Services Agreement",
+  "counterparty": "TravelHub FZ-LLC",
+  "client_country": "United Arab Emirates",
+  "client_industry": "travel",
+  "atliq_entity": "Inc",
+  "atliq_role": "supplier",
+  "effective_date": null,
+  "term_months": null,
+  "end_date": null,
+  "governing_law": "laws of the Emirate of Dubai and the applicable federal laws of the United Arab Emirates",
+  "courts_or_seat": "courts of the Emirate of Dubai (onshore Dubai Courts)",
+  "governing_law_source": {
+   "clause_id": "15.1, 15.2",
+   "quote": "This Agreement shall be governed by and construed in accordance with the laws of the Emirate of Dubai and the applicable federal laws of the United Arab Emirates. The courts of the Emirate of Dubai (onshore Dubai Courts) shall have exclusive jurisdiction over any dispute arising out of or in connection with this Agreement."
+  },
+  "parties_quote": "1.1 TravelHub FZ-LLC, a free zone limited liability company licensed by the Dubai Development Authority under licence no. 104772, with its office at Office 1408, Building 3, Dubai Internet City, P.O. Box 502211, Dubai, United Arab Emirates (\"TravelHub\" or \"Customer\"); and 1.2 AtliQ Inc, a Delaware corporation, with its principal office at 101 College Road East, Suite 210, Princeton, NJ 08540, USA (\"AtliQ\" or \"Developer\").",
+  "payment_source": {
+   "clause_id": "7.2",
+   "quote": "TravelHub shall pay each undisputed invoice within thirty (30) days of the invoice date by wire transfer to the bank account specified on the invoice."
+  },
+  "currency": "USD",
+  "total_value": 52000.0,
+  "annual_fee": null,
+  "payment_days": 30,
+  "services_summary": "Design and build AI-driven features for the TravelHub App, including an itinerary personalization engine, hotel ranking module, performance dashboard, and model operations.",
+  "regions_of_service": [
+   "United Arab Emirates",
+   "Kingdom of Saudi Arabia"
+  ],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 1,
+   "amount": null,
+   "basis": "total fees paid under this Agreement in the twelve (12) months preceding the claim",
+   "clause_id": "12.2",
+   "quote": "Each Party's total liability arising out of this Agreement shall not exceed the total fees paid under this Agreement in the twelve (12) months preceding the claim, except for breach of confidentiality or wilful misconduct."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "data_location",
+    "who_is_bound": "AtliQ",
+    "summary": "AtliQ shall not transfer Customer Data outside the TravelHub cloud environment without prior written approval.",
+    "restricted_activity": "transfer Customer Data outside the TravelHub cloud environment",
+    "customers": null,
+    "geography": [],
+    "clause_id": "14.2",
+    "quote": "AtliQ shall not transfer Customer Data outside the TravelHub cloud environment without prior written approval.",
+    "duration_basis": "term",
+    "months_after_term": null
+   }
+  ]
+ },
+ "quality": {
+  "level": "good",
+  "count": 0,
+  "examples": []
+ },
+ "findings": [
+  {
+   "source": "rule",
+   "topic": "governing_law",
+   "severity": "Serious",
+   "title": "US entity under non-US law (laws of the Emirate of Dubai and the applicable federal laws of the United Arab Emirates)",
+   "why": "AtliQ Inc has no presence outside the US; disputes would be fought abroad.",
+   "comparison": "Principle: US law for AtliQ Inc. Brightwater signed this way and it cost $23k.",
+   "clause_id": "15.1",
+   "quote": "This Agreement shall be governed by and construed in accordance with the laws of the Emirate of Dubai and the applicable federal laws of the United Arab Emirates.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  },
+  {
+   "source": "rule",
+   "topic": "governing_law",
+   "severity": "Serious",
+   "title": "AtliQ Inc named for a non-US client (United Arab Emirates)",
+   "why": "AtliQ Inc serves US clients only; the entity decides tax, invoicing and bank account.",
+   "comparison": "Entity sheet: clients outside the US contract with AtliQ Technologies Pvt Ltd.",
+   "clause_id": "Parties",
+   "quote": "1.1 TravelHub FZ-LLC, a free zone limited liability company licensed by the Dubai Development Authority under licence no. 104772, with its office at Office 1408, Building 3, Dubai Internet City, P.O. Box 502211, Dubai, United Arab Emirates (\"TravelHub\" or \"Customer\"); and 1.2 AtliQ Inc, a Delaware corporation, with its principal office at 101 College Road East, Suite 210, Princeton, NJ 08540, USA (\"AtliQ\" or \"Developer\").",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "Uncapped IP infringement indemnity",
+   "why": "Indemnity has no monetary limit, creating unlimited exposure for AtliQ",
+   "comparison": "Typical contracts limit indemnity or make it mutual; this is broader",
+   "clause_id": "13.1",
+   "quote": "AtliQ shall defend and indemnify TravelHub against third-party claims alleging that the Deliverables infringe any intellectual property right.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F03"
+  },
+  {
+   "source": "register",
+   "topic": "non_compete",
+   "severity": "Negotiable",
+   "title": "Al Noor Hospitality Group: Data analytics, AI or revenue-management services",
+   "why": "Al Noor Hospitality Group non-compete covers data analytics or AI services for hospitality businesses (hotels, resorts, serviced apartments) in the UAE and Saudi Arabia until 2029.",
+   "comparison": "Do not take analytics, AI or revenue-management work for hotel groups in the GCC until about September 2029 without Al Noor's written consent.",
+   "clause_id": "12.1",
+   "quote": "the Supplier undertakes that neither it nor any of its Affiliates shall, during the Restricted Period, directly or indirectly, provide data analytics, artificial intelligence or revenue-management services to any Hospitality Business in the GCC.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-01",
+   "register_status": "active",
+   "register_end": "2029-09-14",
+   "register_file": "samples/signed/2025-03-15_al_noor_hospitality_msa.md",
+   "register_counterparty": "Al Noor Hospitality Group",
+   "exception": "Clause 12.4 lets Al Noor waive it per engagement by written consent. Waiver letter of 10 Feb 2026 allows only the Seaside Hotels (Muscat) demand-forecasting SOW; not follow-on SOWs, other hotels or Affiliates.",
+   "relevance": "possible",
+   "id": "F04"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Entity mismatch in invoicing clause",
+   "why": "The contract is for AtliQ Inc (US), but the invoicing entity is the Indian subsidiary. This creates a mismatch between the contracting party and the payee.",
+   "comparison": "Most contracts align the signing entity with the invoicing entity to avoid tax and legal complications.",
+   "clause_id": "7.1",
+   "quote": "Invoices under this Agreement shall be raised by AtliQ Technologies Pvt Ltd, GSTIN 27AAKCA4821F1Z3, on or after Acceptance of each milestone",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F05"
+  },
+  {
+   "source": "contract",
+   "topic": "liability",
+   "severity": "Negotiable",
+   "title": "Liability cap exception unlimited",
+   "why": "No cap for confidentiality/wilful misconduct exposes AtliQ to unlimited liability",
+   "comparison": "Past contracts cap liability ~1x fees; this removes the cap for certain claims",
+   "clause_id": "12.2",
+   "quote": "Each Party's total liability arising out of this Agreement shall not exceed the total fees paid ... except for breach of confidentiality or wilful misconduct.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F06"
+  },
+  {
+   "source": "contract",
+   "topic": "confidentiality",
+   "severity": "Minor",
+   "title": "Confidentiality survival longer than benchmark",
+   "why": "AtliQ's benchmark is 6-12 months. A 3-year survival period extends the duration of potential liability for accidental breaches of confidentiality.",
+   "comparison": "8 of 10 contracts use 6-12 months; 3 years is longer than the standard benchmark.",
+   "clause_id": "9.3",
+   "quote": "This Clause survives for three (3) years after termination.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F07"
+  }
+ ],
+ "seconds": 64.6
+}

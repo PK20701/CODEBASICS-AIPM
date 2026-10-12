@@ -1,0 +1,238 @@
+{
+ "hand_total": 14,
+ "found": 12,
+ "missed": [
+  [
+   "R-09",
+   "2025-03-15_al_noor_hospitality_msa.md",
+   "data_location"
+  ],
+  [
+   "R-03",
+   "2025-09-01_cloudspan_strategic_partnership_agreement.md",
+   "exclusivity"
+  ]
+ ],
+ "extra": [
+  [
+   "2024-08-01_crestline_retail_msa.md",
+   "non_solicit",
+   "soliciting for employment",
+   true
+  ],
+  [
+   "2025-03-15_al_noor_hospitality_msa.md",
+   "non_solicit",
+   "solicit for employment",
+   true
+  ],
+  [
+   "2025-04-28_rohan_iyer_contractor_agreement.md",
+   "non_solicit",
+   "directly solicit any AtliQ client to whom he was introduced through At",
+   true
+  ],
+  [
+   "2025-10-06_atliq_intercompany_subcontractor_baa.md",
+   "data_location",
+   "download, copy or transfer De-identified Data",
+   true
+  ],
+  [
+   "2025-11-28_brightwater_insurance_msa.md",
+   "data_location",
+   "processing Customer Data outside the United States",
+   true
+  ],
+  [
+   "2026-02-10_al_noor_waiver_letter.md",
+   "exclusivity",
+   "Providing services to other hospitality businesses in Oman or GCC",
+   false
+  ],
+  [
+   "2026-08-15_trustline_nbfc_msa.md",
+   "data_location",
+   "storing Company Data",
+   true
+  ]
+ ],
+ "rows": [
+  {
+   "file": "2022-07-01_orbit_travels_msa_scanned.md",
+   "hand": [
+    "R-04:non_compete"
+   ],
+   "extracted": [
+    "non_compete"
+   ],
+   "unverified_quotes": 0,
+   "s": 14.0
+  },
+  {
+   "file": "2024-08-01_crestline_retail_msa.md",
+   "hand": [
+    "R-02:mfn_pricing",
+    "R-08:data_location"
+   ],
+   "extracted": [
+    "mfn_pricing",
+    "data_location",
+    "non_solicit"
+   ],
+   "unverified_quotes": 0,
+   "s": 18.4
+  },
+  {
+   "file": "2025-01-22_al_noor_mutual_nda.md",
+   "hand": [],
+   "extracted": [],
+   "unverified_quotes": 0,
+   "s": 20.3
+  },
+  {
+   "file": "2025-01-22_paytrack_technologies_msa.md",
+   "hand": [
+    "R-07:data_location",
+    "R-12:non_solicit"
+   ],
+   "extracted": [
+    "non_solicit",
+    "data_location"
+   ],
+   "unverified_quotes": 0,
+   "s": 13.5
+  },
+  {
+   "file": "2025-03-10_acme_retail_group_msa.md",
+   "hand": [
+    "R-11:non_solicit"
+   ],
+   "extracted": [
+    "non_solicit"
+   ],
+   "unverified_quotes": 0,
+   "s": 13.9
+  },
+  {
+   "file": "2025-03-15_al_noor_hospitality_msa.md",
+   "hand": [
+    "R-01:non_compete",
+    "R-09:data_location"
+   ],
+   "extracted": [
+    "non_compete",
+    "non_solicit"
+   ],
+   "unverified_quotes": 0,
+   "s": 18.4
+  },
+  {
+   "file": "2025-04-18_sunrise_foods_msa.md",
+   "hand": [
+    "R-14:non_solicit"
+   ],
+   "extracted": [
+    "non_solicit"
+   ],
+   "unverified_quotes": 0,
+   "s": 22.4
+  },
+  {
+   "file": "2025-04-28_rohan_iyer_contractor_agreement.md",
+   "hand": [],
+   "extracted": [
+    "non_solicit"
+   ],
+   "unverified_quotes": 0,
+   "s": 23.8
+  },
+  {
+   "file": "2025-06-20_northwind_logistics_msa.md",
+   "hand": [
+    "R-06:ip_assignment",
+    "R-13:non_solicit"
+   ],
+   "extracted": [
+    "non_solicit",
+    "ip_assignment"
+   ],
+   "unverified_quotes": 0,
+   "s": 21.1
+  },
+  {
+   "file": "2025-09-01_cloudspan_strategic_partnership_agreement.md",
+   "hand": [
+    "R-03:exclusivity"
+   ],
+   "extracted": [],
+   "unverified_quotes": 0,
+   "s": 11.8
+  },
+  {
+   "file": "2025-10-06_atliq_intercompany_subcontractor_baa.md",
+   "hand": [],
+   "extracted": [
+    "data_location"
+   ],
+   "unverified_quotes": 0,
+   "s": 16.4
+  },
+  {
+   "file": "2025-10-06_carebridge_clinics_baa.md",
+   "hand": [
+    "R-10:data_location"
+   ],
+   "extracted": [
+    "data_location"
+   ],
+   "unverified_quotes": 0,
+   "s": 12.2
+  },
+  {
+   "file": "2025-11-28_brightwater_insurance_msa.md",
+   "hand": [],
+   "extracted": [
+    "data_location"
+   ],
+   "unverified_quotes": 0,
+   "s": 19.7
+  },
+  {
+   "file": "2026-02-10_al_noor_waiver_letter.md",
+   "hand": [],
+   "extracted": [
+    "exclusivity"
+   ],
+   "unverified_quotes": 1,
+   "s": 35.1
+  },
+  {
+   "file": "2026-07-16_meridian_healthcare_nda.md",
+   "hand": [
+    "R-05:non_solicit"
+   ],
+   "extracted": [
+    "non_solicit"
+   ],
+   "unverified_quotes": 0,
+   "s": 27.2
+  },
+  {
+   "file": "2026-08-15_trustline_nbfc_msa.md",
+   "hand": [],
+   "extracted": [
+    "data_location"
+   ],
+   "unverified_quotes": 0,
+   "s": 21.7
+  },
+  {
+   "file": "2026-08-20_harrington_health_mutual_nda.md",
+   "hand": [],
+   "extracted": [],
+   "unverified_quotes": 0,
+   "s": 14.5
+  }
+ ]
+}

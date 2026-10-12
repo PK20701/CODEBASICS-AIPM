@@ -1,0 +1,155 @@
+{
+ "file": "signed/2022-07-01_orbit_travels_msa_scanned.md",
+ "details": {
+  "doc_type": "MSA",
+  "title": "Master Services Agreement",
+  "counterparty": "Orbit Travels Private Limited",
+  "client_country": "India",
+  "client_industry": "travel",
+  "atliq_entity": "Pvt Ltd",
+  "atliq_role": "supplier",
+  "effective_date": "2022-07-01",
+  "term_months": 24,
+  "end_date": "2024-06-30",
+  "governing_law": "laws of India",
+  "courts_or_seat": "New Delhi",
+  "governing_law_source": {
+   "clause_id": "11.1",
+   "quote": "This Agreernent shall be governed by the laws of India. Disputes shall be referred to a sole arbitrator under the Arbitration and Conciliation Act, 1996. Seat of arbitration: New Delhi. Courts at New Delhi shall have jurisdiction."
+  },
+  "parties_quote": "0RBIT TRAVELS PRIVATE LIMITED, a company incorporated under the Companies Act, 2013, having its registered office at Plot 14, Okhla Industrial Estate Phase III, New Delhi 110020 (\"Client\")\n\nAND\n\nATLIQ TECHN0LOGIES PRIVATE LIMITED, a company incorporated under the Companies Act, 2013 (CIN U72900MH2019PTC321456), having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra (\"Service Provider\").",
+  "payment_source": {
+   "clause_id": "2.1",
+   "quote": "The Client shall pay the fees set out in each SOW. Invoices shall be raised monthly and paid within thirty (30) days of receipt. Fees are exclusive of GST."
+  },
+  "currency": "INR",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": 30,
+  "services_summary": "Development and maintenance of booking engine, fare search and reporting modules for an online travel booking business.",
+  "regions_of_service": [
+   "India"
+  ],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 1,
+   "amount": null,
+   "basis": "fees paid in the twelve (12) months preceding the claim",
+   "clause_id": "8.1",
+   "quote": "The aggregate liability of the Service Provider shall not exceed the fees paid in the twelve (l2) months preceding the claim."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "non_compete",
+    "who_is_bound": "AtliQ",
+    "summary": "Service Provider shall not develop, license or provide travel-booking software to any online travel agency operating in India.",
+    "restricted_activity": "develop, license or provide travel-booking software",
+    "customers": "any online travel agency",
+    "geography": [
+     "India"
+    ],
+    "clause_id": "6.1",
+    "quote": "it shall not develop, license or provide travel-booking software to any online travel agency operating in India.",
+    "duration_basis": "term_plus_months",
+    "months_after_term": 12
+   }
+  ]
+ },
+ "quality": {
+  "level": "poor",
+  "count": 6,
+  "examples": [
+   "AGREERNENT (agreement?)",
+   "Agreernent (agreement?)",
+   "TECHN0LOGIES (technologies?)",
+   "fol1ows (follows?)"
+  ]
+ },
+ "findings": [
+  {
+   "source": "contract",
+   "topic": "non_compete",
+   "severity": "Serious",
+   "title": "Restrictive non-compete clause against online travel agencies",
+   "why": "Restricts AtliQ from serving the travel-booking software sector in India for 12 months post-termination, limiting business growth.",
+   "comparison": "AtliQ principles avoid restrictive covenants and non-competes as they clash with existing promises and market opportunities.",
+   "clause_id": "6.1",
+   "quote": "it shall not develop, license or provide travel-booking software to any online travel agency operating in India.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F01"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "Illegible text near negligence exclusion in indemnity",
+   "why": "The clause contains illegible text surrounding negligence, creating ambiguity on whether AtliQ covers client's own negligence.",
+   "comparison": "Principles state AtliQ does not cover the other side's own negligence; unreadable text prevents proper verification.",
+   "clause_id": "9.1",
+   "quote": "[illegible] ... own negligence or wilful misconduct.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": true,
+   "id": "F02"
+  },
+  {
+   "source": "register",
+   "topic": "non_compete",
+   "severity": "Negotiable",
+   "title": "Al Noor Hospitality Group: Data analytics, AI or revenue-management services",
+   "why": "Hospitality client; the region is outside the restriction as stated, but confirm that no property in the GCC is included.",
+   "comparison": "Do not take analytics, AI or revenue-management work for hotel groups in the GCC until about September 2029 without Al Noor's written consent.",
+   "clause_id": "12.1",
+   "quote": "the Supplier undertakes that neither it nor any of its Affiliates shall, during the Restricted Period, directly or indirectly, provide data analytics, artificial intelligence or revenue-management services to any Hospitality Business in the GCC.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-01",
+   "register_status": "active",
+   "register_end": "2029-09-14",
+   "register_file": "samples/signed/2025-03-15_al_noor_hospitality_msa.md",
+   "register_counterparty": "Al Noor Hospitality Group",
+   "exception": "Clause 12.4 lets Al Noor waive it per engagement by written consent. Waiver letter of 10 Feb 2026 allows only the Seaside Hotels (Muscat) demand-forecasting SOW; not follow-on SOWs, other hotels or Affiliates.",
+   "relevance": "possible",
+   "id": "F03"
+  },
+  {
+   "source": "register",
+   "topic": "non_compete",
+   "severity": "Minor",
+   "title": "Expired restriction: Orbit Travels (Developing, licensing or providing travel-booking software)",
+   "why": "The new deal involves developing travel-booking software for an online travel agency in India, which directly collides with the non-compete commitment restricting developing travel-booking software for online travel agencies in India until 2025-06-30.",
+   "comparison": "Expired. Shown for confidence: AtliQ could not build travel-booking software for Indian online travel agencies until 30 June 2025.",
+   "clause_id": "6.1",
+   "quote": "it shall not develop, license or provide travel-booking software to any online travel agency operating in India.",
+   "verified": true,
+   "unsure": false,
+   "register_id": "R-04",
+   "register_status": "expired",
+   "register_end": "2025-06-30",
+   "register_file": "samples/signed/2022-07-01_orbit_travels_msa_scanned.md",
+   "register_counterparty": "Orbit Travels",
+   "exception": "Clause 6.2: hotels, airlines and other businesses that are not online travel agencies are not restricted. Scanned copy with OCR errors; read with care.",
+   "relevance": "likely",
+   "id": "F04"
+  }
+ ],
+ "seconds": 4.7
+}

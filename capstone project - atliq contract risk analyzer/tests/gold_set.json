@@ -1,0 +1,35 @@
+{
+ "about": "Expected findings taken from the dataset's own documents (meeting notes, tracker notes, negotiation notes, checklist, the brief), not from the synthetic contracts. 'source' says where each expectation comes from. 'any' are regular expressions tried on title, why, comparison and quote; 'register' is a register id; 'sev' is the lowest acceptable severity.",
+ "items": [
+  {"id": "G01", "file": "incoming/2026-09-18_gulf_crown_hotels_msa_draft.md", "label": "Al Noor non-compete collides with Gulf Crown", "register": "R-01", "sev": "Serious", "source": "meeting_notes 22 Sep and call with counsel 25 Sep"},
+  {"id": "G02", "file": "incoming/2026-09-18_gulf_crown_hotels_msa_draft.md", "label": "Delay penalty on contract value", "any": ["delay|liquidated|penalt"], "sev": "Negotiable", "source": "brief: LDs per period on the full contract value"},
+  {"id": "G03", "file": "incoming/2026-09-18_gulf_crown_hotels_msa_draft.md", "label": "Indian entity under Saudi law", "topic": "governing_law", "sev": "Negotiable", "source": "atliq_entities.md and checklist (India for Pvt Ltd)"},
+  {"id": "G04", "file": "incoming/2026-09-19_lakeshore_grocers_msa_draft.md", "label": "Rate card below Crestline's most-favoured pricing", "register": "R-02", "sev": "Serious", "source": "tracker C-026 note ($72/hr) and negotiation notes (Crestline 6.4, $85/hr)"},
+  {"id": "G05", "file": "incoming/2026-09-19_lakeshore_grocers_msa_draft.md", "label": "US entity with arbitration abroad", "topic": "governing_law", "sev": "Serious", "source": "brief: templates put AtliQ under a country where it has no presence"},
+  {"id": "G06", "file": "signed/2025-11-28_brightwater_insurance_msa.md", "label": "English law on a US entity", "topic": "governing_law", "sev": "Serious", "source": "Brightwater post-mortem 14 Apr"},
+  {"id": "G07", "file": "signed/2025-11-28_brightwater_insurance_msa.md", "label": "Uncapped delay damages with no client-delay exclusion", "any": ["liquidated|delay"], "sev": "Serious", "source": "Brightwater post-mortem 14 Apr"},
+  {"id": "G08", "file": "incoming/2026-09-15_travelhub_services_agreement_draft.md", "label": "US entity named for a UAE client", "topic": "governing_law", "sev": "Serious", "source": "tracker C-024 note ('we put your US company')"},
+  {"id": "G09", "file": "incoming/2026-09-25_finserve_capital_mutual_nda_draft.md", "label": "'Mutual' NDA is one-sided", "any": ["one-sided|unilateral|mutual"], "sev": "Serious", "source": "brief: the NDA that says mutual but isn't; checklist (NDAs just sign if mutual)"},
+  {"id": "G10", "file": "incoming/2026-09-25_finserve_capital_mutual_nda_draft.md", "label": "Non-compete hidden in the NDA", "any": ["non-compete|compet"], "sev": "Serious", "source": "brief: one-sided clause buried in boilerplate"},
+  {"id": "G11", "file": "incoming/2026-09-25_finserve_capital_mutual_nda_draft.md", "label": "Employee non-solicit in the NDA", "any": ["solicit"], "sev": "Negotiable", "source": "brief: one-sided clause buried in boilerplate"},
+  {"id": "G12", "file": "incoming/2026-09-10_harrington_health_msa_draft.md", "label": "BAA still unsigned for a deal with patient data", "any": ["business associate.*not signed|baa.*not signed"], "sev": "Serious", "source": "huddle 27 Sep and tracker C-046 (BAA in review, to be signed with the MSA)"},
+  {"id": "G13", "file": "incoming/2026-09-10_harrington_health_msa_draft.md", "label": "Insurance gap: $5M required, $1M held", "topic": "insurance", "sev": "Serious", "source": "huddle 27 Sep and tracker C-046"},
+  {"id": "G14", "file": "incoming/2026-09-16_harrington_health_baa_draft.md", "label": "Insurance gap in the BAA", "topic": "insurance", "sev": "Serious", "source": "huddle 27 Sep and tracker C-046"},
+  {"id": "G15", "file": "incoming/2026-09-16_harrington_health_baa_draft.md", "label": "No work on patient data outside the US", "any": ["outside the united states|offshore|data location|location|subcontract"], "sev": "Negotiable", "source": "huddle 27 Sep (nobody outside the US touches patient data; Pune engineers did)"},
+  {"id": "G16", "file": "incoming/2026-09-27_daniel_ortiz_contractor_agreement_draft.md", "label": "Freelancer will touch patient data with no BAA of his own", "any": ["business associate|baa"], "sev": "Serious", "source": "huddle 27 Sep (no subcontractor BAA drafted for Daniel Ortiz)"},
+  {"id": "G17", "file": "incoming/2026-09-27_marcus_reed_contractor_agreement_draft.md", "label": "India template and entity used for a US contractor", "topic": "governing_law", "sev": "Serious", "source": "tracker C-040 note ('India freelancer template, only name and rate changed')"},
+  {"id": "G18", "file": "incoming/2026-09-26_kriti_data_labs_subcontractor_agreement_draft.md", "label": "120-day pay-when-paid on AtliQ's own paper", "any": ["120"], "sev": "Negotiable", "source": "tracker C-037 note (120-day pay-when-paid)"},
+  {"id": "G19", "file": "incoming/2026-09-26_kriti_data_labs_subcontractor_agreement_draft.md", "label": "Unlimited vendor liability on AtliQ's own paper", "any": ["uncapped|unlimited"], "sev": "Serious", "source": "negotiation notes (PixelCraft: unlimited vendor liability in AtliQ's template); checklist"},
+  {"id": "G20", "file": "incoming/2026-09-26_kriti_data_labs_subcontractor_agreement_draft.md", "label": "Uncapped delay penalty on AtliQ's own paper", "any": ["delay|liquidated|penalt"], "sev": "Serious", "source": "negotiation notes (PixelCraft: 1% per day delay penalty in AtliQ's template); checklist"},
+  {"id": "G21", "file": "incoming/2026-09-23_rheinwerk_analytics_services_agreement_draft.md", "label": "PipeKit reuse collides with the Northwind IP assignment", "register": "R-06", "sev": "Serious", "source": "tracker C-028 note and negotiation notes (Northwind SOW-1 uses PipeKit)"},
+  {"id": "G22", "file": "incoming/2026-09-21_blueorchid_hotels_pilot_agreement_draft.md", "label": "Hotel pilot may touch the Al Noor restriction", "register": "R-01", "sev": "Minor", "source": "tracker C-027 note ('just India hotels I think')"},
+  {"id": "G23", "file": "incoming/2026-09-24_datavane_strategic_partnership_agreement_draft.md", "label": "Pvt Ltd named for a US partner", "topic": "governing_law", "sev": "Serious", "source": "atliq_entities.md (Inc serves the US)"},
+  {"id": "G24", "file": "incoming/2026-09-24_datavane_strategic_partnership_agreement_draft.md", "label": "CloudSpan exclusivity may bar a platform partnership", "register": "R-03", "sev": "Minor", "source": "negotiation notes (CloudSpan: no Competing Platform partners in India and the GCC)"}
+ ],
+ "controls": [
+  {"id": "C01", "file": "incoming/2026-09-27_loopmart_mutual_nda_draft.md", "label": "Clean mutual NDA: no Serious finding", "source": "dataset README: at least one draft is clean; looks risky but is not"}
+ ],
+ "quality": [
+  {"id": "Q01", "file": "signed/2022-07-01_orbit_travels_msa_scanned.md", "label": "Scanned copy is flagged as poor text", "source": "dataset README: one signed file is a scan with OCR errors"}
+ ]
+}

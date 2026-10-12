@@ -1,7 +1,7 @@
 {
  "id": "S04",
  "label": "S04 Vantage Biosciences (\"mutual\" NDA, one-sided)",
- "seconds": 3.9,
+ "seconds": 4.3,
  "findings": 4,
  "serious": 3,
  "must": 1,
@@ -12,8 +12,8 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4080,
- "tokens_out": 1232,
+ "tokens_in": 4497,
+ "tokens_out": 1231,
  "clauses": "8/8",
  "liability": "unlimited",
  "details": {
@@ -23,16 +23,17 @@
   "client_country": "United States",
   "client_industry": "healthcare",
   "atliq_entity": "Inc",
+  "atliq_role": "supplier",
   "effective_date": null,
   "term_months": null,
   "end_date": null,
-  "governing_law": "Commonwealth of Massachusetts",
+  "governing_law": "laws of the Commonwealth of Massachusetts",
   "courts_or_seat": null,
   "governing_law_source": {
    "clause_id": "6.1",
    "quote": "This Agreement is governed by the laws of the Commonwealth of Massachusetts."
   },
-  "parties_quote": "Vantage Biosciences Inc., a Massachusetts corporation having its principal office at 1 Kendall Square, Cambridge, Massachusetts 02139 (the \"Company\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\") (\"Recipient\").",
+  "parties_quote": "Vantage Biosciences Inc., a Massachusetts corporation having its principal office at 1 Kendall Square, Cambridge, Massachusetts 02139 (the \"Company\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\") (the \"Recipient\").",
   "payment_source": {},
   "currency": "USD",
   "total_value": null,
@@ -60,7 +61,7 @@
    "quote": null
   },
   "mutual_confidentiality": false,
-  "one_sided_note": "Despite being titled a Mutual Non-Disclosure Agreement, obligations bind AtliQ (the Recipient) only, and Section 3.2 explicitly states the Company has no obligation to keep confidential any information it receives.",
+  "one_sided_note": "Titled mutual but obligations bind AtliQ (the Recipient) only; Section 3.2 explicitly states the Company has no obligation to keep information confidential.",
   "handles_phi": false,
   "handles_eu_personal_data": false,
   "mentions_baa_or_dpa": null,
@@ -87,7 +88,7 @@
   [
    "Negotiable",
    "contract",
-   "Extended confidentiality obligation period"
+   "Extended confidentiality and trade secret duration"
   ]
  ],
  "all_findings": [
@@ -110,8 +111,8 @@
    "topic": "confidentiality",
    "severity": "Serious",
    "title": "One-sided definition of Confidential Information",
-   "why": "Protects only Vantage Biosciences, leaving AtliQ's disclosures unprotected.",
-   "comparison": "AtliQ principles require confidentiality to be mutual.",
+   "why": "Protects only Vantage Biosciences; AtliQ's disclosures receive no protection.",
+   "comparison": "Confidentiality should be mutual.",
    "clause_id": "2.1",
    "quote": "\"Confidential Information\" means all information disclosed by the Company to the Recipient",
    "claimed_quote": null,
@@ -124,8 +125,8 @@
    "topic": "confidentiality",
    "severity": "Serious",
    "title": "Company has no confidentiality obligations",
-   "why": "AtliQ shares could be used freely by Vantage Biosciences without restriction.",
-   "comparison": "Violates the principle that confidentiality should be mutual.",
+   "why": "AtliQ shares could be used freely by Vantage without restriction.",
+   "comparison": "AtliQ principles require mutual confidentiality.",
    "clause_id": "3.2",
    "quote": "The Company has no obligation to keep confidential any information it receives from the Recipient, and may use that information for any purpose.",
    "claimed_quote": null,
@@ -137,9 +138,9 @@
    "source": "contract",
    "topic": "confidentiality",
    "severity": "Negotiable",
-   "title": "Extended confidentiality obligation period",
-   "why": "Binds AtliQ to a long 7-year post-term obligation.",
-   "comparison": "Past contracts usually require 6 to 12 months after the term.",
+   "title": "Extended confidentiality and trade secret duration",
+   "why": "Creates an exceptionally long operational burden for AtliQ.",
+   "comparison": "Past contracts usually last 6 to 12 months after the term.",
    "clause_id": "4.1",
    "quote": "The Recipient's obligations continue for seven (7) years from the date of this Agreement, and indefinitely for trade secrets.",
    "claimed_quote": null,

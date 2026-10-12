@@ -1,0 +1,45 @@
+ran 2026-09-18_gulf_crown_hotels_msa_draft.md                       17.1s  9 findings
+ran 2026-09-19_lakeshore_grocers_msa_draft.md                        8.2s  6 findings
+ran 2025-11-28_brightwater_insurance_msa.md                          7.8s  16 findings
+ran 2026-09-15_travelhub_services_agreement_draft.md                64.6s  7 findings
+ran 2026-09-25_finserve_capital_mutual_nda_draft.md                  6.2s  9 findings
+ran 2026-09-10_harrington_health_msa_draft.md                       12.3s  17 findings
+ran 2026-09-16_harrington_health_baa_draft.md                       57.2s  12 findings
+ran 2026-09-27_daniel_ortiz_contractor_agreement_draft.md            5.2s  2 findings
+ran 2026-09-27_marcus_reed_contractor_agreement_draft.md            11.8s  15 findings
+ran 2026-09-26_kriti_data_labs_subcontractor_agreement_draft.md      8.4s  13 findings
+ran 2026-09-23_rheinwerk_analytics_services_agreement_draft.md       8.1s  6 findings
+ran 2026-09-21_blueorchid_hotels_pilot_agreement_draft.md           33.2s  4 findings
+ran 2026-09-24_datavane_strategic_partnership_agreement_draft.md    41.7s  22 findings
+ran 2026-09-27_loopmart_mutual_nda_draft.md                          4.5s  1 findings
+ran 2022-07-01_orbit_travels_msa_scanned.md                          4.7s  4 findings
+
+GOLD SET (expectations from the dataset documents)
+  FOUND  G01  Al Noor non-compete collides with Gulf Crown                   [meeting_notes 22 Sep and call with counsel 25 ]
+  FOUND  G02  Delay penalty on contract value                                [brief: LDs per period on the full contract val]
+  FOUND  G03  Indian entity under Saudi law                                  [atliq_entities.md and checklist (India for Pvt]
+  FOUND  G04  Rate card below Crestline's most-favoured pricing              [tracker C-026 note ($72/hr) and negotiation no]
+  FOUND  G05  US entity with arbitration abroad                              [brief: templates put AtliQ under a country whe]
+  FOUND  G06  English law on a US entity                                     [Brightwater post-mortem 14 Apr]
+  FOUND  G07  Uncapped delay damages with no client-delay exclusion          [Brightwater post-mortem 14 Apr]
+  FOUND  G08  US entity named for a UAE client                               [tracker C-024 note ('we put your US company')]
+  FOUND  G09  'Mutual' NDA is one-sided                                      [brief: the NDA that says mutual but isn't; che]
+  FOUND  G10  Non-compete hidden in the NDA                                  [brief: one-sided clause buried in boilerplate]
+  FOUND  G11  Employee non-solicit in the NDA                                [brief: one-sided clause buried in boilerplate]
+  FOUND  G12  BAA still unsigned for a deal with patient data                [huddle 27 Sep and tracker C-046 (BAA in review]
+  FOUND  G13  Insurance gap: $5M required, $1M held                          [huddle 27 Sep and tracker C-046]
+  FOUND  G14  Insurance gap in the BAA                                       [huddle 27 Sep and tracker C-046]
+  FOUND  G15  No work on patient data outside the US                         [huddle 27 Sep (nobody outside the US touches p]
+  FOUND  G16  Freelancer will touch patient data with no BAA of his own      [huddle 27 Sep (no subcontractor BAA drafted fo]
+  FOUND  G17  India template and entity used for a US contractor             [tracker C-040 note ('India freelancer template]
+  FOUND  G18  120-day pay-when-paid on AtliQ's own paper                     [tracker C-037 note (120-day pay-when-paid)]
+  FOUND  G19  Unlimited vendor liability on AtliQ's own paper                [negotiation notes (PixelCraft: unlimited vendo]
+  FOUND  G20  Uncapped delay penalty on AtliQ's own paper                    [negotiation notes (PixelCraft: 1% per day dela]
+  FOUND  G21  PipeKit reuse collides with the Northwind IP assignment        [tracker C-028 note and negotiation notes (Nort]
+  FOUND  G22  Hotel pilot may touch the Al Noor restriction                  [tracker C-027 note ('just India hotels I think]
+  FOUND  G23  Pvt Ltd named for a US partner                                 [atliq_entities.md (Inc serves the US)]
+  FOUND  G24  CloudSpan exclusivity may bar a platform partnership           [negotiation notes (CloudSpan: no Competing Pla]
+
+Recall on the gold set: 24 of 24 (100%)
+Control C01: Clean mutual NDA: no Serious finding (Serious findings: 0 [])
+Quality Q01: Scanned copy is flagged as poor text -> level=poor count=6

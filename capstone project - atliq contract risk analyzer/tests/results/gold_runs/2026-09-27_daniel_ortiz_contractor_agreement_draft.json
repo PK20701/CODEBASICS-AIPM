@@ -1,0 +1,116 @@
+{
+ "file": "incoming/2026-09-27_daniel_ortiz_contractor_agreement_draft.md",
+ "details": {
+  "doc_type": "Other",
+  "title": "Independent Contractor Agreement",
+  "counterparty": "Daniel Ortiz",
+  "client_country": "United States",
+  "client_industry": "healthcare",
+  "atliq_entity": "Inc",
+  "atliq_role": "buyer",
+  "effective_date": null,
+  "term_months": 6,
+  "end_date": null,
+  "governing_law": "laws of the State of Texas",
+  "courts_or_seat": "state and federal courts located in Travis County, Texas",
+  "governing_law_source": {
+   "clause_id": "10.1",
+   "quote": "This Agreement is governed by the laws of the State of Texas, without regard to its conflict of laws principles. The Parties submit to the exclusive jurisdiction of the state and federal courts located in Travis County, Texas."
+  },
+  "parties_quote": "AtliQ Inc, a Delaware corporation (EIN 88-4410273) with its principal place of business at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (the \"Company\"); and\n\nDaniel Ortiz, an individual residing at 4718 Avenue F, Austin, Texas 78751 (the \"Contractor\").",
+  "payment_source": {
+   "clause_id": "3.2",
+   "quote": "The Contractor shall submit a monthly invoice with a summary of hours worked. The Company shall pay each undisputed invoice within thirty (30) days of receipt, by ACH transfer in U.S. Dollars."
+  },
+  "currency": "USD",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": 30,
+  "services_summary": "Data engineering: build and test ingestion pipelines from electronic health record, patient accounting and scheduling systems into cloud data platform.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 1,
+   "amount": null,
+   "basis": "total fees paid or payable to the Contractor under this Agreement in the twelve (12) months preceding the claim",
+   "clause_id": "9.2",
+   "quote": "Each Party's aggregate liability under this Agreement shall not exceed the total fees paid or payable to the Contractor under this Agreement in the twelve (12) months preceding the claim, except for breach of Section 7 or a Party's fraud or willful misconduct."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": ""
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": true,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [
+   {
+    "role": "Contractor",
+    "rate": 70.0,
+    "currency": "USD",
+    "unit": "hour",
+    "clause_id": "ENGAGEMENT SCHEDULE No. 1"
+   }
+  ],
+  "restrictive_covenants": [
+   {
+    "type": "non_solicit",
+    "who_is_bound": "both",
+    "summary": "Neither party shall solicit for employment any employee of the other party with whom they worked during the term, for six months after.",
+    "restricted_activity": "solicit for employment",
+    "customers": "employee of the other Party",
+    "geography": [],
+    "clause_id": "8.1",
+    "quote": "During the term and for six (6) months after it, neither Party shall knowingly solicit for employment any employee of the other Party with whom it worked in connection with the Services.",
+    "duration_basis": "fixed_months",
+    "months_after_term": 6
+   }
+  ]
+ },
+ "quality": {
+  "level": "good",
+  "count": 0,
+  "examples": []
+ },
+ "findings": [
+  {
+   "source": "rule",
+   "topic": "documents",
+   "severity": "Serious",
+   "title": "No HIPAA Business Associate Agreement on record for this party in the tracker",
+   "why": "Patient data cannot move until the BAA is signed, ideally together with the services contract.",
+   "comparison": "Healthcare deals need an NDA, a BAA and the services contract; European work with personal data needs a DPA.",
+   "clause_id": null,
+   "quote": null,
+   "verified": true,
+   "unsure": false,
+   "absence": true,
+   "id": "F01"
+  },
+  {
+   "source": "rule",
+   "topic": "documents",
+   "severity": "Negotiable",
+   "title": "The NDA is not signed yet: C-048 (Draft)",
+   "why": "The deal is a bundle of documents that have to agree with each other and be in place together.",
+   "comparison": "Healthcare deals need an NDA, a BAA and the services contract; European work with personal data needs a DPA.",
+   "clause_id": null,
+   "quote": null,
+   "verified": true,
+   "unsure": false,
+   "absence": true,
+   "id": "F02"
+  }
+ ],
+ "seconds": 5.2
+}

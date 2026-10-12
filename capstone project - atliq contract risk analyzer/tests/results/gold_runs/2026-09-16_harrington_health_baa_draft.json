@@ -1,0 +1,275 @@
+{
+ "file": "incoming/2026-09-16_harrington_health_baa_draft.md",
+ "details": {
+  "doc_type": "BAA",
+  "title": "Business Associate Agreement",
+  "counterparty": "Harrington Health Systems, Inc.",
+  "client_country": "United States",
+  "client_industry": "healthcare",
+  "atliq_entity": "Inc",
+  "atliq_role": "supplier",
+  "effective_date": null,
+  "term_months": null,
+  "end_date": null,
+  "governing_law": "laws of the State of Texas and applicable federal law",
+  "courts_or_seat": "as provided in the Master Services Agreement",
+  "governing_law_source": {
+   "clause_id": "12.5",
+   "quote": "This BAA shall be governed by the laws of the State of Texas and applicable federal law, and venue shall lie as provided in the Master Services Agreement."
+  },
+  "parties_quote": "This Business Associate Agreement (this \"BAA\") is entered into as of the Effective Date of the Master Services Agreement (as defined below) by and between Harrington Health Systems, Inc., a Texas nonprofit corporation with its principal place of business at 6400 Fannin Street, Suite 1800, Houston, Texas 77030, on behalf of itself and its Affiliates that are covered entities (\"Covered Entity\" or \"Harrington\"), and AtliQ Inc, a Delaware corporation with its principal place of business at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Business Associate\").",
+  "payment_source": {
+   "clause_id": null,
+   "quote": null
+  },
+  "currency": "USD",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": null,
+  "services_summary": "Services that involve the creation, receipt, maintenance or transmission of Protected Health Information on behalf of Covered Entity.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "unlimited",
+   "multiple": null,
+   "amount": null,
+   "basis": "The obligations of Business Associate under this Article 8 are not subject to any limitation or exclusion of liability, and shall apply notwithstanding any limitation of liability in the Master Services Agreement.",
+   "clause_id": "8.2",
+   "quote": "The obligations of Business Associate under this Article 8 are not subject to any limitation or exclusion of liability, and shall apply notwithstanding any limitation of liability in the Master Services Agreement."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": false,
+  "one_sided_note": "Obligations bind Business Associate (AtliQ) only.",
+  "handles_phi": true,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": "This Business Associate Agreement (this \"BAA\") is entered into as of the Effective Date of the Master Services Agreement...",
+  "insurance_requirements": [
+   {
+    "type": "cyber",
+    "amount_usd": 5000000,
+    "clause_id": "8.3",
+    "quote": "Business Associate shall maintain, throughout the term of this BAA and for three (3) years thereafter, cyber liability and network security and privacy insurance with limits of not less than Five Million U.S. Dollars ($5,000,000) per claim and in the aggregate, covering notification costs, regulatory defense and penalties, and third-party claims arising from Privacy Events, and shall name Covered Entity as an additional insured."
+   }
+  ],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "data_location",
+    "who_is_bound": "AtliQ",
+    "summary": "AtliQ shall not access, view, create, receive, maintain, transmit, store or process PHI outside the United States.",
+    "restricted_activity": "Access, view, create, receive, maintain, transmit, store or process PHI from or at any location outside the United States",
+    "customers": "none",
+    "geography": [
+     "outside the United States"
+    ],
+    "clause_id": "4.1",
+    "quote": "Business Associate shall not, and shall ensure that no Subcontractor shall, access, view, create, receive, maintain, transmit, store or process PHI from or at any location outside the United States, whether directly or by remote access.",
+    "duration_basis": "term",
+    "months_after_term": null
+   },
+   {
+    "type": "ip_assignment",
+    "who_is_bound": "AtliQ",
+    "summary": "AtliQ shall not use PHI or data derived from PHI to train, tune or evaluate machine learning or artificial intelligence models other than models developed exclusively for Covered Entity.",
+    "restricted_activity": "Use PHI, or any data derived from PHI, to train, tune or evaluate any machine learning or artificial intelligence model other than models developed exclusively for Covered Entity",
+    "customers": "none",
+    "geography": [],
+    "clause_id": "10.3",
+    "quote": "Business Associate shall not use PHI, or any data derived from PHI, to train, tune or evaluate any machine learning or artificial intelligence model other than models developed exclusively for Covered Entity under the Master Services Agreement.",
+    "duration_basis": "term",
+    "months_after_term": null
+   }
+  ]
+ },
+ "quality": {
+  "level": "good",
+  "count": 0,
+  "examples": []
+ },
+ "findings": [
+  {
+   "source": "rule",
+   "topic": "liability",
+   "severity": "Serious",
+   "title": "Liability is unlimited",
+   "why": "No limit protects AtliQ.",
+   "comparison": "Past contracts: 8 of 10 cap liability at about 1x fees; highest seen 2x.",
+   "clause_id": "8.2",
+   "quote": "The obligations of Business Associate under this Article 8 are not subject to any limitation or exclusion of liability, and shall apply notwithstanding any limitation of liability in the Master Services Agreement.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  },
+  {
+   "source": "rule",
+   "topic": "insurance",
+   "severity": "Serious",
+   "title": "Cyber insurance of $5,000,000 required; AtliQ holds $1M",
+   "why": "AtliQ would be in breach on signing.",
+   "comparison": "AtliQ facts: cyber cover is $1,000,000.",
+   "clause_id": "8.3",
+   "quote": "Business Associate shall maintain, throughout the term of this BAA and for three (3) years thereafter, cyber liability and network security and privacy insurance with limits of not less than Five Million U.S. Dollars ($5,000,000) per claim and in the aggregate, covering notification costs, regulatory defense and penalties, and third-party claims arising from Privacy Events, and shall name Covered Entity as an additional insured.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "data_protection",
+   "severity": "Serious",
+   "title": "Strict US-only data location and subcontractor restrictions",
+   "why": "Restricts offshore delivery and support models, which may impact AtliQ's operational flexibility and resource allocation.",
+   "comparison": "AtliQ's principles caution against unmanaged data location limits; benchmark contracts vary.",
+   "clause_id": "P13",
+   "quote": "Business Associate shall not, and shall ensure that no Subcontractor shall, access, view, create, receive, maintain, transmit, store or process PHI from or at any location outside the United States",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F03"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Serious",
+   "title": "One-sided, expansive and uncapped indemnification obligations",
+   "why": "Indemnity is entirely one-sided, covers broad categories of costs, and is explicitly uncapped, bypassing standard liability protections.",
+   "comparison": "Directly violates AtliQ's principle that liability should be capped (around 1x) and indemnities should be mutual.",
+   "clause_id": "P19",
+   "quote": "Business Associate shall defend, indemnify and hold harmless Covered Entity... from and against any and all Losses... The obligations... are not subject to any limitation or exclusion of liability",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F04"
+  },
+  {
+   "source": "contract",
+   "topic": "termination",
+   "severity": "Serious",
+   "title": "Cross-termination of Master Services Agreement",
+   "why": "A breach of the BAA allows the client to terminate the entire Master Services Agreement, which could impact other projects.",
+   "comparison": "More aggressive than standard termination clauses.",
+   "clause_id": "P25",
+   "quote": "terminate this BAA and the Master Services Agreement if Business Associate does not cure",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F05"
+  },
+  {
+   "source": "contract",
+   "topic": "amendment",
+   "severity": "Serious",
+   "title": "Unilateral amendment right",
+   "why": "Allows the client to unilaterally change contract terms without AtliQ's consent.",
+   "comparison": "Deviates from standard bilateral amendment processes.",
+   "clause_id": "P26",
+   "quote": "Covered Entity may amend this BAA by written notice to the extent required to comply with HIPAA.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F06"
+  },
+  {
+   "source": "rule",
+   "topic": "documents",
+   "severity": "Negotiable",
+   "title": "The services contract is not signed yet: C-023 (In review)",
+   "why": "The deal is a bundle of documents that have to agree with each other and be in place together.",
+   "comparison": "Healthcare deals need an NDA, a BAA and the services contract; European work with personal data needs a DPA.",
+   "clause_id": null,
+   "quote": null,
+   "verified": true,
+   "unsure": false,
+   "absence": true,
+   "id": "F07"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Strict 24-hour privacy event notice and mitigation costs",
+   "why": "Imposes a very tight 24-hour reporting window and full mitigation costs, increasing operational and financial exposure.",
+   "comparison": "Standard BAAs vary, but 24 hours is exceptionally strict compared to typical commercial notice periods.",
+   "clause_id": "P15",
+   "quote": "Business Associate shall notify Covered Entity's Privacy Officer by telephone and in writing of any Privacy Event within twenty-four (24) hours of discovery... Business Associate shall promptly mitigate, at its own expense",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F08"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Unpaid litigation support obligation",
+   "why": "Requires AtliQ to provide personnel for litigation support at zero cost, creating potential uncompensated resource drains.",
+   "comparison": "Not standard in baseline principles; usually requires compensation for time spent in third-party litigation.",
+   "clause_id": "P17",
+   "quote": "Business Associate shall make itself and its workforce reasonably available to Covered Entity, at no cost, to testify in any litigation or administrative proceeding",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F09"
+  },
+  {
+   "source": "register",
+   "topic": "data_location",
+   "severity": "Minor",
+   "title": "Expired restriction: CareBridge Clinics (Accessing PHI outside the United States)",
+   "why": "Commitment restricts accessing PHI outside the United States, which conflicts with PHI creation/maintenance that may involve cross\u2011border data.",
+   "comparison": "Only de-identified data offshore; subcontractors need a matching BAA.",
+   "clause_id": "3.2",
+   "quote": "No PHI shall be accessed, stored or processed outside the United States.",
+   "verified": true,
+   "unsure": false,
+   "register_id": "R-10",
+   "register_status": "expired",
+   "register_end": "2026-10-05",
+   "register_file": "samples/signed/2025-10-06_carebridge_clinics_baa.md",
+   "register_counterparty": "CareBridge Clinics",
+   "exception": "Personnel outside the United States may access de-identified data only, inside an approved environment. Subcontractors need a matching BAA (clause 6.1).",
+   "relevance": "likely",
+   "id": "F10"
+  },
+  {
+   "source": "contract",
+   "topic": "ip",
+   "severity": "Minor",
+   "title": "Restriction on AI model training",
+   "why": "Limits AtliQ's ability to use data for general model improvement or internal R&D.",
+   "comparison": "Standard for BAA, but restricts general IP development.",
+   "clause_id": "P23",
+   "quote": "Business Associate shall not use PHI, or any data derived from PHI, to train, tune or evaluate any machine learning or artificial intelligence model other than models developed exclusively for Covered Entity",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F11"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Minor",
+   "title": "Injunctive relief without bond",
+   "why": "Removes a standard financial safeguard for AtliQ if the client seeks an injunction.",
+   "comparison": "Common in high-stakes healthcare contracts but unfavorable.",
+   "clause_id": "P26",
+   "quote": "Covered Entity shall be entitled to seek injunctive relief without posting bond.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F12"
+  }
+ ],
+ "seconds": 57.2
+}

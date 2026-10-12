@@ -66,10 +66,18 @@ class Liability(unittest.TestCase):
 class Dates(unittest.TestCase):
     def test_term_plus_months(self):
         d = {'effective_date': '2026-11-01', 'term_months': 12}
-        self.assertEqual(core.compute_end(d, {'duration_basis': 'term_plus_months', 'months_after_term': 6}), '2028-05-01')
+        self.assertEqual(core.compute_end(d, {'duration_basis': 'term_plus_months', 'months_after_term': 6}), '2028-04-30')
 
     def test_term_only(self):
-        self.assertEqual(core.compute_end({'effective_date': '2025-03-15', 'term_months': 36}, {'duration_basis': 'term'}), '2028-03-15')
+        self.assertEqual(core.compute_end({'effective_date': '2025-03-15', 'term_months': 36}, {'duration_basis': 'term'}), '2028-03-14')
+
+    def test_al_noor_convention(self):
+        # term to 14 Mar 2028 plus 18 months, as in the register: 14 Sep 2029
+        self.assertEqual(core.compute_end({'effective_date': '2025-03-15', 'term_months': 36}, {'duration_basis': 'term_plus_months', 'months_after_term': 18}), '2029-09-14')
+
+    def test_month_end_clamping(self):
+        self.assertEqual(core.compute_end({'effective_date': '2026-01-31', 'term_months': 1}, {'duration_basis': 'term'}), '2026-02-28')
+        self.assertEqual(core.compute_end({'effective_date': '2024-02-29', 'term_months': 12}, {'duration_basis': 'term'}), '2025-02-28')
 
     def test_perpetual_has_no_end(self):
         self.assertIsNone(core.compute_end({'effective_date': '2025-03-15', 'term_months': 36}, {'duration_basis': 'perpetual'}))
@@ -171,6 +179,13 @@ class Segmentation(unittest.TestCase):
                 for b in batches:
                     self.assertLessEqual(len(b), 16, fn)
 
+    def test_unnumbered_paragraph_under_a_heading_is_kept_not_dropped(self):
+        t = ('## 1. SERVICES\n\n1.1 Vendor shall provide analytics services to the client under this agreement.\n1.2 Fees are payable monthly in arrears.\n\n'
+             '## 2. TERM\n\n2.1 Twelve months from the effective date of this agreement.\n2.2 Renews annually unless notice is given.\n\n'
+             '## 3. MISC\n\nThis paragraph has no clause number but it is part of the agreement and must be reviewed.\n3.1 Entire agreement clause.\n')
+        ids = [c['id'] for c in core.segment(t)]
+        self.assertIn('3.p1', ids)
+
     def test_empty_text_does_not_crash(self):
         self.assertEqual(core.segment(''), [])
 
@@ -188,9 +203,14 @@ class Register(unittest.TestCase):
         self.assertTrue(any(core.reg_status(r) == 'expired' for r in core.register()))
 
     def test_hospitality_gcc_deal_matches_al_noor_strongly(self):
-        d = {'client_country': 'United Arab Emirates', 'regions_of_service': ['UAE'], 'services_summary': 'revenue management for hotels'}
+        d = {'client_country': 'United Arab Emirates', 'regions_of_service': ['UAE'], 'services_summary': 'revenue management for hotels', 'client_industry': 'hospitality'}
         m = {k['register_id']: k for k in core.keyword_conflicts(d, 'resort hotel revenue management services in Dubai')}
         self.assertEqual(m['R-01']['relevance'], 'likely')
+
+    def test_travel_app_in_the_gulf_is_only_possible(self):
+        d = {'client_country': 'United Arab Emirates', 'regions_of_service': ['UAE'], 'services_summary': 'hotel ranking module for a travel app', 'client_industry': 'travel'}
+        m = {k['register_id']: k for k in core.keyword_conflicts(d, 'partner hotel ranking for a consumer travel app in Dubai')}
+        self.assertEqual(m['R-01']['relevance'], 'possible')
 
     def test_food_company_in_iowa_does_not_match_al_noor(self):
         d = {'client_country': 'United States', 'regions_of_service': [], 'services_summary': 'demand forecasting', 'client_industry': 'hospitality'}

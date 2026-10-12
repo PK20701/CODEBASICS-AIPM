@@ -52,8 +52,9 @@ class H(BaseHTTPRequestHandler):
         try:
             body = json.loads(self.rfile.read(n) or b'{}')
         except Exception:
-            body = {}
-        code, out = review.handle(body)
+            body = None
+        headers = {k.lower(): v for k, v in self.headers.items()}
+        code, out = review.handle(body, review.client_ip(headers, self.client_address[0]), headers, n)
         data = json.dumps(out).encode('utf-8')
         self.send_response(code)
         self.send_header('Content-Type', 'application/json')

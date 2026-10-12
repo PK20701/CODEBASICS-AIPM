@@ -1,9 +1,9 @@
 {
  "id": "S06",
  "label": "S06 Sterling Care (health data, no BAA, $5M cyber)",
- "seconds": 6.3,
- "findings": 2,
- "serious": 2,
+ "seconds": 3.6,
+ "findings": 3,
+ "serious": 3,
  "must": 2,
  "found": 2,
  "missed": [],
@@ -12,21 +12,22 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4483,
- "tokens_out": 1102,
+ "tokens_in": 4903,
+ "tokens_out": 1014,
  "clauses": "14/14",
  "liability": "1.0x annual fee",
  "details": {
   "doc_type": "MSA",
   "title": "Master Services Agreement",
   "counterparty": "Sterling Care Network Inc.",
-  "client_country": "USA",
+  "client_country": "United States",
   "client_industry": "healthcare",
   "atliq_entity": "Inc",
+  "atliq_role": "supplier",
   "effective_date": null,
   "term_months": 18,
   "end_date": null,
-  "governing_law": "State of Texas",
+  "governing_law": "the laws of the State of Texas",
   "courts_or_seat": null,
   "governing_law_source": {
    "clause_id": "8.1",
@@ -39,11 +40,11 @@
   },
   "currency": "USD",
   "total_value": 270000.0,
-  "annual_fee": 180000.0,
+  "annual_fee": null,
   "payment_days": 30,
   "services_summary": "Data engineering and analytics services to improve patient scheduling and clinic utilisation.",
   "regions_of_service": [
-   "USA"
+   "United States"
   ],
   "liability_cap": {
    "kind": "multiple_of_fees",
@@ -88,6 +89,11 @@
    "Serious",
    "rule",
    "Cyber insurance of $5,000,000 required; AtliQ holds $1M"
+  ],
+  [
+   "Serious",
+   "contract",
+   "High Cyber Insurance Requirement"
   ]
  ],
  "all_findings": [
@@ -118,6 +124,20 @@
    "unsure": false,
    "absence": false,
    "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Serious",
+   "title": "High Cyber Insurance Requirement",
+   "why": "A $5M policy is unusually high for a $270k contract and adds significant operational cost.",
+   "comparison": "Exceeds standard requirements seen in past AtliQ contracts.",
+   "clause_id": "3.2",
+   "quote": "Vendor shall maintain, throughout the term, cyber liability insurance of not less than USD 5,000,000 per claim.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F03"
   }
  ]
 }

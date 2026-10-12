@@ -1,7 +1,7 @@
 {
  "id": "S03",
  "label": "S03 Maple Street Bakery ($500k cap on $24k)",
- "seconds": 3.8,
+ "seconds": 3.3,
  "findings": 1,
  "serious": 1,
  "must": 1,
@@ -12,27 +12,28 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4362,
- "tokens_out": 1000,
+ "tokens_in": 4771,
+ "tokens_out": 967,
  "clauses": "13/13",
  "liability": "20.8x annual fee",
  "details": {
-  "doc_type": "SOW",
+  "doc_type": "Other",
   "title": "SERVICES AGREEMENT",
   "counterparty": "Maple Street Bakery Inc.",
   "client_country": "United States",
-  "client_industry": "hospitality",
+  "client_industry": "retail",
   "atliq_entity": "Inc",
+  "atliq_role": "supplier",
   "effective_date": null,
   "term_months": 12,
   "end_date": null,
-  "governing_law": "laws of the Commonwealth of Pennsylvania",
+  "governing_law": "Commonwealth of Pennsylvania",
   "courts_or_seat": null,
   "governing_law_source": {
    "clause_id": "7.1",
    "quote": "This Agreement is governed by the laws of the Commonwealth of Pennsylvania."
   },
-  "parties_quote": "Maple Street Bakery Inc., a Pennsylvania corporation having its principal office at 18 Maple Street, Lancaster, Pennsylvania 17602 (\"Client\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "parties_quote": "Maple Street Bakery Inc., a Pennsylvania corporation having its principal office at 18 Maple Street, Lancaster, Pennsylvania 17602 (\"Client\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
   "payment_source": {
    "clause_id": "2.2",
    "quote": "Client shall pay each invoice within thirty (30) days of receipt."

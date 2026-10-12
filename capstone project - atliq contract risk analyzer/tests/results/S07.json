@@ -1,7 +1,7 @@
 {
  "id": "S07",
  "label": "S07 Marina Bay Resorts (Dubai, collides with Al Noor)",
- "seconds": 4.0,
+ "seconds": 16.5,
  "findings": 2,
  "serious": 2,
  "must": 1,
@@ -12,8 +12,8 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4472,
- "tokens_out": 1169,
+ "tokens_in": 4888,
+ "tokens_out": 1351,
  "clauses": "13/13",
  "liability": "1.0x annual fee",
  "details": {
@@ -23,6 +23,7 @@
   "client_country": "United Arab Emirates",
   "client_industry": "hospitality",
   "atliq_entity": "Pvt Ltd",
+  "atliq_role": "supplier",
   "effective_date": "2026-11-01",
   "term_months": 12,
   "end_date": "2027-10-31",
@@ -32,7 +33,7 @@
    "clause_id": "8.1",
    "quote": "This Agreement is governed by the laws of India and the courts of Pune have exclusive jurisdiction."
   },
-  "parties_quote": "Marina Bay Resorts LLC, a company incorporated in Dubai, United Arab Emirates, having its registered office at Sheikh Zayed Road, Dubai (\"Marina Bay\"); and AtliQ Technologies Private Limited, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
+  "parties_quote": "This Master Services Agreement (the \"Agreement\") is made as of 1 November 2026 (the \"Effective Date\") between: Marina Bay Resorts LLC, a company incorporated in Dubai, United Arab Emirates, having its registered office at Sheikh Zayed Road, Dubai (\"Marina Bay\"); and AtliQ Technologies Private Limited, a company incorporated under the Companies Act, 2013 having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (\"Vendor\").",
   "payment_source": {
    "clause_id": "2.1",
    "quote": "Marina Bay shall pay USD 150,000 in total, within thirty (30) days of receipt of each invoice."
@@ -41,7 +42,7 @@
   "total_value": 150000.0,
   "annual_fee": 150000.0,
   "payment_days": 30,
-  "services_summary": "Revenue-management analytics, guest analytics services, and a booking-engine module for four resorts.",
+  "services_summary": "Revenue-management analytics and guest analytics services including a booking-engine module for Marina Bay's resorts.",
   "regions_of_service": [
    "United Arab Emirates"
   ],
@@ -95,7 +96,7 @@
   [
    "Serious",
    "contract",
-   "Post-Term Exclusivity Restriction"
+   "Geographic non-compete restriction"
   ]
  ],
  "all_findings": [
@@ -104,7 +105,7 @@
    "topic": "non_compete",
    "severity": "Serious",
    "title": "Al Noor Hospitality Group: Data analytics, AI or revenue-management services",
-   "why": "Al Noor non-compete prohibits data analytics, AI, or revenue-management services for any hospitality business in the UAE until 2029.",
+   "why": "The deal involves revenue-management and guest analytics for a hospitality business in the UAE, which directly conflicts with the non-compete scope for Al Noor Hospitality Group.",
    "comparison": "Do not take analytics, AI or revenue-management work for hotel groups in the GCC until about September 2029 without Al Noor's written consent.",
    "clause_id": "12.1",
    "quote": "the Supplier undertakes that neither it nor any of its Affiliates shall, during the Restricted Period, directly or indirectly, provide data analytics, artificial intelligence or revenue-management services to any Hospitality Business in the GCC.",
@@ -123,11 +124,11 @@
    "source": "contract",
    "topic": "exclusivity",
    "severity": "Serious",
-   "title": "Post-Term Exclusivity Restriction",
-   "why": "Restricts AtliQ from working with other clients in the UAE region for six months post-term.",
-   "comparison": "AtliQ principles avoid exclusivity commitments.",
+   "title": "Geographic non-compete restriction",
+   "why": "This restricts AtliQ's ability to serve other clients in the UAE, potentially limiting business growth in a key market.",
+   "comparison": "AtliQ's principles do not include non-competes; this is a significant deviation from standard service agreements.",
    "clause_id": "3.1",
-   "quote": "For six (6) months after the end of the term, Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates.",
+   "quote": "Vendor shall not provide revenue-management services to any other hotel group in the United Arab Emirates.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,

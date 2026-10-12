@@ -1,8 +1,8 @@
 {
  "id": "S02",
  "label": "S02 Coastal Mutual Insurance (Brightwater-type)",
- "seconds": 13.4,
- "findings": 7,
+ "seconds": 5.9,
+ "findings": 11,
  "serious": 5,
  "must": 4,
  "found": 4,
@@ -12,8 +12,8 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4614,
- "tokens_out": 1957,
+ "tokens_in": 5022,
+ "tokens_out": 2224,
  "clauses": "16/16",
  "liability": "unlimited",
  "details": {
@@ -23,25 +23,26 @@
   "client_country": "United States",
   "client_industry": "insurance",
   "atliq_entity": "Inc",
+  "atliq_role": "supplier",
   "effective_date": null,
   "term_months": 12,
   "end_date": null,
-  "governing_law": "the laws of the State of Florida",
-  "courts_or_seat": "the courts of Miami-Dade County",
+  "governing_law": "State of Florida",
+  "courts_or_seat": "courts of Miami-Dade County",
   "governing_law_source": {
    "clause_id": "9.1",
    "quote": "This Agreement is governed by the laws of the State of Florida and the courts of Miami-Dade County."
   },
-  "parties_quote": "This Agreement is made as of ____________, 2026 between:\n\n**Coastal Mutual Insurance Company**, a Florida corporation having its principal office at 800 Brickell Avenue, Miami, Florida 33131 (\"**Client**\"); and\n\n**AtliQ Inc**, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"**Vendor**\").",
+  "parties_quote": "Coastal Mutual Insurance Company, a Florida corporation having its principal office at 800 Brickell Avenue, Miami, Florida 33131 (\"Client\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
   "payment_source": {
    "clause_id": "2.2",
    "quote": "Client shall pay each invoice within sixty (60) days of the invoice date."
   },
   "currency": "USD",
   "total_value": 120000.0,
-  "annual_fee": null,
+  "annual_fee": 120000.0,
   "payment_days": 60,
-  "services_summary": "Design and build a claims analytics platform for Client in three milestones.",
+  "services_summary": "Design and build a claims analytics platform in three milestones.",
   "regions_of_service": [
    "United States"
   ],
@@ -49,14 +50,14 @@
    "kind": "unlimited",
    "multiple": null,
    "amount": null,
-   "basis": "Vendor's liability under this Agreement is unlimited.",
+   "basis": "Vendor's liability under this Agreement is unlimited. Client's liability is limited to the fees payable under this Agreement.",
    "clause_id": "6.1",
    "quote": "Vendor's liability under this Agreement is unlimited. Client's liability is limited to the fees payable under this Agreement."
   },
   "delay_penalty": {
    "present": true,
    "per": "week",
-   "rate_percent": 2,
+   "rate_percent": 2.0,
    "capped": null,
    "excludes_client_delay": false,
    "clause_id": "3.1",
@@ -69,7 +70,20 @@
   "mentions_baa_or_dpa": null,
   "insurance_requirements": [],
   "rates": [],
-  "restrictive_covenants": []
+  "restrictive_covenants": [
+   {
+    "type": "ip_assignment",
+    "who_is_bound": "AtliQ",
+    "summary": "All work product including pre-existing tools incorporated in it is owned by Client on creation.",
+    "restricted_activity": "Pre-existing tools incorporated in work product are owned by Client on creation.",
+    "customers": null,
+    "geography": [],
+    "clause_id": "4.1",
+    "quote": "All work product, including Vendor's pre-existing tools incorporated in it, is owned by Client on creation.",
+    "duration_basis": "perpetual",
+    "months_after_term": null
+   }
+  ]
  },
  "titles": [
   [
@@ -85,17 +99,17 @@
   [
    "Serious",
    "contract",
-   "Client acquires AtliQ pre-existing tools"
+   "Client Owns Pre-Existing Tools"
   ],
   [
    "Serious",
    "contract",
-   "One-sided indemnity covers client negligence"
+   "Indemnity Covers Client Negligence"
   ],
   [
    "Serious",
    "contract",
-   "Termination for convenience without work-in-progress payment"
+   "No Payment for Work in Progress on Termination"
   ],
   [
    "Negotiable",
@@ -105,7 +119,27 @@
   [
    "Negotiable",
    "contract",
-   "Restrictive termination right for AtliQ"
+   "Restricted Vendor Termination Rights"
+  ],
+  [
+   "Minor",
+   "register",
+   "Acme Retail Group: Soliciting the other party's employees involved in the Services"
+  ],
+  [
+   "Minor",
+   "register",
+   "PayTrack Technologies: Soliciting the other party's employees engaged in the Services"
+  ],
+  [
+   "Minor",
+   "register",
+   "Northwind Logistics: Soliciting the other party's employees engaged in the Services"
+  ],
+  [
+   "Minor",
+   "register",
+   "Sunrise Foods: Soliciting the other party's employees engaged in the Services"
   ]
  ],
  "all_findings": [
@@ -141,9 +175,9 @@
    "source": "contract",
    "topic": "ip",
    "severity": "Serious",
-   "title": "Client acquires AtliQ pre-existing tools",
-   "why": "AtliQ loses ownership of its reusable pre-existing background tools.",
-   "comparison": "Northwind is the only past exception; standard is AtliQ keeps tools.",
+   "title": "Client Owns Pre-Existing Tools",
+   "why": "AtliQ loses ownership of its proprietary pre-existing tools.",
+   "comparison": "Northwind is the only past exception; standard practice is AtliQ retains tools.",
    "clause_id": "4.1",
    "quote": "All work product, including Vendor's pre-existing tools incorporated in it, is owned by Client on creation.",
    "claimed_quote": null,
@@ -155,11 +189,11 @@
    "source": "contract",
    "topic": "indemnity",
    "severity": "Serious",
-   "title": "One-sided indemnity covers client negligence",
-   "why": "Makes AtliQ cover damages caused by the client's own fault.",
-   "comparison": "Principles require mutual indemnity and exclude covering client negligence.",
+   "title": "Indemnity Covers Client Negligence",
+   "why": "AtliQ takes on liability for the client's own negligent acts.",
+   "comparison": "Violates principle that AtliQ does not cover the other side's negligence.",
    "clause_id": "5.1",
-   "quote": "Vendor shall indemnify, defend and hold harmless Client from all claims, losses and costs arising from the Services or this Agreement, including claims arising from Client's own negligence.",
+   "quote": "including claims arising from Client's own negligence.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,
@@ -169,9 +203,9 @@
    "source": "contract",
    "topic": "termination",
    "severity": "Serious",
-   "title": "Termination for convenience without work-in-progress payment",
-   "why": "AtliQ performs uncompensated work if terminated for convenience.",
-   "comparison": "Principles state AtliQ must be paid for work done on termination.",
+   "title": "No Payment for Work in Progress on Termination",
+   "why": "AtliQ could perform work and receive nothing if terminated for convenience.",
+   "comparison": "Violates principle that AtliQ is paid for work done on termination.",
    "clause_id": "8.1",
    "quote": "Client may terminate at any time for convenience without payment for work in progress.",
    "claimed_quote": null,
@@ -197,15 +231,95 @@
    "source": "contract",
    "topic": "termination",
    "severity": "Negotiable",
-   "title": "Restrictive termination right for AtliQ",
-   "why": "Denies AtliQ standard exit rights for other material client breaches.",
-   "comparison": "Unusual restriction compared to standard commercial agreements.",
+   "title": "Restricted Vendor Termination Rights",
+   "why": "Deprives AtliQ of standard termination rights for material breach.",
+   "comparison": "Unusual restriction compared to standard commercial terms.",
    "clause_id": "8.2",
    "quote": "Vendor may terminate only for Client's non-payment continuing for ninety (90) days.",
    "claimed_quote": null,
    "verified": true,
    "unsure": false,
    "id": "F07"
+  },
+  {
+   "source": "register",
+   "topic": "non_solicit",
+   "severity": "Minor",
+   "title": "Acme Retail Group: Soliciting the other party's employees involved in the Services",
+   "why": "Non-solicit obligation regarding Acme staff worldwide, depending on employee deployment for the new services.",
+   "comparison": "Mutual non-solicit, low impact.",
+   "clause_id": "14.1",
+   "quote": "During the term and for six (6) months thereafter, neither Party shall solicit any employee of the other Party who was involved in the Services.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-11",
+   "register_status": "active",
+   "register_end": "2027-09-09",
+   "register_file": "samples/signed/2025-03-10_acme_retail_group_msa.md",
+   "register_counterparty": "Acme Retail Group",
+   "exception": "Mutual.",
+   "relevance": "possible",
+   "id": "F08"
+  },
+  {
+   "source": "register",
+   "topic": "non_solicit",
+   "severity": "Minor",
+   "title": "PayTrack Technologies: Soliciting the other party's employees engaged in the Services",
+   "why": "Non-solicit obligation regarding PayTrack staff worldwide, depending on employee deployment for the new services.",
+   "comparison": "Mutual non-solicit, low impact.",
+   "clause_id": "13.1",
+   "quote": "Neither Party shall solicit for employment the other Party's employees engaged in the Services during the term and for twelve (12) months thereafter.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-12",
+   "register_status": "active",
+   "register_end": "2028-01-21",
+   "register_file": "samples/signed/2025-01-22_paytrack_technologies_msa.md",
+   "register_counterparty": "PayTrack Technologies",
+   "exception": "Mutual.",
+   "relevance": "possible",
+   "id": "F09"
+  },
+  {
+   "source": "register",
+   "topic": "non_solicit",
+   "severity": "Minor",
+   "title": "Northwind Logistics: Soliciting the other party's employees engaged in the Services",
+   "why": "Non-solicit obligation regarding Northwind staff worldwide, depending on employee deployment for the new services.",
+   "comparison": "Mutual non-solicit, low impact.",
+   "clause_id": "8.2",
+   "quote": "Neither party shall, during the term and for six (6) months afterwards, solicit any employee of the other party engaged in the Services.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-13",
+   "register_status": "active",
+   "register_end": "2028-12-19",
+   "register_file": "samples/signed/2025-06-20_northwind_logistics_msa.md",
+   "register_counterparty": "Northwind Logistics",
+   "exception": "Mutual.",
+   "relevance": "possible",
+   "id": "F10"
+  },
+  {
+   "source": "register",
+   "topic": "non_solicit",
+   "severity": "Minor",
+   "title": "Sunrise Foods: Soliciting the other party's employees engaged in the Services",
+   "why": "Non-solicit obligation regarding Sunrise staff worldwide, depending on employee deployment for the new services.",
+   "comparison": "Mutual non-solicit, low impact.",
+   "clause_id": "15.1",
+   "quote": "Neither Party shall solicit the employees of the other Party engaged in the Services during the term of the relevant SOW and six (6) months thereafter.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-14",
+   "register_status": "active",
+   "register_end": "2028-10-17",
+   "register_file": "samples/signed/2025-04-18_sunrise_foods_msa.md",
+   "register_counterparty": "Sunrise Foods",
+   "exception": "Mutual.",
+   "relevance": "possible",
+   "id": "F11"
   }
  ]
 }

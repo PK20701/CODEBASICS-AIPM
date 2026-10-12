@@ -1,0 +1,178 @@
+{
+ "file": "incoming/2026-09-23_rheinwerk_analytics_services_agreement_draft.md",
+ "details": {
+  "doc_type": "SOW",
+  "title": "SERVICES AGREEMENT (Rheinwerk Insight pipeline)",
+  "counterparty": "Rheinwerk Analytics GmbH",
+  "client_country": "Germany",
+  "client_industry": "software",
+  "atliq_entity": "Pvt Ltd",
+  "atliq_role": "supplier",
+  "effective_date": null,
+  "term_months": null,
+  "end_date": null,
+  "governing_law": "laws of the Federal Republic of Germany",
+  "courts_or_seat": "Munich, Germany",
+  "governing_law_source": {
+   "clause_id": "14.1 & 14.2",
+   "quote": "This Agreement shall be governed by the laws of the Federal Republic of Germany, excluding the UN Convention on Contracts for the International Sale of Goods (CISG).\n14.2 The exclusive place of jurisdiction for all disputes arising out of or in connection with this Agreement shall be Munich, Germany."
+  },
+  "parties_quote": "between\n\nRheinwerk Analytics GmbH, Leopoldstra\u00dfe 184, 80804 M\u00fcnchen, Germany, registered in the commercial register of the Local Court (Amtsgericht) of Munich under HRB 241873, VAT ID DE318442907, represented by its Managing Director (Gesch\u00e4ftsf\u00fchrer), Mr. Stefan Brandt\n\u2014 hereinafter \"Client\" \u2014\n\nand\n\nAtliQ Technologies Pvt Ltd, 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India, CIN U72900MH2019PTC321456, represented by its Director\n\u2014 hereinafter \"Supplier\" \u2014",
+  "payment_source": {
+   "clause_id": "4.2",
+   "quote": "Supplier shall invoice each Milestone Fee after acceptance of the relevant Milestone. Invoices are payable within thirty (30) days of receipt without deduction."
+  },
+  "currency": "EUR",
+  "total_value": 88000.0,
+  "annual_fee": null,
+  "payment_days": 30,
+  "services_summary": "Design and implement a streaming data ingestion and medallion-architecture data lakehouse for Client's platform, migrating 22 batch jobs and knowledge transfer.",
+  "regions_of_service": [
+   "Germany"
+  ],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 1.0,
+   "amount": 88000,
+   "basis": "total remuneration under this Agreement",
+   "clause_id": "9.2",
+   "quote": "In the case of slightly negligent breach of a material contractual obligation (Kardinalpflicht), liability shall be limited to the foreseeable damage typical for this type of contract, and in any event to the total remuneration under this Agreement."
+  },
+  "delay_penalty": {
+   "present": true,
+   "per": "week",
+   "rate_percent": 0.5,
+   "capped": true,
+   "excludes_client_delay": true,
+   "clause_id": "8.2",
+   "quote": "If Supplier is in default with a Milestone for reasons for which it is responsible, Client may claim a contractual penalty (Vertragsstrafe) of 0.5% of the Milestone Fee of the affected Milestone for each full week of delay, up to a maximum of 5% of that Milestone Fee."
+  },
+  "mutual_confidentiality": true,
+  "one_sided_note": null,
+  "handles_phi": false,
+  "handles_eu_personal_data": true,
+  "mentions_baa_or_dpa": "The Parties shall conclude the Data Processing Agreement pursuant to Art. 28 GDPR attached as Annex 3, which forms an integral part of this Agreement.",
+  "insurance_requirements": [],
+  "rates": [],
+  "restrictive_covenants": [
+   {
+    "type": "ip_assignment",
+    "who_is_bound": "AtliQ",
+    "summary": "Supplier grants Client a perpetual, irrevocable, non-exclusive, worldwide, royalty-free right to use, reproduce, modify and operate PipeKit as incorporated in the Work Results.",
+    "restricted_activity": "granting of perpetual, irrevocable, worldwide, royalty-free license to PipeKit",
+    "customers": "Client and its customers/affiliates",
+    "geography": [
+     "worldwide"
+    ],
+    "clause_id": "6.2",
+    "quote": "Supplier hereby grants Client a perpetual, irrevocable, non-exclusive, worldwide, royalty-free right to use, reproduce, modify and operate PipeKit as incorporated in the Work Results, for the purposes of operating, maintaining and further developing the Platform, including for the benefit of Client's customers.",
+    "duration_basis": "perpetual",
+    "months_after_term": null
+   }
+  ]
+ },
+ "quality": {
+  "level": "good",
+  "count": 0,
+  "examples": []
+ },
+ "findings": [
+  {
+   "source": "register",
+   "topic": "ip_assignment",
+   "severity": "Serious",
+   "title": "Northwind Logistics: Reusing tools or frameworks (including the PipeKit accelerator) built into Northwind's deliverables",
+   "why": "IP assignment restriction regarding reusing the 'PipeKit accelerator' built into Northwind's deliverables; new deal text hints at 'pipekit'.",
+   "comparison": "PipeKit as delivered to Northwind belongs to Northwind. Check before promising to reuse PipeKit 'like we did for Northwind'.",
+   "clause_id": "9.2",
+   "quote": "All Intellectual Property Rights in the Deliverables, including any software, tools, frameworks, libraries and pre-existing materials incorporated into the Deliverables, shall vest in the Client absolutely upon payment of the Charges for the relevant Milestone.",
+   "verified": true,
+   "unsure": false,
+   "register_id": "R-06",
+   "register_status": "active",
+   "register_end": null,
+   "register_file": "samples/signed/2025-06-20_northwind_logistics_msa.md",
+   "register_counterparty": "Northwind Logistics",
+   "exception": "SOW-1 builds the pipeline with AtliQ's proprietary PipeKit accelerator, which is incorporated into the deliverable, so rights in that PipeKit configuration pass to Northwind on payment.",
+   "relevance": "likely",
+   "id": "F01"
+  },
+  {
+   "source": "contract",
+   "topic": "ip",
+   "severity": "Serious",
+   "title": "Perpetual and irrevocable license to AtliQ's proprietary PipeKit tool",
+   "why": "Grants a perpetual, irrevocable, worldwide license to AtliQ's core pre-existing accelerator without restrictions post-termination.",
+   "comparison": "AtliQ principles state AtliQ keeps its own pre-existing tools and licenses them appropriately.",
+   "clause_id": "6.2",
+   "quote": "Supplier hereby grants Client a perpetual, irrevocable, non-exclusive, worldwide, royalty-free right to use, reproduce, modify and operate PipeKit as incorporated in the Work Results",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F02"
+  },
+  {
+   "source": "rule",
+   "topic": "governing_law",
+   "severity": "Negotiable",
+   "title": "Indian entity under non-Indian law (laws of the Federal Republic of Germany)",
+   "why": "Disputes would be fought under foreign law and courts.",
+   "comparison": "Principle: India for AtliQ Pvt Ltd. Past exceptions (Al Noor DIFC, Northwind English law) were deliberate.",
+   "clause_id": "14.1 & 14.2",
+   "quote": "This Agreement shall be governed by the laws of the Federal Republic of Germany, excluding the UN Convention on Contracts for the International Sale of Goods (CISG).\n14.2 The exclusive place of jurisdiction for all disputes arising out of or in connection with this Agreement shall be Munich, Germany.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F03"
+  },
+  {
+   "source": "rule",
+   "topic": "documents",
+   "severity": "Negotiable",
+   "title": "No data processing agreement on record for this party in the tracker",
+   "why": "Personal data needs a signed data processing agreement before it is shared.",
+   "comparison": "Healthcare deals need an NDA, a BAA and the services contract; European work with personal data needs a DPA.",
+   "clause_id": null,
+   "quote": null,
+   "verified": true,
+   "unsure": false,
+   "absence": true,
+   "id": "F04"
+  },
+  {
+   "source": "register",
+   "topic": "exclusivity",
+   "severity": "Negotiable",
+   "title": "CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competing cloud data-warehouse, lakehouse or analytics platform",
+   "why": "Exclusivity against acting as partner for competing lakehouse platforms; the new deal involves a lakehouse architecture, though geography is Germany (outside Middle East/India scope).",
+   "comparison": "Do not partner with another cloud data-warehouse or lakehouse vendor in India or the GCC while the CloudSpan agreement runs.",
+   "clause_id": "7.1",
+   "quote": "during the Term Partner and its Affiliates shall not act as an implementation, reseller or referral partner for any Competing Platform in India or the GCC.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-03",
+   "register_status": "active",
+   "register_end": "2028-08-31",
+   "register_file": "samples/signed/2025-09-01_cloudspan_strategic_partnership_agreement.md",
+   "register_counterparty": "CloudSpan Technologies",
+   "exception": "Clause 7.3: does not restrict services outside India and the GCC, or to a customer that independently selected a platform, provided AtliQ holds no partner appointment with, and receives no fee from, that platform's provider.",
+   "relevance": "possible",
+   "id": "F05"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Subcontracting Requires Prior Written Consent",
+   "why": "Restricts AtliQ's operational flexibility to use subcontractors or contingent workers as needed.",
+   "comparison": "Not explicitly addressed in standard benchmarks, but restricts delivery flexibility.",
+   "clause_id": "15.3",
+   "quote": "Supplier may subcontract parts of the services only with Client's prior written consent.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F06"
+  }
+ ],
+ "seconds": 8.1
+}

@@ -1,0 +1,334 @@
+{
+ "file": "incoming/2026-09-27_marcus_reed_contractor_agreement_draft.md",
+ "details": {
+  "doc_type": "Other",
+  "title": "Independent Contractor Agreement",
+  "counterparty": "Marcus Reed",
+  "client_country": "United States",
+  "client_industry": "retail",
+  "atliq_entity": "Pvt Ltd",
+  "atliq_role": "buyer",
+  "effective_date": null,
+  "term_months": 6,
+  "end_date": null,
+  "governing_law": "laws of India",
+  "courts_or_seat": "The courts at Pune, Maharashtra",
+  "governing_law_source": {
+   "clause_id": "11.1 and 11.2",
+   "quote": "11.1 This Agreement is governed by the laws of India.\n11.2 The courts at Pune, Maharashtra shall have exclusive jurisdiction."
+  },
+  "parties_quote": "AtliQ Technologies Pvt Ltd, a company incorporated under the Companies Act, 2013, CIN U72900MH2019PTC321456, GSTIN 27AAKCA4821F1Z3, having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (the \"Company\"); and\n\nMarcus Reed, an individual residing at 1847 West Roscoe Street, Apt 3B, Chicago, Illinois 60657, USA, PAN: ____________ (the \"Contractor\").",
+  "payment_source": {
+   "clause_id": "4.3",
+   "quote": "Payment shall be made within sixty (60) days after the date of timesheet approval."
+  },
+  "currency": "USD",
+  "total_value": null,
+  "annual_fee": null,
+  "payment_days": 60,
+  "services_summary": "Data engineering for a US retail analytics client including cloud lakehouse migration, ingestion pipelines, and support for the semantic layer.",
+  "regions_of_service": [
+   "United States"
+  ],
+  "liability_cap": {
+   "kind": "multiple_of_fees",
+   "multiple": 3,
+   "amount": null,
+   "basis": "fees payable for the preceding three (3) months",
+   "clause_id": "10.2",
+   "quote": "The Company's liability to the Contractor shall not exceed the fees payable for the preceding three (3) months."
+  },
+  "delay_penalty": {
+   "present": false,
+   "per": "none",
+   "rate_percent": null,
+   "capped": null,
+   "excludes_client_delay": null,
+   "clause_id": null,
+   "quote": null
+  },
+  "mutual_confidentiality": false,
+  "one_sided_note": "Confidentiality clause 7.1 binds the contractor only.",
+  "handles_phi": false,
+  "handles_eu_personal_data": false,
+  "mentions_baa_or_dpa": null,
+  "insurance_requirements": [],
+  "rates": [
+   {
+    "role": "Contractor",
+    "rate": 58,
+    "currency": "USD",
+    "unit": "hour",
+    "clause_id": "Engagement Schedule"
+   }
+  ],
+  "restrictive_covenants": [
+   {
+    "type": "exclusivity",
+    "who_is_bound": "AtliQ",
+    "summary": "Contractor must devote professional working time exclusively to AtliQ during the term.",
+    "restricted_activity": "provide services to, or be engaged or employed by, any other person, firm or company",
+    "customers": "any other person, firm or company",
+    "geography": [
+     "worldwide"
+    ],
+    "clause_id": "3.1",
+    "quote": "During the term of this Agreement, the Contractor shall devote his professional working time exclusively to the Company and shall not, directly or indirectly, provide services to, or be engaged or employed by, any other person, firm or company, whether paid or unpaid, without the Company's prior written consent.",
+    "duration_basis": "term",
+    "months_after_term": null
+   },
+   {
+    "type": "non_compete",
+    "who_is_bound": "AtliQ",
+    "summary": "Non-compete restricting software or data services in competition with AtliQ for 12 months post-termination.",
+    "restricted_activity": "provide any software or data services in competition with the Company",
+    "customers": "any person",
+    "geography": [
+     "anywhere in the world"
+    ],
+    "clause_id": "8.1",
+    "quote": "For a period of twelve (12) months after termination or expiry of this Agreement, the Contractor shall not, anywhere in the world, directly or indirectly, provide any software or data services to any person, whether as an employee, consultant, contractor, partner or otherwise, in competition with the Company.",
+    "duration_basis": "fixed_months",
+    "months_after_term": 12
+   },
+   {
+    "type": "non_solicit",
+    "who_is_bound": "AtliQ",
+    "summary": "Non-solicitation of company clients and employees for 12 months post-termination.",
+    "restricted_activity": "solicit or accept work from any client of the Company for whom he performed Services, or solicit any employee of the Company",
+    "customers": "any client of the Company for whom he performed Services, or any employee of the Company",
+    "geography": [
+     "worldwide"
+    ],
+    "clause_id": "8.2",
+    "quote": "For a period of twelve (12) months after termination or expiry, the Contractor shall not solicit or accept work from any client of the Company for whom he performed Services, or solicit any employee of the Company.",
+    "duration_basis": "fixed_months",
+    "months_after_term": 12
+   }
+  ]
+ },
+ "quality": {
+  "level": "good",
+  "count": 0,
+  "examples": []
+ },
+ "findings": [
+  {
+   "source": "rule",
+   "topic": "governing_law",
+   "severity": "Serious",
+   "title": "AtliQ Pvt Ltd named for a US counterparty",
+   "why": "US clients contract with AtliQ Inc. The draft looks like a template for another country.",
+   "comparison": "Entity sheet: AtliQ Inc serves the United States only.",
+   "clause_id": "Parties",
+   "quote": "AtliQ Technologies Pvt Ltd, a company incorporated under the Companies Act, 2013, CIN U72900MH2019PTC321456, GSTIN 27AAKCA4821F1Z3, having its registered office at 4th Floor, Baner Business Bay, Pune 411045, Maharashtra, India (the \"Company\"); and\n\nMarcus Reed, an individual residing at 1847 West Roscoe Street, Apt 3B, Chicago, Illinois 60657, USA, PAN: ____________ (the \"Contractor\").",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F01"
+  },
+  {
+   "source": "contract",
+   "topic": "exclusivity",
+   "severity": "Serious",
+   "title": "Strict exclusivity restriction",
+   "why": "Restricts other work completely, which harms Marcus Reed's earning potential outside AtliQ.",
+   "comparison": "AtliQ principles advise against exclusivity promises.",
+   "clause_id": "3.1",
+   "quote": "devote his professional working time exclusively to the Company and shall not, directly or indirectly, provide services to... any other person",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F02"
+  },
+  {
+   "source": "contract",
+   "topic": "ip",
+   "severity": "Serious",
+   "title": "Immediate IP assignment without tool carve-out",
+   "why": "May capture pre-existing tools belonging to the contractor without a clear license back.",
+   "comparison": "Principles state AtliQ keeps its pre-existing tools; should apply reciprocally.",
+   "clause_id": "6.1",
+   "quote": "All work product, code, pipelines, documentation, reports and other materials created by the Contractor... shall vest in the Company upon creation.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F03"
+  },
+  {
+   "source": "contract",
+   "topic": "ip",
+   "severity": "Serious",
+   "title": "Assignment of all IP without protecting pre-existing tools",
+   "why": "Harms the other party by failing to carve out pre-existing tools and background IP used in the services.",
+   "comparison": "AtliQ principles require keeping pre-existing tools and licensing them.",
+   "clause_id": "6.2",
+   "quote": "The Contractor hereby assigns to the Company all present and future right, title and interest in the Work Product, including all intellectual property rights",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F04"
+  },
+  {
+   "source": "contract",
+   "topic": "non_compete",
+   "severity": "Serious",
+   "title": "Overly broad worldwide non-compete clause",
+   "why": "Harms the other party by restricting them from providing software services anywhere globally for 12 months.",
+   "comparison": "Exceeds standard terms; creates risk of clashing with existing promises.",
+   "clause_id": "8.1",
+   "quote": "the Contractor shall not, anywhere in the world, directly or indirectly, provide any software or data services to any person",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F05"
+  },
+  {
+   "source": "rule",
+   "topic": "liability",
+   "severity": "Negotiable",
+   "title": "Unfair to the other side: liability cap is 3.0x annual fee",
+   "why": "AtliQ's own paper puts this on the other party. AtliQ rejects it as a supplier, and its stated preference is for balanced terms.",
+   "comparison": "Past contracts: 8 of 10 cap liability at about 1x fees; highest seen 2x.",
+   "clause_id": "10.2",
+   "quote": "The Company's liability to the Contractor shall not exceed the fees payable for the preceding three (3) months.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F06"
+  },
+  {
+   "source": "rule",
+   "topic": "payment",
+   "severity": "Negotiable",
+   "title": "Unfair to the other side: payment in 60 days",
+   "why": "AtliQ's own paper puts this on the other party. AtliQ rejects it as a supplier, and its stated preference is for balanced terms.",
+   "comparison": "Principle: 30 days, 45 at most.",
+   "clause_id": "4.3",
+   "quote": "Payment shall be made within sixty (60) days after the date of timesheet approval.",
+   "verified": true,
+   "unsure": false,
+   "absence": false,
+   "id": "F07"
+  },
+  {
+   "source": "register",
+   "topic": "exclusivity",
+   "severity": "Negotiable",
+   "title": "CloudSpan Technologies: Acting as implementation, reseller or referral partner for any competing cloud data-warehouse, lakehouse or analytics platform",
+   "why": "CloudSpan exclusivity relates to competing lakehouse platforms, but the geographic scope is restricted to specific Middle Eastern countries and India, whereas the new deal is in the US.",
+   "comparison": "Do not partner with another cloud data-warehouse or lakehouse vendor in India or the GCC while the CloudSpan agreement runs.",
+   "clause_id": "7.1",
+   "quote": "during the Term Partner and its Affiliates shall not act as an implementation, reseller or referral partner for any Competing Platform in India or the GCC.",
+   "verified": true,
+   "unsure": true,
+   "register_id": "R-03",
+   "register_status": "active",
+   "register_end": "2028-08-31",
+   "register_file": "samples/signed/2025-09-01_cloudspan_strategic_partnership_agreement.md",
+   "register_counterparty": "CloudSpan Technologies",
+   "exception": "Clause 7.3: does not restrict services outside India and the GCC, or to a customer that independently selected a platform, provided AtliQ holds no partner appointment with, and receives no fee from, that platform's provider.",
+   "relevance": "possible",
+   "id": "F08"
+  },
+  {
+   "source": "contract",
+   "topic": "other",
+   "severity": "Negotiable",
+   "title": "Unilateral exchange rate determination",
+   "why": "Leaves exchange rate calculation entirely to AtliQ, harming transparency for the contractor.",
+   "comparison": "Unusual unilateral discretion.",
+   "clause_id": "4.4",
+   "quote": "converted at an exchange rate determined by the Company at its discretion on the date of payment.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F09"
+  },
+  {
+   "source": "contract",
+   "topic": "confidentiality",
+   "severity": "Negotiable",
+   "title": "One-sided confidentiality obligation protecting only the company",
+   "why": "Harms the other party by imposing confidentiality obligations only on the contractor and not the company.",
+   "comparison": "AtliQ principles require confidentiality to be mutual.",
+   "clause_id": "7.1",
+   "quote": "The Contractor shall keep confidential all information relating to the Company...",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F10"
+  },
+  {
+   "source": "contract",
+   "topic": "non_compete",
+   "severity": "Negotiable",
+   "title": "Non-solicit of clients and employees",
+   "why": "Harms the other party by restricting client and employee solicitation for 12 months.",
+   "comparison": "More restrictive than standard 6-12 month general covenants.",
+   "clause_id": "8.2",
+   "quote": "the Contractor shall not solicit or accept work from any client of the Company for whom he performed Services",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F11"
+  },
+  {
+   "source": "contract",
+   "topic": "termination",
+   "severity": "Negotiable",
+   "title": "Unbalanced termination notice period favouring the company",
+   "why": "Harms the other party by allowing the company to terminate instantly with 24 hours notice.",
+   "comparison": "Unbalanced compared to the contractor's 60-day requirement.",
+   "clause_id": "9.1",
+   "quote": "The Company may terminate this Agreement at any time by giving twenty-four (24) hours' written notice",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F12"
+  },
+  {
+   "source": "contract",
+   "topic": "termination",
+   "severity": "Negotiable",
+   "title": "Payment on termination restricted to approved hours only",
+   "why": "Harms the other party by conditioning termination payments strictly on pre-approval of hours.",
+   "comparison": "Deviates from general principle of being paid for all work done.",
+   "clause_id": "9.4",
+   "quote": "On termination, the Company shall pay for approved hours up to the termination date",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F13"
+  },
+  {
+   "source": "contract",
+   "topic": "indemnity",
+   "severity": "Negotiable",
+   "title": "One-sided indemnity running only from contractor",
+   "why": "Harms the other party by providing a one-way indemnity without mutual protection.",
+   "comparison": "AtliQ principles require indemnity to be mutual.",
+   "clause_id": "10.1",
+   "quote": "The Contractor shall indemnify the Company against losses arising from the Contractor's breach",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F14"
+  },
+  {
+   "source": "contract",
+   "topic": "termination",
+   "severity": "Minor",
+   "title": "Lengthy termination notice required from contractor",
+   "why": "Harms the other party by requiring a heavy 60-day notice burden to exit the contract.",
+   "comparison": "Longer than typical 30-day termination notice.",
+   "clause_id": "9.2",
+   "quote": "The Contractor may terminate this Agreement by giving sixty (60) days' written notice to the Company.",
+   "claimed_quote": null,
+   "verified": true,
+   "unsure": false,
+   "id": "F15"
+  }
+ ],
+ "seconds": 11.8
+}

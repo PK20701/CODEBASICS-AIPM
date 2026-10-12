@@ -1,7 +1,7 @@
 {
  "id": "S11",
  "label": "S11 Coral Bay Hotels (Abu Dhabi; collides with Marina Bay once S07 is confirmed)",
- "seconds": 16.5,
+ "seconds": 3.5,
  "findings": 1,
  "serious": 1,
  "must": 1,
@@ -12,17 +12,18 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4316,
- "tokens_out": 896,
+ "tokens_in": 4727,
+ "tokens_out": 908,
  "clauses": "11/11",
  "liability": "1.0x annual fee",
  "details": {
   "doc_type": "MSA",
-  "title": "MASTER SERVICES AGREEMENT",
+  "title": "Master Services Agreement",
   "counterparty": "Coral Bay Hotels LLC",
   "client_country": "United Arab Emirates",
   "client_industry": "hospitality",
   "atliq_entity": "Pvt Ltd",
+  "atliq_role": "supplier",
   "effective_date": "2027-07-01",
   "term_months": 12,
   "end_date": "2028-06-30",
@@ -41,7 +42,7 @@
   "total_value": 110000.0,
   "annual_fee": 110000.0,
   "payment_days": 30,
-  "services_summary": "Revenue-management analytics and demand forecasting services for Coral Bay's three hotels in Abu Dhabi.",
+  "services_summary": "Revenue-management analytics and demand forecasting services for Coral Bay's three hotels.",
   "regions_of_service": [
    "United Arab Emirates"
   ],
@@ -84,7 +85,7 @@
    "topic": "non_compete",
    "severity": "Serious",
    "title": "Al Noor Hospitality Group: Data analytics, AI or revenue-management services",
-   "why": "Al Noor non-compete covers data analytics or revenue-management services for any hospitality business in the UAE until 2029.",
+   "why": "Al Noor non-compete prohibits data analytics, AI, or revenue-management services for any hospitality business in the UAE until 2029-09-14.",
    "comparison": "Do not take analytics, AI or revenue-management work for hotel groups in the GCC until about September 2029 without Al Noor's written consent.",
    "clause_id": "12.1",
    "quote": "the Supplier undertakes that neither it nor any of its Affiliates shall, during the Restricted Period, directly or indirectly, provide data analytics, artificial intelligence or revenue-management services to any Hospitality Business in the GCC.",

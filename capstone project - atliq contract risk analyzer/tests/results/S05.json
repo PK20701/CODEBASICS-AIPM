@@ -1,7 +1,7 @@
 {
  "id": "S05",
  "label": "S05 Granite Peak (truly mutual NDA)",
- "seconds": 6.1,
+ "seconds": 3.3,
  "findings": 0,
  "serious": 0,
  "must": 0,
@@ -12,17 +12,18 @@
  "providers": [
   "gemini"
  ],
- "tokens_in": 4055,
- "tokens_out": 732,
+ "tokens_in": 4465,
+ "tokens_out": 704,
  "clauses": "7/7",
  "liability": "not stated",
  "details": {
   "doc_type": "NDA",
-  "title": "MUTUAL NON-DISCLOSURE AGREEMENT",
+  "title": "Mutual Non-Disclosure Agreement",
   "counterparty": "Granite Peak Logistics LLC",
   "client_country": "United States",
   "client_industry": "logistics",
   "atliq_entity": "Inc",
+  "atliq_role": "supplier",
   "effective_date": null,
   "term_months": 36,
   "end_date": null,
@@ -32,13 +33,13 @@
    "clause_id": "6.1",
    "quote": "This Agreement is governed by the laws of the State of Delaware."
   },
-  "parties_quote": "Granite Peak Logistics LLC, a Colorado limited liability company having its principal office at 1700 Lincoln Street, Denver, Colorado 80203 (\"Granite Peak\"); and AtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
+  "parties_quote": "Granite Peak Logistics LLC, a Colorado limited liability company having its principal office at 1700 Lincoln Street, Denver, Colorado 80203 (\"Granite Peak\"); and\n\nAtliQ Inc, a Delaware corporation having its principal office at 101 College Road East, Suite 210, Princeton, New Jersey 08540 (\"Vendor\").",
   "payment_source": {},
-  "currency": null,
+  "currency": "USD",
   "total_value": null,
   "annual_fee": null,
   "payment_days": null,
-  "services_summary": "Discuss a possible analytics engagement and exchange confidential information for that purpose only.",
+  "services_summary": "Discuss a possible analytics engagement and exchange confidential information.",
   "regions_of_service": [],
   "liability_cap": {
    "kind": "none_stated",

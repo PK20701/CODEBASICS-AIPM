@@ -104,5 +104,90 @@
  {
   "file": "samples/incoming/2026-09-27_marcus_reed_contractor_agreement_draft.md",
   "label": "Incoming: marcus reed contractor agreement draft"
+ },
+ {
+  "file": "samples/signed/2022-07-01_orbit_travels_msa_scanned.md",
+  "label": "Signed: orbit travels msa scanned",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2024-08-01_crestline_retail_msa.md",
+  "label": "Signed: crestline retail msa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-01-22_al_noor_mutual_nda.md",
+  "label": "Signed: al noor mutual nda",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-01-22_paytrack_technologies_msa.md",
+  "label": "Signed: paytrack technologies msa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-03-10_acme_retail_group_msa.md",
+  "label": "Signed: acme retail group msa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-03-15_al_noor_hospitality_msa.md",
+  "label": "Signed: al noor hospitality msa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-04-18_sunrise_foods_msa.md",
+  "label": "Signed: sunrise foods msa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-04-28_rohan_iyer_contractor_agreement.md",
+  "label": "Signed: rohan iyer contractor agreement",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-06-20_northwind_logistics_msa.md",
+  "label": "Signed: northwind logistics msa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-09-01_cloudspan_strategic_partnership_agreement.md",
+  "label": "Signed: cloudspan strategic partnership agreement",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-10-06_atliq_intercompany_subcontractor_baa.md",
+  "label": "Signed: atliq intercompany subcontractor baa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-10-06_carebridge_clinics_baa.md",
+  "label": "Signed: carebridge clinics baa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2025-11-28_brightwater_insurance_msa.md",
+  "label": "Signed: brightwater insurance msa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2026-02-10_al_noor_waiver_letter.md",
+  "label": "Signed: al noor waiver letter",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2026-07-16_meridian_healthcare_nda.md",
+  "label": "Signed: meridian healthcare nda",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2026-08-15_trustline_nbfc_msa.md",
+  "label": "Signed: trustline nbfc msa",
+  "kind": "signed"
+ },
+ {
+  "file": "samples/signed/2026-08-20_harrington_health_mutual_nda.md",
+  "label": "Signed: harrington health mutual nda",
+  "kind": "signed"
  }
 ]

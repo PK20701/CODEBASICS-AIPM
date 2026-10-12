@@ -50,7 +50,7 @@ textarea{min-height:150px;resize:vertical}label{font-size:12px;color:var(--mut);
 </style>
 </head>
 <body>
-<div class="top"><div class="brand" onclick="go('#/')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-4px;margin-right:6px"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>ContractGuard <small>by AtliQ</small></div><div class="row"><span id="badge"></span><a onclick="showPrinciples()" class="sub">Principles</a><span class="sub" id="who"></span></div></div>
+<div class="top"><div class="brand" onclick="go('#/')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-4px;margin-right:6px"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>ContractGuard <small>by AtliQ</small></div><div class="row"><span id="badge"></span><a onclick="go('#/quality')" class="sub">Quality</a><a onclick="showPrinciples()" class="sub">Principles</a><span class="sub" id="who"></span></div></div>
 <div class="wrap" id="app"></div>
 <div id="modal"></div>
 <script>
@@ -70,6 +70,8 @@ const greeting=()=>{const h=new Date().getHours();return h<12?'Good morning':h<1
 const regStatus=r=>(!r.end)?'active':(r.end<today()?'expired':'active');
 const entryStatus=r=>r.status==='pending_confirmation'?{t:'to confirm',k:'warn'}:r.status==='rejected'?{t:'rejected',k:'tag'}:(()=>{const x=regStatus(r);return{t:x,k:x==='active'?'sev-Negotiable':'tag'}})();
 const pendingN=()=>S.entries.filter(e=>e.status==='pending_confirmation').length;
+const DUP=new Set();
+const qualityNote=q=>(!q||q.level==='good'||q.level==='unknown')?'':`<div class="card" style="margin:10px 0;border-color:var(--amb);background:var(--ambbg)"><b>${q.level==='poor'?'This text looks like a scan with misread characters.':'A few words look misread.'}</b> <span class="mut">For example ${esc((q.examples||[]).join(', '))}. Figures, dates and names may be wrong; check them against the original${q.level==='poor'?'. Model findings are marked "Not sure"':''}.</span></div>`;
 const regCount=()=>REG.length+S.entries.filter(e=>e.status!=='rejected').length;
 const confirmedEntries=()=>S.entries.filter(e=>e.status==='confirmed').map(e=>({id:e.id,contract_id:e.contract_id,counterparty:e.counterparty,type:e.type,clause:e.clause,bound:e.bound,restricted_activity:e.restricted_activity,scope:e.scope,start:e.start,end:e.end,quote:e.quote,takeaway:e.takeaway,status:'confirmed'}));
 const allContracts=()=>BASE.concat(S.added);
@@ -81,9 +83,11 @@ function statusOf(c){const v=latest(c.id);if(v){const open=(v.findings||[]).filt
 
 async function api(body,tries){tries=tries||2;
  for(let i=0;i<tries;i++){
-  let r,j;try{r=await fetch('/api/review',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});j=await r.json()}catch(e){j={error:'network',message:'Could not reach the server.'};r={status:0}}
+  let r,j;const h={'Content-Type':'application/json'};try{const c=sessionStorage.getItem('atliq_code');if(c)h['X-Access-Code']=c}catch(e){}
+  try{r=await fetch('/api/review',{method:'POST',headers:h,body:JSON.stringify(body)});j=await r.json()}catch(e){j={error:'network',message:'Could not reach the server.'};r={status:0}}
   if(r.status===200)return j;
-  if(r.status===429&&i<tries-1){await new Promise(s=>setTimeout(s,9000));continue}
+  if(r.status===401&&j.error==='access'){const c=prompt('This demo needs an access code:');if(c){try{sessionStorage.setItem('atliq_code',c)}catch(e){}i--;continue}}
+  if(r.status===429&&j.error==='quota'&&i<tries-1){await new Promise(s=>setTimeout(s,9000));continue}
   const err=new Error(j.message||'Request failed');err.code=j.error;throw err}}
 function trackMeta(m){if(!m)return;S.usage.calls++;S.usage.tin+=m.in||0;S.usage.tout+=m.out||0;if(m.fallback){S.usage.fallbacks++}save();badge()}
 function badge(){const f=S.usage.fallbacks;$('#badge').innerHTML=f?'<span class="pill warn" title="Gemini was busy; Groq answered">backup model used</span>':''}
@@ -92,6 +96,8 @@ function badge(){const f=S.usage.fallbacks;$('#badge').innerHTML=f?'<span class=
 function route(){const h=location.hash||'#/';const p=h.slice(2).split('/');$('#modal').innerHTML='';
  if(h==='#/'||h==='#'||p[0]==='')return home();
  if(p[0]==='new')return newPage(p[1]);
+ if(p[0]==='import')return importPage();
+ if(p[0]==='quality')return qualityPage();
  if(p[0]==='contract')return contractPage(decodeURIComponent(p[1]));
  if(p[0]==='review')return reviewPage(decodeURIComponent(p[1]),+p[2]);
  home()}
@@ -115,7 +121,7 @@ function home(){const cs=allContracts();const waiting=cs.filter(c=>/review/i.tes
  homeRows()}
 function homeRows(){const cs=allContracts();const regs=REG.concat(S.entries);let html;
  if(homeTab==='commitments'){const q=homeQ;const rs=regs.filter(r=>!q||(r.counterparty+' '+r.type+' '+(r.restricted_activity||'')).toLowerCase().includes(q));rs.sort((a,b)=>(b.status==='pending_confirmation')-(a.status==='pending_confirmation'));
-  html=(pendingN()?`<div class="mut" style="padding:10px 8px"><b>${pendingN()} restriction${pendingN()>1?'s':''} waiting for confirmation.</b> Open one, check it against the source clause, then confirm or reject it. Only confirmed restrictions are used in future reviews.</div>`:'')+`<table><tr><th>Client</th><th class="hm">Type</th><th>What is restricted</th><th class="hm">Until</th><th>Status</th></tr>`+rs.map(r=>{const st=entryStatus(r);
+  html=`<div class="row sp" style="padding:8px"><span class="mut">Restrictions AtliQ has agreed to, from signed contracts.</span><button onclick="go('#/import')">Import a signed contract</button></div>`+(pendingN()?`<div class="mut" style="padding:10px 8px"><b>${pendingN()} restriction${pendingN()>1?'s':''} waiting for confirmation.</b> Open one, check it against the source clause, then confirm or reject it. Only confirmed restrictions are used in future reviews.</div>`:'')+`<table><tr><th>Client</th><th class="hm">Type</th><th>What is restricted</th><th class="hm">Until</th><th>Status</th></tr>`+rs.map(r=>{const st=entryStatus(r);
    return`<tr class="r" onclick="showCommitment('${esc(r.id)}')"><td>${esc(r.counterparty)}</td><td class="hm">${esc((r.type||'').replace(/_/g,' '))}</td><td>${esc(r.restricted_activity||'')}</td><td class="hm">${esc(r.end||'no end date')}</td><td><span class="pill ${st.k}">${st.t}</span></td></tr>`}).join('')+'</table>';
   $('#tbl').innerHTML=html;return}
  let rows=cs.filter(c=>{const st=statusOf(c).t;
@@ -123,7 +129,7 @@ function homeRows(){const cs=allContracts();const regs=REG.concat(S.entries);let
   if(homeFilter==='Drafts')return /Draft/i.test(st);
   if(homeFilter==='Signed')return /Signed/i.test(c.status)&&!latest(c.id);return true}).filter(c=>!homeQ||(c.id+' '+c.counterparty+' '+c.type).toLowerCase().includes(homeQ));
  html=`<table><tr><th>ID</th><th>Client</th><th>Type</th><th class="hm">Country</th><th class="hm">Value</th><th>Status</th><th></th></tr>`+rows.map(c=>{const st=statusOf(c);
-  return`<tr class="r" onclick="go('#/contract/${encodeURIComponent(c.id)}')"><td>${esc(c.id)}</td><td>${esc(c.counterparty)}</td><td>${esc(c.type)}</td><td class="hm">${esc(c.country||'')}</td><td class="hm">${money(c.value)}</td><td><span class="pill ${st.k}">${esc(st.t)}</span>${c.restrictions?` <span class="pill tag">${c.restrictions} restriction${c.restrictions>1?'s':''}</span>`:''}</td><td>&rsaquo;</td></tr>`}).join('')+'</table>';
+  return`<tr class="r" onclick="go('#/contract/${encodeURIComponent(c.id)}')"><td>${esc(c.id)}</td><td>${esc(c.counterparty)}</td><td>${esc(c.type)}</td><td class="hm">${esc(c.country||'')}</td><td class="hm">${money(c.value)}</td><td><span class="pill ${st.k}">${esc(st.t)}</span>${DUP.has(c.id)?' <span class="pill warn" title="Same client, type and value as another row in the tracker">possible duplicate</span>':''}${c.restrictions?` <span class="pill tag">${c.restrictions} restriction${c.restrictions>1?'s':''}</span>`:''}</td><td>&rsaquo;</td></tr>`}).join('')+'</table>';
  $('#tbl').innerHTML=html}
 function showCommitment(id){const r=REG.concat(S.entries).find(x=>x.id===id);if(!r)return;if(r.status==='pending_confirmation')return confirmModal(r);const st=entryStatus(r);
  modal(`<div class="row sp"><b>${esc(r.counterparty)}</b><span class="pill ${st.k}">${st.t}</span></div>
@@ -181,7 +187,7 @@ function newPage(verOf){verOf=verOf?decodeURIComponent(verOf):'';NEWV={sample:nu
  <div class="row" style="margin:10px 0"><span class="chip ${verOf?'':'on'}" id="mNew" onclick="setMode(false)">New contract</span><span class="chip ${verOf?'on':''}" id="mVer" onclick="setMode(true)">New version of existing</span>
   <select id="verOf" style="max-width:260px;${verOf?'':'display:none'}">${cs.map(c=>`<option value="${esc(c.id)}" ${c.id===verOf?'selected':''}>${esc(c.id)} · ${esc(c.counterparty)}</option>`).join('')}</select></div>
  <div class="grid g2"><div class="drop"><b>Contract</b><div class="mut" style="margin-bottom:6px">Paste the text or choose a file (text, Markdown, PDF or Word).</div><textarea id="ctext" placeholder="Paste the contract here"></textarea>
-   <div class="row" style="margin-top:6px"><input type="file" id="cfile" accept=".txt,.md,.pdf,.docx" style="max-width:260px"><select id="sample" onchange="pickSample(this.value)" style="max-width:240px"><option value="">Try a sample…</option>${SAMPLES.map(s=>`<option value="${esc(s.file)}">${esc(s.label)}</option>`).join('')}</select></div></div>
+   <div class="row" style="margin-top:6px"><input type="file" id="cfile" accept=".txt,.md,.pdf,.docx" style="max-width:260px"><select id="sample" onchange="pickSample(this.value)" style="max-width:240px"><option value="">Try a sample…</option>${SAMPLES.filter(s=>s.kind!=='signed').map(s=>`<option value="${esc(s.file)}">${esc(s.label)}</option>`).join('')}</select></div></div>
   <div class="drop"><b>Unofficial discussions <span class="mut">(optional)</span></b><div class="mut" style="margin-bottom:6px">Call notes, a summary or a transcript. Reviewed as unofficial terms, not as contract clauses.</div><textarea id="ntext" placeholder="Paste notes or a transcript"></textarea>
    <div class="row" style="margin-top:6px"><input type="file" id="nfile" accept=".txt,.md,.pdf,.docx" style="max-width:260px"></div></div></div>
  <div class="row" style="margin-top:14px"><button class="pri" id="goBtn" onclick="startReview()">Review</button><span class="mut" id="msg"></span></div>
@@ -205,15 +211,16 @@ async function startReview(){const text=$('#ctext').value.trim(),notes=$('#ntext
  const verOf=$('#mVer').classList.contains('on')?$('#verOf').value:'';
  try{const key=await hash(text);let ex=S.cache['ex'+key];
   if(!ex){ex=await api({action:'extract',text});trackMeta(ex.meta);S.cache['ex'+key]=ex;save()}
-  RUN={text,notes,verOf,key,details:ex.details,clausesN:ex.clauses};confirmPage()}catch(e){$('#goBtn').disabled=false;$('#msg').textContent=e.message+' Try again in a minute.'}}
+  RUN={text,notes,verOf,key,details:ex.details,clausesN:ex.clauses,quality:ex.quality};confirmPage()}catch(e){$('#goBtn').disabled=false;$('#msg').textContent=e.message+' Try again in a minute.'}}
 function confirmPage(){const d=RUN.details,v=RUN.verOf;const cs=allContracts();const ex=v?cs.find(c=>c.id===v):null;
  const next='C-N'+String(S.added.length+1).padStart(2,'0');
- $('#app').innerHTML=`<h1>Confirm the details</h1><div class="sub">Read from the contract. Please correct anything that is wrong.</div>
+ $('#app').innerHTML=`<h1>Confirm the details</h1><div class="sub">Read from the contract. Please correct anything that is wrong.</div>${qualityNote(RUN.quality)}
  <div class="card" style="margin-top:12px"><div class="grid g3">
   <div><label>Contract ID</label><input id="f_id" value="${esc(ex?ex.id:next)}" ${ex?'disabled':''}></div>
   <div><label>Client</label><input id="f_cp" value="${esc(ex?ex.counterparty:(d.counterparty||''))}"></div>
   <div><label>Type</label><select id="f_ty">${['MSA','SOW','NDA','BAA','DPA','Partnership','Amendment','Other'].map(t=>`<option ${t===(d.doc_type||'Other')?'selected':''}>${t}</option>`).join('')}</select></div>
   <div><label>AtliQ entity</label><select id="f_en">${['Pvt Ltd','Inc','Unknown'].map(t=>`<option ${t===(d.atliq_entity||'Unknown')?'selected':''}>${t}</option>`).join('')}</select></div>
+  <div><label>AtliQ is the</label><select id="f_ro">${[['supplier','Supplier (their paper)'],['buyer','Buyer (AtliQ&#39;s own paper)'],['partner','Partner']].map(([k,t])=>`<option value="${k}" ${k===(d.atliq_role||'supplier')?'selected':''}>${t}</option>`).join('')}</select></div>
   <div><label>Client country</label><input id="f_co" value="${esc(d.client_country||'')}"></div>
   <div><label>Term (months)</label><input id="f_tm" type="number" value="${d.term_months||''}"></div>
   <div><label>Annual fee, last 12 months (USD)</label><input id="f_af" type="number" value="${d.annual_fee?Math.round(d.annual_fee):(d.total_value&&d.term_months?Math.round(d.total_value/d.term_months*12):'')}"></div>
@@ -225,10 +232,10 @@ function confirmPage(){const d=RUN.details,v=RUN.verOf;const cs=allContracts();c
 const SEVN={Serious:0,Negotiable:1,Minor:2};
 async function runReview(){const out=(document.querySelector('input[name=out]:checked')||{}).value;if(!out){$('#omsg').textContent='Please answer this question.';return}
  const v=id=>$('#'+id).value;const nz=x=>x===''?null:Number(x);
- const d=Object.assign({},RUN.details,{counterparty:v('f_cp'),doc_type:v('f_ty'),atliq_entity:v('f_en'),client_country:v('f_co'),term_months:nz(v('f_tm')),annual_fee:nz(v('f_af')),total_value:nz(v('f_tv')),governing_law:v('f_gl')});
+ const d=Object.assign({},RUN.details,{counterparty:v('f_cp'),doc_type:v('f_ty'),atliq_entity:v('f_en'),atliq_role:v('f_ro'),client_country:v('f_co'),term_months:nz(v('f_tm')),annual_fee:nz(v('f_af')),total_value:nz(v('f_tv')),governing_law:v('f_gl')});
  const cid=v('f_id').trim()||('C-N'+(S.added.length+1));const verOf=RUN.verOf;
  RUN.details=d;RUN.cid=cid;RUN.out=out;
- const ckey=await hash(RUN.text+'|'+RUN.notes+'|'+JSON.stringify([d.atliq_entity,d.annual_fee,d.total_value,d.term_months,d.governing_law,d.client_country,d.counterparty,confirmedEntries().map(e=>[e.id,e.end,e.restricted_activity])]));
+ const ckey=await hash(RUN.text+'|'+RUN.notes+'|'+JSON.stringify([d.atliq_entity,d.annual_fee,d.total_value,d.term_months,d.governing_law,d.client_country,d.counterparty,d.atliq_role,confirmedEntries().map(e=>[e.id,e.end,e.restricted_activity])]));
  const steps=[{k:'rules',t:'Checking entity, law, documents and amounts'},{k:'conf',t:'Checking past commitments (17 contracts on file)'},{k:'cl',t:'Reviewing every clause'}];if(RUN.notes)steps.push({k:'notes',t:'Reading the unofficial discussions'});steps.push({k:'done',t:'Putting the review together'});
  const paint=()=>{$('#app').innerHTML=`<h1>Reviewing…</h1><div class="sub">${esc(d.counterparty||'')} · ${RUN.clausesN} clauses</div><div class="card" style="margin-top:12px"><ul class="steps" style="list-style:none;padding:0;margin:0">${steps.map(s=>`<li class="${s.s||''}">${esc(s.t)}${s.x?' <span class="mut">'+esc(s.x)+'&nbsp;</span>':''}</li>`).join('')}</ul><div class="bar" style="margin-top:12px"><i id="pb" style="width:${RUN.pct||2}%"></i></div></div>`};
  const mark=(k,s,x)=>{const st=steps.find(z=>z.k===k);if(st){st.s=s;if(x!==undefined)st.x=x}paint()};
@@ -237,7 +244,7 @@ async function runReview(){const out=(document.querySelector('input[name=out]:ch
   let res=S.cache['rv'+ckey];
   if(!res){
    const seg=await api({action:'segment',text:RUN.text});const total=seg.clauses.length;const batches=seg.batches.map(b=>b.map(id=>seg.clauses.find(c=>c.id===id)));
-   mark('rules','run');const rules=await api({action:'rules',details:d,text:RUN.text});mark('rules','done');RUN.pct=12;
+   mark('rules','run');const rules=await api({action:'rules',details:d,text:RUN.text,contract_id:cid});mark('rules','done');RUN.pct=12;
    const pConf=(async()=>{mark('conf','run');try{const r=await api({action:'conflicts',details:d,text:RUN.text,extra_register:confirmedEntries(),exclude_contract:cid});trackMeta(r.meta);mark('conf','done');return r}catch(e){mark('conf','bad','could not finish');return{conflicts:[],checked:0,error:e.message}}})();
    const pNotes=RUN.notes?(async()=>{mark('notes','run');try{const r=await api({action:'notes',notes:RUN.notes,details:d,text:RUN.text});trackMeta(r.meta);mark('notes','done');return r}catch(e){mark('notes','bad','could not finish');return{items:[],error:e.message}}})():Promise.resolve({items:[]});
    mark('cl','run','0 of '+batches.length);const analysis=[];const couldNot=[];let done=0;let idx=0;
@@ -248,7 +255,7 @@ async function runReview(){const out=(document.querySelector('input[name=out]:ch
    const reviewed=new Set(analysis.flatMap(a=>a.reviewed));
    res={findings:m.findings,clauses_total:total,clauses_reviewed:reviewed.size,could_not:couldNot,liability_multiple:rules.liability_multiple,liability_text:rules.liability_text,checked_register:conf.checked||0,checked_contracts:conf.checked_contracts||0,seconds:Math.round((Date.now()-t0)/1000)};
    S.cache['rv'+ckey]=res;save()}
-  const vs=S.reviews[cid]||(S.reviews[cid]=[]);const ver={ver:vs.length+1,created:new Date().toISOString(),status:'draft',details:d,findings:res.findings,answers:{},clauses_total:res.clauses_total,clauses_reviewed:res.clauses_reviewed,could_not:res.could_not,liability_multiple:res.liability_multiple,liability_text:res.liability_text,checked_register:res.checked_register,checked_contracts:res.checked_contracts,seconds:res.seconds,notes_attached:!!RUN.notes,out:RUN.out,text:RUN.text.slice(0,120000)};
+  const vs=S.reviews[cid]||(S.reviews[cid]=[]);const ver={ver:vs.length+1,created:new Date().toISOString(),status:'draft',details:d,findings:res.findings,answers:{},clauses_total:res.clauses_total,clauses_reviewed:res.clauses_reviewed,could_not:res.could_not,liability_multiple:res.liability_multiple,liability_text:res.liability_text,checked_register:res.checked_register,checked_contracts:res.checked_contracts,seconds:res.seconds,notes_attached:!!RUN.notes,out:RUN.out,quality:RUN.quality,text:RUN.text.slice(0,120000)};
   vs.push(ver);if(!verOf&&!allContracts().find(c=>c.id===cid)){S.added.push({id:cid,counterparty:d.counterparty||'New contract',type:d.doc_type,entity:d.atliq_entity,country:d.client_country,value:d.total_value,status:'In review',received:today(),restrictions:0,requested_by:S.user,notes:''})}
   S.audit.push({at:new Date().toISOString(),who:S.user,what:'Review created',cid,ver:ver.ver});save();go('#/review/'+encodeURIComponent(cid)+'/'+ver.ver)
  }catch(e){$('#app').innerHTML=`<h1>The review stopped</h1><div class="card"><p>${esc(e.message)}</p><p class="mut">Both models are busy or unreachable. Nothing was lost; try again in a minute.</p><button class="pri" onclick="confirmPage()">Try again</button></div>`}}
@@ -264,7 +271,7 @@ function reviewPage(cid,ver){const v=getRev(cid,ver);if(!v)return go('#/');const
  const period=d.term_months?(d.term_months+' months'+(d.effective_date?' from '+d.effective_date:'')):'term not stated';
  const lm=v.liability_multiple;
  $('#app').innerHTML=`<a onclick="go('#/contract/${encodeURIComponent(cid)}')" class="sub">&lsaquo; ${esc(c.counterparty||'Contract')}</a>
- <div class="row sp" style="margin-top:6px"><div><h1>${esc(d.counterparty||c.counterparty||'Contract')} · ${esc(d.doc_type||'')}</h1><div class="sub">${esc(cid)} · ${esc(d.client_country||'country n/a')} · AtliQ ${esc(d.atliq_entity||'n/a')} · ${esc(period)} · version ${v.ver}</div></div>
+ <div class="row sp" style="margin-top:6px"><div><h1>${esc(d.counterparty||c.counterparty||'Contract')} · ${esc(d.doc_type||'')}</h1><div class="sub">${esc(cid)} · ${esc(d.client_country||'country n/a')} · AtliQ ${esc(d.atliq_entity||'n/a')} · ${esc(period)}${d.atliq_role==='buyer'?' · AtliQ as buyer (its own paper)':d.atliq_role==='partner'?' · AtliQ as partner':''} · version ${v.ver}</div></div>
   <span class="pill ${v.status==='draft'||v.status==='deferred'?'warn':'ok'}">${vLabel(v)}</span></div>
  ${v.status==='deferred'&&v.deferred?`<div class="card" style="margin-top:10px"><b>Signing deferred</b> by ${esc(v.deferred.by)} on ${esc(v.deferred.at.slice(0,10))}${v.deferred.reason?'<div class="mut">'+esc(v.deferred.reason)+'</div>':''}</div>`:''}
  <div class="grid g4" style="margin-top:12px">
@@ -272,7 +279,7 @@ function reviewPage(cid,ver){const v=getRev(cid,ver);if(!v)return go('#/');const
   <div class="tile"><b>${F.filter(f=>f.severity==='Serious').length} · ${F.filter(f=>f.severity==='Negotiable').length} · ${F.filter(f=>f.severity==='Minor').length}</b><span>serious · negotiable · minor</span></div>
   <div class="tile"><b>${d.total_value?fmt(d.total_value):'n/a'}</b><span>contract value${d.annual_fee?' · '+fmt(d.annual_fee)+' a year':''}</span></div>
   <div class="tile"><b>${lm?lm.toFixed(1)+'x fee':(v.liability_text==='unlimited'?'Unlimited':'n/a')}</b><span>liability cap · past contracts: about 1x</span></div></div>
- <div class="mut" style="margin:10px 0">Checked ${v.checked_register||0} past commitments, including any you have confirmed (17 signed contracts are on file; 13 more are not) · ${v.notes_attached?'unofficial notes included':'no unofficial notes'} · reviewed in ${v.seconds}s · Not legal advice</div>
+ ${qualityNote(v.quality)}<div class="mut" style="margin:10px 0">Checked ${v.checked_register||0} past commitments, including any you have confirmed (17 signed contracts are on file; 13 more are not) · ${v.notes_attached?'unofficial notes included':'no unofficial notes'} · reviewed in ${v.seconds}s · Not legal advice</div>
  <div class="row" style="margin:6px 0">${['All','Open','Serious','Negotiable','Minor','Unofficial'].map(x=>`<span class="chip ${FILTER===x?'on':''}" onclick="FILTER='${x}';reviewPage('${esc(cid)}',${v.ver})">${x}${x==='Open'?' '+F.filter(f=>!v.answers[f.id]).length:''}</span>`).join('')}</div>
  ${list.map(f=>findHtml(f,v,cid)).join('')||(F.length?'<div class="mut">Nothing in this view.</div>':'<div class="card"><b>No findings from the checks we ran.</b><div class="mut">This is not a clearance. The checks cover entity and law, amounts, past commitments and each clause, but please still read the contract before signing.</div></div>')}
  ${expired.length?`<h2>Expired restrictions (shown for confidence)</h2>${expired.map(f=>`<div class="mut">${esc(f.title)} · ended ${esc(f.register_end||'')}</div>`).join('')}`:''}
@@ -284,7 +291,7 @@ function findHtml(f,v,cid){const a=v.answers[f.id];const open=OPEN[f.id];
  const stat=a?(a.choice==='accepted'?'<span class="pill ok">Accepted</span>':'<span class="pill warn">Needs review</span>'):'<span class="mut">Open</span>';
  let reg='';if(f.source==='register'){reg=`<div class="mut">${esc(f.register_counterparty)} · clause ${esc(f.clause_id)} · <span class="pill ${f.register_status==='active'?'sev-Negotiable':'tag'}">${f.register_status}</span> ${f.register_end?'until '+esc(f.register_end):'no end date'}</div>${f.exception?`<div class="mut" style="margin-top:4px"><b>Exception:</b> ${esc(f.exception)}</div>`:''}`}
  return`<div class="find s-${f.severity}"><div class="fh" onclick="OPEN['${f.id}']=!OPEN['${f.id}'];reviewPage('${esc(cid)}',${v.ver})"><span class="pill sev-${f.severity}">${f.severity}</span><span class="pill tag">${src}</span><span class="t">${esc(f.title)}</span>${stat}<span>${open?'&#9650;':'&#9660;'}</span></div>
- ${open?`<div class="fb">${f.unsure?'<div class="pill warn" style="margin-top:8px">Not sure, please cross-check</div>':''}
+ ${open?`<div class="fb">${(f.unsure||(v.quality&&v.quality.level==='poor'&&f.source!=='rule'))?'<div class="pill warn" style="margin-top:8px">Not sure, please cross-check</div>':''}
   ${f.quote?`<div class="quote">${esc(f.quote)}${f.clause_id?`<div class="mut" style="margin-top:4px">${f.source==='unofficial'?'From the notes':'Clause '+esc(f.clause_id)}</div>`:''}</div>`:(f.absence?'<div class="mut" style="margin-top:8px">Based on what the contract does not mention.</div>':'<div class="quote mut">No verified quote. Please read the clause yourself.</div>')}
   ${f.why?`<p style="margin:6px 0"><b>Why it matters:</b> ${esc(f.why)}</p>`:''}${f.comparison?`<p class="mut" style="margin:4px 0">${esc(f.comparison)}</p>`:''}${reg}
   ${a?`<div class="quote"><b>${a.choice==='accepted'?'Accepted':'Marked for review'}</b> by ${esc(a.by)} on ${esc(a.at.slice(0,16).replace('T',' '))}${a.comment?'<br>'+esc(a.comment):''}</div>`:''}
@@ -334,9 +341,61 @@ function drawRate(){const low=RATE.miss==='yes'||(RATE.stars>0&&RATE.stars<=3);c
 function toggleReason(r){const i=RATE.reasons.indexOf(r);i<0?RATE.reasons.push(r):RATE.reasons.splice(i,1);const l=($('#rline')||{}).value;drawRate();if($('#rline'))$('#rline').value=l||''}
 function saveRate(){S.feedback.push({cid:RATE.cid,ver:RATE.ver,missed:RATE.miss,stars:RATE.stars,reasons:RATE.reasons,line:($('#rline')||{}).value||'',at:new Date().toISOString()});save();closeModal()}
 
+
+/* ---------------- import a signed contract ---------------- */
+let IMP=null;
+function importPage(){IMP=null;const signed=SAMPLES.filter(s=>s.kind==='signed');
+ $('#app').innerHTML=`<a onclick="homeTab='commitments';go('#/')" class="sub">&lsaquo; Past commitments</a><h1>Import a signed contract</h1>
+ <div class="sub">The tool reads the restrictions in a signed contract and queues them for your confirmation. Nothing counts until you confirm it.</div>
+ <div class="drop" style="margin-top:12px"><textarea id="itext" placeholder="Paste the signed contract here"></textarea>
+ <div class="row" style="margin-top:6px"><input type="file" id="ifile" accept=".txt,.md,.pdf,.docx" style="max-width:260px"><select id="isample" onchange="impSample(this.value)" style="max-width:320px"><option value="">Try a signed contract…</option>${signed.map(s=>`<option value="${esc(s.file)}">${esc(s.label)}</option>`).join('')}</select></div></div>
+ <div class="row" style="margin-top:12px"><button class="pri" id="ibtn" onclick="impRead()">Read restrictions</button><span class="mut" id="imsg"></span></div><div id="ires"></div>`;
+ $('#ifile').onchange=async e=>{const f=e.target.files[0];if(!f)return;const n=f.name.toLowerCase();if(/\.(txt|md)$/.test(n)){$('#itext').value=await f.text();return}
+  $('#imsg').textContent='Converting…';const buf=new Uint8Array(await f.arrayBuffer());let bin='';for(let i=0;i<buf.length;i++)bin+=String.fromCharCode(buf[i]);
+  try{const r=await api({action:'convert',name:f.name,data:btoa(bin)},1);$('#itext').value=r.text;$('#imsg').textContent=''}catch(er){$('#imsg').textContent='Could not read that file: '+er.message}}}
+async function impSample(file){if(!file)return;try{$('#itext').value=await (await fetch(file)).text()}catch(e){}}
+async function impRead(){const text=$('#itext').value.trim();if(text.length<200){$('#imsg').textContent='Paste or choose a contract first.';return}
+ $('#ibtn').disabled=true;$('#imsg').textContent='Reading…';
+ try{const ex=await api({action:'extract',text});trackMeta(ex.meta);const d=ex.details;const cid='C-N'+String(S.added.length+1).padStart(2,'0')+'i';
+  IMP={d,text,cid,quality:ex.quality,entries:[]};await impEntries();$('#imsg').textContent='';$('#ibtn').disabled=false}
+ catch(e){$('#ibtn').disabled=false;$('#imsg').textContent=e.message+' Try again in a minute.'}}
+async function impEntries(){const c=IMP;const er=await api({action:'register_entry',details:c.d,text:c.text,contract_id:c.cid},1);c.entries=er.entries||[];
+ const d=c.d;
+ $('#ires').innerHTML=`${qualityNote(c.quality)}<div class="card" style="margin-top:14px"><div class="row sp"><b>${esc(d.counterparty||'Contract')} · ${esc(d.doc_type||'')}</b><span class="mut">AtliQ ${esc(d.atliq_entity||'n/a')}</span></div>
+  <div class="grid g3" style="margin:10px 0"><div><label>Start date (YYYY-MM-DD)</label><input id="i_eff" value="${esc(d.effective_date||'')}"></div><div><label>Term (months)</label><input id="i_tm" type="number" value="${d.term_months||''}"></div><div style="align-self:end"><button onclick="impRecalc()">Recalculate end dates</button></div></div>
+  <div class="mut" style="margin-bottom:6px">End dates are worked out from the start date and the term. Correct them if the contract was signed on another date.</div>
+  ${c.entries.length?c.entries.map(e=>`<div class="find"><div class="fh" style="cursor:default"><span class="pill tag">${esc((e.type||'').replace(/_/g,' '))}</span><span class="t">${esc(e.restricted_activity||'')}</span><span class="mut">${e.end?'until '+esc(e.end):'no end date'}</span></div>${e.quote?`<div class="fb"><div class="quote">${esc(e.quote)}<div class="mut" style="margin-top:4px">Clause ${esc(e.clause||'?')}</div></div></div>`:''}</div>`).join(''):'<div class="mut">No restrictions found in this contract.</div>'}
+  <div class="row" style="margin-top:10px"><button class="pri" onclick="impAdd()">Add to register (to confirm)</button><span class="mut">${c.entries.length} restriction${c.entries.length==1?'':'s'} found</span></div></div>`}
+async function impRecalc(){const c=IMP;if(!c)return;c.d.effective_date=$('#i_eff').value.trim()||null;const t=$('#i_tm').value;c.d.term_months=t===''?null:Number(t);await impEntries()}
+function impAdd(){const c=IMP;if(!c)return;const d=c.d;const known=new Set(S.entries.map(e=>e.quote||e.restricted_activity));
+ const fresh=c.entries.filter(e=>!known.has(e.quote||e.restricted_activity)).map(e=>Object.assign(e,{id:e.id+'-imp',file:null,bound:e.bound||''}));
+ S.entries=S.entries.concat(fresh);
+ S.added.push({id:c.cid,counterparty:d.counterparty||'Imported contract',type:d.doc_type||'Other',entity:d.atliq_entity,country:d.client_country,value:d.total_value,status:'Signed',signed:d.effective_date||today(),received:d.effective_date||today(),restrictions:fresh.length,requested_by:S.user,notes:'Imported signed contract'});
+ S.audit.push({at:new Date().toISOString(),who:S.user,what:'Imported signed contract '+c.cid,cid:c.cid,entries:fresh.length});save();homeTab='commitments';go('#/')}
+
+/* ---------------- quality panel: the North Star measured from this browser's own reviews ---------------- */
+function qualityPage(){const all=[];Object.keys(S.reviews).forEach(cid=>S.reviews[cid].forEach(v=>all.push({cid,v})));
+ const fin=all.filter(x=>x.v.status==='in_signing'||x.v.status==='deferred');
+ const fb=x=>[...S.feedback].reverse().find(f=>f.cid===x.cid&&f.ver===x.v.ver&&(f.missed||f.stars));
+ const rated=fin.filter(x=>fb(x));const missedNo=rated.filter(x=>fb(x).missed==='no').length;
+ const secs=all.map(x=>x.v.seconds||0).sort((a,b)=>a-b);const med=secs.length?secs[Math.floor(secs.length/2)]:0;const p95=secs.length?secs[Math.min(secs.length-1,Math.floor(secs.length*0.95))]:0;
+ const auto=x=>(x.v.seconds||0)<300&&x.v.clauses_reviewed===x.v.clauses_total&&(x.v.checked_register||0)>0&&!(x.v.could_not&&x.v.could_not.length)&&(x.v.findings||[]).every(f=>f.quote||f.absence||f.source==='rule'||f.unsure||f.source==='unofficial');
+ const autoN=all.filter(auto).length;const trrN=all.filter(x=>auto(x)&&fb(x)&&fb(x).missed==='no').length;
+ const stars=rated.map(x=>fb(x).stars).filter(Boolean);const avg=stars.length?(stars.reduce((a,b)=>a+b,0)/stars.length).toFixed(1):'n/a';
+ const reasons={};S.feedback.forEach(f=>(f.reasons||[]).forEach(r=>reasons[r]=(reasons[r]||0)+1));
+ const pct=(a,b)=>b?Math.round(100*a/b)+'%':'n/a';
+ $('#app').innerHTML=`<a onclick="go('#/')" class="sub">&lsaquo; Home</a><h1>Quality of the reviews</h1>
+ <div class="sub">The North Star, measured from the reviews done in this browser. With real users this comes from the audit log.</div>
+ <div class="grid g4" style="margin-top:12px"><div class="tile"><b>${all.length}</b><span>reviews fed into the tool</span></div><div class="tile"><b>${pct(trrN,all.length)}</b><span>Trusted Review Rate (target 90%)</span></div><div class="tile"><b>${pct(autoN,all.length)}</b><span>passed the automatic checks</span></div><div class="tile"><b>${pct(rated.length,fin.length)}</b><span>tap rate on the end screen (needs 70%)</span></div></div>
+ <div class="grid g4" style="margin-top:12px"><div class="tile"><b>${pct(missedNo,rated.length)}</b><span>of rated reviews: "nothing missed"</span></div><div class="tile"><b>${avg}</b><span>average rating (of 5)</span></div><div class="tile"><b>${med}s</b><span>median review time</span></div><div class="tile"><b>${p95}s</b><span>slowest 5% (limit 300s)</span></div></div>
+ <h2>What counts</h2><div class="card mut">A review is trusted when it finished in under 5 minutes, read every clause, showed the coverage line, showed a verified quote for every model finding (or marked it "not sure"), could not skip a clause, <b>and</b> the reviewer tapped "Nothing missed". Reviews with no tap count as unconfirmed, not as a pass. Below a 70% tap rate the rate is not reliable.</div>
+ <h2>Reasons given</h2>${Object.keys(reasons).length?`<div class="row">${Object.keys(reasons).map(r=>`<span class="pill tag">${esc(r)} · ${reasons[r]}</span>`).join('')}</div>`:'<div class="mut">No reasons recorded yet.</div>'}
+ <h2>Models</h2><div class="mut">${S.usage.calls} model calls, ${S.usage.tin.toLocaleString()} tokens in, ${S.usage.tout.toLocaleString()} out; backup model used ${S.usage.fallbacks} time${S.usage.fallbacks==1?'':'s'}.</div>`}
+
 /* ---------------- boot ---------------- */
 async function boot(){S=load();$('#who').textContent=S.user;
  try{[BASE,REG,SAMPLES,PRINC]=await Promise.all(['data/contracts.json','data/register.json','data/samples.json','data/principles.json'].map(u=>fetch(u).then(r=>r.json())))}catch(e){$('#app').innerHTML='<div class="card">Could not load data files.</div>';return}
+ const g={};BASE.forEach(c=>{if(!c.value)return;const k=(c.counterparty||'')+'|'+(c.type||'')+'|'+c.value;(g[k]=g[k]||[]).push(c.id)});Object.values(g).forEach(a=>{if(a.length>1)a.forEach(id=>DUP.add(id))});
  badge();window.addEventListener('hashchange',route);route()}
 boot();
 </script>
