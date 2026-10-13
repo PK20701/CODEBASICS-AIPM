@@ -994,6 +994,9 @@ def merge_findings(*groups):
     return out
 
 
+AFTER_TERM_RE = re.compile(r'(?:after|following)\s+(?:the\s+)?(?:end|expiry|expiration|termination)\s+of\s+(?:the\s+|this\s+)?(?:term|agreement)|(?:after|following)\s+(?:the\s+)?(?:term|termination|expiry|expiration)', re.I)
+
+
 def compute_end(details, cov):
     """Date arithmetic for a restriction: term plus months after term."""
     try:
@@ -1002,6 +1005,12 @@ def compute_end(details, cov):
         return None
     months = (details.get('term_months') or 0)
     basis = cov.get('duration_basis')
+    # the model sometimes reads "six months after the end of the term" as six months from the start; the wording settles it
+    if basis in ('fixed_months', None, 'unknown') and AFTER_TERM_RE.search(cov.get('quote') or ''):
+        basis = 'term_plus_months'
+        if not cov.get('months_after_term'):
+            m = re.search(r'\(?(\d{1,3})\)?\s*months?\s+(?:after|following)', cov.get('quote') or '', re.I)
+            cov = dict(cov, months_after_term=int(m.group(1)) if m else 0)
     if basis == 'perpetual':
         return None
     if basis == 'fixed_months':

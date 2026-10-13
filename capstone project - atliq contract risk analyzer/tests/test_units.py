@@ -81,6 +81,11 @@ class Dates(unittest.TestCase):
 
     def test_perpetual_has_no_end(self):
         self.assertIsNone(core.compute_end({'effective_date': '2025-03-15', 'term_months': 36}, {'duration_basis': 'perpetual'}))
+        # wording overrides a misread basis: six months AFTER the end of the term, not six months from the start
+        d = {'effective_date': '2026-11-01', 'term_months': 12}
+        q = '3.1 For six (6) months after the end of the term, Vendor shall not provide services.'
+        self.assertEqual(core.compute_end(d, {'duration_basis': 'fixed_months', 'months_after_term': 6, 'quote': q}), '2028-04-30')
+        self.assertEqual(core.compute_end(d, {'duration_basis': 'fixed_months', 'months_after_term': 6, 'quote': 'For six months from signing.'}), '2027-04-30')
 
     def test_missing_start_gives_none(self):
         self.assertIsNone(core.compute_end({'term_months': 12}, {'duration_basis': 'term'}))
