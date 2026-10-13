@@ -57,7 +57,7 @@ python dev_server.py
 
 ## Models, keys and limits
 
-* **Gemini free tier first.** The free tier allows about 15 requests a minute per model, so the engine rotates `gemini-flash-lite-latest`, `gemini-3.1-flash-lite`, `gemini-3-flash-preview`, `gemini-3.6-flash`.
+* **Gemini free tier first.** The free tier allows about 15 requests a minute per model, so the engine rotates `gemini-3.1-flash-lite`, `gemini-3-flash-preview`, `gemini-flash-lite-latest`, `gemini-3.6-flash` (fastest first, measured on 13 Oct).
 * **Groq automatically takes over** when Gemini is rate-limited or down (`gpt-oss-120b`, `qwen3.8-27b`, `gpt-oss-20b`). A small "backup model used" badge shows in the header. Groq's free tier is tighter (about 8,000 tokens a minute per model), so it can sustain roughly three reviews a minute.
 * If both are exhausted, the app says so and nothing is lost; try again in a minute.
 * Override with env vars: `GEMINI_MODEL_FAST`, `GEMINI_MODEL_SMART`, `GEMINI_ROTATION`, `GROQ_MODEL`, `GROQ_ROTATION`. `FORCE_GEMINI_FAIL=1` forces the backup path for testing.

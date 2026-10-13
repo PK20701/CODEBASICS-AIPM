@@ -213,7 +213,7 @@ def parse_json(text):
     raise LLMError('model did not return valid JSON')
 
 
-GEMINI_ROTATION = 'gemini-flash-lite-latest,gemini-3.1-flash-lite,gemini-3-flash-preview,gemini-3.6-flash'
+GEMINI_ROTATION = 'gemini-3.1-flash-lite,gemini-3-flash-preview,gemini-flash-lite-latest,gemini-3.6-flash'
 
 
 def gemini_json(system, user, tier):
