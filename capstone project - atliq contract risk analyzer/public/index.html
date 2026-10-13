@@ -10,7 +10,7 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 a{color:var(--accb);text-decoration:none;cursor:pointer}
 .top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
-.brand{font-weight:600;color:var(--acc);cursor:pointer}.brand small{font-weight:400;color:var(--mut);margin-left:8px}
+.brand{font-weight:700;font-size:21px;letter-spacing:-.01em;color:var(--acc);cursor:pointer}.brand small{font-size:12px;font-weight:400;color:var(--mut);margin-left:8px;letter-spacing:0}
 .wrap{max-width:1040px;margin:0 auto;padding:20px 16px 90px}
 h1{font-size:24px;margin:6px 0 2px;font-weight:600}h2{font-size:16px;margin:22px 0 8px;font-weight:600}
 .sub{color:var(--mut);font-size:13px}
@@ -50,7 +50,7 @@ textarea{min-height:150px;resize:vertical}label{font-size:12px;color:var(--mut);
 </style>
 </head>
 <body>
-<div class="top"><div class="brand" onclick="go('#/')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-4px;margin-right:6px"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>ContractGuard <small>by AtliQ</small></div><div class="row"><span id="badge"></span><a onclick="go('#/quality')" class="sub">Quality</a><a onclick="showPrinciples()" class="sub">Principles</a><span class="sub" id="who"></span></div></div>
+<div class="top"><div class="brand" onclick="go('#/')"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-6px;margin-right:8px"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>ContractGuard <small>by AtliQ</small></div><div class="row"><span id="badge"></span><a onclick="go('#/quality')" class="sub">Quality</a><a onclick="showPrinciples()" class="sub">Principles</a><span class="sub" id="who"></span></div></div>
 <div class="wrap" id="app"></div>
 <div id="modal"></div>
 <script>
@@ -76,9 +76,9 @@ const regCount=()=>REG.length+S.entries.filter(e=>e.status!=='rejected').length;
 const confirmedEntries=()=>S.entries.filter(e=>e.status==='confirmed').map(e=>({id:e.id,contract_id:e.contract_id,counterparty:e.counterparty,type:e.type,clause:e.clause,bound:e.bound,restricted_activity:e.restricted_activity,scope:e.scope,start:e.start,end:e.end,quote:e.quote,takeaway:e.takeaway,status:'confirmed'}));
 const allContracts=()=>BASE.concat(S.added);
 const latest=cid=>{const v=S.reviews[cid];return v&&v.length?v[v.length-1]:null};
-const vLabel=v=>v.status==='draft'?'Draft saved':v.status==='in_signing'?'In manual signing':v.status==='deferred'?'Signing deferred':'Reviewed';
+const vLabel=v=>v.status==='draft'?'Draft saved':v.status==='signed'?'Signed':v.status==='in_signing'?'In manual signing':v.status==='deferred'?'Signing deferred':'Reviewed';
 function statusOf(c){const v=latest(c.id);if(v){const open=(v.findings||[]).filter(f=>f.severity==='Serious'&&!(v.answers||{})[f.id]).length;
- if(v.status==='in_signing')return{t:'In manual signing',k:'ok'};if(v.status==='deferred')return{t:'Signing deferred',k:'warn'};if(v.status==='draft')return{t:'Draft saved',k:'warn'};return open?{t:open+' serious open',k:'sev-Serious'}:{t:'Reviewed',k:'ok'}}
+ if(v.status==='signed')return{t:'Signed',k:'ok'};if(v.status==='in_signing')return{t:'In manual signing',k:'ok'};if(v.status==='deferred')return{t:'Signing deferred',k:'warn'};if(v.status==='draft')return{t:'Draft saved',k:'warn'};return open?{t:open+' serious open',k:'sev-Serious'}:{t:'Reviewed',k:'ok'}}
  return{t:c.status||'Unknown',k:'tag'}}
 
 async function api(body,tries){tries=tries||2;
@@ -87,7 +87,7 @@ async function api(body,tries){tries=tries||2;
   try{r=await fetch('/api/review',{method:'POST',headers:h,body:JSON.stringify(body)});j=await r.json()}catch(e){j={error:'network',message:'Could not reach the server.'};r={status:0}}
   if(r.status===200)return j;
   if(r.status===401&&j.error==='access'){const c=prompt('This demo needs an access code:');if(c){try{sessionStorage.setItem('atliq_code',c)}catch(e){}i--;continue}}
-  if(r.status===429&&j.error==='quota'&&i<tries-1){await new Promise(s=>setTimeout(s,9000));continue}
+  if(r.status===429&&j.error==='quota'&&i<tries-1){await new Promise(s=>setTimeout(s,9000*(i+1)));continue}
   const err=new Error(j.message||'Request failed');err.code=j.error;throw err}}
 function trackMeta(m){if(!m)return;S.usage.calls++;S.usage.tin+=m.in||0;S.usage.tout+=m.out||0;if(m.fallback){S.usage.fallbacks++}save();badge()}
 function badge(){const f=S.usage.fallbacks;$('#badge').innerHTML=f?'<span class="pill warn" title="Gemini was busy; Groq answered">backup model used</span>':''}
@@ -109,10 +109,10 @@ function home(){const cs=allContracts();const waiting=cs.filter(c=>/review/i.tes
  let rows=cs.filter(c=>{const st=statusOf(c).t;
   if(homeFilter==='Needs review')return /review|serious open|Draft|deferred/i.test(st)&&!/Signed/i.test(c.status);
   if(homeFilter==='Drafts')return /Draft/i.test(st);
-  if(homeFilter==='Signed')return /Signed/i.test(c.status)&&!latest(c.id);
+  if(homeFilter==='Signed')return /^Signed$/i.test(statusOf(c).t);
   return true}).filter(c=>!homeQ||(c.id+' '+c.counterparty+' '+c.type).toLowerCase().includes(homeQ));
  const regs=REG.concat(S.entries.map(e=>Object.assign({},e)));
- $('#app').innerHTML=`<div class="row sp"><div><div class="sub" style="font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--acc)">ContractGuard</div><div class="sub" style="margin-bottom:2px">AtliQ Contract Risk Analyzer: a second pair of eyes before you sign</div><h1>${greeting()}, ${esc(S.user)}</h1><div class="sub">${waiting} contract${waiting==1?'':'s'} waiting for review${drafts?' · '+drafts+' draft saved':''}</div></div>
+ $('#app').innerHTML=`<div class="row sp"><div><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--acc);line-height:1.1">ContractGuard</div><div class="sub" style="margin-bottom:2px">AtliQ Contract Risk Analyzer: a second pair of eyes before you sign</div><h1>${greeting()}, ${esc(S.user)}</h1><div class="sub">${waiting} contract${waiting==1?'':'s'} waiting for review${drafts?' · '+drafts+' draft saved':''}</div></div>
   <button class="fab" title="Add contract or version" aria-label="Add contract or version" onclick="go('#/new')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
   <div class="row" style="margin:16px 0 8px"><span class="chip ${homeTab==='contracts'?'on':''}" onclick="homeTab='contracts';home()">Contracts ${cs.length}</span><span class="chip ${homeTab==='commitments'?'on':''}" onclick="homeTab='commitments';home()">Past commitments ${regCount()}${pendingN()?' · '+pendingN()+' to confirm':''}</span>
    ${homeTab==='contracts'?chips.map(c=>`<span class="chip ${homeFilter===c?'on':''}" onclick="homeFilter='${c}';home()" style="background:${homeFilter===c?'':'transparent'};border-color:var(--line)">${c}</span>`).join(''):''}
@@ -127,7 +127,7 @@ function homeRows(){const cs=allContracts();const regs=REG.concat(S.entries);let
  let rows=cs.filter(c=>{const st=statusOf(c).t;
   if(homeFilter==='Needs review')return /review|serious open|Draft|deferred/i.test(st)&&!/Signed/i.test(c.status);
   if(homeFilter==='Drafts')return /Draft/i.test(st);
-  if(homeFilter==='Signed')return /Signed/i.test(c.status)&&!latest(c.id);return true}).filter(c=>!homeQ||(c.id+' '+c.counterparty+' '+c.type).toLowerCase().includes(homeQ));
+  if(homeFilter==='Signed')return /^Signed$/i.test(statusOf(c).t);return true}).filter(c=>!homeQ||(c.id+' '+c.counterparty+' '+c.type).toLowerCase().includes(homeQ));
  html=`<table><tr><th>ID</th><th>Client</th><th>Type</th><th class="hm">Country</th><th class="hm">Value</th><th>Status</th><th></th></tr>`+rows.map(c=>{const st=statusOf(c);
   return`<tr class="r" onclick="go('#/contract/${encodeURIComponent(c.id)}')"><td>${esc(c.id)}</td><td>${esc(c.counterparty)}</td><td>${esc(c.type)}</td><td class="hm">${esc(c.country||'')}</td><td class="hm">${money(c.value)}</td><td><span class="pill ${st.k}">${esc(st.t)}</span>${DUP.has(c.id)?' <span class="pill warn" title="Same client, type and value as another row in the tracker">possible duplicate</span>':''}${c.restrictions?` <span class="pill tag">${c.restrictions} restriction${c.restrictions>1?'s':''}</span>`:''}</td><td>&rsaquo;</td></tr>`}).join('')+'</table>';
  $('#tbl').innerHTML=html}
@@ -157,21 +157,22 @@ function rejectEntry(id){const e=S.entries.find(x=>x.id===id);if(!e)return;
 function modal(inner){$('#modal').innerHTML=`<div class="modal" onclick="if(event.target===this)closeModal()"><div class="card">${inner}</div></div>`}
 function closeModal(){$('#modal').innerHTML=''}
 function showPrinciples(){modal(`<b>AtliQ's principles</b><p class="mut">A preference, not a rule. Every contract is judged on its own context.</p><ul>${PRINC.map(p=>`<li>${esc(p.text)}</li>`).join('')}</ul>
- <div class="mut">Model use this session: ${S.usage.calls} calls, ${S.usage.tin.toLocaleString()} tokens in, ${S.usage.tout.toLocaleString()} out.</div><div class="row" style="margin-top:8px"><button onclick="if(confirm('Clear all saved drafts, answers and feedback on this browser?')){localStorage.removeItem(KEY);location.hash='#/';location.reload()}">Reset demo data</button><button onclick="closeModal()" style="margin-left:auto">Close</button></div>`)}
+ <div class="row" style="margin-top:8px"><button onclick="if(confirm('Clear all saved drafts, answers and feedback on this browser?')){localStorage.removeItem(KEY);location.hash='#/';location.reload()}">Reset demo data</button><button onclick="closeModal()" style="margin-left:auto">Close</button></div>`)}
 
 /* ---------------- contract page ---------------- */
 async function contractPage(id){const c=allContracts().find(x=>x.id===id);if(!c){return go('#/')}
  const vs=S.reviews[id]||[];const regs=REG.concat(S.entries).filter(r=>r.contract_id===id);
  $('#app').innerHTML=`<a onclick="go('#/')" class="sub">&lsaquo; All contracts</a>
- <div class="row sp"><div><h1>${esc(c.counterparty)} · ${esc(c.type)}</h1><div class="sub">${esc(c.id)} · ${esc(c.country||'country n/a')} · AtliQ ${esc(c.entity||'entity n/a')} · ${esc(c.status)}</div></div>
- <div class="row">${c.file?`<button class="pri" onclick="startFromSample('${esc(c.file)}','${esc(id)}')">Review this contract</button>`:''}<button onclick="go('#/new/${encodeURIComponent(id)}')">New version</button></div></div>
- <div class="grid g4" style="margin-top:14px"><div class="tile"><b>${money(c.value)}</b><span>value</span></div><div class="tile"><b>${esc(c.signed||c.received||'n/a')}</b><span>${c.signed?'signed':'received'}</span></div><div class="tile"><b>${esc(c.expiry||'n/a')}</b><span>expires</span></div><div class="tile"><b>${esc(c.requested_by||'n/a')}</b><span>brought in by</span></div></div>
+ <div class="row sp"><div><h1>${esc(c.counterparty)} · ${esc(c.type)}</h1><div class="sub">${esc(c.id)} · ${esc(c.country||'country n/a')} · AtliQ ${esc(c.entity||'entity n/a')} · ${esc(statusOf(c).t)}</div></div>
+ <div class="row">${(()=>{const lv=latest(id);return lv&&lv.status==='in_signing'?`<button class="pri" onclick="signedModal('${esc(id)}',${lv.ver})">Mark as signed</button>`:''})()}${c.file?`<button class="pri" onclick="startFromSample('${esc(c.file)}','${esc(id)}')">Review this contract</button>`:''}<button onclick="go('#/new/${encodeURIComponent(id)}')">New version</button></div></div>
+ <div class="grid g4" style="margin-top:14px"><div class="tile"><b>${money(c.value)}</b><span>value</span></div><div class="tile"><b>${esc((latest(id)&&latest(id).signed&&latest(id).signed.date)||c.signed||c.received||'n/a')}</b><span>${(latest(id)&&latest(id).signed)||c.signed?'signed':'received'}</span></div><div class="tile"><b>${esc(c.expiry||'n/a')}</b><span>expires</span></div><div class="tile"><b>${esc(c.requested_by||'n/a')}</b><span>brought in by</span></div></div>
  ${c.notes?`<p class="mut">Tracker note: ${esc(c.notes)}</p>`:''}
  <h2>Restrictions in this contract</h2>${regs.length?regs.map(r=>{const st=entryStatus(r);return`<div class="find" onclick="showCommitment('${esc(r.id)}')"><div class="fh"><span class="pill ${st.k}">${st.t}</span><span class="t">${esc((r.type||'').replace(/_/g,' '))}: ${esc(r.restricted_activity||'')}</span><span class="mut">until ${esc(r.end||'no end date')}</span></div></div>`}).join(''):'<div class="mut">None recorded.</div>'}
  <h2>Reviews</h2>${vs.length?vs.map(v=>`<div class="find" onclick="go('#/review/${encodeURIComponent(id)}/${v.ver}')"><div class="fh"><span class="pill ${v.status==='draft'||v.status==='deferred'?'warn':'ok'}">${vLabel(v)}</span><span class="t">Version ${v.ver}</span><span class="mut">${esc(v.created.slice(0,10))} · ${(v.findings||[]).length} findings</span></div></div>`).join(''):'<div class="mut">No review yet.</div>'}
  ${(()=>{const v=latest(id);if(!v||v.status==='draft')return '';const d=v.details||{};const F=v.findings||[];const lm=v.liability_multiple;
   const rows=F.filter(f=>f.severity!=='Minor'||v.answers[f.id]).map(f=>{const an=v.answers[f.id];return`<tr><td><span class="pill sev-${f.severity}">${f.severity}</span></td><td>${esc(f.title)}</td><td>${an?(an.choice==='accepted'?'<span class="pill ok">Accepted</span>':'<span class="pill warn">Needs review</span>'):'<span class="mut">Open</span>'}</td><td>${an?esc(an.comment||''):''}<div class="mut">${an?esc(an.by)+' · '+esc(an.at.slice(0,10)):''}</div></td></tr>`}).join('');
   return`<h2>Key facts and decisions <span class="mut">(captured at ${v.status==='deferred'?'deferral':'signing'}, version ${v.ver})</span></h2><div class="card"><div class="grid g3" style="margin-bottom:8px"><div><span class="mut">AtliQ entity</span><br>${esc(d.atliq_entity||'n/a')}</div><div><span class="mut">Term</span><br>${d.term_months?d.term_months+' months':'n/a'}</div><div><span class="mut">Annual fee</span><br>${d.annual_fee?fmt(d.annual_fee):'n/a'}</div><div><span class="mut">Governing law</span><br>${esc(d.governing_law||'n/a')}</div><div><span class="mut">Liability cap</span><br>${lm?lm.toFixed(1)+'x annual fee':(v.liability_text==='unlimited'?'Unlimited':'n/a')}</div><div><span class="mut">Clauses reviewed</span><br>${v.clauses_reviewed} of ${v.clauses_total}</div></div>
+  ${v.signed?`<p style="margin:6px 0"><b>Signed</b> on ${esc(v.signed.date)}, recorded by ${esc(v.signed.by)}${v.signed.note?': '+esc(v.signed.note):''}</p>`:''}
   ${v.deferred?`<p style="margin:6px 0"><b>Signing deferred</b> by ${esc(v.deferred.by)} on ${esc(v.deferred.at.slice(0,10))}${v.deferred.reason?': '+esc(v.deferred.reason):''}</p>`:''}
   ${rows?`<table><tr><th>Severity</th><th>Finding</th><th>Decision</th><th>Comment</th></tr>${rows}</table>`:'<div class="mut">No findings to record.</div>'}
   <div class="row" style="margin-top:8px"><button onclick="downloadSummary('${esc(id)}',${v.ver})">Download summary</button></div></div>`})()}
@@ -210,11 +211,15 @@ async function startReview(){const text=$('#ctext').value.trim(),notes=$('#ntext
  $('#goBtn').disabled=true;$('#msg').textContent='Reading the contract…';
  const verOf=$('#mVer').classList.contains('on')?$('#verOf').value:'';
  try{const key=await hash(text);let ex=S.cache['ex'+key];
-  if(!ex){ex=await api({action:'extract',text});trackMeta(ex.meta);S.cache['ex'+key]=ex;save()}
-  RUN={text,notes,verOf,key,details:ex.details,clausesN:ex.clauses,quality:ex.quality};confirmPage()}catch(e){$('#goBtn').disabled=false;$('#msg').textContent=e.message+' Try again in a minute.'}}
+  let manual=false;
+  if(!ex){try{ex=await api({action:'extract',text},3);trackMeta(ex.meta);S.cache['ex'+key]=ex;save()}
+   catch(e){if(!['quota','model','network','server'].includes(e.code))throw e;
+    const sg=await api({action:'segment',text});manual=true;
+    ex={details:{doc_type:'Other',counterparty:'',atliq_entity:'Unknown',atliq_role:'supplier',restrictive_covenants:[]},clauses:sg.clauses.length,quality:null}}}
+  RUN={text,notes,verOf,key,details:ex.details,clausesN:ex.clauses,quality:ex.quality,manual};confirmPage()}catch(e){$('#goBtn').disabled=false;$('#msg').textContent=e.message+' Try again in a minute.'}}
 function confirmPage(){const d=RUN.details,v=RUN.verOf;const cs=allContracts();const ex=v?cs.find(c=>c.id===v):null;
  const next='C-N'+String(S.added.length+1).padStart(2,'0');
- $('#app').innerHTML=`<h1>Confirm the details</h1><div class="sub">Read from the contract. Please correct anything that is wrong.</div>${qualityNote(RUN.quality)}
+ $('#app').innerHTML=`<h1>Confirm the details</h1><div class="sub">${RUN.manual?'The AI models are busy, so the details could not be read automatically. Please fill them in; the rule checks use what you enter, and the clause review will run if the models are back.':'Read from the contract. Please correct anything that is wrong.'}</div>${qualityNote(RUN.quality)}
  <div class="card" style="margin-top:12px"><div class="grid g3">
   <div><label>Contract ID</label><input id="f_id" value="${esc(ex?ex.id:next)}" ${ex?'disabled':''}></div>
   <div><label>Client</label><input id="f_cp" value="${esc(ex?ex.counterparty:(d.counterparty||''))}"></div>
@@ -245,17 +250,17 @@ async function runReview(){const out=(document.querySelector('input[name=out]:ch
   if(!res){
    const seg=await api({action:'segment',text:RUN.text});const total=seg.clauses.length;const batches=seg.batches.map(b=>b.map(id=>seg.clauses.find(c=>c.id===id)));
    mark('rules','run');const rules=await api({action:'rules',details:d,text:RUN.text,contract_id:cid});mark('rules','done');RUN.pct=12;
-   const pConf=(async()=>{mark('conf','run');try{const r=await api({action:'conflicts',details:d,text:RUN.text,extra_register:confirmedEntries(),exclude_contract:cid});trackMeta(r.meta);mark('conf','done');return r}catch(e){mark('conf','bad','could not finish');return{conflicts:[],checked:0,error:e.message}}})();
-   const pNotes=RUN.notes?(async()=>{mark('notes','run');try{const r=await api({action:'notes',notes:RUN.notes,details:d,text:RUN.text});trackMeta(r.meta);mark('notes','done');return r}catch(e){mark('notes','bad','could not finish');return{items:[],error:e.message}}})():Promise.resolve({items:[]});
+   const pConf=(async()=>{mark('conf','run');try{const r=await api({action:'conflicts',details:d,text:RUN.text,extra_register:confirmedEntries(),exclude_contract:cid},3);trackMeta(r.meta);mark('conf','done');return r}catch(e){mark('conf','bad','could not finish');return{conflicts:[],checked:0,error:e.message}}})();
+   const pNotes=RUN.notes?(async()=>{mark('notes','run');try{const r=await api({action:'notes',notes:RUN.notes,details:d,text:RUN.text},3);trackMeta(r.meta);mark('notes','done');return r}catch(e){mark('notes','bad','could not finish');return{items:[],error:e.message}}})():Promise.resolve({items:[]});
    mark('cl','run','0 of '+batches.length);const analysis=[];const couldNot=[];let done=0;let idx=0;
-   const worker=async()=>{while(idx<batches.length){const i=idx++;const b=batches[i];try{const r=await api({action:'analyze',clauses:b,details:d,text:RUN.text});trackMeta(r.meta);analysis.push(r)}catch(e){b.forEach(c=>couldNot.push({id:c.id,why:e.message}))}done++;RUN.pct=12+Math.round(80*done/batches.length);mark('cl','run',done+' of '+batches.length)}};
+   const worker=async()=>{while(idx<batches.length){const i=idx++;const b=batches[i];try{const r=await api({action:'analyze',clauses:b,details:d,text:RUN.text},3);trackMeta(r.meta);analysis.push(r)}catch(e){b.forEach(c=>couldNot.push({id:c.id,why:e.message}))}done++;RUN.pct=12+Math.round(80*done/batches.length);mark('cl','run',done+' of '+batches.length)}};
    await Promise.all([worker(),worker()]);mark('cl',couldNot.length?'bad':'done',couldNot.length?couldNot.length+' clauses could not be checked':undefined);
-   const conf=await pConf,nt=await pNotes;mark('done','run');
+   const conf=await pConf,nt=await pNotes;mark('done','run');const warnings=[];if(conf.error)warnings.push('conflicts');if(nt.error)warnings.push('notes');
    const m=await api({action:'merge',rules:rules.findings,conflicts:conf.conflicts,notes:nt.items,analysis:analysis.flatMap(a=>a.findings)});
    const reviewed=new Set(analysis.flatMap(a=>a.reviewed));
-   res={findings:m.findings,clauses_total:total,clauses_reviewed:reviewed.size,could_not:couldNot,liability_multiple:rules.liability_multiple,liability_text:rules.liability_text,checked_register:conf.checked||0,checked_contracts:conf.checked_contracts||0,seconds:Math.round((Date.now()-t0)/1000)};
-   S.cache['rv'+ckey]=res;save()}
-  const vs=S.reviews[cid]||(S.reviews[cid]=[]);const ver={ver:vs.length+1,created:new Date().toISOString(),status:'draft',details:d,findings:res.findings,answers:{},clauses_total:res.clauses_total,clauses_reviewed:res.clauses_reviewed,could_not:res.could_not,liability_multiple:res.liability_multiple,liability_text:res.liability_text,checked_register:res.checked_register,checked_contracts:res.checked_contracts,seconds:res.seconds,notes_attached:!!RUN.notes,out:RUN.out,quality:RUN.quality,text:RUN.text.slice(0,120000)};
+   res={findings:m.findings,clauses_total:total,clauses_reviewed:reviewed.size,could_not:couldNot,liability_multiple:rules.liability_multiple,liability_text:rules.liability_text,checked_register:conf.checked||0,checked_contracts:conf.checked_contracts||0,seconds:Math.round((Date.now()-t0)/1000),warnings:warnings};
+   if(!couldNot.length&&!warnings.length){S.cache['rv'+ckey]=res;save()}}
+  const vs=S.reviews[cid]||(S.reviews[cid]=[]);const ver={ver:vs.length+1,created:new Date().toISOString(),status:'draft',details:d,findings:res.findings,answers:{},clauses_total:res.clauses_total,clauses_reviewed:res.clauses_reviewed,could_not:res.could_not,warnings:res.warnings||[],notes_text:(RUN.notes||'').slice(0,60000),liability_multiple:res.liability_multiple,liability_text:res.liability_text,checked_register:res.checked_register,checked_contracts:res.checked_contracts,seconds:res.seconds,notes_attached:!!RUN.notes,out:RUN.out,quality:RUN.quality,text:RUN.text.slice(0,120000)};
   vs.push(ver);if(!verOf&&!allContracts().find(c=>c.id===cid)){S.added.push({id:cid,counterparty:d.counterparty||'New contract',type:d.doc_type,entity:d.atliq_entity,country:d.client_country,value:d.total_value,status:'In review',received:today(),restrictions:0,requested_by:S.user,notes:''})}
   S.audit.push({at:new Date().toISOString(),who:S.user,what:'Review created',cid,ver:ver.ver});save();go('#/review/'+encodeURIComponent(cid)+'/'+ver.ver)
  }catch(e){$('#app').innerHTML=`<h1>The review stopped</h1><div class="card"><p>${esc(e.message)}</p><p class="mut">Both models are busy or unreachable. Nothing was lost; try again in a minute.</p><button class="pri" onclick="confirmPage()">Try again</button></div>`}}
@@ -279,13 +284,37 @@ function reviewPage(cid,ver){const v=getRev(cid,ver);if(!v)return go('#/');const
   <div class="tile"><b>${F.filter(f=>f.severity==='Serious').length} · ${F.filter(f=>f.severity==='Negotiable').length} · ${F.filter(f=>f.severity==='Minor').length}</b><span>serious · negotiable · minor</span></div>
   <div class="tile"><b>${d.total_value?fmt(d.total_value):'n/a'}</b><span>contract value${d.annual_fee?' · '+fmt(d.annual_fee)+' a year':''}</span></div>
   <div class="tile"><b>${lm?lm.toFixed(1)+'x fee':(v.liability_text==='unlimited'?'Unlimited':'n/a')}</b><span>liability cap · past contracts: about 1x</span></div></div>
- ${qualityNote(v.quality)}<div class="mut" style="margin:10px 0">Checked ${v.checked_register||0} past commitments, including any you have confirmed (17 signed contracts are on file; 13 more are not) · ${v.notes_attached?'unofficial notes included':'no unofficial notes'} · reviewed in ${v.seconds}s · Not legal advice</div>
+ ${qualityNote(v.quality)}${partialBanner(v,cid)}<div class="mut" style="margin:10px 0">Checked ${v.checked_register||0} past commitments, including any you have confirmed (17 signed contracts are on file; 13 more are not) · ${v.notes_attached?'unofficial notes included':'no unofficial notes'} · reviewed in ${v.seconds}s · Not legal advice</div>
  <div class="row" style="margin:6px 0">${['All','Open','Serious','Negotiable','Minor','Unofficial'].map(x=>`<span class="chip ${FILTER===x?'on':''}" onclick="FILTER='${x}';reviewPage('${esc(cid)}',${v.ver})">${x}${x==='Open'?' '+F.filter(f=>!v.answers[f.id]).length:''}</span>`).join('')}</div>
- ${list.map(f=>findHtml(f,v,cid)).join('')||(F.length?'<div class="mut">Nothing in this view.</div>':'<div class="card"><b>No findings from the checks we ran.</b><div class="mut">This is not a clearance. The checks cover entity and law, amounts, past commitments and each clause, but please still read the contract before signing.</div></div>')}
+ ${list.map(f=>findHtml(f,v,cid)).join('')||(F.length?'<div class="mut">Nothing in this view.</div>':(((v.could_not&&v.could_not.length)||(v.warnings&&v.warnings.length))?'<div class="card"><b>No findings yet, because part of the review did not run.</b><div class="mut">This is not a clearance. Retry the missing parts, or read the contract yourself.</div></div>':'<div class="card"><b>No findings from the checks we ran.</b><div class="mut">This is not a clearance. The checks cover entity and law, amounts, past commitments and each clause, but please still read the contract before signing.</div></div>'))}
  ${expired.length?`<h2>Expired restrictions (shown for confidence)</h2>${expired.map(f=>`<div class="mut">${esc(f.title)} · ended ${esc(f.register_end||'')}</div>`).join('')}`:''}
  ${v.could_not&&v.could_not.length?`<h2>Could not check</h2><div class="mut">Clauses ${v.could_not.map(x=>esc(x.id)).join(', ')} could not be reviewed (model busy). Please read them yourself.</div>`:''}
- <div class="foot"><div class="in"><span class="mut" id="prog">${openSer?openSer+' of '+sers+' serious finding'+(sers==1?'':'s')+' still need an answer':nrN?(v.status==='deferred'?'Signing deferred. ':'')+nrN+' marked needs review. Resolve '+(nrN==1?'it':'them')+(v.status==='deferred'?' to proceed to signing.':' to sign, or defer signing.'):'All serious findings answered'}</span>
-  <div class="row"><button onclick="saveDraft('${esc(cid)}',${v.ver})">Save draft</button>${v.status==='in_signing'?`<button onclick="rateModal('${esc(cid)}',${v.ver})">Rate this review</button>`:`${v.status==='deferred'?'':`<button ${nrN&&!openSer?'class="pri"':''} onclick="deferModal('${esc(cid)}',${v.ver})">Defer signing</button>`}<button ${!openSer&&!nrN?'class="pri"':''} ${openSer||nrN?'disabled':''} onclick="proceed('${esc(cid)}',${v.ver})">Proceed to manual signing</button>`}</div></div></div>`}
+ <div class="foot"><div class="in"><span class="mut" id="prog">${((v.could_not&&v.could_not.length)||(v.warnings&&v.warnings.length))&&!openSer&&!nrN?'Partial review: some clauses or checks did not finish':openSer?openSer+' of '+sers+' serious finding'+(sers==1?'':'s')+' still need an answer':nrN?(v.status==='deferred'?'Signing deferred. ':'')+nrN+' marked needs review. Resolve '+(nrN==1?'it':'them')+(v.status==='deferred'?' to proceed to signing.':' to sign, or defer signing.'):'All serious findings answered'}</span>
+  <div class="row"><button onclick="saveDraft('${esc(cid)}',${v.ver})">Save draft</button>${v.status==='signed'?`<button onclick="rateModal('${esc(cid)}',${v.ver})">Rate this review</button>`:v.status==='in_signing'?`<button onclick="rateModal('${esc(cid)}',${v.ver})">Rate this review</button><button class="pri" onclick="signedModal('${esc(cid)}',${v.ver})">Mark as signed</button>`:`${v.status==='deferred'?'':`<button ${nrN&&!openSer?'class="pri"':''} onclick="deferModal('${esc(cid)}',${v.ver})">Defer signing</button>`}<button ${!openSer&&!nrN?'class="pri"':''} ${openSer||nrN?'disabled':''} onclick="proceed('${esc(cid)}',${v.ver})">Proceed to manual signing</button>`}</div></div></div>`}
+function partialBanner(v,cid){const cn=(v.could_not||[]).length,w=v.warnings||[];if(!cn&&!w.length)return '';
+ const parts=[];if(cn)parts.push(cn+' clause'+(cn==1?'':'s')+' ('+v.could_not.map(x=>esc(x.id)).join(', ')+') could not be checked');if(w.includes('conflicts'))parts.push('the past-commitments check did not finish');if(w.includes('notes'))parts.push('the unofficial notes were not read');
+ return`<div class="card" style="margin:10px 0;border-color:var(--amb);background:var(--ambbg)"><b>Partial review.</b> The AI models were busy or unreachable, so ${parts.join('; ')}. Everything shown below comes from checks that did finish, including all the rule checks. Read the missing parts yourself, or try again.
+ <div class="row" style="margin-top:8px"><button class="pri" id="rtry" onclick="retryMissing('${esc(cid)}',${v.ver})">Retry the missing parts</button><span class="mut" id="rmsg"></span></div></div>`}
+async function retryMissing(cid,ver){const v=getRev(cid,ver);const b=$('#rtry');if(b){b.disabled=true;b.textContent='Retrying…'}
+ try{
+  const d=v.details;let add=[];const still=[];const reviewed=new Set();
+  if((v.could_not||[]).length){const ids=new Set(v.could_not.map(x=>x.id));const seg=await api({action:'segment',text:v.text});
+   const batches=seg.batches.map(bt=>bt.filter(id=>ids.has(id)).map(id=>seg.clauses.find(c=>c.id===id))).filter(bt=>bt.length);
+   for(const bt of batches){try{const r=await api({action:'analyze',clauses:bt,details:d,text:v.text},3);trackMeta(r.meta);add=add.concat(r.findings||[]);(r.reviewed||[]).forEach(x=>reviewed.add(x))}catch(e){bt.forEach(c=>still.push({id:c.id,why:e.message}))}}}
+  let conf=null,nt=null;const w=(v.warnings||[]).slice();
+  if(w.includes('conflicts')){try{conf=await api({action:'conflicts',details:d,text:v.text,extra_register:confirmedEntries(),exclude_contract:cid},3);trackMeta(conf.meta)}catch(e){conf=null}}
+  if(w.includes('notes')&&v.notes_text){try{nt=await api({action:'notes',notes:v.notes_text,details:d,text:v.text},3);trackMeta(nt.meta)}catch(e){nt=null}}
+  const m=await api({action:'merge',rules:[],conflicts:conf?conf.conflicts:[],notes:nt?nt.items:[],analysis:add});
+  const key=f=>[f.source,f.topic,f.clause_id,f.register_id,f.title].join('|');const have=new Set((v.findings||[]).map(key));
+  let n=Math.max(0,...(v.findings||[]).map(f=>parseInt(String(f.id).slice(1))||0));
+  const rank={Serious:0,Negotiable:1,Minor:2};
+  (m.findings||[]).filter(f=>!have.has(key(f))).forEach(f=>{f.id='F'+String(++n).padStart(2,'0');v.findings.push(f)});
+  v.findings.sort((a,b)=>(rank[a.severity]??3)-(rank[b.severity]??3)||String(a.id).localeCompare(String(b.id)));
+  v.could_not=still;v.clauses_reviewed=Math.min(v.clauses_total,(v.clauses_reviewed||0)+reviewed.size);
+  v.warnings=w.filter(x=>(x==='conflicts'&&!conf)||(x==='notes'&&!nt));
+  if(conf){v.checked_register=conf.checked||0;v.checked_contracts=conf.checked_contracts||0}
+  S.audit.push({at:new Date().toISOString(),who:S.user,what:'Retried missing parts of the review',cid,ver:v.ver,left:still.length+v.warnings.length});save();reviewPage(cid,v.ver)
+ }catch(e){const mm=$('#rmsg');if(mm)mm.textContent=e.message+' Try again in a minute.';if(b){b.disabled=false;b.textContent='Retry the missing parts'}}}
 function findHtml(f,v,cid){const a=v.answers[f.id];const open=OPEN[f.id];
  const src={contract:'Contract',register:'Past commitment',rule:'Check',unofficial:'Unofficial note'}[f.source]||f.source;
  const stat=a?(a.choice==='accepted'?'<span class="pill ok">Accepted</span>':'<span class="pill warn">Needs review</span>'):'<span class="mut">Open</span>';
@@ -316,9 +345,9 @@ function saveDraft(cid,ver){const v=getRev(cid,ver);if(v.status!=='deferred')v.s
 async function proceed(cid,ver){const v=getRev(cid,ver);const acc=Object.values(v.answers).filter(a=>a.choice==='accepted').length,nr=Object.values(v.answers).filter(a=>a.choice==='needs_review').length;
  const openN=(v.findings||[]).filter(f=>!v.answers[f.id]).length;
  modal(`<b>Ready for a person to sign</b><p class="mut">This tool does not sign, send or approve anything.</p>
- <ul style="margin:6px 0 10px"><li>${acc} accepted (reasons are logged)</li><li>${openN} still open (not serious)</li></ul>
+ <ul style="margin:6px 0 10px"><li>${acc} accepted (reasons are logged)</li><li>${openN} still open (not serious)</li></ul>${(v.could_not&&v.could_not.length)||(v.warnings&&v.warnings.length)?'<p style="color:var(--amb)"><b>This review is partial.</b> Some clauses or checks did not finish. Read what was not checked before anyone signs.</p><label style="display:flex;gap:8px;align-items:center;margin:0"><input type="checkbox" id="ackp" style="width:auto" onchange="cb.disabled=!this.checked"> I have read the parts that were not checked myself</label>':''}
  <div class="mut">Signer: ${esc(S.user)} (Dhaval if unavailable). Clicking continue records this contract in the register as "in manual signing" and queues any new restrictions for confirmation.</div>
- <div class="row" style="margin-top:12px"><button class="pri" id="cb" onclick="doProceed('${esc(cid)}',${ver})">Continue</button><button onclick="closeModal()">Cancel</button></div>`)}
+ <div class="row" style="margin-top:12px"><button class="pri" id="cb" ${(v.could_not&&v.could_not.length)||(v.warnings&&v.warnings.length)?'disabled':''} onclick="doProceed('${esc(cid)}',${ver})">Continue</button><button onclick="closeModal()">Cancel</button></div>`)}
 async function doProceed(cid,ver){const v=getRev(cid,ver);$('#cb').disabled=true;let entries=[];
  try{const r=await api({action:'register_entry',details:v.details,text:v.text||'',contract_id:cid},1);entries=r.entries||[]}catch(e){entries=[]}
  const keep=S.entries.filter(e=>e.contract_id!==cid||e.status!=='pending_confirmation');const known=new Set(keep.filter(e=>e.contract_id===cid).map(e=>e.quote||e.restricted_activity));
@@ -326,6 +355,15 @@ async function doProceed(cid,ver){const v=getRev(cid,ver);$('#cb').disabled=true
  const c=allContracts().find(x=>x.id===cid);if(c){c.status='In manual signing';c.restrictions=entries.length||c.restrictions}
  const a=S.added.find(x=>x.id===cid);if(a){a.status='In manual signing';a.restrictions=entries.length}
  v.status='in_signing';S.audit.push({at:new Date().toISOString(),who:S.user,what:'Proceeded to manual signing',cid,ver,entries:entries.length});save();closeModal();downloadSummary(cid,ver);reviewPage(cid,ver);rateModal(cid,ver)}
+function signedModal(cid,ver){modal(`<b>Mark as signed</b><p class="mut">Record that a person has signed this contract outside the tool. The tool signs nothing.</p>
+ <label>Date signed<input id="sg_d" type="date" value="${today()}" max="${today()}"></label>
+ <label>Note (optional)<textarea id="sg_n" rows="2" placeholder="For example: signed by Karandeep, countersigned by the client on the same day"></textarea></label>
+ <div class="mut">Restrictions queued when you proceeded stay in the Past commitments tab until someone confirms them.</div>
+ <div class="row" style="margin-top:12px"><button class="pri" onclick="doSigned('${esc(cid)}',${ver})">Confirm signed</button><button onclick="closeModal()">Cancel</button></div>`)}
+function doSigned(cid,ver){const v=getRev(cid,ver);const date=($('#sg_d')||{}).value||today();const note=(($('#sg_n')||{}).value||'').trim();
+ v.status='signed';v.signed={date,note,at:new Date().toISOString(),by:S.user};
+ const c=allContracts().find(x=>x.id===cid);if(c){c.status='Signed';c.signed=date}const a=S.added.find(x=>x.id===cid);if(a){a.status='Signed';a.signed=date}
+ S.audit.push({at:v.signed.at,who:S.user,what:'Marked as signed',cid,ver,date,comment:note});save();closeModal();route()}
 function downloadSummary(cid,ver){const v=getRev(cid,ver);const d=v.details;
  const rows=(v.findings||[]).map(f=>{const a=v.answers[f.id];return`<tr><td>${esc(f.severity)}</td><td>${esc(f.title)}</td><td>${esc(f.clause_id||'')}</td><td>${esc((f.quote||'').slice(0,200))}</td><td>${a?esc(a.choice+': '+a.comment):'open'}</td></tr>`}).join('');
  const html=`<html><head><meta charset="utf-8"><title>Review ${esc(cid)} v${v.ver}</title><style>body{font:14px system-ui;margin:24px}td,th{border:1px solid #ccc;padding:6px;vertical-align:top}table{border-collapse:collapse;width:100%}</style></head><body><h2>${esc(d.counterparty)} · ${esc(d.doc_type)} · ${esc(cid)} v${v.ver}</h2><p>Clauses reviewed ${v.clauses_reviewed} of ${v.clauses_total}. Prepared by the AtliQ Contract Risk Analyzer for ${esc(S.user)} on ${today()}. Not legal advice. Nothing was signed or sent.${v.status==='deferred'?' Signing deferred'+(v.deferred&&v.deferred.reason?': '+esc(v.deferred.reason):'')+'.':''}</p><table><tr><th>Severity</th><th>Finding</th><th>Clause</th><th>Quote</th><th>Decision and reason</th></tr>${rows}</table></body></html>`;
@@ -390,7 +428,7 @@ function qualityPage(){const all=[];Object.keys(S.reviews).forEach(cid=>S.review
  <div class="grid g4" style="margin-top:12px"><div class="tile"><b>${pct(missedNo,rated.length)}</b><span>of rated reviews: "nothing missed"</span></div><div class="tile"><b>${avg}</b><span>average rating (of 5)</span></div><div class="tile"><b>${med}s</b><span>median review time</span></div><div class="tile"><b>${p95}s</b><span>slowest 5% (limit 300s)</span></div></div>
  <h2>What counts</h2><div class="card mut">A review is trusted when it finished in under 5 minutes, read every clause, showed the coverage line, showed a verified quote for every model finding (or marked it "not sure"), could not skip a clause, <b>and</b> the reviewer tapped "Nothing missed". Reviews with no tap count as unconfirmed, not as a pass. Below a 70% tap rate the rate is not reliable.</div>
  <h2>Reasons given</h2>${Object.keys(reasons).length?`<div class="row">${Object.keys(reasons).map(r=>`<span class="pill tag">${esc(r)} · ${reasons[r]}</span>`).join('')}</div>`:'<div class="mut">No reasons recorded yet.</div>'}
- <h2>Models</h2><div class="mut">${S.usage.calls} model calls, ${S.usage.tin.toLocaleString()} tokens in, ${S.usage.tout.toLocaleString()} out; backup model used ${S.usage.fallbacks} time${S.usage.fallbacks==1?'':'s'}.</div>`}
+ <h2>Operations <span class="mut" style="font-weight:400">(for the product team; not needed to review a contract)</span></h2><div class="mut">Model use in this browser: ${S.usage.calls} model calls, ${S.usage.tin.toLocaleString()} tokens in, ${S.usage.tout.toLocaleString()} out; backup model used ${S.usage.fallbacks} time${S.usage.fallbacks==1?'':'s'}.</div>`}
 
 /* ---------------- boot ---------------- */
 async function boot(){S=load();$('#who').textContent=S.user;

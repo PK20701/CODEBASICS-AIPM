@@ -275,6 +275,8 @@ def _groq_once(system, user, model, key):
 
 def llm_json(system, user, tier='smart'):
     """Gemini first; on rate limit or outage switch to Groq. Returns (object, meta)."""
+    if os.environ.get('FORCE_MODELS_FAIL'):
+        raise QuotaError('all models unavailable (forced for testing)')
     notes = []
     try:
         obj, meta = gemini_json(system, user, tier)

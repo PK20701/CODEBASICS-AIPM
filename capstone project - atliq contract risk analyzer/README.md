@@ -12,7 +12,8 @@ Built for the AI PM capstone. The tool uses the real calendar date when it compu
 4. **Decide**: *Accept risk* (a written reason is required for Serious ones) or *Needs review*. *Save draft* at any time.
 5. **Proceed to manual signing**: records the contract as "in manual signing", queues any new restrictions (with computed end dates) for confirmation in the register, and downloads a summary with every decision and reason.
    Restrictions queued here appear in the **Past commitments** tab as "to confirm". Open one, check it against the source clause, correct the activity, customers, region or end date, then **Confirm** (or **Reject**). Only confirmed restrictions are used in later conflict checks; the contract being reviewed never collides with its own restrictions.
-6. **Rate the review**: one tap, optional stars, reasons only when something was missed or the rating is 3 or lower. Never blocks.
+6. **Mark as signed**: after a person has signed outside the tool, the reviewer marks the contract signed (date and note) from the review or the contract page; the status moves from "In manual signing" to "Signed" and is logged.
+7. **Rate the review**: one tap, optional stars, reasons only when something was missed or the rating is 3 or lower. Never blocks.
 
 ## How it works (rules where a rule is enough, a model only for reading)
 
@@ -138,7 +139,8 @@ Results at submission (Gemini free tier):
 * The starting register (14 commitments) was curated by hand from the 17 signed contracts. A model extractor finds 86 to 93% of them from the text, so new entries need the confirm step; the register is not claimed to be complete.
 * Some matching rules are specific to this dataset (for example the hospitality, region and entity rules, and the lexicon used for the scan warning). A different client would need the rules and the lexicon rebuilt (`tools/make_lexicon.py`).
 * The Quality page computes a rough "reviews rated as right" figure from the reviews saved in the same browser. It is not production telemetry.
-* Browser-only storage means decisions are per browser. A production version would use a database and real login.
+* Browser-only storage means decisions are per browser and are lost if the browser data is cleared. A production version would use a managed PostgreSQL database with encrypted file storage and real login (proposed in the PRD, section 8).
+* If both model providers are busy, the review does not fail: it shows the rule checks and whatever finished, lists the clauses not checked, and offers "Retry the missing parts". If the details cannot be read, you type them in. Signing a partial review needs a tick confirming the missing parts were read. `FORCE_MODELS_FAIL=1` simulates an outage for testing.
 
 ## Folder map
 
