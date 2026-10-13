@@ -9,7 +9,7 @@
 @media (prefers-color-scheme:dark){:root{--bg:#0f1318;--card:#171c23;--ink:#e8ebef;--mut:#9aa4b2;--line:#2a313b;--acc:#8fb4ff;--accb:#5b9bff;--redbg:#3a1d1b;--red:#ff9d94;--ambbg:#3a2f12;--amb:#f5c76b;--grnbg:#16301f;--grn:#7fd49a;--gry:#222932}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 a{color:var(--accb);text-decoration:none;cursor:pointer}
-.top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top{display:flex;align-items:center;justify-content:space-between;padding:12px max(16px,calc((100% - 1040px)/2 + 16px));background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
 .brand{font-weight:700;font-size:21px;letter-spacing:-.01em;color:var(--acc);cursor:pointer}.brand small{font-size:12px;font-weight:400;color:var(--mut);margin-left:8px;letter-spacing:0}
 .wrap{max-width:1040px;margin:0 auto;padding:20px 16px 90px}
 h1{font-size:24px;margin:6px 0 2px;font-weight:600}h2{font-size:16px;margin:22px 0 8px;font-weight:600}
@@ -112,7 +112,7 @@ function home(){const cs=allContracts();const waiting=cs.filter(c=>/review/i.tes
   if(homeFilter==='Signed')return /^Signed$/i.test(statusOf(c).t);
   return true}).filter(c=>!homeQ||(c.id+' '+c.counterparty+' '+c.type).toLowerCase().includes(homeQ));
  const regs=REG.concat(S.entries.map(e=>Object.assign({},e)));
- $('#app').innerHTML=`<div class="row sp"><div><div style="font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--acc);line-height:1.1">ContractGuard</div><div class="sub" style="margin-bottom:2px">AtliQ Contract Risk Analyzer: a second pair of eyes before you sign</div><h1>${greeting()}, ${esc(S.user)}</h1><div class="sub">${waiting} contract${waiting==1?'':'s'} waiting for review${drafts?' · '+drafts+' draft saved':''}</div></div>
+ $('#app').innerHTML=`<div class="row sp"><div><div class="sub" style="margin-bottom:4px">AtliQ Contract Risk Analyzer: a second pair of eyes before you sign</div><h1>${greeting()}, ${esc(S.user)}</h1><div class="sub">${waiting} contract${waiting==1?'':'s'} waiting for review${drafts?' · '+drafts+' draft saved':''}</div></div>
   <button class="fab" title="Add contract or version" aria-label="Add contract or version" onclick="go('#/new')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
   <div class="row" style="margin:16px 0 8px"><span class="chip ${homeTab==='contracts'?'on':''}" onclick="homeTab='contracts';home()">Contracts ${cs.length}</span><span class="chip ${homeTab==='commitments'?'on':''}" onclick="homeTab='commitments';home()">Past commitments ${regCount()}${pendingN()?' · '+pendingN()+' to confirm':''}</span>
    ${homeTab==='contracts'?chips.map(c=>`<span class="chip ${homeFilter===c?'on':''}" onclick="homeFilter='${c}';home()" style="background:${homeFilter===c?'':'transparent'};border-color:var(--line)">${c}</span>`).join(''):''}

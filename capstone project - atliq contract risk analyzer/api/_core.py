@@ -162,7 +162,21 @@ class QuotaError(LLMError):
 USAGE = {'calls': 0, 'in': 0, 'out': 0}
 
 
+import threading
+_BUDGET = threading.local()
+
+
+def time_left():
+    d = getattr(_BUDGET, 'deadline', None)
+    return 999 if d is None else d - time.time()
+
+
 def _post(url, headers, body, timeout=55):
+    # the serverless function is killed at 60 s with a page that is not JSON; stop earlier so the browser gets a clean error and can show a partial review
+    left = time_left()
+    if left < 4:
+        raise QuotaError('time budget for this call is used up')
+    timeout = min(timeout, left)
     headers = dict(headers, **{'User-Agent': 'atliq-contract-risk-analyzer/1.0', 'Accept': 'application/json'})
     req = urllib.request.Request(url, data=json.dumps(body).encode('utf-8'), headers=headers, method='POST')
     try:
@@ -210,12 +224,16 @@ def gemini_json(system, user, tier):
     first = os.environ.get('GEMINI_MODEL_FAST' if tier == 'fast' else 'GEMINI_MODEL_SMART')
     models = ([first] if first else []) + [m for m in os.environ.get('GEMINI_ROTATION', GEMINI_ROTATION).split(',') if m and m != first]
     last = None
+    stop = time.time() + float(os.environ.get('GEMINI_BUDGET_S', '24'))   # leave time for the backup provider inside the 50 s call budget
     for i, m in enumerate(models):
+        left = min(stop - time.time(), time_left() - 20)
+        if left < 4:
+            break
         try:
-            return _gemini_once(system, user, m, key, 30 if i else 45)
+            return _gemini_once(system, user, m, key, min(20 if i == 0 else 12, left))
         except QuotaError as e:
             last = e
-    raise QuotaError('all gemini models busy: %s' % str(last)[:160])
+    raise QuotaError('all gemini models busy or too slow: %s' % str(last)[:160])
 
 
 def _gemini_once(system, user, model, key, timeout):
@@ -254,7 +272,7 @@ def groq_json(system, user, tier, max_chars=22000):
             except QuotaError as e:
                 last = e
         m = re.search(r'try again in ([0-9.]+)s', str(last))
-        if attempt or not m or float(m.group(1)) > 15:
+        if attempt or not m or float(m.group(1)) > min(15, time_left() - 8):
             break
         time.sleep(float(m.group(1)) + 0.5)
     raise last
@@ -275,6 +293,7 @@ def _groq_once(system, user, model, key):
 
 def llm_json(system, user, tier='smart'):
     """Gemini first; on rate limit or outage switch to Groq. Returns (object, meta)."""
+    _BUDGET.deadline = time.time() + float(os.environ.get('MODEL_BUDGET_S', '50'))
     if os.environ.get('FORCE_MODELS_FAIL'):
         raise QuotaError('all models unavailable (forced for testing)')
     notes = []
