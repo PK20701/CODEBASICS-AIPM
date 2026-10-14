@@ -296,24 +296,34 @@ def llm_json(system, user, tier='smart'):
     _BUDGET.deadline = time.time() + float(os.environ.get('MODEL_BUDGET_S', '50'))
     if os.environ.get('FORCE_MODELS_FAIL'):
         raise QuotaError('all models unavailable (forced for testing)')
-    notes = []
-    try:
-        obj, meta = gemini_json(system, user, tier)
-    except QuotaError as e:
-        notes.append('gemini: %s' % str(e)[:120])
-        obj, meta = groq_json(system, user, tier)
-        meta['fallback'] = True
-        meta['notes'] = notes
-    except LLMError as e:
-        # malformed output: one retry on the same provider, then fall back
+    # MODEL_PRIMARY=groq puts the backup provider first (faster answers, but a small per-minute token budget and shorter input), Gemini then becomes the fallback
+    groq_first = os.environ.get('MODEL_PRIMARY', 'gemini').lower() == 'groq' and os.environ.get('GROQ_API_KEY') and len(user) <= 20000
+    if groq_first:
         try:
-            obj, meta = gemini_json(system, user + '\n\nReturn valid JSON only.', tier)
-            meta['retried'] = True
-        except LLMError:
+            obj, meta = groq_json(system, user, tier)
+        except LLMError as e:
+            obj, meta = gemini_json(system, user, tier)
+            meta['fallback'] = True
+            meta['notes'] = ['groq: %s' % str(e)[:120]]
+    else:
+        notes = []
+        try:
+            obj, meta = gemini_json(system, user, tier)
+        except QuotaError as e:
             notes.append('gemini: %s' % str(e)[:120])
             obj, meta = groq_json(system, user, tier)
             meta['fallback'] = True
             meta['notes'] = notes
+        except LLMError as e:
+            # malformed output: one retry on the same provider, then fall back
+            try:
+                obj, meta = gemini_json(system, user + '\n\nReturn valid JSON only.', tier)
+                meta['retried'] = True
+            except LLMError:
+                notes.append('gemini: %s' % str(e)[:120])
+                obj, meta = groq_json(system, user, tier)
+                meta['fallback'] = True
+                meta['notes'] = notes
     if isinstance(obj, list):
         obj = {'findings': obj, 'items': obj, 'matches': obj}
     if not isinstance(obj, dict):
