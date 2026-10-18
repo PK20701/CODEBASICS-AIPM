@@ -205,12 +205,13 @@ async function pickSample(file){if(!file)return;const s=SAMPLES.find(x=>x.file==
 
 /* ---------------- review pipeline ---------------- */
 const hash=async t=>{const b=new TextEncoder().encode(t);const d=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(d)).slice(0,8).map(x=>x.toString(16).padStart(2,'0')).join('')};
-let RUN=null;
+let RUN=null;let PRE={};   // results prepared in advance for the built-in sample contracts (data/precomputed.json), so trying a sample needs no AI call
+
 async function startReview(){const text=$('#ctext').value.trim(),notes=$('#ntext').value.trim();
  if(text.length<200){$('#msg').textContent='Paste or upload a contract first.';return}
  $('#goBtn').disabled=true;$('#msg').textContent='Reading the contract…';
  const verOf=$('#mVer').classList.contains('on')?$('#verOf').value:'';
- try{const key=await hash(text);let ex=S.cache['ex'+key];
+ try{const key=await hash(text);let ex=S.cache['ex'+key]||PRE['ex'+key];
   let manual=false;
   if(!ex){try{ex=await api({action:'extract',text},3);trackMeta(ex.meta);S.cache['ex'+key]=ex;save()}
    catch(e){if(!['quota','model','network','server'].includes(e.code))throw e;
@@ -246,7 +247,7 @@ async function runReview(){const out=(document.querySelector('input[name=out]:ch
  const mark=(k,s,x)=>{const st=steps.find(z=>z.k===k);if(st){st.s=s;if(x!==undefined)st.x=x}paint()};
  paint();const t0=Date.now();
  try{
-  let res=S.cache['rv'+ckey];
+  let res=S.cache['rv'+ckey]||PRE['rv'+ckey];
   if(!res){
    const seg=await api({action:'segment',text:RUN.text});const total=seg.clauses.length;const batches=seg.batches.map(b=>b.map(id=>seg.clauses.find(c=>c.id===id)));
    mark('rules','run');const rules=await api({action:'rules',details:d,text:RUN.text,contract_id:cid});mark('rules','done');RUN.pct=12;
@@ -365,8 +366,10 @@ function doSigned(cid,ver){const v=getRev(cid,ver);const date=($('#sg_d')||{}).v
  const c=allContracts().find(x=>x.id===cid);if(c){c.status='Signed';c.signed=date}const a=S.added.find(x=>x.id===cid);if(a){a.status='Signed';a.signed=date}
  S.audit.push({at:v.signed.at,who:S.user,what:'Marked as signed',cid,ver,date,comment:note});save();closeModal();route()}
 function downloadSummary(cid,ver){const v=getRev(cid,ver);const d=v.details;
+ const F=v.findings||[];const withF=new Set(F.map(f=>String(f.clause_id||'')).filter(x=>x&&x!=='undefined')).size;const cn=(v.could_not||[]);const w=v.warnings||[];
+ const cov=` This table lists the ${F.length} findings, not every clause: about ${withF} clause${withF==1?'':'s'} produced a finding and ${Math.max(0,(v.clauses_reviewed||0)-withF)} reviewed clause${(v.clauses_reviewed-withF)==1?'':'s'} had none.`+(cn.length?` <b>${cn.length} clause${cn.length==1?'':'s'} could not be checked (${cn.map(x=>esc(x.id)).join(', ')}) because the AI models were busy; read ${cn.length==1?'it':'them'} yourself.</b>`:'')+(w.includes('conflicts')?' <b>The past-commitments check did not finish.</b>':'')+(w.includes('notes')?' <b>The unofficial notes were not read.</b>':'');
  const rows=(v.findings||[]).map(f=>{const a=v.answers[f.id];return`<tr><td>${esc(f.severity)}</td><td>${esc(f.title)}</td><td>${esc(f.clause_id||'')}</td><td>${esc((f.quote||'').slice(0,200))}</td><td>${a?esc(a.choice+': '+a.comment):'open'}</td></tr>`}).join('');
- const html=`<html><head><meta charset="utf-8"><title>Review ${esc(cid)} v${v.ver}</title><style>body{font:14px system-ui;margin:24px}td,th{border:1px solid #ccc;padding:6px;vertical-align:top}table{border-collapse:collapse;width:100%}</style></head><body><h2>${esc(d.counterparty)} · ${esc(d.doc_type)} · ${esc(cid)} v${v.ver}</h2><p>Clauses reviewed ${v.clauses_reviewed} of ${v.clauses_total}. Prepared by the AtliQ Contract Risk Analyzer for ${esc(S.user)} on ${today()}. Not legal advice. Nothing was signed or sent.${v.status==='deferred'?' Signing deferred'+(v.deferred&&v.deferred.reason?': '+esc(v.deferred.reason):'')+'.':''}</p><table><tr><th>Severity</th><th>Finding</th><th>Clause</th><th>Quote</th><th>Decision and reason</th></tr>${rows}</table></body></html>`;
+ const html=`<html><head><meta charset="utf-8"><title>Review ${esc(cid)} v${v.ver}</title><style>body{font:14px system-ui;margin:24px}td,th{border:1px solid #ccc;padding:6px;vertical-align:top}table{border-collapse:collapse;width:100%}</style></head><body><h2>${esc(d.counterparty)} · ${esc(d.doc_type)} · ${esc(cid)} v${v.ver}</h2><p>Clauses reviewed ${v.clauses_reviewed} of ${v.clauses_total}.${cov} Prepared by the AtliQ Contract Risk Analyzer for ${esc(S.user)} on ${today()}. Not legal advice. Nothing was signed or sent.${v.status==='deferred'?' Signing deferred'+(v.deferred&&v.deferred.reason?': '+esc(v.deferred.reason):'')+'.':''}</p><table><tr><th>Severity</th><th>Finding</th><th>Clause</th><th>Quote</th><th>Decision and reason</th></tr>${rows}</table></body></html>`;
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download='review-'+cid+'-v'+v.ver+'.html';document.body.appendChild(a);a.click();a.remove()}
 let RATE={};
 function rateModal(cid,ver){RATE={cid,ver,miss:null,stars:0,reasons:[]};drawRate()}
@@ -394,7 +397,7 @@ function importPage(){IMP=null;const signed=SAMPLES.filter(s=>s.kind==='signed')
 async function impSample(file){if(!file)return;try{$('#itext').value=await (await fetch(file)).text()}catch(e){}}
 async function impRead(){const text=$('#itext').value.trim();if(text.length<200){$('#imsg').textContent='Paste or choose a contract first.';return}
  $('#ibtn').disabled=true;$('#imsg').textContent='Reading…';
- try{const ex=await api({action:'extract',text});trackMeta(ex.meta);const d=ex.details;const cid='C-N'+String(S.added.length+1).padStart(2,'0')+'i';
+ try{const xk='ex'+await hash(text);let ex=S.cache[xk]||PRE[xk];if(!ex){ex=await api({action:'extract',text},3);trackMeta(ex.meta);S.cache[xk]=ex;save()}const d=ex.details;const cid='C-N'+String(S.added.length+1).padStart(2,'0')+'i';
   IMP={d,text,cid,quality:ex.quality,entries:[]};await impEntries();$('#imsg').textContent='';$('#ibtn').disabled=false}
  catch(e){$('#ibtn').disabled=false;$('#imsg').textContent=e.message+' Try again in a minute.'}}
 async function impEntries(){const c=IMP;const er=await api({action:'register_entry',details:c.d,text:c.text,contract_id:c.cid},1);c.entries=er.entries||[];
@@ -437,6 +440,7 @@ function qualityPage(){const all=[];Object.keys(S.reviews).forEach(cid=>S.review
 /* ---------------- boot ---------------- */
 async function boot(){S=load();$('#who').textContent=S.user;
  try{[BASE,REG,SAMPLES,PRINC]=await Promise.all(['data/contracts.json','data/register.json','data/samples.json','data/principles.json'].map(u=>fetch(u).then(r=>r.json())))}catch(e){$('#app').innerHTML='<div class="card">Could not load data files.</div>';return}
+ try{const r=await fetch('data/precomputed.json');PRE=r.ok?await r.json():{}}catch(e){PRE={}}
  const g={};BASE.forEach(c=>{if(!c.value)return;const k=(c.counterparty||'')+'|'+(c.type||'')+'|'+c.value;(g[k]=g[k]||[]).push(c.id)});Object.values(g).forEach(a=>{if(a.length>1)a.forEach(id=>DUP.add(id))});
  badge();window.addEventListener('hashchange',route);route()}
 boot();

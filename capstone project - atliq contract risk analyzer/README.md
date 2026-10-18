@@ -60,6 +60,7 @@ python dev_server.py
 * **Gemini free tier first.** The free tier allows about 15 requests a minute per model, so the engine rotates `gemini-3.1-flash-lite`, `gemini-3-flash-preview`, `gemini-flash-lite-latest`, `gemini-3.6-flash` (fastest first, measured on 13 Oct).
 * **Groq automatically takes over** when Gemini is rate-limited or down (`gpt-oss-120b`, `qwen3.8-27b`, `gpt-oss-20b`). A small "backup model used" badge shows in the header. Groq's free tier is tighter (about 8,000 tokens a minute per model), so it can sustain roughly three reviews a minute.
 * If both are exhausted, the app says so and nothing is lost; try again in a minute.
+* **Samples need no AI call:** the built-in sample contracts (the 15 incoming drafts, the 11 synthetic ones, and the 17 signed ones for the import flow) open from stored results in `public/data/precomputed.json`, so anyone can explore the tool instantly, at no cost and without hitting a rate limit. Only a contract you upload, or a sample whose confirmed details you edit, uses the live models (and falls back to a partial review with a retry if they are busy). The stored results were produced by running every sample through the real app; `tools/gen_precomputed.js` regenerates them, and `tests/test_precomputed.py` checks that every sample is covered and complete.
 * **Checking the quota:** `python tools/check_quota.py` shows what is left on each Groq model (limits come back in the response headers) and whether each Gemini model is answering, or has hit its per-minute or per-day limit. Google does not report remaining Gemini quota through the API; use the AI Studio usage page for that. Gemini's daily limits reset at midnight Pacific time; Groq's daily request limit refills continuously, and its token limit is per minute.
 * **Switching the primary model:** set `MODEL_PRIMARY=groq` (in `.env` or as a Vercel environment variable, then redeploy) to try Groq first and use Gemini as the fallback. On the free tier this is faster for short contracts (about 21 s against 35 to 85 s on a slow Gemini day) but each Groq model allows only 8,000 tokens a minute, and prompts over 20,000 characters still go to Gemini first. The default stays Gemini first.
 * Override with env vars: `GEMINI_MODEL_FAST`, `GEMINI_MODEL_SMART`, `GEMINI_ROTATION`, `MODEL_PRIMARY`, `GROQ_MODEL`, `GROQ_ROTATION`. `FORCE_GEMINI_FAIL=1` forces the backup path for testing.
@@ -111,6 +112,7 @@ The 15 incoming drafts and 17 signed contracts from the dataset are also availab
 
 ```bash
 python tests/test_units.py                 # 67 offline unit tests: quotes, ratios, dates, entity/law, documents, segmentation, merge, confirmed register, API
+python tests/test_precomputed.py           # 3 offline tests: the stored sample results cover every sample and are complete
 python tests/test_defences.py              # 30 offline tests: injection, claim filter, scan quality, buyer paper, Word tables, endpoint protection
 python tests/eval_gold.py                  # gold set recall on the 15 real drafts (uses the model)
 python tests/redteam.py                    # 7 injection attacks (uses the model)
@@ -123,7 +125,7 @@ python tests/live_check.py https://your-app.vercel.app S06 S02 S07 S09 S01   # s
 
 Results at submission (Gemini free tier):
 
-* Offline tests: 97 of 97 pass (67 unit tests, 30 on the defences).
+* Offline tests: 100 of 100 pass (67 unit tests, 30 on the defences, 3 on the stored sample results).
 * Gold set: 24 of 24 known risks found across the 15 real drafts (`tests/gold_set.json`, built from what the dataset documents say; `python tests/eval_gold.py`).
 * Precision: of 67 Serious findings on the 15 real drafts, 59 (88%) were valid and 8 real but routine; none pointed the wrong way. The labels were set by the person who built the tool, so Karandeep should confirm them (`tests/results/precision_review.md`).
 * Red team: 7 of 7 injection attacks handled (`python tests/redteam.py`).
