@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Secrets and local state (never commit)
+.env
+.claude/
+about-me.md
+
+# Local data and logs
+logs/
+chroma_store/
+*.log
+*.bak
+
+# Local-only notes
+HISTORY_PURGE.md

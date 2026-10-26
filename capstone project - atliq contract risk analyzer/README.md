@@ -2,7 +2,7 @@
 
 A web tool that reads an incoming contract, checks every clause against AtliQ's own history, and gives the signer a short list of what to look at, most serious first. It never signs, sends or approves anything. A person decides.
 
-Built for the AI PM capstone. The tool uses the real calendar date when it computes end dates for new restrictions; register entries that have already ended are shown as expired.
+Built for the AI PM capstone. The documents behind it (research, opportunity map, AI PRD, cost estimate, Demo Day deck and a two-minute demo video) are in [`Capstone-Deliverables/`](../Capstone-Deliverables/). The tool uses the real calendar date when it computes end dates for new restrictions; register entries that have already ended are shown as expired.
 
 ## What it does
 
